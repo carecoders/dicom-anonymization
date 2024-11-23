@@ -21,6 +21,8 @@ cargo build --release
 
 ## Usage
 
+See documentation on [docs.rs](https://docs.rs/dicom-anonymization).
+
 ### Library
 
 #### Using default configuration
