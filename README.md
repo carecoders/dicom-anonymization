@@ -1,6 +1,8 @@
 # dicom-anonymization
 
+[![crates.io](https://img.shields.io/crates/v/dicom-anonymization.svg)](https://crates.io/crates/dicom-anonymization)
 [![CI](https://github.com/carecoders/dicom-anonymization/actions/workflows/ci.yml/badge.svg)](https://github.com/carecoders/dicom-anonymization/actions/workflows/ci.yml)
+[![Documentation](https://docs.rs/dicom-anonymization/badge.svg)](https://docs.rs/dicom-anonymization)
 
 This repository provides a library and binary for anonymizing (or de-identifying) [DICOM](https://dicomstandard.org/) files.
 
