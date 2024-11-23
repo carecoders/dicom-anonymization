@@ -71,7 +71,7 @@ feature-depth = 1
 # output a note when they are encountered.
 ignore = [
     # FIXME: see related `dicom-rs` issue: https://github.com/Enet4/dicom-rs/issues/577
-    { id = "RUSTSEC-2021-0153", reason = "`encoding` is unmaintained since 2016 and is used by `dicom-rs`" }
+    { id = "RUSTSEC-2021-0153", reason = "`encoding` is unmaintained since 2016 and is used by `dicom-rs`" },
 
     #"RUSTSEC-0000-0000",
     #{ id = "RUSTSEC-0000-0000", reason = "you can specify a reason the advisory is ignored" },
@@ -97,7 +97,7 @@ allow = [
     "Apache-2.0 WITH LLVM-exception",
     "BSD-2-Clause",
     "CC0-1.0",
-    "Unicode-DFS-2016",
+    "Unicode-3.0",
 ]
 # The confidence threshold for detecting a license from license text.
 # The higher the value, the more closely the license text must be to the
