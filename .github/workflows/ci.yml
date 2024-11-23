@@ -2,9 +2,9 @@ name: CI # Continuous Integration
 
 on:
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
   push:
-    branches: [ "main" ]
+    branches: ["main"]
 
 env:
   CARGO_TERM_COLOR: always
@@ -16,6 +16,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: build
         run: cargo build --release
+      - run: git lfs pull
       - name: test
         run: cargo test
       - name: cache
