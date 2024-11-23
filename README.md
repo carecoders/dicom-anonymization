@@ -27,6 +27,14 @@ See documentation on [docs.rs](https://docs.rs/dicom-anonymization).
 
 ### Library
 
+#### Installation
+
+To add the library to your project, do this:
+
+```bash
+cargo add dicom-anonymization
+```
+
 #### Using default configuration
 
 ```rust
@@ -93,8 +101,18 @@ let config_from_scratch = ConfigBuilder::new()
 
 ### Binary
 
+#### Installation
+
+To install the `dcmanon` binary, do this:
+
 ```bash
-$ dcmanon -h
+cargo install dicom-anonymization
+```
+
+#### Usage
+
+```bash
+$ dcmanon --help
 Anonymize DICOM files
 
 Usage: dcmanon [OPTIONS] --input <INPUT_PATH> --output <OUTPUT_PATH>
