@@ -1,0 +1,42 @@
+[package]
+name = "dicom-anonymization"
+version = "0.1.1"
+edition = "2021"
+
+[lib]
+name = "dicom_anonymization"
+path = "src/lib.rs"
+
+[[bin]]
+name = "dcmanon"
+path = "src/bin/main.rs"
+
+[dependencies]
+dicom-core = "0.8"
+dicom-dictionary-std = { version = "0.8", features = [
+    "application-context-name",
+    "application-hosting-model",
+    "coding-scheme",
+    "dicom-uid-as-coding-scheme",
+    "ldap-oid",
+    "mapping-resource",
+    "meta-sop-class",
+    "service-class",
+    "sop-class",
+    "synchronization-frame-of-reference",
+    "transfer-syntax",
+    "well-known-sop-instance",
+] }
+dicom-object = { version = "0.8", features = ["inventory-registry"] }
+clap = { version = "4.5", features = ["derive", "env"] }
+anyhow = "1.0"
+blake3 = "1.5"
+num-bigint = "0.4"
+num-traits = "0.2"
+chrono = "0.4"
+thiserror = "2.0"
+rayon = "1.10"
+log = "0.4"
+env_logger = "0.11"
+regex = "1.10"
+walkdir = "2.5"
