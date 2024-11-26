@@ -3,7 +3,7 @@ use num_traits::Num;
 use thiserror::Error;
 
 #[derive(Error, Debug, PartialEq)]
-pub(crate) enum Error {
+pub enum Error {
     #[error("Invalid input: {}", .0.to_lowercase())]
     InvalidInput(String),
 }
@@ -16,15 +16,15 @@ impl From<ParseBigIntError> for Error {
 
 pub type Result<T, E = Error> = std::result::Result<T, E>;
 
-pub(crate) trait Hasher {
+pub trait Hasher {
     fn hash(&self, input: &str) -> Result<String>;
 }
 
 #[derive(Debug, Clone, Default, PartialEq)]
-pub(crate) struct Blake3Hasher;
+pub struct Blake3Hasher;
 
 impl Blake3Hasher {
-    pub(crate) fn new() -> Self {
+    pub fn new() -> Self {
         Self {}
     }
 }

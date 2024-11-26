@@ -34,7 +34,7 @@
 pub mod actions;
 pub mod config;
 mod functions;
-mod hashing;
+pub mod hashing;
 pub mod processor;
 mod vr;
 
