@@ -1,5 +1,6 @@
 use super::actions::{Action, HashLength};
 use crate::actions::Action::HashUID;
+use crate::hashing::{Blake3Hasher, Hasher};
 use dicom_core::Tag;
 use dicom_dictionary_std::tags;
 use regex::Regex;
@@ -128,18 +129,39 @@ enum PreservationPolicy {
 ///
 /// # Fields
 ///
+/// * `hasher` - The hasher used for all operations requiring hashing
 /// * `uid_root` - The [`UidRoot`] to use as prefix when generating new UIDs during de-identification
 /// * `tag_actions` - Mapping of specific DICOM tags to their corresponding de-identification actions
 /// * `private_tags` - Policy determining whether to keep or remove private DICOM tags
 /// * `curves` - Policy determining whether to keep or remove curve data (groups `0x5000-0x50FF`)
 /// * `overlays` - Policy determining whether to keep or remove overlay data (groups `0x6000-0x60FF`)
-#[derive(Debug, Clone, PartialEq)]
 pub struct Config {
+    hasher: Box<dyn Hasher + Sync>,
     uid_root: UidRoot,
     tag_actions: HashMap<Tag, Action>,
     private_tags: PreservationPolicy,
     curves: PreservationPolicy,
     overlays: PreservationPolicy,
+}
+
+impl Config {
+    fn new(hasher: Box<dyn Hasher + Sync>) -> Self {
+        Self {
+            hasher,
+            uid_root: "".parse().unwrap(),
+            tag_actions: HashMap::<Tag, Action>::new(),
+            private_tags: PreservationPolicy::Remove,
+            curves: PreservationPolicy::Remove,
+            overlays: PreservationPolicy::Remove,
+        }
+    }
+}
+
+impl Default for Config {
+    fn default() -> Self {
+        let hasher = Blake3Hasher::new();
+        Self::new(Box::new(hasher))
+    }
 }
 
 pub(crate) fn is_private_tag(tag: &Tag) -> bool {
@@ -238,13 +260,28 @@ pub struct ConfigBuilder(Config);
 
 impl ConfigBuilder {
     pub fn new() -> Self {
-        ConfigBuilder(Config {
-            uid_root: "".parse().unwrap(),
-            tag_actions: HashMap::<Tag, Action>::new(),
-            private_tags: PreservationPolicy::Remove,
-            curves: PreservationPolicy::Remove,
-            overlays: PreservationPolicy::Remove,
-        })
+        ConfigBuilder(Config::default())
+    }
+
+    /// Sets a custom hasher for use in hash operations.
+    ///
+    /// The hasher will be used for all operations requiring hashing like generating new UIDs and
+    /// computing hash values for specific elements.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use dicom_anonymization::config::ConfigBuilder;
+    /// use dicom_anonymization::hashing::{Blake3Hasher, Hasher};
+    ///
+    /// let custom_hasher = Box::new(Blake3Hasher::new());
+    /// let config = ConfigBuilder::new()
+    ///    .hasher(custom_hasher)
+    ///    .build();
+    /// ```
+    pub fn hasher(mut self, hasher: Box<dyn Hasher + Sync>) -> Self {
+        self.0.hasher = hasher;
+        self
     }
 
     /// Sets the UID root for the configuration.

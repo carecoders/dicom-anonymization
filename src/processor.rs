@@ -64,7 +64,6 @@ pub trait Processor {
 ///
 /// Limitation: only top-level DICOM tags are processed for now, not tags nested inside sequences.
 /// This may change in the future.
-#[derive(Debug, Clone, PartialEq)]
 pub struct DataElementProcessor {
     config: Config,
 }
