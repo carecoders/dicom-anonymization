@@ -1,4 +1,4 @@
-use crate::hashing::Error as HashingError;
+use crate::hasher::Error as HashingError;
 use thiserror::Error;
 
 #[derive(Error, Debug, PartialEq)]

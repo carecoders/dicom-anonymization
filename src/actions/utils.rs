@@ -1,3 +1,11 @@
+use dicom_core::value::Value;
+use dicom_core::PrimitiveValue;
+use dicom_object::mem::InMemElement;
+
+pub(crate) fn is_empty_element(elem: &InMemElement) -> bool {
+    elem.value() == &Value::Primitive(PrimitiveValue::Empty)
+}
+
 pub(crate) fn truncate_to(n: usize, s: &str) -> String {
     s.chars().take(n).collect()
 }
@@ -5,6 +13,19 @@ pub(crate) fn truncate_to(n: usize, s: &str) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    use dicom_core::VR;
+    use dicom_dictionary_std::tags;
+
+    #[test]
+    fn test_is_empty_element() {
+        let elem = InMemElement::new(
+            tags::ACCESSION_NUMBER,
+            VR::SH,
+            Value::Primitive(PrimitiveValue::Empty),
+        );
+        assert!(is_empty_element(&elem));
+    }
 
     #[test]
     fn test_truncate_to_empty_string() {
