@@ -1,5 +1,7 @@
-use super::actions::{Action, HashLength};
+use crate::actions::hash::HashLength;
+use crate::actions::Action;
 use crate::actions::Action::HashUID;
+use crate::hasher::{blake3_hash_fn, HashFn};
 use dicom_core::Tag;
 use dicom_dictionary_std::tags;
 use regex::Regex;
@@ -128,6 +130,7 @@ enum PreservationPolicy {
 ///
 /// # Fields
 ///
+/// * `hash_fn` - The hash function used for all operations requiring hashing
 /// * `uid_root` - The [`UidRoot`] to use as prefix when generating new UIDs during de-identification
 /// * `tag_actions` - Mapping of specific DICOM tags to their corresponding de-identification actions
 /// * `private_tags` - Policy determining whether to keep or remove private DICOM tags
@@ -135,11 +138,31 @@ enum PreservationPolicy {
 /// * `overlays` - Policy determining whether to keep or remove overlay data (groups `0x6000-0x60FF`)
 #[derive(Debug, Clone, PartialEq)]
 pub struct Config {
+    hash_fn: HashFn,
     uid_root: UidRoot,
     tag_actions: HashMap<Tag, Action>,
     private_tags: PreservationPolicy,
     curves: PreservationPolicy,
     overlays: PreservationPolicy,
+}
+
+impl Config {
+    fn new(hash_fn: HashFn) -> Self {
+        Self {
+            hash_fn,
+            uid_root: "".parse().unwrap(),
+            tag_actions: HashMap::<Tag, Action>::new(),
+            private_tags: PreservationPolicy::Remove,
+            curves: PreservationPolicy::Remove,
+            overlays: PreservationPolicy::Remove,
+        }
+    }
+}
+
+impl Default for Config {
+    fn default() -> Self {
+        Self::new(blake3_hash_fn)
+    }
 }
 
 pub(crate) fn is_private_tag(tag: &Tag) -> bool {
@@ -156,6 +179,10 @@ pub(crate) fn is_overlay_tag(tag: &Tag) -> bool {
 }
 
 impl Config {
+    pub fn get_hash_fn(&self) -> HashFn {
+        self.hash_fn
+    }
+
     pub fn get_uid_root(&self) -> &UidRoot {
         &self.uid_root
     }
@@ -234,17 +261,32 @@ impl Config {
 ///     .remove_private_tags(true)
 ///     .build();
 /// ```
+#[derive(Debug, Clone, PartialEq)]
 pub struct ConfigBuilder(Config);
 
 impl ConfigBuilder {
     pub fn new() -> Self {
-        ConfigBuilder(Config {
-            uid_root: "".parse().unwrap(),
-            tag_actions: HashMap::<Tag, Action>::new(),
-            private_tags: PreservationPolicy::Remove,
-            curves: PreservationPolicy::Remove,
-            overlays: PreservationPolicy::Remove,
-        })
+        ConfigBuilder(Config::default())
+    }
+
+    /// Sets a custom hash function for use in hash operations.
+    ///
+    /// The hash function will be used for all operations requiring hashing like generating new UIDs and
+    /// computing hash values for specific elements.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use dicom_anonymization::config::ConfigBuilder;
+    /// use dicom_anonymization::hasher::blake3_hash_fn;
+    ///
+    /// let config = ConfigBuilder::new()
+    ///    .hash_fn(blake3_hash_fn)
+    ///    .build();
+    /// ```
+    pub fn hash_fn(mut self, hash_fn: HashFn) -> Self {
+        self.0.hash_fn = hash_fn;
+        self
     }
 
     /// Sets the UID root for the configuration.
@@ -281,7 +323,8 @@ impl ConfigBuilder {
     /// # Examples
     ///
     /// ```
-    /// use dicom_anonymization::actions::{Action, HashLength};
+    /// use dicom_anonymization::actions::Action;
+    /// use dicom_anonymization::actions::hash::{Hash, HashLength};
     /// use dicom_anonymization::config::ConfigBuilder;
     /// use dicom_dictionary_std::tags;
     ///

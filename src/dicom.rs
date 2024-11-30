@@ -1,7 +1,7 @@
 use dicom_core::VR;
 
 /// Source: https://dicom.nema.org/dicom/2013/output/chtml/part05/sect_6.2.html#note_6.2-3-2
-pub(crate) fn max_length(vr: VR) -> Option<usize> {
+pub(crate) fn max_length_for_vr(vr: VR) -> Option<usize> {
     match vr {
         VR::AE => Some(16),
         VR::AS => Some(4), // fixed

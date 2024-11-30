@@ -3,7 +3,7 @@ use clap::builder::TypedValueParser;
 use clap::Parser;
 use dicom_anonymization::actions::Action;
 use dicom_anonymization::config::UidRoot;
-use dicom_anonymization::processor::DataElementProcessor;
+use dicom_anonymization::processor::DefaultProcessor;
 use dicom_anonymization::Anonymizer;
 use dicom_anonymization::{config::ConfigBuilder, AnonymizationError};
 use dicom_core::Tag;
@@ -221,7 +221,7 @@ fn main() -> Result<()> {
     }
 
     let config = config_builder.build();
-    let processor = DataElementProcessor::new(config);
+    let processor = DefaultProcessor::new(config);
     let anonymizer = Anonymizer::new(processor);
 
     // Input is stdin or a file

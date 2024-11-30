@@ -6,7 +6,7 @@
 //!
 //! The main components of this module are:
 //! - [`ConfigBuilder`]: Struct for building the configuration.
-//! - [`DataElementProcessor`]: Processes the various data elements based on the configuration.
+//! - [`DefaultProcessor`]: Processes the various data elements based on the configuration.
 //! - [`Anonymizer`]: The main struct that performs the anonymization process.
 //! - [`AnonymizationResult`]: The result of the anonymization process.
 //!
@@ -16,12 +16,12 @@
 //! use std::fs::File;
 //! use dicom_anonymization::Anonymizer;
 //! use dicom_anonymization::config::ConfigBuilder;
-//! use dicom_anonymization::processor::DataElementProcessor;
+//! use dicom_anonymization::processor::DefaultProcessor;
 //!
 //! let config_builder = ConfigBuilder::default();
 //! let config = config_builder.build();
 //!
-//! let processor = DataElementProcessor::new(config);
+//! let processor = DefaultProcessor::new(config);
 //! let anonymizer = Anonymizer::new(processor);
 //!
 //! let file = File::open("tests/data/test.dcm").unwrap();
@@ -33,15 +33,15 @@
 
 pub mod actions;
 pub mod config;
-mod functions;
-mod hashing;
+mod dicom;
+pub mod hasher;
 pub mod processor;
-mod vr;
+mod test_utils;
 
 use std::io::{Read, Write};
 
 use crate::config::ConfigBuilder;
-use crate::processor::{DataElementProcessor, Error as ProcessingError};
+use crate::processor::{DefaultProcessor, Error as ProcessingError};
 use dicom_dictionary_std::tags;
 use dicom_object::{DefaultDicomObject, FileDicomObject, OpenFileOptions, ReadError, WriteError};
 use processor::Processor;
@@ -134,10 +134,10 @@ pub struct Anonymizer {
     processor: Box<dyn Processor + Sync>,
 }
 
-impl<'a> Anonymizer {
+impl Anonymizer {
     pub fn new<T>(processor: T) -> Self
     where
-        T: Processor + 'a + Sync + 'static,
+        T: Processor + Sync + 'static,
     {
         Self {
             processor: Box::new(processor),
@@ -213,7 +213,7 @@ impl<'a> Anonymizer {
 impl Default for Anonymizer {
     /// Returns a default instance of [`Anonymizer`] with standard anonymization settings.
     ///
-    /// This creates an [`Anonymizer`] with a [`DataElementProcessor`] that uses the default
+    /// This creates an [`Anonymizer`] with a [`DefaultProcessor`] that uses the default
     /// configuration from the [`ConfigBuilder`].
     ///
     /// # Returns
@@ -229,7 +229,7 @@ impl Default for Anonymizer {
     /// ```
     fn default() -> Self {
         let config = ConfigBuilder::default().build();
-        let processor = DataElementProcessor::new(config);
+        let processor = DefaultProcessor::new(config);
         Self::new(processor)
     }
 }
@@ -237,23 +237,16 @@ impl Default for Anonymizer {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::config::ConfigBuilder;
-    use crate::processor::DataElementProcessor;
+
     use dicom_core::value::Value;
     use dicom_core::{PrimitiveValue, Tag, VR};
     use dicom_dictionary_std::tags;
     use dicom_object::mem::InMemElement;
-    use dicom_object::meta::FileMetaTableBuilder;
-    use dicom_object::{FileMetaTable, InMemDicomObject};
+    use dicom_object::InMemDicomObject;
 
-    fn make_file_meta() -> FileMetaTable {
-        FileMetaTableBuilder::new()
-            .media_storage_sop_class_uid("1.2.3")
-            .media_storage_sop_instance_uid("2.3.4")
-            .transfer_syntax("1.2.840.10008.1.2.1") // Explicit VR Little Endian
-            .build()
-            .unwrap()
-    }
+    use crate::config::ConfigBuilder;
+    use crate::processor::DefaultProcessor;
+    use crate::test_utils::make_file_meta;
 
     #[test]
     fn test_anonymizer() {
@@ -282,7 +275,7 @@ mod tests {
         obj.write_all(&mut file).unwrap();
 
         let config = ConfigBuilder::default().build();
-        let processor = DataElementProcessor::new(config);
+        let processor = DefaultProcessor::new(config);
         let anonymizer = Anonymizer::new(processor);
         let result = anonymizer.anonymize(file.as_slice()).unwrap();
 
