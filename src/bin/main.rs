@@ -10,9 +10,10 @@ use dicom_core::Tag;
 use dicom_dictionary_std::tags;
 use dicom_object::DefaultDicomObject;
 use env_logger::Builder;
-use log::{warn, Level, LevelFilter};
+use log::{info, warn, Level, LevelFilter};
 use rayon::prelude::*;
 use std::fmt;
+use std::time::Instant;
 use std::{
     fs::File,
     io::{self, Read, Write},
@@ -226,7 +227,13 @@ fn main() -> Result<()> {
 
     // Input is stdin or a file
     if input_path == Path::new("-") || input_path.is_file() {
+        let start_time = Instant::now();
+
         anonymize(&anonymizer, &input_path, &output_path)?;
+
+        let duration = start_time.elapsed();
+        info!("successfully processed 1 file in {:?}", duration);
+
         return Ok(());
     }
 
@@ -242,7 +249,9 @@ fn main() -> Result<()> {
         }
 
         // Process files
-        walk_dir
+        let start_time = Instant::now();
+
+        let processed_count = walk_dir
             .into_iter()
             .filter_map(Result::ok)
             .filter_map(|entry| {
@@ -254,22 +263,33 @@ fn main() -> Result<()> {
                 }
             })
             .par_bridge() // convert to a parallel iterator
-            .try_for_each(|path_buf| {
-                let result = anonymize(&anonymizer, &path_buf, &output_path);
-                match result {
-                    Err(e) if continue_on_read_error => {
-                        if let Some(&AnonymizationError::ReadError(_)) =
-                            e.downcast_ref::<AnonymizationError>()
-                        {
-                            warn!("{}", e);
-                            return Ok(());
+            .try_fold(
+                || 0, // initial value for each thread
+                |count, path_buf| {
+                    let result = anonymize(&anonymizer, &path_buf, &output_path);
+                    match result {
+                        Err(e) if continue_on_read_error => {
+                            if let Some(&AnonymizationError::ReadError(_)) =
+                                e.downcast_ref::<AnonymizationError>()
+                            {
+                                warn!("{}", e);
+                                Ok(count)
+                            } else {
+                                Err(e)
+                            }
                         }
-                        Err(e)
+                        Err(e) => Err(e),
+                        Ok(_) => Ok(count + 1),
                     }
-                    Err(e) => Err(e),
-                    Ok(v) => Ok(v),
-                }
-            })?;
+                },
+            )
+            .try_reduce(|| 0, |a, b| Ok(a + b))?;
+
+        let duration = start_time.elapsed();
+        info!(
+            "successfully processed {} files in {:?}",
+            processed_count, duration
+        );
 
         return Ok(());
     }
