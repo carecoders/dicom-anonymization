@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0](https://github.com/carecoders/dicom-anonymization/compare/v0.1.2...v0.2.0) - 2024-12-01
+
+### Added
+
+- *(bin)* display total processing time and file count
+
+### Other
+
+- improve error handling for hash date processing
+- *(actions)* migrate from ProcessorError to dedicated ActionError
+- use a modular structure for actions
+- update allowed licenses in deny.toml
+- add installation instructions to readme
+
 ## [0.1.2](https://github.com/carecoders/dicom-anonymization/compare/v0.1.1...v0.1.2) - 2024-11-23
 
 ### Other
