@@ -2,9 +2,9 @@ use dicom_object::mem::InMemElement;
 use dicom_object::DefaultDicomObject;
 use std::borrow::Cow;
 
+use crate::actions::errors::ActionError;
 use crate::actions::DataElementAction;
 use crate::config::Config;
-use crate::processor::Error as ProcessorError;
 
 #[derive(Debug, Clone, PartialEq)]
 pub struct Keep;
@@ -15,7 +15,7 @@ impl DataElementAction for Keep {
         _config: &Config,
         _obj: &DefaultDicomObject,
         elem: &'a InMemElement,
-    ) -> Result<Option<Cow<'a, InMemElement>>, ProcessorError> {
+    ) -> Result<Option<Cow<'a, InMemElement>>, ActionError> {
         Ok(Some(Cow::Borrowed(elem)))
     }
 }

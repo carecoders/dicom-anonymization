@@ -4,9 +4,9 @@ use dicom_object::mem::InMemElement;
 use dicom_object::DefaultDicomObject;
 use std::borrow::Cow;
 
+use crate::actions::errors::ActionError;
 use crate::actions::DataElementAction;
 use crate::config::Config;
-use crate::processor::Error as ProcessorError;
 
 #[derive(Debug, Clone, PartialEq)]
 pub struct Empty;
@@ -17,7 +17,7 @@ impl DataElementAction for Empty {
         _config: &Config,
         _obj: &DefaultDicomObject,
         elem: &'a InMemElement,
-    ) -> Result<Option<Cow<'a, InMemElement>>, ProcessorError> {
+    ) -> Result<Option<Cow<'a, InMemElement>>, ActionError> {
         let new_elem =
             DataElement::new::<PrimitiveValue>(elem.tag(), elem.vr(), PrimitiveValue::Empty);
         Ok(Some(Cow::Owned(new_elem)))

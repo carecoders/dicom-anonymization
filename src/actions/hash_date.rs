@@ -7,18 +7,17 @@ use dicom_object::DefaultDicomObject;
 use log::warn;
 use std::borrow::Cow;
 
-use crate::actions::errors::AnonymizeError;
+use crate::actions::errors::ActionError;
 use crate::actions::utils::{is_empty_element, truncate_to};
 use crate::actions::DataElementAction;
 use crate::config::Config;
 use crate::hasher::HashFn;
-use crate::processor::Error as ProcessorError;
 
 // support hyphens as well, just in case that format is used as input, even though it's not
 // compliant with the DICOM standard
 const DATE_SUPPORTED_FORMATS: [&str; 2] = ["%Y%m%d", "%Y-%m-%d"];
 
-fn parse_date(value: &str) -> Result<(NaiveDate, &str, &str), AnonymizeError> {
+fn parse_date(value: &str) -> Result<(NaiveDate, &str, &str), ActionError> {
     DATE_SUPPORTED_FORMATS
         .iter()
         .find_map(|&format| {
@@ -28,7 +27,7 @@ fn parse_date(value: &str) -> Result<(NaiveDate, &str, &str), AnonymizeError> {
                 _ => None,
             }
         })
-        .ok_or_else(|| AnonymizeError::InvalidInput(format!("unable to parse date from {}", value)))
+        .ok_or_else(|| ActionError::InvalidInput(format!("unable to parse date from {}", value)))
 }
 
 #[derive(Debug, Clone, PartialEq)]
@@ -46,7 +45,7 @@ impl HashDate {
         hash_fn: HashFn,
         value: &str,
         other_value: &str,
-    ) -> Result<String, AnonymizeError> {
+    ) -> Result<String, ActionError> {
         let (date, remainder, format) = parse_date(value)?;
         let hash_number = hash_fn(other_value)?;
         let inc_str = truncate_to(4, &hash_number.to_string());
@@ -77,7 +76,7 @@ impl DataElementAction for HashDate {
         config: &Config,
         obj: &DefaultDicomObject,
         elem: &'a InMemElement,
-    ) -> Result<Option<Cow<'a, InMemElement>>, ProcessorError> {
+    ) -> Result<Option<Cow<'a, InMemElement>>, ActionError> {
         if is_empty_element(elem) {
             return Ok(Some(Cow::Borrowed(elem)));
         }
