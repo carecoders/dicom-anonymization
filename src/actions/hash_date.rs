@@ -1,17 +1,16 @@
+use crate::actions::errors::ActionError;
+use crate::actions::utils::{is_empty_element, truncate_to};
+use crate::actions::DataElementAction;
+use crate::config::Config;
+use crate::hasher::HashFn;
 use chrono::{Days, NaiveDate};
 use dicom_core::header::Header;
 use dicom_core::{DataElement, PrimitiveValue, Tag};
 use dicom_dictionary_std::tags;
 use dicom_object::mem::InMemElement;
 use dicom_object::DefaultDicomObject;
-use log::warn;
 use std::borrow::Cow;
-
-use crate::actions::errors::ActionError;
-use crate::actions::utils::{is_empty_element, truncate_to};
-use crate::actions::DataElementAction;
-use crate::config::Config;
-use crate::hasher::HashFn;
+use std::num::ParseIntError;
 
 // support hyphens as well, just in case that format is used as input, even though it's not
 // compliant with the DICOM standard
@@ -51,10 +50,10 @@ impl HashDate {
         let inc_str = truncate_to(4, &hash_number.to_string());
 
         // Parsing hash string into u64 should always be possible because it only contains decimal
-        // numbers
+        // numbers, but let's do proper error handling nonetheless.
         let inc_parsed: u64 = inc_str
             .parse()
-            .expect("Failed to parse u64 from hash string");
+            .map_err(<ParseIntError as Into<ActionError>>::into)?;
 
         let inc = inc_parsed % (10 * 365);
         let inc = if inc == 0 { 1 } else { inc };
@@ -84,24 +83,22 @@ impl DataElementAction for HashDate {
         let other_elem = match obj.element(self.other_tag) {
             Ok(elem) => elem,
             Err(_) => {
-                warn!(
-                    "did not change tag {} because the other tag {} is not available",
+                return Err(ActionError::InvalidHashDateTag(format!(
+                    "could not change tag {} because the other tag {} is not available",
                     elem.tag(),
                     self.other_tag
-                );
-                return Ok(Some(Cow::Borrowed(elem)));
+                )));
             }
         };
 
         let other_value = match other_elem.value().string() {
             Ok(value) => value,
             Err(_) => {
-                warn!(
-                    "did not change tag {} because the other tag {} does not have a valid value",
+                return Err(ActionError::InvalidHashDateTag(format!(
+                    "could not change tag {} because the other tag {} does not have a valid value",
                     elem.tag(),
                     self.other_tag
-                );
-                return Ok(Some(Cow::Borrowed(elem)));
+                )));
             }
         };
 

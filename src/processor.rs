@@ -2,6 +2,7 @@ use dicom_core::header::Header;
 use dicom_core::value::CastValueError;
 use dicom_object::mem::InMemElement;
 use dicom_object::{AccessError, DefaultDicomObject};
+use log::warn;
 use std::borrow::Cow;
 use thiserror::Error;
 
@@ -82,11 +83,19 @@ impl Processor for DefaultProcessor {
         elem: &'a InMemElement,
     ) -> Result<Option<Cow<'a, InMemElement>>> {
         let action = self.config.get_action(&elem.tag());
+        let action_struct = action.get_action_struct();
 
-        Ok(action
-            .get_action_struct()
-            .process(&self.config, obj, elem)?
-            .map(|v| Cow::Owned(v.into_owned())))
+        let process_result = action_struct.process(&self.config, obj, elem);
+        match process_result {
+            Ok(None) => Ok(None),
+            Ok(Some(v)) => Ok(Some(Cow::Owned(v.into_owned()))),
+            Err(ActionError::InvalidHashDateTag(e)) => {
+                // log a warning for this error, but return the element as is
+                warn!("{}", e);
+                Ok(Some(Cow::Borrowed(elem)))
+            }
+            Err(e) => Err(Error::from(e)),
+        }
     }
 }
 
@@ -193,6 +202,29 @@ mod tests {
         let processor = DefaultProcessor::new(config);
         let processed = processor.process_element(&obj, elem).unwrap();
         assert_eq!(processed.unwrap().value().length(), header::Length(8));
+    }
+
+    #[test]
+    fn test_process_element_hash_date_invalid_hash_date_tag_error() {
+        let meta = make_file_meta();
+        let mut obj = FileDicomObject::new_empty_with_meta(meta);
+
+        obj.put(InMemElement::new(
+            tags::STUDY_DATE,
+            VR::DA,
+            Value::from("20010102"),
+        ));
+
+        let config = ConfigBuilder::new()
+            .tag_action(tags::STUDY_DATE, Action::HashDate(tags::PATIENT_ID))
+            .build();
+
+        let elem = obj.element(tags::STUDY_DATE).unwrap();
+        let processor = DefaultProcessor::new(config);
+        let processed = processor.process_element(&obj, elem).unwrap();
+
+        // element should be returned as is because the `PatientID` tag is not in the DICOM object
+        assert_eq!(&processed.unwrap().into_owned(), elem);
     }
 
     #[test]
