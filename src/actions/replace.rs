@@ -4,9 +4,9 @@ use dicom_object::mem::InMemElement;
 use dicom_object::DefaultDicomObject;
 use std::borrow::Cow;
 
+use crate::actions::errors::ActionError;
 use crate::actions::DataElementAction;
 use crate::config::Config;
-use crate::processor::Error as ProcessorError;
 
 #[derive(Debug, Clone, PartialEq)]
 pub struct Replace {
@@ -25,7 +25,7 @@ impl DataElementAction for Replace {
         _config: &Config,
         _obj: &DefaultDicomObject,
         elem: &'a InMemElement,
-    ) -> Result<Option<Cow<'a, InMemElement>>, ProcessorError> {
+    ) -> Result<Option<Cow<'a, InMemElement>>, ActionError> {
         let new_elem =
             InMemElement::new(elem.tag(), elem.vr(), Value::from(self.new_value.clone()));
         Ok(Some(Cow::Owned(new_elem)))

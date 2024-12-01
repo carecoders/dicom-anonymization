@@ -9,6 +9,8 @@ mod remove;
 mod replace;
 mod utils;
 
+use crate::actions::errors::ActionError;
+use crate::config::Config;
 use dicom_core::Tag;
 use dicom_object::mem::InMemElement;
 use dicom_object::DefaultDicomObject;
@@ -22,16 +24,13 @@ use remove::Remove;
 use replace::Replace;
 use std::borrow::Cow;
 
-use crate::config::Config;
-use crate::processor;
-
-pub trait DataElementAction {
+pub(crate) trait DataElementAction {
     fn process<'a>(
         &'a self,
         config: &Config,
         obj: &DefaultDicomObject,
         elem: &'a InMemElement,
-    ) -> processor::Result<Option<Cow<'a, InMemElement>>>;
+    ) -> Result<Option<Cow<'a, InMemElement>>, ActionError>;
 }
 
 /// Specifies the action to perform on DICOM data elements during processing.
@@ -63,7 +62,7 @@ pub enum Action {
 }
 
 impl Action {
-    pub fn get_action_struct(&self) -> Box<dyn DataElementAction> {
+    pub(crate) fn get_action_struct(&self) -> Box<dyn DataElementAction> {
         match self {
             Action::Empty => Box::new(Empty),
             Action::Hash(length) => Box::new(Hash::new(*length)),

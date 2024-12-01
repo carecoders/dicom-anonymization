@@ -5,7 +5,7 @@ use dicom_object::{AccessError, DefaultDicomObject};
 use std::borrow::Cow;
 use thiserror::Error;
 
-use crate::actions::errors::AnonymizeError;
+use crate::actions::errors::ActionError;
 use crate::config::Config;
 
 #[derive(Error, Debug, PartialEq)]
@@ -32,8 +32,8 @@ impl From<AccessError> for Error {
     }
 }
 
-impl From<AnonymizeError> for Error {
-    fn from(err: AnonymizeError) -> Self {
+impl From<ActionError> for Error {
+    fn from(err: ActionError) -> Self {
         Error::AnonymizationError(format!("{err}"))
     }
 }

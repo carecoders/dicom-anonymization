@@ -4,12 +4,11 @@ use dicom_object::mem::InMemElement;
 use dicom_object::DefaultDicomObject;
 use std::borrow::Cow;
 
-use crate::actions::errors::AnonymizeError;
+use crate::actions::errors::ActionError;
 use crate::actions::utils::{is_empty_element, truncate_to};
 use crate::actions::DataElementAction;
 use crate::config::{Config, UidRoot};
 use crate::hasher::HashFn;
-use crate::processor::Error as ProcessorError;
 
 const UID_MAX_LENGTH: usize = 64;
 
@@ -22,7 +21,7 @@ impl HashUID {
         hash_fn: HashFn,
         uid: &str,
         uid_root: &UidRoot,
-    ) -> Result<String, AnonymizeError> {
+    ) -> Result<String, ActionError> {
         let anonymized_uid_as_number = hash_fn(uid)?;
         let anonymized_uid = anonymized_uid_as_number.to_string();
         let extra = if anonymized_uid.starts_with("0") {
@@ -43,7 +42,7 @@ impl DataElementAction for HashUID {
         config: &Config,
         _obj: &DefaultDicomObject,
         elem: &'a InMemElement,
-    ) -> Result<Option<Cow<'a, InMemElement>>, ProcessorError> {
+    ) -> Result<Option<Cow<'a, InMemElement>>, ActionError> {
         if is_empty_element(elem) {
             return Ok(Some(Cow::Borrowed(elem)));
         }

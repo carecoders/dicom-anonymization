@@ -5,13 +5,12 @@ use dicom_object::DefaultDicomObject;
 use std::borrow::Cow;
 use thiserror::Error;
 
-use crate::actions::errors::AnonymizeError;
+use crate::actions::errors::ActionError;
 use crate::actions::utils::{is_empty_element, truncate_to};
 use crate::actions::DataElementAction;
 use crate::config::{Config, ConfigError};
 use crate::dicom;
 use crate::hasher::HashFn;
-use crate::processor::Error as ProcessorError;
 
 const HASH_LENGTH_MINIMUM: usize = 8;
 
@@ -74,7 +73,7 @@ impl Hash {
         hash_fn: HashFn,
         value: &str,
         max_length: Option<usize>,
-    ) -> Result<String, AnonymizeError> {
+    ) -> Result<String, ActionError> {
         let anonymized_value = hash_fn(value)?;
 
         let length = match self.length {
@@ -106,7 +105,7 @@ impl DataElementAction for Hash {
         config: &Config,
         _obj: &DefaultDicomObject,
         elem: &'a InMemElement,
-    ) -> Result<Option<Cow<'a, InMemElement>>, ProcessorError> {
+    ) -> Result<Option<Cow<'a, InMemElement>>, ActionError> {
         if is_empty_element(elem) {
             return Ok(Some(Cow::Borrowed(elem)));
         }
