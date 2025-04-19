@@ -1,8 +1,8 @@
 use dicom_core::header::Header;
-use dicom_core::value::CastValueError;
+use dicom_core::value::{CastValueError, DicomValueType, ValueType};
 use dicom_object::mem::InMemElement;
 use dicom_object::{AccessError, DefaultDicomObject};
-use log::warn;
+use log::{info, warn};
 use std::borrow::Cow;
 use thiserror::Error;
 
@@ -82,6 +82,18 @@ impl Processor for DefaultProcessor {
         obj: &DefaultDicomObject,
         elem: &'a InMemElement,
     ) -> Result<Option<Cow<'a, InMemElement>>> {
+        if elem.value().value_type() == ValueType::DataSetSequence {
+            // info!("DataSetSequence: {:?}", elem);
+            if let Some(items) = elem.items() {
+                for item in items {
+                    // info!("{:?}", item);
+                    for e in item.iter() {
+                        info!("{:?}", e);
+                    }
+                }
+            }
+        }
+
         let action = self.config.get_action(&elem.tag());
         let action_struct = action.get_action_struct();
 
