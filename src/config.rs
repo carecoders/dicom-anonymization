@@ -355,7 +355,7 @@ impl Config {
     /// A reference to the appropriate [`Action`] to take for the given tag
     pub fn get_action(&self, tag: &Tag) -> &Action {
         match self.tag_actions.get(tag) {
-            Some(action) if self.should_be_removed(tag) && action == &Action::None => {
+            Some(action) if action == &Action::None && self.should_be_removed(tag) => {
                 &Action::Remove
             }
             Some(action) => action,
@@ -457,20 +457,21 @@ impl ConfigBuilder {
     /// use dicom_anonymization::actions::Action;
     /// use dicom_anonymization::actions::hash::{Hash, HashLength};
     /// use dicom_anonymization::config::ConfigBuilder;
+    /// use dicom_core::Tag;
     /// use dicom_dictionary_std::tags;
     ///
     /// let mut config_builder = ConfigBuilder::new();
     ///
-    /// // Keep the tag value unchanged
-    /// config_builder = config_builder.tag_action(tags::MODALITY, Action::Keep);
+    /// // No specific action, leave the tag and its value unchanged
+    /// config_builder = config_builder.tag_action(tags::MODALITY, Action::None);
     ///
     /// // Remove the tag completely
     /// config_builder = config_builder.tag_action(tags::SERIES_DATE, Action::Remove);
     ///
-    /// // Replace with empty value
+    /// // Replace the tag value with an empty value
     /// config_builder = config_builder.tag_action(tags::PATIENT_SEX, Action::Empty);
     ///
-    /// // Hash the value with specified length
+    /// // Hash the value with a specified length
     /// config_builder = config_builder.tag_action(tags::PATIENT_ID, Action::Hash { length: Some(10) });
     ///
     /// // Hash a UID
@@ -479,14 +480,11 @@ impl ConfigBuilder {
     /// // Replace a date with another date using a hash of another tag value to determine the offset
     /// config_builder = config_builder.tag_action(tags::STUDY_DATE, Action::HashDate { other_tag: tags::PATIENT_ID });
     ///
-    /// // Replace with specific value
+    /// // Replace the tag value with a specific value
     /// config_builder = config_builder.tag_action(tags::DEIDENTIFICATION_METHOD, Action::Replace { value: "MYAPP".into() });
     ///
-    /// // No specific tag action
-    /// //
-    /// // Mainly for documentation purposes to show that certain tags were considered, but
-    /// // that no specific tag actions are applied to those.
-    /// config_builder = config_builder.tag_action(tags::IMAGE_TYPE, Action::None);
+    /// // Keep the specified tag even when the related group is to be removed
+    /// config_builder = config_builder.remove_private_tags(true).tag_action(Tag(0x0033, 0x0010), Action::Keep);
     /// ```
     pub fn tag_action(mut self, tag: Tag, action: Action) -> Self {
         self.0.tag_actions.insert(tag, action);
@@ -598,6 +596,7 @@ impl ConfigBuilder {
     ///
     /// let config = ConfigBuilder::new()
     ///     .uid_root("1.2.840.123".parse().unwrap())
+    ///     .remove_private_tags(true)
     ///     .tag_action(tags::SOP_INSTANCE_UID, Action::HashUID)
     ///     .tag_action(tags::PATIENT_NAME, Action::Empty)
     ///     .tag_action(Tag(0x0033, 0x0010), Action::Keep)
@@ -624,7 +623,7 @@ impl Default for ConfigBuilder {
             .remove_private_tags(true)
             .remove_curves(true)
             .remove_overlays(true)
-            .tag_action(tags::SPECIFIC_CHARACTER_SET, Action::Keep)
+            .tag_action(tags::SPECIFIC_CHARACTER_SET, Action::None)
             .tag_action(tags::IMAGE_TYPE, Action::None)
             .tag_action(
                 tags::INSTANCE_CREATION_DATE,
@@ -640,7 +639,7 @@ impl Default for ConfigBuilder {
                     other_tag: tags::PATIENT_ID,
                 },
             ) // nic
-            .tag_action(tags::SOP_CLASS_UID, Action::Keep)
+            .tag_action(tags::SOP_CLASS_UID, Action::None)
             .tag_action(tags::ACQUISITION_UID, Action::HashUID) // nic
             .tag_action(tags::SOP_INSTANCE_UID, Action::HashUID)
             .tag_action(
@@ -672,7 +671,7 @@ impl Default for ConfigBuilder {
             .tag_action(tags::STATION_AE_TITLE, Action::None) // nic
             .tag_action(tags::INSTANCE_AVAILABILITY, Action::None)
             .tag_action(tags::FAILED_SOP_INSTANCE_UID_LIST, Action::HashUID)
-            .tag_action(tags::MODALITY, Action::Keep)
+            .tag_action(tags::MODALITY, Action::None)
             .tag_action(tags::MODALITIES_IN_STUDY, Action::None)
             .tag_action(tags::ANATOMIC_REGIONS_IN_STUDY_CODE_SEQUENCE, Action::None) // nic
             .tag_action(tags::CONVERSION_TYPE, Action::None)
@@ -720,9 +719,9 @@ impl Default for ConfigBuilder {
             .tag_action(tags::TIMEZONE_OFFSET_FROM_UTC, Action::Remove)
             // checked nic's until here
             .tag_action(tags::STATION_NAME, Action::Remove)
-            .tag_action(tags::STUDY_DESCRIPTION, Action::Keep)
+            .tag_action(tags::STUDY_DESCRIPTION, Action::None)
             .tag_action(tags::PROCEDURE_CODE_SEQUENCE, Action::None)
-            .tag_action(tags::SERIES_DESCRIPTION, Action::Keep)
+            .tag_action(tags::SERIES_DESCRIPTION, Action::None)
             .tag_action(tags::INSTITUTIONAL_DEPARTMENT_NAME, Action::Remove)
             .tag_action(tags::PHYSICIANS_OF_RECORD, Action::Remove)
             .tag_action(
@@ -757,7 +756,7 @@ impl Default for ConfigBuilder {
             .tag_action(tags::REFERENCED_IMAGE_SEQUENCE, Action::Remove)
             .tag_action(tags::REFERENCED_CURVE_SEQUENCE, Action::None)
             .tag_action(tags::REFERENCED_INSTANCE_SEQUENCE, Action::None)
-            .tag_action(tags::REFERENCED_SOP_CLASS_UID, Action::Keep)
+            .tag_action(tags::REFERENCED_SOP_CLASS_UID, Action::None)
             .tag_action(tags::REFERENCED_SOP_INSTANCE_UID, Action::HashUID)
             .tag_action(tags::SOP_CLASSES_SUPPORTED, Action::None)
             .tag_action(tags::REFERENCED_FRAME_NUMBER, Action::None)
@@ -877,7 +876,7 @@ impl Default for ConfigBuilder {
                 tags::CONTRAST_BOLUS_ADMINISTRATION_ROUTE_SEQUENCE,
                 Action::None,
             )
-            .tag_action(tags::BODY_PART_EXAMINED, Action::Keep)
+            .tag_action(tags::BODY_PART_EXAMINED, Action::None)
             .tag_action(tags::SCANNING_SEQUENCE, Action::None)
             .tag_action(tags::SEQUENCE_VARIANT, Action::None)
             .tag_action(tags::SCAN_OPTIONS, Action::None)
@@ -2026,6 +2025,37 @@ mod tests {
     }
 
     #[test]
+    fn test_keep_private_tag() {
+        let tag = Tag(0x0033, 0x0010);
+        let config = ConfigBuilder::new()
+            .remove_private_tags(true)
+            .tag_action(tag, Action::Keep)
+            .build();
+
+        // explicitly kept private tags should be kept
+        let tag_action = config.get_action(&tag);
+        assert_eq!(tag_action, &Action::Keep);
+        // any other private tag should be removed
+        assert_eq!(config.get_action(&Tag(0x0033, 0x1010)), &Action::Remove);
+        // any other non-private tag should be kept
+        assert_eq!(config.get_action(&tags::PATIENT_ID), &Action::Keep);
+    }
+
+    #[test]
+    fn test_remove_private_tag() {
+        let tag = Tag(0x0033, 0x0010);
+        let config = ConfigBuilder::new()
+            .remove_private_tags(true)
+            .tag_action(tag, Action::None)
+            .build();
+        let tag_action = config.get_action(&tag);
+        assert_eq!(tag_action, &Action::Remove);
+        assert_eq!(config.get_action(&Tag(0x0033, 0x1010)), &Action::Remove);
+        // any other non-private tag should be kept
+        assert_eq!(config.get_action(&tags::PATIENT_ID), &Action::Keep);
+    }
+
+    #[test]
     fn test_is_curve_tag() {
         // curve tags
         assert!(is_curve_tag(&Tag::from([0x5000, 0])));
@@ -2038,6 +2068,37 @@ mod tests {
     }
 
     #[test]
+    fn test_keep_curve_tag() {
+        let tag = Tag(0x5010, 0x0011);
+        let config = ConfigBuilder::new()
+            .remove_curves(true)
+            .tag_action(tag, Action::Keep)
+            .build();
+
+        // explicitly kept curve tags should be kept
+        let tag_action = config.get_action(&tag);
+        assert_eq!(tag_action, &Action::Keep);
+        // any other curve tags should be removed
+        assert_eq!(config.get_action(&Tag(0x50FF, 0x0100)), &Action::Remove);
+        // any other non-curve tag should be kept
+        assert_eq!(config.get_action(&tags::PATIENT_ID), &Action::Keep);
+    }
+
+    #[test]
+    fn test_remove_curve_tag() {
+        let tag = Tag(0x5010, 0x0011);
+        let config = ConfigBuilder::new()
+            .remove_curves(true)
+            .tag_action(tag, Action::None)
+            .build();
+        let tag_action = config.get_action(&tag);
+        assert_eq!(tag_action, &Action::Remove);
+        assert_eq!(config.get_action(&Tag(0x50FF, 0x0100)), &Action::Remove);
+        // any other non-curve tag should be kept
+        assert_eq!(config.get_action(&tags::PATIENT_ID), &Action::Keep);
+    }
+
+    #[test]
     fn test_is_overlay_tag() {
         // overlay tags
         assert!(is_overlay_tag(&Tag::from([0x6000, 0])));
@@ -2047,6 +2108,37 @@ mod tests {
         // non-overlay tags
         assert!(!is_overlay_tag(&Tag::from([0x6100, 0])));
         assert!(!is_overlay_tag(&Tag::from([0x5000, 0])));
+    }
+
+    #[test]
+    fn test_keep_overlay_tag() {
+        let tag = Tag(0x6010, 0x0011);
+        let config = ConfigBuilder::new()
+            .remove_overlays(true)
+            .tag_action(tag, Action::Keep)
+            .build();
+
+        // explicitly kept overlay tags should be kept
+        let tag_action = config.get_action(&tag);
+        assert_eq!(tag_action, &Action::Keep);
+        // any other overlay tags should be removed
+        assert_eq!(config.get_action(&Tag(0x60FF, 0x0100)), &Action::Remove);
+        // any other non-overlay tag should be kept
+        assert_eq!(config.get_action(&tags::PATIENT_ID), &Action::Keep);
+    }
+
+    #[test]
+    fn test_remove_overlay_tag() {
+        let tag = Tag(0x6010, 0x0011);
+        let config = ConfigBuilder::new()
+            .remove_overlays(true)
+            .tag_action(tag, Action::None)
+            .build();
+        let tag_action = config.get_action(&tag);
+        assert_eq!(tag_action, &Action::Remove);
+        assert_eq!(config.get_action(&Tag(0x60FF, 0x0100)), &Action::Remove);
+        // any other non-overlay tag should be kept
+        assert_eq!(config.get_action(&tags::PATIENT_ID), &Action::Keep);
     }
 
     #[test]
