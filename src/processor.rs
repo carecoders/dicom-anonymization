@@ -135,7 +135,6 @@ mod tests {
     use dicom_dictionary_std::tags;
     use dicom_object::FileDicomObject;
 
-    use crate::actions::hash::HashLength;
     use crate::actions::Action;
     use crate::config::ConfigBuilder;
     use crate::test_utils::make_file_meta;
@@ -152,7 +151,7 @@ mod tests {
         ));
 
         let config = ConfigBuilder::new()
-            .tag_action(tags::ACCESSION_NUMBER, Action::Hash(None))
+            .tag_action(tags::ACCESSION_NUMBER, Action::Hash { length: None })
             .build();
 
         let elem = obj.element(tags::ACCESSION_NUMBER).unwrap();
@@ -173,7 +172,7 @@ mod tests {
         ));
 
         let config = ConfigBuilder::new()
-            .tag_action(tags::ACCESSION_NUMBER, Action::Hash(Some(HashLength(32))))
+            .tag_action(tags::ACCESSION_NUMBER, Action::Hash { length: Some(32) })
             .build();
 
         let elem = obj.element(tags::ACCESSION_NUMBER).unwrap();
@@ -195,7 +194,7 @@ mod tests {
         ));
 
         let config = ConfigBuilder::new()
-            .tag_action(tags::ACCESSION_NUMBER, Action::Hash(Some(HashLength(8))))
+            .tag_action(tags::ACCESSION_NUMBER, Action::Hash { length: Some(8) })
             .build();
 
         let elem = obj.element(tags::ACCESSION_NUMBER).unwrap();
@@ -216,7 +215,12 @@ mod tests {
         ));
 
         let config = ConfigBuilder::new()
-            .tag_action(tags::STUDY_DATE, Action::HashDate(tags::PATIENT_ID))
+            .tag_action(
+                tags::STUDY_DATE,
+                Action::HashDate {
+                    other_tag: tags::PATIENT_ID,
+                },
+            )
             .build();
 
         let elem = obj.element(tags::STUDY_DATE).unwrap();
@@ -239,7 +243,12 @@ mod tests {
         ));
 
         let config = ConfigBuilder::new()
-            .tag_action(tags::PATIENT_NAME, Action::Replace("Jane Doe".into()))
+            .tag_action(
+                tags::PATIENT_NAME,
+                Action::Replace {
+                    value: "Jane Doe".into(),
+                },
+            )
             .build();
 
         let elem = obj.element(tags::PATIENT_NAME).unwrap();

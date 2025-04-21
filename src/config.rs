@@ -1,11 +1,13 @@
-use crate::actions::hash::HashLength;
 use crate::actions::Action;
 use crate::actions::Action::HashUID;
 use crate::hasher::{blake3_hash_fn, HashFn};
-use dicom_core::Tag;
-use dicom_dictionary_std::tags;
+use dicom_core::{DataDictionary, Tag};
+use dicom_dictionary_std::{tags, StandardDataDictionary};
+use garde::Validate;
 use regex::Regex;
-use std::collections::HashMap;
+use serde::ser::SerializeMap;
+use serde::{Deserialize, Deserializer, Serialize, Serializer};
+use std::collections::BTreeMap;
 use std::str::FromStr;
 use std::sync::OnceLock;
 use thiserror::Error;
@@ -37,7 +39,7 @@ const DEIDENTIFIER: &str = "CARECODERS";
 /// let invalid = "0.1.2".parse::<UidRoot>();
 /// assert!(invalid.is_err());
 /// ```
-#[derive(Debug, Clone, Eq, PartialEq, Ord, PartialOrd)]
+#[derive(Serialize, Deserialize, Debug, Clone, Eq, PartialEq, Ord, PartialOrd)]
 pub struct UidRoot(String);
 
 #[derive(Error, Debug, Clone, Eq, PartialEq, Ord, PartialOrd)]
@@ -97,9 +99,9 @@ impl UidRoot {
 
 impl Default for UidRoot {
     /// Default implementation for [`UidRoot`] that returns a [`UidRoot`] instance
-    /// initialized with the default UID root value (i.e. `"9999"`).
+    /// initialized with an empty string.
     fn default() -> Self {
-        Self(UID_ROOT_DEFAULT_VALUE.into())
+        Self("".into())
     }
 }
 
@@ -118,9 +120,138 @@ impl AsRef<str> for UidRoot {
 }
 
 #[derive(Debug, Clone, PartialEq)]
-enum PreservationPolicy {
-    Remove,
-    Keep,
+pub struct TagActionMap(BTreeMap<Tag, Action>);
+
+impl TagActionMap {
+    pub fn new() -> Self {
+        TagActionMap(BTreeMap::new())
+    }
+
+    pub fn insert(&mut self, tag: Tag, action: Action) -> Option<Action> {
+        self.0.insert(tag, action)
+    }
+
+    pub fn get(&self, tag: &Tag) -> Option<&Action> {
+        self.0.get(tag)
+    }
+
+    pub fn len(&self) -> usize {
+        self.0.len()
+    }
+
+    pub fn is_empty(&self) -> bool {
+        self.0.is_empty()
+    }
+}
+
+impl Default for TagActionMap {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
+// Struct to hold the action and an optional comment
+#[derive(Serialize)]
+struct TagActionWithComment<'a> {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    comment: Option<&'a str>,
+    #[serde(flatten)]
+    action: &'a Action,
+}
+
+// For deserialization, we need an owned version
+#[derive(Deserialize)]
+struct OwnedTagActionWithComment {
+    #[serde(default)]
+    #[allow(dead_code)]
+    comment: Option<String>,
+    #[serde(flatten)]
+    action: Action,
+}
+
+// Function to get the tag alias from the data dictionary
+fn get_tag_alias(tag: &Tag) -> Option<&'static str> {
+    let data_dict = StandardDataDictionary;
+    let data_entry = data_dict.by_tag(*tag);
+    match data_entry {
+        Some(entry) => Some(entry.alias),
+        _ => None,
+    }
+}
+
+impl Serialize for TagActionMap {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: Serializer,
+    {
+        let mut map = serializer.serialize_map(Some(self.0.len()))?;
+
+        for (tag, action) in &self.0 {
+            // Try to get the alias for this tag
+            let alias = get_tag_alias(tag);
+
+            // Convert tag to string format
+            let tag_str = format!("{}", tag);
+
+            // Create the combined structure with an optional comment
+            let action_with_desc = TagActionWithComment {
+                comment: alias,
+                action,
+            };
+
+            map.serialize_entry(&tag_str, &action_with_desc)?;
+        }
+
+        map.end()
+    }
+}
+
+impl<'de> Deserialize<'de> for TagActionMap {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: Deserializer<'de>,
+    {
+        // Helper type to capture the intermediate representation
+        let string_map: BTreeMap<String, OwnedTagActionWithComment> =
+            BTreeMap::deserialize(deserializer)?;
+
+        // Convert string map to Tag map
+        let mut tag_map = BTreeMap::new();
+
+        for (tag_str, action_with_comment) in string_map {
+            // Parse the tag string
+            let tag: Tag = tag_str.parse().map_err(|_| {
+                serde::de::Error::custom(format!(
+                    "Tag must be in format '(XXXX,XXXX)' where X is a hex digit, got: {}",
+                    tag_str
+                ))
+            })?;
+
+            // Make sure the tag string starts and ends with parentheses
+            if !tag_str.starts_with('(') || !tag_str.ends_with(')') {
+                return Err(serde::de::Error::custom(format!(
+                    "Tag must be in format '(XXXX,XXXX)', got: {}",
+                    tag_str
+                )));
+            }
+
+            let action = action_with_comment.action;
+
+            // Make sure the action is valid
+            action.validate().map_err(|err| {
+                serde::de::Error::custom(format!("Validation error for tag {}: {}", tag_str, err))
+            })?;
+
+            // We only keep the action, not the comment
+            tag_map.insert(tag, action);
+        }
+
+        Ok(TagActionMap(tag_map))
+    }
+}
+
+pub fn default_hash_fn() -> HashFn {
+    blake3_hash_fn
 }
 
 /// Configuration for DICOM de-identification.
@@ -132,36 +263,51 @@ enum PreservationPolicy {
 ///
 /// * `hash_fn` - The hash function used for all operations requiring hashing
 /// * `uid_root` - The [`UidRoot`] to use as prefix when generating new UIDs during de-identification
+/// * `remove_private_tags` - Policy determining whether to keep or remove private DICOM tags
+/// * `remove_curves` - Policy determining whether to keep or remove curve data (groups `0x5000-0x50FF`)
+/// * `remove_overlays` - Policy determining whether to keep or remove overlay data (groups `0x6000-0x60FF`)
 /// * `tag_actions` - Mapping of specific DICOM tags to their corresponding de-identification actions
-/// * `private_tags` - Policy determining whether to keep or remove private DICOM tags
-/// * `curves` - Policy determining whether to keep or remove curve data (groups `0x5000-0x50FF`)
-/// * `overlays` - Policy determining whether to keep or remove overlay data (groups `0x6000-0x60FF`)
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
 pub struct Config {
+    #[serde(skip, default = "default_hash_fn")]
     hash_fn: HashFn,
+
+    #[serde(default)]
     uid_root: UidRoot,
-    tag_actions: HashMap<Tag, Action>,
-    private_tags: PreservationPolicy,
-    curves: PreservationPolicy,
-    overlays: PreservationPolicy,
+
+    #[serde(default)]
+    remove_private_tags: bool,
+    #[serde(default)]
+    remove_curves: bool,
+    #[serde(default)]
+    remove_overlays: bool,
+
+    #[serde(default = "TagActionMap::default")]
+    tag_actions: TagActionMap,
 }
 
 impl Config {
-    fn new(hash_fn: HashFn) -> Self {
+    fn new(
+        hash_fn: HashFn,
+        uid_root: UidRoot,
+        remove_private_tags: bool,
+        remove_curves: bool,
+        remove_overlays: bool,
+    ) -> Self {
         Self {
             hash_fn,
-            uid_root: "".parse().unwrap(),
-            tag_actions: HashMap::<Tag, Action>::new(),
-            private_tags: PreservationPolicy::Remove,
-            curves: PreservationPolicy::Remove,
-            overlays: PreservationPolicy::Remove,
+            uid_root,
+            remove_private_tags,
+            remove_curves,
+            remove_overlays,
+            tag_actions: TagActionMap::new(),
         }
     }
 }
 
 impl Default for Config {
     fn default() -> Self {
-        Self::new(blake3_hash_fn)
+        Self::new(blake3_hash_fn, UidRoot::default(), false, false, false)
     }
 }
 
@@ -219,24 +365,9 @@ impl Config {
     }
 
     fn should_be_removed(&self, tag: &Tag) -> bool {
-        match tag {
-            tag if self.remove_private_tags() && is_private_tag(tag) => true,
-            tag if self.remove_curves() && is_curve_tag(tag) => true,
-            tag if self.remove_overlays() && is_overlay_tag(tag) => true,
-            _ => false,
-        }
-    }
-
-    fn remove_private_tags(&self) -> bool {
-        matches!(self.private_tags, PreservationPolicy::Remove)
-    }
-
-    fn remove_curves(&self) -> bool {
-        matches!(self.curves, PreservationPolicy::Remove)
-    }
-
-    fn remove_overlays(&self) -> bool {
-        matches!(self.overlays, PreservationPolicy::Remove)
+        self.remove_private_tags && is_private_tag(tag)
+            || self.remove_curves && is_curve_tag(tag)
+            || self.remove_overlays && is_overlay_tag(tag)
     }
 }
 
@@ -257,7 +388,7 @@ impl Config {
 /// let config = ConfigBuilder::new()
 ///     .uid_root("1.2.840.123".parse().unwrap())
 ///     .tag_action(tags::PATIENT_NAME, Action::Empty)
-///     .tag_action(tags::PATIENT_ID, Action::Hash(None))
+///     .tag_action(tags::PATIENT_ID, Action::Hash{length: None})
 ///     .remove_private_tags(true)
 ///     .build();
 /// ```
@@ -340,16 +471,16 @@ impl ConfigBuilder {
     /// config_builder = config_builder.tag_action(tags::PATIENT_SEX, Action::Empty);
     ///
     /// // Hash the value with specified length
-    /// config_builder = config_builder.tag_action(tags::PATIENT_ID, Action::Hash(Some(HashLength::new(10).unwrap())));
+    /// config_builder = config_builder.tag_action(tags::PATIENT_ID, Action::Hash { length: Some(10) });
     ///
     /// // Hash a UID
     /// config_builder = config_builder.tag_action(tags::STUDY_INSTANCE_UID, Action::HashUID);
     ///
     /// // Replace a date with another date using a hash of another tag value to determine the offset
-    /// config_builder = config_builder.tag_action(tags::STUDY_DATE, Action::HashDate(tags::PATIENT_ID));
+    /// config_builder = config_builder.tag_action(tags::STUDY_DATE, Action::HashDate { other_tag: tags::PATIENT_ID });
     ///
     /// // Replace with specific value
-    /// config_builder = config_builder.tag_action(tags::DEIDENTIFICATION_METHOD, Action::Replace("MYAPP".into()));
+    /// config_builder = config_builder.tag_action(tags::DEIDENTIFICATION_METHOD, Action::Replace { value: "MYAPP".into() });
     ///
     /// // No specific tag action
     /// //
@@ -391,10 +522,7 @@ impl ConfigBuilder {
     ///     .build();
     /// ```
     pub fn remove_private_tags(mut self, remove: bool) -> Self {
-        match remove {
-            true => self.0.private_tags = PreservationPolicy::Remove,
-            false => self.0.private_tags = PreservationPolicy::Keep,
-        }
+        self.0.remove_private_tags = remove;
         self
     }
 
@@ -424,10 +552,7 @@ impl ConfigBuilder {
     ///     .build();
     /// ```
     pub fn remove_curves(mut self, remove: bool) -> Self {
-        match remove {
-            true => self.0.curves = PreservationPolicy::Remove,
-            false => self.0.curves = PreservationPolicy::Keep,
-        }
+        self.0.remove_curves = remove;
         self
     }
 
@@ -457,10 +582,7 @@ impl ConfigBuilder {
     ///     .build();
     /// ```
     pub fn remove_overlays(mut self, remove: bool) -> Self {
-        match remove {
-            true => self.0.overlays = PreservationPolicy::Remove,
-            false => self.0.overlays = PreservationPolicy::Keep,
-        }
+        self.0.remove_overlays = remove;
         self
     }
 
@@ -498,7 +620,7 @@ impl Default for ConfigBuilder {
     /// if needed before building the final [`Config`].
     fn default() -> Self {
         Self::new()
-            .uid_root(UidRoot::default())
+            .uid_root(UidRoot::new(UID_ROOT_DEFAULT_VALUE).unwrap())
             .remove_private_tags(true)
             .remove_curves(true)
             .remove_overlays(true)
@@ -506,21 +628,35 @@ impl Default for ConfigBuilder {
             .tag_action(tags::IMAGE_TYPE, Action::None)
             .tag_action(
                 tags::INSTANCE_CREATION_DATE,
-                Action::HashDate(tags::PATIENT_ID),
+                Action::HashDate {
+                    other_tag: tags::PATIENT_ID,
+                },
             )
             .tag_action(tags::INSTANCE_CREATION_TIME, Action::None)
             .tag_action(tags::INSTANCE_CREATOR_UID, Action::HashUID)
             .tag_action(
                 tags::INSTANCE_COERCION_DATE_TIME,
-                Action::HashDate(tags::PATIENT_ID),
+                Action::HashDate {
+                    other_tag: tags::PATIENT_ID,
+                },
             ) // nic
             .tag_action(tags::SOP_CLASS_UID, Action::Keep)
             .tag_action(tags::ACQUISITION_UID, Action::HashUID) // nic
             .tag_action(tags::SOP_INSTANCE_UID, Action::HashUID)
-            .tag_action(tags::STUDY_DATE, Action::HashDate(tags::PATIENT_ID))
+            .tag_action(
+                tags::STUDY_DATE,
+                Action::HashDate {
+                    other_tag: tags::PATIENT_ID,
+                },
+            )
             .tag_action(tags::SERIES_DATE, Action::Remove)
             .tag_action(tags::ACQUISITION_DATE, Action::Remove)
-            .tag_action(tags::CONTENT_DATE, Action::HashDate(tags::PATIENT_ID))
+            .tag_action(
+                tags::CONTENT_DATE,
+                Action::HashDate {
+                    other_tag: tags::PATIENT_ID,
+                },
+            )
             .tag_action(tags::OVERLAY_DATE, Action::Remove)
             .tag_action(tags::CURVE_DATE, Action::Remove)
             .tag_action(tags::ACQUISITION_DATE_TIME, Action::Remove)
@@ -530,10 +666,7 @@ impl Default for ConfigBuilder {
             .tag_action(tags::CONTENT_TIME, Action::Empty)
             .tag_action(tags::OVERLAY_TIME, Action::Remove)
             .tag_action(tags::CURVE_TIME, Action::Remove)
-            .tag_action(
-                tags::ACCESSION_NUMBER,
-                Action::Hash(Some(HashLength::new(16).unwrap())),
-            )
+            .tag_action(tags::ACCESSION_NUMBER, Action::Hash { length: Some(16) })
             .tag_action(tags::QUERY_RETRIEVE_LEVEL, Action::None)
             .tag_action(tags::RETRIEVE_AE_TITLE, Action::None)
             .tag_action(tags::STATION_AE_TITLE, Action::None) // nic
@@ -675,16 +808,15 @@ impl Default for ConfigBuilder {
             .tag_action(tags::ACQUISITION_CONTRAST, Action::None)
             .tag_action(tags::DERIVATION_CODE_SEQUENCE, Action::None)
             .tag_action(tags::REFERENCED_PRESENTATION_STATE_SEQUENCE, Action::None)
-            .tag_action(
-                tags::PATIENT_NAME,
-                Action::Hash(Some(HashLength::new(10).unwrap())),
-            )
-            .tag_action(
-                tags::PATIENT_ID,
-                Action::Hash(Some(HashLength::new(10).unwrap())),
-            )
+            .tag_action(tags::PATIENT_NAME, Action::Hash { length: Some(10) })
+            .tag_action(tags::PATIENT_ID, Action::Hash { length: Some(10) })
             .tag_action(tags::ISSUER_OF_PATIENT_ID, Action::Remove)
-            .tag_action(tags::PATIENT_BIRTH_DATE, Action::HashDate(tags::PATIENT_ID))
+            .tag_action(
+                tags::PATIENT_BIRTH_DATE,
+                Action::HashDate {
+                    other_tag: tags::PATIENT_ID,
+                },
+            )
             .tag_action(tags::PATIENT_BIRTH_TIME, Action::Remove)
             .tag_action(tags::PATIENT_SEX, Action::Empty)
             .tag_action(tags::PATIENT_INSURANCE_PLAN_CODE_SEQUENCE, Action::Remove)
@@ -734,7 +866,9 @@ impl Default for ConfigBuilder {
             .tag_action(tags::PATIENT_IDENTITY_REMOVED, Action::Remove)
             .tag_action(
                 tags::DEIDENTIFICATION_METHOD,
-                Action::Replace(DEIDENTIFIER.into()),
+                Action::Replace {
+                    value: DEIDENTIFIER.into(),
+                },
             )
             .tag_action(tags::DEIDENTIFICATION_METHOD_CODE_SEQUENCE, Action::Remove)
             .tag_action(tags::CONTRAST_BOLUS_AGENT, Action::Empty)
@@ -796,7 +930,9 @@ impl Default for ConfigBuilder {
             .tag_action(tags::HARDCOPY_CREATION_DEVICE_ID, Action::None)
             .tag_action(
                 tags::DATE_OF_SECONDARY_CAPTURE,
-                Action::HashDate(tags::PATIENT_ID),
+                Action::HashDate {
+                    other_tag: tags::PATIENT_ID,
+                },
             )
             .tag_action(tags::TIME_OF_SECONDARY_CAPTURE, Action::None)
             .tag_action(tags::SECONDARY_CAPTURE_DEVICE_MANUFACTURER, Action::None)
@@ -908,7 +1044,9 @@ impl Default for ConfigBuilder {
             .tag_action(tags::COMPRESSION_FORCE, Action::None)
             .tag_action(
                 tags::DATE_OF_LAST_CALIBRATION,
-                Action::HashDate(tags::PATIENT_ID),
+                Action::HashDate {
+                    other_tag: tags::PATIENT_ID,
+                },
             )
             .tag_action(tags::TIME_OF_LAST_CALIBRATION, Action::None)
             .tag_action(tags::CONVOLUTION_KERNEL, Action::None)
@@ -1040,7 +1178,9 @@ impl Default for ConfigBuilder {
             .tag_action(tags::DETECTOR_ID, Action::Remove)
             .tag_action(
                 tags::DATE_OF_LAST_DETECTOR_CALIBRATION,
-                Action::HashDate(tags::PATIENT_ID),
+                Action::HashDate {
+                    other_tag: tags::PATIENT_ID,
+                },
             )
             .tag_action(tags::TIME_OF_LAST_DETECTOR_CALIBRATION, Action::None)
             .tag_action(
@@ -1134,7 +1274,9 @@ impl Default for ConfigBuilder {
             .tag_action(tags::ACQUISITION_DURATION, Action::None)
             .tag_action(
                 tags::FRAME_ACQUISITION_DATE_TIME,
-                Action::HashDate(tags::PATIENT_ID),
+                Action::HashDate {
+                    other_tag: tags::PATIENT_ID,
+                },
             )
             .tag_action(tags::DIFFUSION_DIRECTIONALITY, Action::None)
             .tag_action(tags::DIFFUSION_GRADIENT_DIRECTION_SEQUENCE, Action::None)
@@ -1177,7 +1319,9 @@ impl Default for ConfigBuilder {
             .tag_action(tags::DIFFUSION_ANISOTROPY_TYPE, Action::None)
             .tag_action(
                 tags::FRAME_REFERENCE_DATE_TIME,
-                Action::HashDate(tags::PATIENT_ID),
+                Action::HashDate {
+                    other_tag: tags::PATIENT_ID,
+                },
             )
             .tag_action(tags::MR_METABOLITE_MAP_SEQUENCE, Action::None)
             .tag_action(tags::PARALLEL_REDUCTION_FACTOR_OUT_OF_PLANE, Action::None)
@@ -1407,19 +1551,30 @@ impl Default for ConfigBuilder {
             .tag_action(tags::STUDY_ID_ISSUER, Action::Remove)
             .tag_action(
                 tags::STUDY_VERIFIED_DATE,
-                Action::HashDate(tags::PATIENT_ID),
+                Action::HashDate {
+                    other_tag: tags::PATIENT_ID,
+                },
             )
             .tag_action(tags::STUDY_VERIFIED_TIME, Action::None)
-            .tag_action(tags::STUDY_READ_DATE, Action::HashDate(tags::PATIENT_ID))
+            .tag_action(
+                tags::STUDY_READ_DATE,
+                Action::HashDate {
+                    other_tag: tags::PATIENT_ID,
+                },
+            )
             .tag_action(tags::STUDY_READ_TIME, Action::None)
             .tag_action(
                 tags::SCHEDULED_STUDY_START_DATE,
-                Action::HashDate(tags::PATIENT_ID),
+                Action::HashDate {
+                    other_tag: tags::PATIENT_ID,
+                },
             )
             .tag_action(tags::SCHEDULED_STUDY_START_TIME, Action::None)
             .tag_action(
                 tags::SCHEDULED_STUDY_STOP_DATE,
-                Action::HashDate(tags::PATIENT_ID),
+                Action::HashDate {
+                    other_tag: tags::PATIENT_ID,
+                },
             )
             .tag_action(tags::SCHEDULED_STUDY_STOP_TIME, Action::None)
             .tag_action(tags::SCHEDULED_STUDY_LOCATION, Action::Remove)
@@ -1427,11 +1582,18 @@ impl Default for ConfigBuilder {
             .tag_action(tags::REASON_FOR_STUDY, Action::Remove)
             .tag_action(tags::REQUESTING_PHYSICIAN, Action::Remove)
             .tag_action(tags::REQUESTING_SERVICE, Action::Remove)
-            .tag_action(tags::STUDY_ARRIVAL_DATE, Action::HashDate(tags::PATIENT_ID))
+            .tag_action(
+                tags::STUDY_ARRIVAL_DATE,
+                Action::HashDate {
+                    other_tag: tags::PATIENT_ID,
+                },
+            )
             .tag_action(tags::STUDY_ARRIVAL_TIME, Action::None)
             .tag_action(
                 tags::STUDY_COMPLETION_DATE,
-                Action::HashDate(tags::PATIENT_ID),
+                Action::HashDate {
+                    other_tag: tags::PATIENT_ID,
+                },
             )
             .tag_action(tags::STUDY_COMPLETION_TIME, Action::None)
             .tag_action(tags::STUDY_COMPONENT_STATUS_ID, Action::None)
@@ -1446,17 +1608,26 @@ impl Default for ConfigBuilder {
             .tag_action(tags::ROUTE_OF_ADMISSIONS, Action::None)
             .tag_action(
                 tags::SCHEDULED_ADMISSION_DATE,
-                Action::HashDate(tags::PATIENT_ID),
+                Action::HashDate {
+                    other_tag: tags::PATIENT_ID,
+                },
             )
             .tag_action(tags::SCHEDULED_ADMISSION_TIME, Action::None)
             .tag_action(
                 tags::SCHEDULED_DISCHARGE_DATE,
-                Action::HashDate(tags::PATIENT_ID),
+                Action::HashDate {
+                    other_tag: tags::PATIENT_ID,
+                },
             )
             .tag_action(tags::SCHEDULED_DISCHARGE_TIME, Action::None)
             .tag_action(tags::ADMITTING_DATE, Action::Remove)
             .tag_action(tags::ADMITTING_TIME, Action::Remove)
-            .tag_action(tags::DISCHARGE_DATE, Action::HashDate(tags::PATIENT_ID))
+            .tag_action(
+                tags::DISCHARGE_DATE,
+                Action::HashDate {
+                    other_tag: tags::PATIENT_ID,
+                },
+            )
             .tag_action(tags::DISCHARGE_TIME, Action::None)
             .tag_action(tags::DISCHARGE_DIAGNOSIS_DESCRIPTION, Action::Remove)
             .tag_action(tags::DISCHARGE_DIAGNOSIS_CODE_SEQUENCE, Action::None)
@@ -1497,12 +1668,16 @@ impl Default for ConfigBuilder {
             .tag_action(tags::SCHEDULED_STATION_AE_TITLE, Action::Remove)
             .tag_action(
                 tags::SCHEDULED_PROCEDURE_STEP_START_DATE,
-                Action::HashDate(tags::PATIENT_ID),
+                Action::HashDate {
+                    other_tag: tags::PATIENT_ID,
+                },
             )
             .tag_action(tags::SCHEDULED_PROCEDURE_STEP_START_TIME, Action::None)
             .tag_action(
                 tags::SCHEDULED_PROCEDURE_STEP_END_DATE,
-                Action::HashDate(tags::PATIENT_ID),
+                Action::HashDate {
+                    other_tag: tags::PATIENT_ID,
+                },
             )
             .tag_action(tags::SCHEDULED_PROCEDURE_STEP_END_TIME, Action::None)
             .tag_action(tags::SCHEDULED_PERFORMING_PHYSICIAN_NAME, Action::Remove)
@@ -1527,13 +1702,17 @@ impl Default for ConfigBuilder {
             .tag_action(tags::PERFORMED_LOCATION, Action::Remove)
             .tag_action(
                 tags::PERFORMED_PROCEDURE_STEP_START_DATE,
-                Action::HashDate(tags::PATIENT_ID),
+                Action::HashDate {
+                    other_tag: tags::PATIENT_ID,
+                },
             )
             .tag_action(tags::PERFORMED_PROCEDURE_STEP_START_TIME, Action::None)
             .tag_action(tags::PERFORMED_STATION_NAME_CODE_SEQUENCE, Action::Remove)
             .tag_action(
                 tags::PERFORMED_PROCEDURE_STEP_END_DATE,
-                Action::HashDate(tags::PATIENT_ID),
+                Action::HashDate {
+                    other_tag: tags::PATIENT_ID,
+                },
             )
             .tag_action(tags::PERFORMED_PROCEDURE_STEP_END_TIME, Action::None)
             .tag_action(tags::PERFORMED_PROCEDURE_STEP_ID, Action::Remove)
@@ -1607,7 +1786,9 @@ impl Default for ConfigBuilder {
             .tag_action(tags::REASON_FOR_THE_IMAGING_SERVICE_REQUEST, Action::Remove)
             .tag_action(
                 tags::ISSUE_DATE_OF_IMAGING_SERVICE_REQUEST,
-                Action::HashDate(tags::PATIENT_ID),
+                Action::HashDate {
+                    other_tag: tags::PATIENT_ID,
+                },
             )
             .tag_action(tags::ISSUE_TIME_OF_IMAGING_SERVICE_REQUEST, Action::None)
             .tag_action(tags::ORDER_ENTERED_BY, Action::Remove)
@@ -1615,11 +1796,11 @@ impl Default for ConfigBuilder {
             .tag_action(tags::ORDER_CALLBACK_PHONE_NUMBER, Action::Remove)
             .tag_action(
                 tags::PLACER_ORDER_NUMBER_IMAGING_SERVICE_REQUEST,
-                Action::Hash(HashLength::new(16).ok()),
+                Action::Hash { length: Some(16) },
             )
             .tag_action(
                 tags::FILLER_ORDER_NUMBER_IMAGING_SERVICE_REQUEST,
-                Action::Hash(HashLength::new(16).ok()),
+                Action::Hash { length: Some(16) },
             )
             .tag_action(tags::IMAGING_SERVICE_REQUEST_COMMENTS, Action::Remove)
             .tag_action(
@@ -1655,11 +1836,15 @@ impl Default for ConfigBuilder {
             .tag_action(tags::VERIFYING_ORGANIZATION, Action::Remove)
             .tag_action(
                 tags::VERIFICATION_DATE_TIME,
-                Action::HashDate(tags::PATIENT_ID),
+                Action::HashDate {
+                    other_tag: tags::PATIENT_ID,
+                },
             )
             .tag_action(
                 tags::OBSERVATION_DATE_TIME,
-                Action::HashDate(tags::PATIENT_ID),
+                Action::HashDate {
+                    other_tag: tags::PATIENT_ID,
+                },
             )
             .tag_action(tags::VALUE_TYPE, Action::None)
             .tag_action(tags::CONCEPT_NAME_CODE_SEQUENCE, Action::None)
@@ -1674,8 +1859,18 @@ impl Default for ConfigBuilder {
                 Action::Remove,
             )
             .tag_action(tags::REFERENCED_WAVEFORM_CHANNELS, Action::None)
-            .tag_action(tags::DATE_TIME, Action::HashDate(tags::PATIENT_ID))
-            .tag_action(tags::DATE, Action::HashDate(tags::PATIENT_ID))
+            .tag_action(
+                tags::DATE_TIME,
+                Action::HashDate {
+                    other_tag: tags::PATIENT_ID,
+                },
+            )
+            .tag_action(
+                tags::DATE,
+                Action::HashDate {
+                    other_tag: tags::PATIENT_ID,
+                },
+            )
             .tag_action(tags::TIME, Action::None)
             .tag_action(tags::PERSON_NAME, Action::Remove)
             .tag_action(tags::UID, Action::HashUID)
@@ -1685,7 +1880,9 @@ impl Default for ConfigBuilder {
             .tag_action(tags::REFERENCED_TIME_OFFSETS, Action::None)
             .tag_action(
                 tags::REFERENCED_DATE_TIME,
-                Action::HashDate(tags::PATIENT_ID),
+                Action::HashDate {
+                    other_tag: tags::PATIENT_ID,
+                },
             )
             .tag_action(tags::TEXT_VALUE, Action::None)
             .tag_action(tags::CONCEPT_CODE_SEQUENCE, Action::None)
@@ -1850,5 +2047,473 @@ mod tests {
         // non-overlay tags
         assert!(!is_overlay_tag(&Tag::from([0x6100, 0])));
         assert!(!is_overlay_tag(&Tag::from([0x5000, 0])));
+    }
+
+    #[test]
+    fn test_tag_action_map() {
+        let tag_actions = vec![
+            (Tag(0x0010, 0x0010), Action::Empty),
+            (Tag(0x0010, 0x0020), Action::Remove),
+        ];
+
+        let mut map = TagActionMap::new();
+        for tag_action in tag_actions {
+            map.insert(tag_action.0, tag_action.1.clone());
+        }
+        let json = serde_json::to_string(&map).unwrap();
+
+        // Check that the JSON format has tag strings as keys
+        assert_eq!(
+            json,
+            r#"{"(0010,0010)":{"comment":"PatientName","action":"empty"},"(0010,0020)":{"comment":"PatientID","action":"remove"}}"#
+        );
+
+        // Test deserialization
+        let deserialized: TagActionMap = serde_json::from_str(&json).unwrap();
+
+        // Check tag lookup
+        let action1 = deserialized.get(&Tag(0x0010, 0x0010)).unwrap();
+        let action2 = deserialized.get(&Tag(0x0010, 0x0020)).unwrap();
+
+        assert_eq!(*action1, Action::Empty);
+        assert_eq!(*action2, Action::Remove);
+
+        // Check conversion back to tag actions
+        let recovered: Vec<(Tag, Action)> = deserialized
+            .0
+            .iter()
+            .map(|(tag, action)| (*tag, action.clone()))
+            .collect();
+        assert_eq!(recovered.len(), 2);
+
+        // BTreeMap ordered by Tag, so we can verify the exact order
+        assert_eq!(recovered[0].0, Tag(0x0010, 0x0010));
+        assert_eq!(recovered[0].1, Action::Empty);
+        assert_eq!(recovered[1].0, Tag(0x0010, 0x0020));
+        assert_eq!(recovered[1].1, Action::Remove);
+    }
+
+    #[test]
+    fn test_tag_action_map_insert() {
+        let mut map = TagActionMap::new();
+
+        // Insert some tag actions
+        map.insert(Tag(0x0010, 0x0010), Action::Empty);
+        map.insert(Tag(0x0010, 0x0020), Action::Remove);
+
+        assert_eq!(map.len(), 2);
+        assert_eq!(map.get(&Tag(0x0010, 0x0010)), Some(&Action::Empty));
+
+        // Serialize and check format
+        let json = serde_json::to_string(&map).unwrap();
+        assert_eq!(
+            json,
+            r#"{"(0010,0010)":{"comment":"PatientName","action":"empty"},"(0010,0020)":{"comment":"PatientID","action":"remove"}}"#
+        );
+    }
+
+    #[test]
+    fn test_tag_ordering() {
+        let mut map = TagActionMap::new();
+
+        // Add tags in non-sequential order
+        map.insert(Tag(0x0020, 0x0010), Action::Empty); // Group 0020 comes after 0010
+        map.insert(Tag(0x0010, 0x0020), Action::Remove); // Element 0020 comes after 0010
+        map.insert(Tag(0x0010, 0x0010), Action::Hash { length: None }); // Should be first
+
+        // Convert to tag actions - should be in order
+        let actions: Vec<(Tag, Action)> = map
+            .0
+            .iter()
+            .map(|(tag, action)| (*tag, action.clone()))
+            .collect();
+
+        // Verify order is by group first, then element
+        assert_eq!(actions[0].0, Tag(0x0010, 0x0010));
+        assert_eq!(actions[1].0, Tag(0x0010, 0x0020));
+        assert_eq!(actions[2].0, Tag(0x0020, 0x0010));
+
+        // Serialize and check the string format
+        let json = serde_json::to_string(&map).unwrap();
+        assert_eq!(
+            json,
+            r#"{"(0010,0010)":{"comment":"PatientName","action":"hash"},"(0010,0020)":{"comment":"PatientID","action":"remove"},"(0020,0010)":{"comment":"StudyID","action":"empty"}}"#
+        );
+    }
+
+    #[test]
+    fn test_error_handling() {
+        // Test invalid hex digits
+        let json = r#"{"(ZZZZ,0010)":{"action":"empty"}}"#;
+        let result: Result<TagActionMap, _> = serde_json::from_str(json);
+        assert!(result.is_err());
+    }
+
+    #[test]
+    fn test_serialization_with_optional_comment() {
+        let mut map = TagActionMap::new();
+
+        // Add some tags - one with a known comment, one unknown
+        map.insert(Tag(0x0010, 0x0010), Action::Empty); // Known: PatientName
+        map.insert(Tag(0x9999, 0x9999), Action::Remove); // Unknown
+
+        // Serialize to JSON
+        let json = serde_json::to_string(&map).unwrap();
+
+        // For the known tag, a comment should be present
+        assert!(json.contains("\"(0010,0010)\":{\"comment\":\"PatientName\",\"action\":\"empty\"}"));
+
+        // For the unknown tag, the comment should be omitted
+        assert!(json.contains("\"(9999,9999)\":{\"action\":\"remove\"}"));
+        assert!(!json.contains("\"(9999,9999)\":{\"comment\""));
+    }
+
+    #[test]
+    fn test_deserialization_with_optional_comment() {
+        // Test with and without comment
+        let json = r#"{
+            "(0010,0010)":{"comment":"PatientName","action":"empty"},
+            "(0010,0020)":{"action":"remove"}
+        }"#;
+
+        // Deserialize
+        let map: TagActionMap = serde_json::from_str(json).unwrap();
+
+        // Both should deserialize correctly
+        assert_eq!(map.get(&Tag(0x0010, 0x0010)), Some(&Action::Empty));
+        assert_eq!(map.get(&Tag(0x0010, 0x0020)), Some(&Action::Remove));
+    }
+
+    #[test]
+    fn test_roundtrip_with_optional_comment() {
+        let mut original = TagActionMap::new();
+
+        // Add a mix of known and unknown tags
+        original.insert(Tag(0x0010, 0x0010), Action::Empty); // Known
+        original.insert(Tag(0x0008, 0x0050), Action::HashUID); // Known
+        original.insert(Tag(0x9999, 0x9999), Action::Remove); // Unknown
+
+        // Serialize
+        let json = serde_json::to_string(&original).unwrap();
+
+        // Known tags should have comments
+        assert!(json.contains("\"comment\":\"PatientName\""));
+        assert!(json.contains("\"comment\":\"AccessionNumber\""));
+
+        // Unknown tag should not have a comment
+        assert!(!json.contains("\"(9999,9999)\":{\"comment\""));
+
+        // Deserialize back
+        let deserialized: TagActionMap = serde_json::from_str(&json).unwrap();
+
+        // Verify all actions were preserved
+        assert_eq!(deserialized.get(&Tag(0x0010, 0x0010)), Some(&Action::Empty));
+        assert_eq!(
+            deserialized.get(&Tag(0x0008, 0x0050)),
+            Some(&Action::HashUID)
+        );
+        assert_eq!(
+            deserialized.get(&Tag(0x9999, 0x9999)),
+            Some(&Action::Remove)
+        );
+    }
+
+    #[test]
+    fn test_malformed_json() {
+        // Action field of a wrong type
+        let json = r#"{"(0010,0010)":{"comment":"PatientName","action":123}}"#;
+        let result: Result<TagActionMap, _> = serde_json::from_str(json);
+
+        // Should fail - action is required and must be valid
+        assert!(result.is_err());
+    }
+
+    #[test]
+    fn test_hash_length_error() {
+        // Hash length should be at least 8
+        let json = r#"{"(0010,0010)":{"comment":"PatientName","action":"hash","length":5}}"#;
+        let result: Result<TagActionMap, _> = serde_json::from_str(json);
+
+        // Should fail - hash length must be valid
+        assert!(result.is_err());
+        let error_message = result.unwrap_err().to_string().to_lowercase();
+        assert!(error_message.contains("validation error"));
+        assert!(error_message.contains("length"));
+    }
+
+    fn create_sample_tag_actions() -> TagActionMap {
+        let mut map = TagActionMap::new(); // Assuming you have a constructor
+        map.insert(Tag(0x0010, 0x0010), Action::Empty); // Patient Name
+        map.insert(Tag(0x0010, 0x0020), Action::Remove); // Patient ID
+        map.insert(Tag(0x0008, 0x0050), Action::Hash { length: None }); // Accession Number
+        map
+    }
+
+    #[test]
+    fn test_config_serialization() {
+        // Create a sample config
+        let config = Config {
+            uid_root: UidRoot("1.2.826.0.1.3680043.10.188".to_string()),
+            tag_actions: create_sample_tag_actions(),
+            remove_private_tags: true,
+            remove_curves: false,
+            remove_overlays: true,
+            ..Default::default()
+        };
+
+        // Serialize to JSON
+        let json = serde_json::to_string_pretty(&config).unwrap();
+
+        // Basic checks on the JSON string
+        assert!(json.contains(r#""uid_root": "1.2.826.0.1.3680043.10.188"#));
+        assert!(json.contains(r#""remove_private_tags": true"#));
+        assert!(json.contains(r#""remove_curves": false"#));
+        assert!(json.contains(r#""remove_overlays": true"#));
+
+        // Check tag actions serialized correctly
+        assert!(json.contains(r#""(0010,0010)""#)); // Patient Name
+        assert!(json.contains(r#""action": "empty""#));
+        assert!(json.contains(r#""(0010,0020)""#)); // Patient ID
+        assert!(json.contains(r#""action": "remove""#));
+        assert!(json.contains(r#""(0008,0050)""#)); // Accession Number
+        assert!(json.contains(r#""action": "hash""#));
+    }
+
+    #[test]
+    fn test_config_deserialization() {
+        // JSON representation of config
+        let json = r#"{
+            "uid_root": "1.2.826.0.1.3680043.10.188",
+            "remove_private_tags": true,
+            "remove_curves": false,
+            "remove_overlays": true,
+            "tag_actions": {
+                "(0010,0010)": {"action": "empty"},
+                "(0010,0020)": {"action": "remove"},
+                "(0008,0050)": {"action": "hash"}
+            }
+        }"#;
+
+        // Deserialize to Config
+        let config: Config = serde_json::from_str(json).unwrap();
+
+        // Check basic fields
+        assert_eq!(config.uid_root.0, "1.2.826.0.1.3680043.10.188");
+        assert!(config.remove_private_tags);
+        assert!(!config.remove_curves);
+        assert!(config.remove_overlays);
+
+        // Check tag actions
+        let patient_name = config.tag_actions.get(&Tag(0x0010, 0x0010)).unwrap();
+        match patient_name {
+            Action::Empty => { /* expected */ }
+            _ => panic!("Expected Empty action for Patient Name"),
+        }
+
+        let patient_id = config.tag_actions.get(&Tag(0x0010, 0x0020)).unwrap();
+        match patient_id {
+            Action::Remove => { /* expected */ }
+            _ => panic!("Expected Remove action for Patient ID"),
+        }
+
+        let accession = config.tag_actions.get(&Tag(0x0008, 0x0050)).unwrap();
+        match accession {
+            Action::Hash { length } => {
+                assert_eq!(*length, None);
+            }
+            _ => panic!("Expected Hash action for Accession Number"),
+        }
+    }
+
+    #[test]
+    fn test_config_roundtrip() {
+        // Create original config
+        let original_config = Config {
+            uid_root: UidRoot("1.2.826.0.1.3680043.10.188".to_string()),
+            tag_actions: create_sample_tag_actions(),
+            remove_private_tags: true,
+            remove_curves: false,
+            remove_overlays: true,
+            ..Default::default()
+        };
+
+        // Serialize to JSON and back
+        let json = serde_json::to_string(&original_config).unwrap();
+        let deserialized: Config = serde_json::from_str(&json).unwrap();
+
+        // Compare UID root
+        assert_eq!(original_config.uid_root.0, deserialized.uid_root.0);
+
+        // Compare boolean flags
+        assert_eq!(
+            original_config.remove_private_tags,
+            deserialized.remove_private_tags
+        );
+        assert_eq!(original_config.remove_curves, deserialized.remove_curves);
+        assert_eq!(
+            original_config.remove_overlays,
+            deserialized.remove_overlays
+        );
+
+        // Compare tag actions
+        let tags_to_check = [
+            Tag(0x0010, 0x0010), // Patient Name
+            Tag(0x0010, 0x0020), // Patient ID
+            Tag(0x0008, 0x0050), // Accession Number
+        ];
+
+        for tag in &tags_to_check {
+            let original_action = original_config.tag_actions.get(tag);
+            let deserialized_action = deserialized.tag_actions.get(tag);
+
+            assert_eq!(
+                original_action, deserialized_action,
+                "Action for tag ({}) didn't roundtrip correctly",
+                tag,
+            );
+        }
+    }
+
+    #[test]
+    fn test_empty_tag_actions() {
+        // Create a config with empty tag actions
+        let empty_map = TagActionMap::new();
+        let config = Config {
+            uid_root: UidRoot("1.2.826.0.1.3680043.10.188".to_string()),
+            tag_actions: empty_map,
+            ..Default::default()
+        };
+
+        // Serialize and deserialize
+        let json = serde_json::to_string(&config).unwrap();
+        let deserialized: Config = serde_json::from_str(&json).unwrap();
+
+        assert_eq!(deserialized.uid_root.0, "1.2.826.0.1.3680043.10.188");
+        assert!(!deserialized.remove_private_tags);
+        assert!(!deserialized.remove_curves);
+        assert!(!deserialized.remove_overlays);
+        assert_eq!(deserialized.tag_actions.len(), 0);
+    }
+
+    #[test]
+    fn test_partial_config_deserialization() {
+        let json = r#"{
+            "uid_root": "1.2.826.0.1.3680043.10.188",
+            "tag_actions": {
+                "(0010,0010)": {"action": "empty"}
+            }
+        }"#;
+
+        let result: Result<Config, _> = serde_json::from_str(json);
+        let config = result.unwrap();
+
+        assert_eq!(config.uid_root.0, "1.2.826.0.1.3680043.10.188");
+        assert!(!config.remove_private_tags);
+        assert!(!config.remove_curves);
+        assert!(!config.remove_overlays);
+        assert_eq!(config.tag_actions.len(), 1);
+    }
+
+    #[test]
+    fn test_empty_uid_root_and_tag_actions() {
+        let json = r#"{
+            "uid_root": "",
+            "remove_private_tags": true,
+            "remove_curves": false,
+            "remove_overlays": true,
+            "tag_actions": {}
+        }"#;
+
+        let result: Result<Config, _> = serde_json::from_str(json);
+        let config = result.unwrap();
+
+        assert_eq!(config.uid_root.0, "");
+        assert!(config.remove_private_tags);
+        assert!(!config.remove_curves);
+        assert!(config.remove_overlays);
+        assert_eq!(config.tag_actions.len(), 0);
+    }
+
+    #[test]
+    fn test_missing_uid_root() {
+        let json = r#"{
+            "remove_private_tags": true,
+            "remove_curves": false,
+            "remove_overlays": true,
+            "tag_actions": {}
+        }"#;
+
+        let result: Result<Config, _> = serde_json::from_str(json);
+        let config = result.unwrap();
+
+        assert_eq!(config.uid_root.0, "");
+        assert!(config.remove_private_tags);
+        assert!(!config.remove_curves);
+        assert!(config.remove_overlays);
+        assert_eq!(config.tag_actions.len(), 0);
+    }
+
+    #[test]
+    fn test_default_remove_fields() {
+        let json = r#"{
+            "uid_root": "9999",
+            "tag_actions": {}
+        }"#;
+
+        let result: Result<Config, _> = serde_json::from_str(json);
+        let config = result.unwrap();
+
+        assert_eq!(config.uid_root.0, "9999");
+        assert!(!config.remove_private_tags);
+        assert!(!config.remove_curves);
+        assert!(!config.remove_overlays);
+        assert_eq!(config.tag_actions.len(), 0);
+    }
+
+    #[test]
+    fn test_only_empty_tag_actions() {
+        let json = r#"{
+            "tag_actions": {}
+        }"#;
+
+        let result: Result<Config, _> = serde_json::from_str(json);
+        let config = result.unwrap();
+
+        assert_eq!(config.uid_root.0, "");
+        assert!(!config.remove_private_tags);
+        assert!(!config.remove_curves);
+        assert!(!config.remove_overlays);
+        assert_eq!(config.tag_actions.len(), 0);
+    }
+
+    #[test]
+    fn test_malformed_config() {
+        // Invalid tag format
+        let json = r#"{
+            "uid_root": "1.2.826.0.1.3680043.10.188",
+            "remove_private_tags": true,
+            "remove_curves": false,
+            "remove_overlays": true,
+            "tag_actions": {
+                "invalid_tag_format": {"action": "empty"}
+            }
+        }"#;
+
+        let result: Result<Config, _> = serde_json::from_str(json);
+        assert!(result.is_err());
+
+        // Invalid action
+        let json = r#"{
+            "uid_root": "1.2.826.0.1.3680043.10.188",
+            "remove_private_tags": true,
+            "remove_curves": false,
+            "remove_overlays": true,
+            "tag_actions": {
+                "(0010,0010)": {"action": "invalid_action"}
+            },
+        }"#;
+
+        let result: Result<Config, _> = serde_json::from_str(json);
+        assert!(result.is_err());
     }
 }

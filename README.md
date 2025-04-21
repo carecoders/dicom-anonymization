@@ -64,10 +64,10 @@ use dicom_anonymization::processor::DataElementProcessor;
 let config = ConfigBuilder::default()
     .uid_root("1.2.840.123".parse().unwrap())
     .remove_private_tags(true)
-    .tag_action(tags::PATIENT_NAME, Action::Empty)
-    .tag_action(tags::PATIENT_ID, Action::Hash(HashLength::new(16).ok()))
-    .tag_action(tags::ACCESSION_NUMBER, Action::Hash(HashLength::new(16).ok()))
-    .tag_action(tags::STUDY_DATE, Action::HashDate(tags::PATIENT_ID))
+    .tag_action(tags::PATIENT_NAME, Action::Replace { value: "John Doe".into() })
+    .tag_action(tags::PATIENT_ID, Action::Hash { length: Some(16) })
+    .tag_action(tags::ACCESSION_NUMBER, Action::Hash { length: Some(16) })
+    .tag_action(tags::STUDY_DATE, Action::HashDate { other_tag: tags::PATIENT_ID })
     .tag_action(tags::SERIES_DATE, Action::Remove)
     .tag_action(tags::STUDY_INSTANCE_UID, Action::HashUID)
     .tag_action(tags::SERIES_INSTANCE_UID, Action::HashUID)
@@ -94,7 +94,7 @@ use dicom_anonymization::config::ConfigBuilder;
 let config_from_scratch = ConfigBuilder::new()
     .uid_root("1.2.840.123".parse().unwrap())
     .remove_private_tags(false)
-    .tag_action(tags::PATIENT_NAME, Action::Replace("John Doe".into()))
+    .tag_action(tags::PATIENT_NAME, Action::Replace { value: "John Doe".into() })
     // ...more config rules...
     .build();
 ```

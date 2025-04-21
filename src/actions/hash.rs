@@ -12,7 +12,7 @@ use crate::config::{Config, ConfigError};
 use crate::dicom;
 use crate::hasher::HashFn;
 
-const HASH_LENGTH_MINIMUM: usize = 8;
+pub const HASH_LENGTH_MINIMUM: usize = 8;
 
 #[derive(Error, Debug, Clone, Eq, PartialEq, Ord, PartialOrd)]
 #[error("{0}")]
