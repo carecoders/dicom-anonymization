@@ -30,11 +30,11 @@ mod tests {
 
     use dicom_core::value::Value;
     use dicom_core::VR;
-    use dicom_dictionary_std::tags;
     use dicom_object::mem::InMemElement;
     use dicom_object::FileDicomObject;
 
     use crate::config::Config;
+    use crate::tags;
     use crate::test_utils::make_file_meta;
 
     #[test]
