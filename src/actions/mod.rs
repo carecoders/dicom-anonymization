@@ -12,7 +12,7 @@ mod utils;
 use crate::actions::errors::ActionError;
 use crate::actions::hash::HASH_LENGTH_MINIMUM;
 use crate::config::Config;
-use dicom_core::Tag;
+use crate::Tag;
 use dicom_object::mem::InMemElement;
 use dicom_object::DefaultDicomObject;
 use empty::Empty;
@@ -77,7 +77,7 @@ impl<'de> Deserialize<'de> for TagString {
 
 mod tag_string_wrapper {
     use super::TagString;
-    use dicom_core::Tag;
+    use crate::Tag;
     use serde::{Deserialize, Deserializer, Serialize, Serializer};
 
     pub fn serialize<S>(tag: &Tag, serializer: S) -> Result<S::Ok, S::Error>

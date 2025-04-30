@@ -42,6 +42,7 @@ use std::io::{Read, Write};
 
 use crate::config::ConfigBuilder;
 use crate::processor::{DefaultProcessor, Error as ProcessingError};
+pub use dicom_core::Tag;
 pub use dicom_dictionary_std::tags;
 use dicom_object::{DefaultDicomObject, FileDicomObject, OpenFileOptions, ReadError, WriteError};
 use processor::Processor;

@@ -1,8 +1,9 @@
 use crate::actions::Action;
 use crate::actions::Action::HashUID;
 use crate::hasher::{blake3_hash_fn, HashFn};
+use crate::tags;
 use dicom_core::{DataDictionary, Tag};
-use dicom_dictionary_std::{tags, StandardDataDictionary};
+use dicom_dictionary_std::StandardDataDictionary;
 use garde::Validate;
 use regex::Regex;
 use serde::ser::SerializeMap;
@@ -457,7 +458,7 @@ impl ConfigBuilder {
     /// use dicom_anonymization::actions::Action;
     /// use dicom_anonymization::config::ConfigBuilder;
     /// use dicom_anonymization::tags;
-    /// use dicom_core::Tag;
+    /// use dicom_anonymization::Tag;
     ///
     /// let mut config_builder = ConfigBuilder::new();
     ///
@@ -590,8 +591,8 @@ impl ConfigBuilder {
     /// ```
     /// use dicom_anonymization::config::ConfigBuilder;
     /// use dicom_anonymization::actions::Action;
-    /// use dicom_core::Tag;
-    /// use dicom_dictionary_std::tags;
+    /// use dicom_anonymization::tags;
+    /// use dicom_anonymization::Tag;
     ///
     /// let config = ConfigBuilder::new()
     ///     .uid_root("1.2.840.123".parse().unwrap())
