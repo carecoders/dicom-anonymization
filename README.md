@@ -56,7 +56,7 @@ result.write(output_file)?;
 use std::fs::File;
 use dicom_dictionary_std::tags;
 use dicom_anonymization::Anonymizer;
-use dicom_anonymization::actions::{Action, HashLength};
+use dicom_anonymization::actions::Action;
 use dicom_anonymization::config::ConfigBuilder;
 use dicom_anonymization::processor::DataElementProcessor;
 

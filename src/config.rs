@@ -455,7 +455,6 @@ impl ConfigBuilder {
     ///
     /// ```
     /// use dicom_anonymization::actions::Action;
-    /// use dicom_anonymization::actions::hash::{Hash, HashLength};
     /// use dicom_anonymization::config::ConfigBuilder;
     /// use dicom_core::Tag;
     /// use dicom_dictionary_std::tags;
