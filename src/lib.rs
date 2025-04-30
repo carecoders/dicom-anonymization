@@ -241,13 +241,14 @@ mod tests {
 
     use crate::tags;
     use dicom_core::value::Value;
-    use dicom_core::{PrimitiveValue, Tag, VR};
+    use dicom_core::{PrimitiveValue, VR};
     use dicom_object::mem::InMemElement;
     use dicom_object::InMemDicomObject;
 
     use crate::config::ConfigBuilder;
     use crate::processor::DefaultProcessor;
     use crate::test_utils::make_file_meta;
+    use crate::Tag;
 
     #[test]
     fn test_anonymizer() {
