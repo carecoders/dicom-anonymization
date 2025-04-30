@@ -54,7 +54,7 @@ result.write(output_file)?;
 
 ```rust
 use std::fs::File;
-use dicom_dictionary_std::tags;
+use dicom_anonymization::tags;
 use dicom_anonymization::Anonymizer;
 use dicom_anonymization::actions::Action;
 use dicom_anonymization::config::ConfigBuilder;
@@ -87,7 +87,7 @@ result.write(&mut output)?;
 #### Building configuration from scratch
 
 ```rust
-use dicom_dictionary_std::tags;
+use dicom_anonymization::tags;
 use dicom_anonymization::actions::Action;
 use dicom_anonymization::config::ConfigBuilder;
 

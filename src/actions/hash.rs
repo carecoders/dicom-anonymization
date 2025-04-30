@@ -131,10 +131,10 @@ mod tests {
     use dicom_core::header::HasLength;
     use dicom_core::value::Value;
     use dicom_core::{header, VR};
-    use dicom_dictionary_std::tags;
     use dicom_object::FileDicomObject;
 
     use crate::hasher::blake3_hash_fn;
+    use crate::tags;
     use crate::test_utils::make_file_meta;
 
     #[test]

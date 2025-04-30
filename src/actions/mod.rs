@@ -156,7 +156,7 @@ impl Action {
 #[cfg(test)]
 mod tests {
     use super::Action;
-    use dicom_dictionary_std::tags;
+    use crate::tags;
     use serde_json;
 
     #[test]

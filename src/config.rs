@@ -383,7 +383,7 @@ impl Config {
 /// ```
 /// use dicom_anonymization::config::ConfigBuilder;
 /// use dicom_anonymization::actions::Action;
-/// use dicom_dictionary_std::tags;
+/// use dicom_anonymization::tags;
 ///
 /// let config = ConfigBuilder::new()
 ///     .uid_root("1.2.840.123".parse().unwrap())
@@ -456,8 +456,8 @@ impl ConfigBuilder {
     /// ```
     /// use dicom_anonymization::actions::Action;
     /// use dicom_anonymization::config::ConfigBuilder;
+    /// use dicom_anonymization::tags;
     /// use dicom_core::Tag;
-    /// use dicom_dictionary_std::tags;
     ///
     /// let mut config_builder = ConfigBuilder::new();
     ///

@@ -42,7 +42,7 @@ use std::io::{Read, Write};
 
 use crate::config::ConfigBuilder;
 use crate::processor::{DefaultProcessor, Error as ProcessingError};
-use dicom_dictionary_std::tags;
+pub use dicom_dictionary_std::tags;
 use dicom_object::{DefaultDicomObject, FileDicomObject, OpenFileOptions, ReadError, WriteError};
 use processor::Processor;
 use thiserror::Error;
@@ -238,9 +238,9 @@ impl Default for Anonymizer {
 mod tests {
     use super::*;
 
+    use crate::tags;
     use dicom_core::value::Value;
     use dicom_core::{PrimitiveValue, Tag, VR};
-    use dicom_dictionary_std::tags;
     use dicom_object::mem::InMemElement;
     use dicom_object::InMemDicomObject;
 

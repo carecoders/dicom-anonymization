@@ -13,9 +13,8 @@ pub(crate) fn truncate_to(n: usize, s: &str) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
-
+    use crate::tags;
     use dicom_core::VR;
-    use dicom_dictionary_std::tags;
 
     #[test]
     fn test_is_empty_element() {
