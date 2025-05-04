@@ -8,7 +8,7 @@ test:
 
 # cargo doc
 docs:
-    cargo doc --no-deps
+    cargo doc --no-deps --lib --package dicom-anonymization
 
 # cargo clippy --all-targets --all-features
 clippy:

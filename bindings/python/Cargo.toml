@@ -1,0 +1,16 @@
+[package]
+name = "dcmanon"
+version = "0.2.0"
+edition = "2021"
+
+[lib]
+name = "dcmanon"
+crate-type = ["cdylib"]
+
+[dependencies]
+dicom-anonymization = { package = "dicom-anonymization", path = "../../dicom-anonymization" }
+pyo3 = { version = "0.24", features = ["extension-module"] }
+
+[features]
+extension-module = ["pyo3/extension-module"]
+default = ["extension-module"]
