@@ -1,5 +1,8 @@
 [workspace]
 changelog_update = true
+
+[[package]]
+name = "dcmanon"
 release = false
 
 [[package]]
