@@ -1,3 +1,3 @@
 # Bindings for WebAssembly
 
-To be developed.
+To be created.
