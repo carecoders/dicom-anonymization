@@ -1,0 +1,7 @@
+[[package]]
+name = "bindings/python"
+release = false
+
+[[package]]
+name = "dicom-anonymization"
+changelog_path = "../CHANGELOG.md"
