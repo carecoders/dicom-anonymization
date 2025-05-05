@@ -1,5 +1,6 @@
 [[package]]
 name = "dcmanon"
+publish = false
 
 [[package]]
 name = "dicom-anonymization"
