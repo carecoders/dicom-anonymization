@@ -80,7 +80,7 @@ let anonymizer = Anonymizer::new(processor);
 let file = File::open("tests/data/test.dcm")?;
 let result = anonymizer.anonymize(file)?;
 
-let mut output = Vec::new();
+let mut output = Vec::<u8>::new();
 result.write(&mut output)?;
 ```
 

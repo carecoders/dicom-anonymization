@@ -1,0 +1,55 @@
+[package]
+name = "dicom-anonymization"
+version = "0.2.0"
+authors = ["Sander Smits <gh.scowling150@passmail.net>"]
+edition = "2021"
+description = "DICOM anonymization"
+repository = "https://github.com/carecoders/dicom-anonymization"
+readme = "../README.md"
+keywords = ["dicom", "dicom-files", "anonymization"]
+license = "MIT OR Apache-2.0"
+
+[lib]
+name = "dicom_anonymization"
+path = "src/lib.rs"
+
+[[bin]]
+name = "dcmanon"
+path = "src/bin/main.rs"
+
+[[bin]]
+name = "cfgdump"
+path = "src/bin/cfgdump.rs"
+
+[dependencies]
+dicom-core = "0.8"
+dicom-dictionary-std = { version = "0.8", features = [
+    "application-context-name",
+    "application-hosting-model",
+    "coding-scheme",
+    "dicom-uid-as-coding-scheme",
+    "ldap-oid",
+    "mapping-resource",
+    "meta-sop-class",
+    "service-class",
+    "sop-class",
+    "synchronization-frame-of-reference",
+    "transfer-syntax",
+    "well-known-sop-instance",
+] }
+dicom-object = { version = "0.8", features = ["inventory-registry"] }
+anyhow = "1.0"
+blake3 = "1.5"
+chrono = "0.4"
+clap = { version = "4.5", features = ["derive", "env"] }
+env_logger = "0.11"
+garde = { version = "0.22.0", features = ["full"] }
+log = "0.4"
+num-bigint = "0.4"
+num-traits = "0.2"
+rayon = "1.10"
+regex = "1.10"
+serde = { version = "1.0", features = ["derive", "serde_derive"] }
+serde_json = { version = "1.0", features = ["preserve_order"] }
+thiserror = "2.0"
+walkdir = "2.5"
