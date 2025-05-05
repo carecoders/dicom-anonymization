@@ -5,6 +5,7 @@ release = false
 [[package]]
 name = "dicom-anonymization"
 changelog_path = "../CHANGELOG.md"
+changelog_include = ["dcmanon"]
 changelog_update = true
 publish = true
 release = true
