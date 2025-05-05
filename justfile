@@ -21,3 +21,11 @@ deny:
 # cargo +nightly udeps
 udeps:
     cargo +nightly udeps
+
+[working-directory: 'bindings/python']
+build-python:
+    maturin develop
+
+[working-directory: 'bindings/python']
+build-python-release:
+    maturin build
