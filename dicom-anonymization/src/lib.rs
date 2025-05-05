@@ -116,8 +116,8 @@ impl AnonymizationResult {
     /// let file = File::open("tests/data/test.dcm").unwrap();
     /// let result = anonymizer.anonymize(file).unwrap();
     ///
-    /// // output can be a file or anything else that implements the `Write` trait
-    /// let mut output = Vec::new();
+    /// // output can be a file or anything else that implements the `Write` trait, like this one:
+    /// let mut output = Vec::<u8>::new();
     /// result.write(&mut output).unwrap();
     /// ```
     pub fn write<W: Write>(&self, to: W) -> Result<()> {
