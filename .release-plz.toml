@@ -1,4 +1,5 @@
 [workspace]
+changelog_update = true
 release = false
 
 [[package]]
