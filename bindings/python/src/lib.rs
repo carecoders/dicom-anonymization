@@ -49,7 +49,7 @@ fn anonymize(fp: FilePathOrFileLike) -> PyResult<Vec<u8>> {
 
 /// A Python module implemented in Rust.
 #[pymodule]
-fn dcmanon(m: &Bound<'_, PyModule>) -> PyResult<()> {
+fn dcmanon(_py: Python<'_>, m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(anonymize, m)?)?;
 
     Ok(())
