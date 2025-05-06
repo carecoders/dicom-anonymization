@@ -3,6 +3,7 @@ name: Release-plz
 permissions:
   pull-requests: write
   contents: write
+  actions: write
 
 on:
   push:
@@ -28,6 +29,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
+      - name: Trigger Python release
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          event-type: trigger-python-release
+          client-payload: '{"ref": "${{ github.ref }}"}'
 
   # Create a PR with the new versions and changelog, preparing the next release.
   release-plz-pr:
