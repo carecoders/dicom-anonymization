@@ -1,11 +1,69 @@
 use dicom_anonymization::config::{ConfigBuilder, UidRoot};
 use dicom_anonymization::processor::DefaultProcessor;
 use dicom_anonymization::Anonymizer as RustAnonymizer;
-use pyo3::exceptions::PyException;
+use pyo3::exceptions::PyIOError;
 use pyo3::prelude::*;
 use pyo3_file::PyFileLikeObject;
 use std::fs::File;
 use std::io::Read;
+
+// Custom exception types
+#[pyclass]
+struct DicomError {
+    message: String,
+}
+
+#[pymethods]
+impl DicomError {
+    #[new]
+    fn new(message: &str) -> Self {
+        DicomError {
+            message: message.to_string(),
+        }
+    }
+
+    fn __str__(&self) -> PyResult<String> {
+        Ok(self.message.clone())
+    }
+}
+
+#[pyclass]
+struct InvalidUidError {
+    message: String,
+}
+
+#[pymethods]
+impl InvalidUidError {
+    #[new]
+    fn new(message: &str) -> Self {
+        InvalidUidError {
+            message: message.to_string(),
+        }
+    }
+
+    fn __str__(&self) -> PyResult<String> {
+        Ok(self.message.clone())
+    }
+}
+
+#[pyclass]
+struct AnonymizationError {
+    message: String,
+}
+
+#[pymethods]
+impl AnonymizationError {
+    #[new]
+    fn new(message: &str) -> Self {
+        AnonymizationError {
+            message: message.to_string(),
+        }
+    }
+
+    fn __str__(&self) -> PyResult<String> {
+        Ok(self.message.clone())
+    }
+}
 
 /// Represents either a `FilePath` or a `FileLike` object
 #[derive(Debug)]
@@ -38,12 +96,13 @@ impl Anonymizer {
     /// Create a new Anonymizer instance
     #[new]
     #[pyo3(signature = (uid_root="9999", remove_private_tags=false))]
-    fn new(uid_root: Option<&str>, remove_private_tags: Option<bool>) -> Self {
+    fn new(uid_root: Option<&str>, remove_private_tags: Option<bool>) -> PyResult<Self> {
         let mut builder = ConfigBuilder::default();
 
         if let Some(uid_root) = uid_root {
-            // TODO: handle `Err` instead of unwrap
-            let uid_root = UidRoot::new(&uid_root).unwrap();
+            let uid_root = UidRoot::new(&uid_root).map_err(|e| {
+                PyErr::new::<InvalidUidError, _>(InvalidUidError::new(&e.to_string()))
+            })?;
             builder = builder.uid_root(uid_root);
         }
 
@@ -56,25 +115,27 @@ impl Anonymizer {
 
         let anonymizer = RustAnonymizer::new(processor);
 
-        Anonymizer { inner: anonymizer }
+        Ok(Anonymizer { inner: anonymizer })
     }
 
     /// Anonymize a DICOM object and return the anonymized DICOM object as bytes.
     fn anonymize(&self, fp: FilePathOrFileLike) -> PyResult<Vec<u8>> {
-        let file: Box<dyn Read> = match fp {
-            FilePathOrFileLike::FilePath(s) => Box::new(File::open(s)?),
-            FilePathOrFileLike::FileLike(f) => Box::new(f),
-        };
+        let file: Box<dyn Read> =
+            match fp {
+                FilePathOrFileLike::FilePath(s) => Box::new(File::open(s).map_err(|e| {
+                    PyErr::new::<PyIOError, _>(format!("Failed to open file: {}", e))
+                })?),
+                FilePathOrFileLike::FileLike(f) => Box::new(f),
+            };
 
-        let result = self
-            .inner
-            .anonymize(file)
-            .map_err(|e| PyErr::new::<PyException, _>(e.to_string()))?;
+        let result = self.inner.anonymize(file).map_err(|e| {
+            PyErr::new::<AnonymizationError, _>(AnonymizationError::new(&e.to_string()))
+        })?;
 
         let mut output = Vec::<u8>::new();
         result
             .write(&mut output)
-            .map_err(|e| PyErr::new::<PyException, _>(e.to_string()))?;
+            .map_err(|e| PyErr::new::<PyIOError, _>(e.to_string()))?;
 
         Ok(output)
     }
@@ -82,7 +143,23 @@ impl Anonymizer {
 
 /// A Python module implemented in Rust.
 #[pymodule]
-fn dcmanon(_py: Python<'_>, m: &Bound<'_, PyModule>) -> PyResult<()> {
+fn dcmanon(py: Python<'_>, m: &Bound<'_, PyModule>) -> PyResult<()> {
+    // Register custom exception types
+    let dicom_error = py.get_type::<DicomError>();
+    dicom_error.setattr("__doc__", "Base exception for DICOM-related errors")?;
+    m.add("DicomError", dicom_error)?;
+
+    let invalid_uid_error = py.get_type::<InvalidUidError>();
+    invalid_uid_error.setattr("__doc__", "Exception raised for invalid UIDs")?;
+    // invalid_uid_error.setattr("__base__", dicom_error)?;
+    m.add("InvalidUidError", invalid_uid_error)?;
+
+    let anonymization_error = py.get_type::<AnonymizationError>();
+    anonymization_error.setattr("__doc__", "Exception raised during DICOM anonymization")?;
+    // anonymization_error.setattr("__base__", dicom_error)?;
+    m.add("AnonymizationError", anonymization_error)?;
+
+    // Add classes
     m.add_class::<Anonymizer>()?;
 
     Ok(())
