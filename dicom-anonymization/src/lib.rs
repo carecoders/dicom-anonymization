@@ -132,13 +132,13 @@ impl AnonymizationResult {
 /// processor-defined transformations to DICOM data elements. The processor must implement both the `Processor`
 /// trait and be `Sync`.
 pub struct Anonymizer {
-    processor: Box<dyn Processor + Sync>,
+    processor: Box<dyn Processor + Send + Sync>,
 }
 
 impl Anonymizer {
     pub fn new<T>(processor: T) -> Self
     where
-        T: Processor + Sync + 'static,
+        T: Processor + Send + Sync + 'static,
     {
         Self {
             processor: Box::new(processor),
