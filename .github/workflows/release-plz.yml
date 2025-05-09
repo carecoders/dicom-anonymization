@@ -26,6 +26,7 @@ jobs:
           app-id: ${{ secrets.APP_ID }}
           # GitHub App private key secret name
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          repository: ${{ github.repository }}
           owner: ${{ github.repository_owner }}
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -60,6 +61,7 @@ jobs:
           app-id: ${{ secrets.APP_ID }}
           # GitHub App private key secret name
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          repository: ${{ github.repository }}
           owner: ${{ github.repository_owner }}
       - name: Checkout repository
         uses: actions/checkout@v4
