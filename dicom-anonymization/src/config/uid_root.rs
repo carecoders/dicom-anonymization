@@ -93,3 +93,61 @@ impl AsRef<str> for UidRoot {
         &self.0
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_uid_root_validation() {
+        // Valid cases
+        assert!(UidRoot::new("").is_ok());
+        assert!(UidRoot::new("1").is_ok());
+        assert!(UidRoot::new("1.2.3").is_ok());
+        assert!(UidRoot::new("123.456.").is_ok());
+        assert!(UidRoot::new(&"1".repeat(32)).is_ok());
+
+        // Invalid cases
+        assert!(UidRoot::new("0123").is_err()); // starts with 0
+        assert!(UidRoot::new("a.1.2").is_err()); // contains letter
+        assert!(UidRoot::new("1.2.3-4").is_err()); // contains invalid character
+        assert!(UidRoot::new(&"1".repeat(33)).is_err()); // too long
+    }
+
+    #[test]
+    fn test_uid_root_from_str() {
+        // Valid cases
+        let uid_root: Result<UidRoot, _> = "1.2.736.120".parse();
+        assert!(uid_root.is_ok());
+
+        let uid_root: Result<UidRoot, _> = "".parse();
+        assert!(uid_root.is_ok());
+
+        // Invalid cases
+        let uid_root: Result<UidRoot, _> = "0.1.2".parse();
+        assert!(uid_root.is_err());
+
+        let uid_root: Result<UidRoot, _> = "invalid".parse();
+        assert!(uid_root.is_err());
+    }
+
+    #[test]
+    fn test_uid_root_as_ref() {
+        // Test empty string
+        let uid_root = UidRoot::new("").unwrap();
+        assert_eq!(uid_root.as_ref(), "");
+
+        // Test normal UID root
+        let uid_root = UidRoot::new("1.2.3").unwrap();
+        assert_eq!(uid_root.as_ref(), "1.2.3");
+
+        // Test UID root with trailing dot
+        let uid_root = UidRoot::new("1.2.3.").unwrap();
+        assert_eq!(uid_root.as_ref(), "1.2.3.");
+
+        // Test using as_ref in a function that expects &str
+        fn takes_str(_s: &str) {}
+        let uid_root = UidRoot::new("1.2.3").unwrap();
+        takes_str(uid_root.as_ref());
+    }
+}
