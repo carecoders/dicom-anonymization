@@ -377,6 +377,9 @@ impl Config {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    use crate::tags;
+
     use builder::ConfigBuilder;
 
     #[test]
