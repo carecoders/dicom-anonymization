@@ -46,6 +46,8 @@ struct Anonymizer {
 impl Anonymizer {
     /// Create a new Anonymizer instance
     #[new]
+    // signature ideas:
+    // (profile: str | None = "default", config: dict | None = {...})
     #[pyo3(signature = (uid_root="9999", remove_private_tags=false))]
     fn new(uid_root: Option<&str>, remove_private_tags: Option<bool>) -> PyResult<Self> {
         let mut builder = ConfigBuilder::default();
