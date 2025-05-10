@@ -2,7 +2,7 @@ use dicom_anonymization::config::{ConfigBuilder, UidRoot};
 use dicom_anonymization::processor::DefaultProcessor;
 use dicom_anonymization::Anonymizer as RustAnonymizer;
 use pyo3::create_exception;
-use pyo3::exceptions::{PyBaseException, PyIOError, PyValueError};
+use pyo3::exceptions::{PyException, PyIOError, PyValueError};
 use pyo3::prelude::*;
 use pyo3_file::PyFileLikeObject;
 use std::fs::File;
@@ -12,7 +12,7 @@ use std::io::Read;
 create_exception!(
     dcmanon,
     AnonymizationError,
-    PyBaseException,
+    PyException,
     "Exception raised during DICOM anonymization"
 );
 
