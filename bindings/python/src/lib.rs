@@ -8,7 +8,7 @@ use pyo3_file::PyFileLikeObject;
 use std::fs::File;
 use std::io::Read;
 
-// Create a proper Python exception that derives from BaseException
+// Create a proper Python exception that derives from Exception
 create_exception!(
     dcmanon,
     AnonymizationError,
