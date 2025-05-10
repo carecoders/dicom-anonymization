@@ -58,7 +58,7 @@ use dicom_anonymization::tags;
 use dicom_anonymization::Anonymizer;
 use dicom_anonymization::actions::Action;
 use dicom_anonymization::config::ConfigBuilder;
-use dicom_anonymization::processor::DataElementProcessor;
+use dicom_anonymization::processor::DefaultProcessor;
 
 // default configuration can be customized/overridden
 let config = ConfigBuilder::default()
@@ -74,7 +74,7 @@ let config = ConfigBuilder::default()
     .tag_action(tags::SOP_INSTANCE_UID, Action::HashUID)
     .build();
 
-let processor = DataElementProcessor::new(config);
+let processor = DefaultProcessor::new(config);
 let anonymizer = Anonymizer::new(processor);
 
 let file = File::open("tests/data/test.dcm")?;
