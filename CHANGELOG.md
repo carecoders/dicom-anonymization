@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.2](https://github.com/carecoders/dicom-anonymization/compare/dicom-anonymization-v0.2.1...dicom-anonymization-v0.2.2) - 2025-05-10
+
+### Other
+
+- Add Python Anonymizer class ([#20](https://github.com/carecoders/dicom-anonymization/pull/20))
+
 ## [0.2.1](https://github.com/carecoders/dicom-anonymization/compare/v0.2.0...v0.2.1) - 2025-05-05
 
 ### Added
