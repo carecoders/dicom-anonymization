@@ -1,7 +1,7 @@
 use dicom_anonymization::config::{ConfigBuilder, UidRoot};
 use dicom_anonymization::processor::DefaultProcessor;
 use dicom_anonymization::Anonymizer as RustAnonymizer;
-use pyo3::exceptions::PyIOError;
+use pyo3::exceptions::{PyIOError, PyValueError};
 use pyo3::prelude::*;
 use pyo3_file::PyFileLikeObject;
 use std::fs::File;
@@ -18,25 +18,6 @@ impl DicomError {
     #[new]
     fn new(message: &str) -> Self {
         DicomError {
-            message: message.to_string(),
-        }
-    }
-
-    fn __str__(&self) -> PyResult<String> {
-        Ok(self.message.clone())
-    }
-}
-
-#[pyclass]
-struct InvalidUidError {
-    message: String,
-}
-
-#[pymethods]
-impl InvalidUidError {
-    #[new]
-    fn new(message: &str) -> Self {
-        InvalidUidError {
             message: message.to_string(),
         }
     }
@@ -100,9 +81,8 @@ impl Anonymizer {
         let mut builder = ConfigBuilder::default();
 
         if let Some(uid_root) = uid_root {
-            let uid_root = UidRoot::new(&uid_root).map_err(|e| {
-                PyErr::new::<InvalidUidError, _>(InvalidUidError::new(&e.to_string()))
-            })?;
+            let uid_root = UidRoot::new(&uid_root)
+                .map_err(|e| PyErr::new::<PyValueError, _>(e.to_string()))?;
             builder = builder.uid_root(uid_root);
         }
 
@@ -148,11 +128,6 @@ fn dcmanon(py: Python<'_>, m: &Bound<'_, PyModule>) -> PyResult<()> {
     let dicom_error = py.get_type::<DicomError>();
     dicom_error.setattr("__doc__", "Base exception for DICOM-related errors")?;
     m.add("DicomError", dicom_error)?;
-
-    let invalid_uid_error = py.get_type::<InvalidUidError>();
-    invalid_uid_error.setattr("__doc__", "Exception raised for invalid UIDs")?;
-    // invalid_uid_error.setattr("__base__", dicom_error)?;
-    m.add("InvalidUidError", invalid_uid_error)?;
 
     let anonymization_error = py.get_type::<AnonymizationError>();
     anonymization_error.setattr("__doc__", "Exception raised during DICOM anonymization")?;
