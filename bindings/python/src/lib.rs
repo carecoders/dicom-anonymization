@@ -1,50 +1,20 @@
 use dicom_anonymization::config::{ConfigBuilder, UidRoot};
 use dicom_anonymization::processor::DefaultProcessor;
 use dicom_anonymization::Anonymizer as RustAnonymizer;
-use pyo3::exceptions::{PyIOError, PyValueError};
+use pyo3::create_exception;
+use pyo3::exceptions::{PyBaseException, PyIOError, PyValueError};
 use pyo3::prelude::*;
 use pyo3_file::PyFileLikeObject;
 use std::fs::File;
 use std::io::Read;
 
-// Custom exception types
-#[pyclass]
-struct DicomError {
-    message: String,
-}
-
-#[pymethods]
-impl DicomError {
-    #[new]
-    fn new(message: &str) -> Self {
-        DicomError {
-            message: message.to_string(),
-        }
-    }
-
-    fn __str__(&self) -> PyResult<String> {
-        Ok(self.message.clone())
-    }
-}
-
-#[pyclass]
-struct AnonymizationError {
-    message: String,
-}
-
-#[pymethods]
-impl AnonymizationError {
-    #[new]
-    fn new(message: &str) -> Self {
-        AnonymizationError {
-            message: message.to_string(),
-        }
-    }
-
-    fn __str__(&self) -> PyResult<String> {
-        Ok(self.message.clone())
-    }
-}
+// Create a proper Python exception that derives from BaseException
+create_exception!(
+    dcmanon,
+    AnonymizationError,
+    PyBaseException,
+    "Exception raised during DICOM anonymization"
+);
 
 /// Represents either a `FilePath` or a `FileLike` object
 #[derive(Debug)]
@@ -108,9 +78,10 @@ impl Anonymizer {
                 FilePathOrFileLike::FileLike(f) => Box::new(f),
             };
 
-        let result = self.inner.anonymize(file).map_err(|e| {
-            PyErr::new::<AnonymizationError, _>(AnonymizationError::new(&e.to_string()))
-        })?;
+        let result = self
+            .inner
+            .anonymize(file)
+            .map_err(|e| PyErr::new::<AnonymizationError, _>(e.to_string()))?;
 
         let mut output = Vec::<u8>::new();
         result
@@ -124,15 +95,8 @@ impl Anonymizer {
 /// A Python module implemented in Rust.
 #[pymodule]
 fn dcmanon(py: Python<'_>, m: &Bound<'_, PyModule>) -> PyResult<()> {
-    // Register custom exception types
-    let dicom_error = py.get_type::<DicomError>();
-    dicom_error.setattr("__doc__", "Base exception for DICOM-related errors")?;
-    m.add("DicomError", dicom_error)?;
-
-    let anonymization_error = py.get_type::<AnonymizationError>();
-    anonymization_error.setattr("__doc__", "Exception raised during DICOM anonymization")?;
-    // anonymization_error.setattr("__base__", dicom_error)?;
-    m.add("AnonymizationError", anonymization_error)?;
+    // Add the exception to the module
+    m.add("AnonymizationError", py.get_type::<AnonymizationError>())?;
 
     // Add classes
     m.add_class::<Anonymizer>()?;
