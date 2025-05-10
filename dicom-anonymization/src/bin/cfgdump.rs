@@ -1,4 +1,4 @@
-use dicom_anonymization::config::ConfigBuilder;
+use dicom_anonymization::config::builder::ConfigBuilder;
 use std::io;
 use std::io::Write;
 

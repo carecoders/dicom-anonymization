@@ -15,7 +15,7 @@
 //! ```
 //! use std::fs::File;
 //! use dicom_anonymization::Anonymizer;
-//! use dicom_anonymization::config::ConfigBuilder;
+//! use dicom_anonymization::config::builder::ConfigBuilder;
 //! use dicom_anonymization::processor::DefaultProcessor;
 //!
 //! let config_builder = ConfigBuilder::default();
@@ -40,7 +40,7 @@ mod test_utils;
 
 use std::io::{Read, Write};
 
-use crate::config::ConfigBuilder;
+use crate::config::builder::ConfigBuilder;
 use crate::processor::{DefaultProcessor, Error as ProcessingError};
 pub use dicom_core::Tag;
 pub use dicom_dictionary_std::tags;
@@ -245,7 +245,7 @@ mod tests {
     use dicom_object::mem::InMemElement;
     use dicom_object::InMemDicomObject;
 
-    use crate::config::ConfigBuilder;
+    use crate::config::builder::ConfigBuilder;
     use crate::processor::DefaultProcessor;
     use crate::test_utils::make_file_meta;
     use crate::Tag;

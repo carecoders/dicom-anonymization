@@ -7,7 +7,8 @@ use std::borrow::Cow;
 use crate::actions::errors::ActionError;
 use crate::actions::utils::{is_empty_element, truncate_to};
 use crate::actions::DataElementAction;
-use crate::config::{Config, UidRoot};
+use crate::config::uid_root::UidRoot;
+use crate::config::Config;
 use crate::hasher::HashFn;
 
 const UID_MAX_LENGTH: usize = 64;
@@ -71,7 +72,7 @@ mod tests {
     use dicom_object::FileDicomObject;
     use num_bigint::BigInt;
 
-    use crate::config::ConfigBuilder;
+    use crate::config::builder::ConfigBuilder;
     use crate::hasher::blake3_hash_fn;
     use crate::tags;
     use crate::test_utils::make_file_meta;
