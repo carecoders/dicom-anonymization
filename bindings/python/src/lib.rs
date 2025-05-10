@@ -1,5 +1,5 @@
 use dicom_anonymization::config::builder::ConfigBuilder;
-use dicom_anonymization::config::UidRoot;
+use dicom_anonymization::config::uid_root::UidRoot;
 use dicom_anonymization::processor::DefaultProcessor;
 use dicom_anonymization::Anonymizer as RustAnonymizer;
 use pyo3::create_exception;
@@ -54,8 +54,8 @@ impl Anonymizer {
         let mut builder = ConfigBuilder::default();
 
         if let Some(uid_root) = uid_root {
-            let uid_root = UidRoot::new(&uid_root)
-                .map_err(|e| PyErr::new::<PyValueError, _>(e.to_string()))?;
+            let uid_root =
+                UidRoot::new(uid_root).map_err(|e| PyErr::new::<PyValueError, _>(e.to_string()))?;
             builder = builder.uid_root(uid_root);
         }
 

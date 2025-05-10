@@ -1,5 +1,6 @@
 pub mod builder;
 pub mod profile;
+pub mod uid_root;
 
 use crate::actions::Action;
 use crate::hasher::{blake3_hash_fn, HashFn};
@@ -7,47 +8,13 @@ use crate::Tag;
 use dicom_core::DataDictionary;
 use dicom_dictionary_std::StandardDataDictionary;
 use garde::Validate;
-use regex::Regex;
 use serde::ser::SerializeMap;
 use serde::{Deserialize, Deserializer, Serialize, Serializer};
 use std::collections::BTreeMap;
-use std::str::FromStr;
-use std::sync::OnceLock;
 use thiserror::Error;
+use uid_root::{UidRoot, UidRootError};
 
-static UID_ROOT_REGEX: OnceLock<Regex> = OnceLock::new();
-
-const UID_ROOT_MAX_LENGTH: usize = 32;
-const UID_ROOT_DEFAULT_VALUE: &str = "9999";
 const DEIDENTIFIER: &str = "CARECODERS";
-
-/// The [`UidRoot`] struct represents a DICOM UID root that can be used as prefix for
-/// generating new UIDs during de-identification.
-///
-/// The [`UidRoot`] must follow DICOM UID format rules:
-/// - Start with a digit 1-9
-/// - Contain only numbers and dots
-///
-/// It also must not have more than 32 characters.
-///
-/// # Example
-///
-/// ```
-/// use dicom_anonymization::config::UidRoot;
-///
-/// // Create a valid UID root
-/// let uid_root = "1.2.840.123".parse::<UidRoot>().unwrap();
-///
-/// // Invalid UID root (not starting with 1-9)
-/// let invalid = "0.1.2".parse::<UidRoot>();
-/// assert!(invalid.is_err());
-/// ```
-#[derive(Serialize, Deserialize, Debug, Clone, Eq, PartialEq, Ord, PartialOrd)]
-pub struct UidRoot(String);
-
-#[derive(Error, Debug, Clone, Eq, PartialEq, Ord, PartialOrd)]
-#[error("{0} is not a valid UID root")]
-pub struct UidRootError(String);
 
 #[derive(Error, Debug, Clone, Eq, PartialEq, Ord, PartialOrd)]
 pub enum ConfigError {
@@ -61,64 +28,6 @@ pub enum ConfigError {
 impl From<UidRootError> for ConfigError {
     fn from(err: UidRootError) -> Self {
         ConfigError::InvalidUidRoot(err.0)
-    }
-}
-
-impl UidRoot {
-    pub fn new(uid_root: &str) -> Result<Self, UidRootError> {
-        let regex = UID_ROOT_REGEX.get_or_init(|| {
-            Regex::new(&format!(
-                r"^([1-9][0-9.]{{0,{}}})?$",
-                UID_ROOT_MAX_LENGTH - 1
-            ))
-            .unwrap()
-        });
-
-        if !regex.is_match(uid_root) {
-            return Err(UidRootError(format!(
-                "UID root must be empty or start with 1-9, contain only numbers and dots, and be no longer than {UID_ROOT_MAX_LENGTH} characters"
-            )));
-        }
-
-        Ok(Self(uid_root.into()))
-    }
-
-    /// Returns a string representation of the [`UidRoot`] suitable for use as a UID prefix.
-    ///
-    /// If the [`UidRoot`] is not empty and does not end with a dot, a dot is appended.
-    /// Whitespace is trimmed from both ends in all cases.
-    ///
-    /// # Returns
-    ///
-    /// A `String` containing the formatted UID prefix
-    pub fn as_prefix(&self) -> String {
-        if !self.0.is_empty() && !self.0.ends_with('.') {
-            format!("{}.", self.0.trim())
-        } else {
-            self.0.trim().into()
-        }
-    }
-}
-
-impl Default for UidRoot {
-    /// Default implementation for [`UidRoot`] that returns a [`UidRoot`] instance
-    /// initialized with an empty string.
-    fn default() -> Self {
-        Self("".into())
-    }
-}
-
-impl FromStr for UidRoot {
-    type Err = UidRootError;
-
-    fn from_str(s: &str) -> Result<Self, Self::Err> {
-        UidRoot::new(s)
-    }
-}
-
-impl AsRef<str> for UidRoot {
-    fn as_ref(&self) -> &str {
-        &self.0
     }
 }
 
@@ -381,6 +290,7 @@ mod tests {
     use crate::tags;
 
     use builder::ConfigBuilder;
+    use uid_root::UidRoot;
 
     #[test]
     fn test_config_builder() {

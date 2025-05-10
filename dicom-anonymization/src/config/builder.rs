@@ -1,6 +1,7 @@
 use crate::actions::Action;
 use crate::actions::Action::HashUID;
-use crate::config::{Config, UidRoot, DEIDENTIFIER, UID_ROOT_DEFAULT_VALUE};
+use crate::config::uid_root::{UidRoot, UID_ROOT_DEFAULT_VALUE};
+use crate::config::{Config, DEIDENTIFIER};
 use crate::hasher::HashFn;
 use crate::tags;
 use crate::Tag;

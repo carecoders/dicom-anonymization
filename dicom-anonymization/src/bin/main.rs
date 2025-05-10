@@ -2,7 +2,7 @@ use anyhow::{bail, Context, Result};
 use clap::builder::TypedValueParser;
 use clap::Parser;
 use dicom_anonymization::actions::Action;
-use dicom_anonymization::config::UidRoot;
+use dicom_anonymization::config::uid_root::UidRoot;
 use dicom_anonymization::processor::DefaultProcessor;
 use dicom_anonymization::tags;
 use dicom_anonymization::Anonymizer;

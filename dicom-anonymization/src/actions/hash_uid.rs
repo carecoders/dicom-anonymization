@@ -7,7 +7,8 @@ use std::borrow::Cow;
 use crate::actions::errors::ActionError;
 use crate::actions::utils::{is_empty_element, truncate_to};
 use crate::actions::DataElementAction;
-use crate::config::{Config, UidRoot};
+use crate::config::uid_root::UidRoot;
+use crate::config::Config;
 use crate::hasher::HashFn;
 
 const UID_MAX_LENGTH: usize = 64;
