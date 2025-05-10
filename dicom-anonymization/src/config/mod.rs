@@ -1,3 +1,5 @@
+pub mod profile;
+
 use crate::actions::Action;
 use crate::actions::Action::HashUID;
 use crate::hasher::{blake3_hash_fn, HashFn};
