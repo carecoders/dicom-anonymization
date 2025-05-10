@@ -71,7 +71,7 @@ mod tests {
     use dicom_object::FileDicomObject;
     use num_bigint::BigInt;
 
-    use crate::config::ConfigBuilder;
+    use crate::config::builder::ConfigBuilder;
     use crate::hasher::blake3_hash_fn;
     use crate::tags;
     use crate::test_utils::make_file_meta;

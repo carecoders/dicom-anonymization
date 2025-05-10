@@ -7,7 +7,7 @@ use dicom_anonymization::processor::DefaultProcessor;
 use dicom_anonymization::tags;
 use dicom_anonymization::Anonymizer;
 use dicom_anonymization::Tag;
-use dicom_anonymization::{config::ConfigBuilder, AnonymizationError};
+use dicom_anonymization::{config::builder::ConfigBuilder, AnonymizationError};
 use dicom_object::DefaultDicomObject;
 use env_logger::Builder;
 use log::{info, warn, Level, LevelFilter};

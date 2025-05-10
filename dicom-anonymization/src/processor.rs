@@ -135,7 +135,7 @@ mod tests {
     use dicom_object::FileDicomObject;
 
     use crate::actions::Action;
-    use crate::config::ConfigBuilder;
+    use crate::config::builder::ConfigBuilder;
     use crate::tags;
     use crate::test_utils::make_file_meta;
 

@@ -1,4 +1,5 @@
-use dicom_anonymization::config::{ConfigBuilder, UidRoot};
+use dicom_anonymization::config::builder::ConfigBuilder;
+use dicom_anonymization::config::UidRoot;
 use dicom_anonymization::processor::DefaultProcessor;
 use dicom_anonymization::Anonymizer as RustAnonymizer;
 use pyo3::create_exception;
