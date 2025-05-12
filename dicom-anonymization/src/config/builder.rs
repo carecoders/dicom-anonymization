@@ -28,11 +28,43 @@ use crate::Tag;
 ///     .build();
 /// ```
 #[derive(Debug, Clone, PartialEq)]
-pub struct ConfigBuilder(Config);
+pub struct ConfigBuilder(pub Config);
 
 impl ConfigBuilder {
     pub fn new() -> Self {
         ConfigBuilder(Config::default())
+    }
+
+    /// Build a [`Config`] directly from the provided [`Config`].
+    ///
+    /// This method takes the [`ConfigBuilder`] and then applies the settings from the provided [`Config`].
+    /// This is useful for creating a modified version of or overriding an existing [`Config`].
+    ///
+    /// # Arguments
+    ///
+    /// * `config` - The [`Config`] to use
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use dicom_anonymization::config::Config;
+    /// use dicom_anonymization::config::builder::ConfigBuilder;
+    /// use dicom_anonymization::actions::Action;
+    /// use dicom_anonymization::tags;
+    ///
+    /// ```
+    pub fn from_config(mut self, config: &Config) -> Self {
+        // TODO: decide what to do with these and existing values
+        self.0.uid_root = config.uid_root.clone();
+        self.0.remove_private_tags = config.remove_private_tags;
+        self.0.remove_curves = config.remove_curves;
+        self.0.remove_overlays = config.remove_overlays;
+
+        // override existing tag actions
+        for (tag, action) in &config.tag_actions {
+            self.0.tag_actions.insert(*tag, action.clone());
+        }
+        self
     }
 
     /// Sets a custom hash function for use in hash operations.

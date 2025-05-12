@@ -7,7 +7,7 @@ use dicom_anonymization::processor::DefaultProcessor;
 use dicom_anonymization::tags;
 use dicom_anonymization::Anonymizer;
 use dicom_anonymization::Tag;
-use dicom_anonymization::{config::builder::ConfigBuilder, AnonymizationError};
+use dicom_anonymization::{config::builder::ConfigBuilder, config::Config, AnonymizationError};
 use dicom_object::DefaultDicomObject;
 use env_logger::Builder;
 use log::{info, warn, Level, LevelFilter};
@@ -62,6 +62,14 @@ struct Args {
     #[arg(short, long, value_name = "OUTPUT_PATH")]
     output: PathBuf,
 
+    // /// Use preset config profile (options: 'default')
+    // #[arg(short, long)]
+    // profile: Option<String>,
+    //
+    /// Path to config JSON file
+    #[arg(short = 'c', long = "config", value_name = "CONFIG_FILE")]
+    config_file: Option<PathBuf>,
+
     /// UID root (default: '9999')
     #[arg(short, long)]
     uid_root: Option<String>,
@@ -71,14 +79,14 @@ struct Args {
     recursive: bool,
 
     /// Continue when file found is not DICOM
-    #[arg(short, long = "continue")]
+    #[arg(long = "continue")]
     r#continue: bool,
 
     /// Show more verbose output
     #[arg(short, long)]
     verbose: bool,
 
-    /// Tags to exclude from anonymization, e.g. "00100020,00080050"
+    /// Tags to exclude from anonymization, e.g. '00100020,00080050'
     #[arg(long, value_name = "TAGS", value_delimiter = ',', value_parser = TagValueParser)]
     exclude: Vec<Tag>,
 }
@@ -206,7 +214,16 @@ fn main() -> Result<()> {
         .filter(None, log_level);
     builder.init();
 
+    // assume profile 'default' for now, TODO: make this depend on the `profile` option
     let mut config_builder = ConfigBuilder::default();
+
+    if let Some(config_path) = args.config_file {
+        let json_content = std::fs::read_to_string(&config_path)
+            .with_context(|| format!("failed to read config from {}", config_path.display()))?;
+
+        let config = serde_json::from_str::<Config>(&json_content)?;
+        config_builder = config_builder.from_config(&config);
+    }
 
     // UID root
     if let Some(uid_root) = uid_root {

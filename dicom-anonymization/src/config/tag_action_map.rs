@@ -9,6 +9,36 @@ use std::collections::BTreeMap;
 #[derive(Debug, Clone, PartialEq)]
 pub struct TagActionMap(pub(crate) BTreeMap<Tag, Action>);
 
+pub struct TagActionMapIter<'a> {
+    inner: std::collections::btree_map::Iter<'a, Tag, Action>,
+}
+
+impl<'a> Iterator for TagActionMapIter<'a> {
+    type Item = (&'a Tag, &'a Action);
+
+    fn next(&mut self) -> Option<Self::Item> {
+        self.inner.next()
+    }
+}
+
+impl<'a> IntoIterator for &'a TagActionMap {
+    type Item = (&'a Tag, &'a Action);
+    type IntoIter = TagActionMapIter<'a>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        self.iter()
+    }
+}
+
+impl IntoIterator for TagActionMap {
+    type Item = (Tag, Action);
+    type IntoIter = std::collections::btree_map::IntoIter<Tag, Action>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        self.0.into_iter()
+    }
+}
+
 impl TagActionMap {
     pub fn new() -> Self {
         TagActionMap(BTreeMap::new())
@@ -20,6 +50,12 @@ impl TagActionMap {
 
     pub fn get(&self, tag: &Tag) -> Option<&Action> {
         self.0.get(tag)
+    }
+
+    pub fn iter(&self) -> TagActionMapIter {
+        TagActionMapIter {
+            inner: self.0.iter(),
+        }
     }
 
     #[allow(dead_code)]
@@ -333,5 +369,42 @@ mod tests {
         let error_message = result.unwrap_err().to_string().to_lowercase();
         assert!(error_message.contains("validation error"));
         assert!(error_message.contains("length"));
+    }
+
+    #[test]
+    fn test_iterator_implementation() {
+        let mut map = TagActionMap::new();
+
+        // Add some test data
+        map.insert(Tag(0x0010, 0x0010), Action::Empty); // PatientName
+        map.insert(Tag(0x0010, 0x0020), Action::Remove); // PatientID
+        map.insert(Tag(0x0008, 0x0050), Action::HashUID); // AccessionNumber
+
+        // Test the iterator method
+        let mut count = 0;
+        for (tag, action) in map.iter() {
+            count += 1;
+            match tag.0 {
+                0x0010 => match tag.1 {
+                    0x0010 => assert_eq!(*action, Action::Empty),
+                    0x0020 => assert_eq!(*action, Action::Remove),
+                    _ => panic!("Unexpected element in tag"),
+                },
+                0x0008 => {
+                    assert_eq!(tag.1, 0x0050);
+                    assert_eq!(*action, Action::HashUID);
+                }
+                _ => panic!("Unexpected group in tag"),
+            }
+        }
+        assert_eq!(count, 3);
+
+        // Test the IntoIterator implementation for &TagActionMap
+        let vec: Vec<(&Tag, &Action)> = (&map).into_iter().collect();
+        assert_eq!(vec.len(), 3);
+
+        // Test the consuming IntoIterator implementation
+        let vec: Vec<(Tag, Action)> = map.into_iter().collect();
+        assert_eq!(vec.len(), 3);
     }
 }

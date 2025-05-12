@@ -50,9 +50,9 @@ pub struct Config {
     #[serde(skip, default = "default_hash_fn")]
     hash_fn: HashFn,
 
+    // TODO: these 4 need to be `Option`
     #[serde(default)]
     uid_root: UidRoot,
-
     #[serde(default)]
     remove_private_tags: bool,
     #[serde(default)]
