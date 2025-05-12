@@ -2,12 +2,12 @@ use anyhow::{bail, Context, Result};
 use clap::builder::TypedValueParser;
 use clap::Parser;
 use dicom_anonymization::actions::Action;
-use dicom_anonymization::config::UidRoot;
+use dicom_anonymization::config::uid_root::UidRoot;
 use dicom_anonymization::processor::DefaultProcessor;
 use dicom_anonymization::tags;
 use dicom_anonymization::Anonymizer;
 use dicom_anonymization::Tag;
-use dicom_anonymization::{config::ConfigBuilder, AnonymizationError};
+use dicom_anonymization::{config::builder::ConfigBuilder, config::Config, AnonymizationError};
 use dicom_object::DefaultDicomObject;
 use env_logger::Builder;
 use log::{info, warn, Level, LevelFilter};
@@ -62,25 +62,33 @@ struct Args {
     #[arg(short, long, value_name = "OUTPUT_PATH")]
     output: PathBuf,
 
+    /// Use builtin config profile (default: 'default', options: 'default', 'none')
+    #[arg(short, long)]
+    profile: Option<String>,
+
+    /// Path to config JSON file
+    #[arg(short = 'c', long = "config", value_name = "CONFIG_FILE")]
+    config_file: Option<PathBuf>,
+
     /// UID root (default: '9999')
     #[arg(short, long)]
     uid_root: Option<String>,
+
+    /// Tags to exclude from anonymization, e.g. '00100020,00080050'
+    #[arg(long, value_name = "TAGS", value_delimiter = ',', value_parser = TagValueParser)]
+    exclude: Vec<Tag>,
 
     /// Recursively look for files in input directory
     #[arg(short, long)]
     recursive: bool,
 
     /// Continue when file found is not DICOM
-    #[arg(short, long = "continue")]
+    #[arg(long = "continue")]
     r#continue: bool,
 
     /// Show more verbose output
     #[arg(short, long)]
     verbose: bool,
-
-    /// Tags to exclude from anonymization, e.g. "00100020,00080050"
-    #[arg(long, value_name = "TAGS", value_delimiter = ',', value_parser = TagValueParser)]
-    exclude: Vec<Tag>,
 }
 
 struct DicomOutputFilePath {
@@ -179,11 +187,13 @@ fn main() -> Result<()> {
 
     let input_path = args.input;
     let output_path = args.output;
+    let profile = args.profile;
+    let config_file = args.config_file;
     let uid_root = args.uid_root;
+    let exclude_tags = args.exclude;
     let recurse = args.recursive;
     let continue_on_read_error = args.r#continue;
     let verbose = args.verbose;
-    let exclude_tags = args.exclude;
 
     let log_level = if verbose {
         LevelFilter::Info
@@ -206,7 +216,18 @@ fn main() -> Result<()> {
         .filter(None, log_level);
     builder.init();
 
-    let mut config_builder = ConfigBuilder::default();
+    let mut config_builder = match profile.as_deref() {
+        Some("none") => ConfigBuilder::new(),
+        _ => ConfigBuilder::default(),
+    };
+
+    if let Some(config_path) = config_file {
+        let json_content = std::fs::read_to_string(&config_path)
+            .with_context(|| format!("failed to read config from {}", config_path.display()))?;
+
+        let config = serde_json::from_str::<Config>(&json_content)?;
+        config_builder = config_builder.from_config(&config);
+    }
 
     // UID root
     if let Some(uid_root) = uid_root {

@@ -3,6 +3,6 @@ target
 Cargo.lock
 
 # For dev purposes
-config.json
+config*.json
 out.dcm
 scratch.md
