@@ -246,7 +246,7 @@ impl ConfigBuilder {
     ///     .build();
     /// ```
     pub fn remove_overlays(mut self, remove: bool) -> Self {
-        self.0.remove_overlays = remove;
+        self.0.remove_overlays = Some(remove);
         self
     }
 

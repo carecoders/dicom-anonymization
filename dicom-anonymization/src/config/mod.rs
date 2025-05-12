@@ -58,7 +58,7 @@ pub struct Config {
     #[serde(default)]
     remove_curves: Option<bool>,
     #[serde(default)]
-    remove_overlays: bool,
+    remove_overlays: Option<bool>,
 
     #[serde(default = "TagActionMap::default")]
     tag_actions: TagActionMap,
@@ -70,7 +70,7 @@ impl Config {
         uid_root: UidRoot,
         remove_private_tags: Option<bool>,
         remove_curves: Option<bool>,
-        remove_overlays: bool,
+        remove_overlays: Option<bool>,
     ) -> Self {
         Self {
             hash_fn,
@@ -85,7 +85,7 @@ impl Config {
 
 impl Default for Config {
     fn default() -> Self {
-        Self::new(blake3_hash_fn, UidRoot::default(), None, None, false)
+        Self::new(blake3_hash_fn, UidRoot::default(), None, None, None)
     }
 }
 
@@ -145,7 +145,7 @@ impl Config {
     fn should_be_removed(&self, tag: &Tag) -> bool {
         (self.remove_private_tags.unwrap_or(false) && is_private_tag(tag))
             || (self.remove_curves.unwrap_or(false) && is_curve_tag(tag))
-            || self.remove_overlays && is_overlay_tag(tag)
+            || (self.remove_overlays.unwrap_or(false) && is_overlay_tag(tag))
     }
 }
 
@@ -317,7 +317,7 @@ mod tests {
             tag_actions: create_sample_tag_actions(),
             remove_private_tags: Some(true),
             remove_curves: Some(false),
-            remove_overlays: true,
+            remove_overlays: Some(true),
             ..Default::default()
         };
 
@@ -361,7 +361,7 @@ mod tests {
         assert_eq!(config.uid_root.0, "1.2.826.0.1.3680043.10.188");
         assert_eq!(config.remove_private_tags, Some(true));
         assert_eq!(config.remove_curves, Some(false));
-        assert!(config.remove_overlays);
+        assert_eq!(config.remove_overlays, Some(true));
 
         // Check tag actions
         let patient_name = config.tag_actions.get(&Tag(0x0010, 0x0010)).unwrap();
@@ -393,7 +393,7 @@ mod tests {
             tag_actions: create_sample_tag_actions(),
             remove_private_tags: Some(true),
             remove_curves: Some(false),
-            remove_overlays: true,
+            remove_overlays: Some(true),
             ..Default::default()
         };
 
@@ -451,7 +451,7 @@ mod tests {
         assert_eq!(deserialized.uid_root.0, "1.2.826.0.1.3680043.10.188");
         assert_eq!(deserialized.remove_private_tags, None);
         assert_eq!(deserialized.remove_curves, None);
-        assert!(!deserialized.remove_overlays);
+        assert_eq!(deserialized.remove_overlays, None);
         assert_eq!(deserialized.tag_actions.len(), 0);
     }
 
@@ -470,7 +470,7 @@ mod tests {
         assert_eq!(config.uid_root.0, "1.2.826.0.1.3680043.10.188");
         assert_eq!(config.remove_private_tags, None);
         assert_eq!(config.remove_curves, None);
-        assert!(!config.remove_overlays);
+        assert_eq!(config.remove_overlays, None);
         assert_eq!(config.tag_actions.len(), 1);
     }
 
@@ -490,7 +490,7 @@ mod tests {
         assert_eq!(config.uid_root.0, "");
         assert_eq!(config.remove_private_tags, Some(true));
         assert_eq!(config.remove_curves, Some(false));
-        assert!(config.remove_overlays);
+        assert_eq!(config.remove_overlays, Some(true));
         assert_eq!(config.tag_actions.len(), 0);
     }
 
@@ -509,7 +509,7 @@ mod tests {
         assert_eq!(config.uid_root.0, "");
         assert_eq!(config.remove_private_tags, Some(true));
         assert_eq!(config.remove_curves, Some(false));
-        assert!(config.remove_overlays);
+        assert_eq!(config.remove_overlays, Some(true));
         assert_eq!(config.tag_actions.len(), 0);
     }
 
@@ -526,7 +526,7 @@ mod tests {
         assert_eq!(config.uid_root.0, "9999");
         assert!(!config.remove_private_tags.unwrap_or(false));
         assert_eq!(config.remove_curves, None);
-        assert!(!config.remove_overlays);
+        assert_eq!(config.remove_overlays, None);
         assert_eq!(config.tag_actions.len(), 0);
     }
 
@@ -542,7 +542,7 @@ mod tests {
         assert_eq!(config.uid_root.0, "");
         assert_eq!(config.remove_private_tags, None);
         assert_eq!(config.remove_curves, None);
-        assert!(!config.remove_overlays);
+        assert_eq!(config.remove_overlays, None);
         assert_eq!(config.tag_actions.len(), 0);
     }
 
@@ -556,7 +556,7 @@ mod tests {
         assert_eq!(config.uid_root.0, "");
         assert_eq!(config.remove_private_tags, None);
         assert_eq!(config.remove_curves, None);
-        assert!(!config.remove_overlays);
+        assert_eq!(config.remove_overlays, None);
         assert_eq!(config.tag_actions.len(), 0);
     }
 

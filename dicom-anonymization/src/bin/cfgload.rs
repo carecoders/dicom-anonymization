@@ -12,7 +12,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     //   uid_root: UidRoot(""),      // should be `None`
     //   remove_private_tags: None,
     //   remove_curves: None,
-    //   remove_overlays: false,     // should be `None`
+    //   remove_overlays: None,
     //   tag_actions: TagActionMap({})
     // }
 
