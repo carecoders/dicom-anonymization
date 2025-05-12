@@ -54,7 +54,7 @@ pub struct Config {
     #[serde(default)]
     uid_root: UidRoot,
     #[serde(default)]
-    remove_private_tags: bool,
+    remove_private_tags: Option<bool>,
     #[serde(default)]
     remove_curves: bool,
     #[serde(default)]
@@ -68,7 +68,7 @@ impl Config {
     fn new(
         hash_fn: HashFn,
         uid_root: UidRoot,
-        remove_private_tags: bool,
+        remove_private_tags: Option<bool>,
         remove_curves: bool,
         remove_overlays: bool,
     ) -> Self {
@@ -85,7 +85,7 @@ impl Config {
 
 impl Default for Config {
     fn default() -> Self {
-        Self::new(blake3_hash_fn, UidRoot::default(), false, false, false)
+        Self::new(blake3_hash_fn, UidRoot::default(), None, false, false)
     }
 }
 
@@ -143,7 +143,7 @@ impl Config {
     }
 
     fn should_be_removed(&self, tag: &Tag) -> bool {
-        self.remove_private_tags && is_private_tag(tag)
+        (self.remove_private_tags.unwrap_or(false) && is_private_tag(tag))
             || self.remove_curves && is_curve_tag(tag)
             || self.remove_overlays && is_overlay_tag(tag)
     }
@@ -315,7 +315,7 @@ mod tests {
         let config = Config {
             uid_root: UidRoot("1.2.826.0.1.3680043.10.188".to_string()),
             tag_actions: create_sample_tag_actions(),
-            remove_private_tags: true,
+            remove_private_tags: Some(true),
             remove_curves: false,
             remove_overlays: true,
             ..Default::default()
@@ -359,7 +359,7 @@ mod tests {
 
         // Check basic fields
         assert_eq!(config.uid_root.0, "1.2.826.0.1.3680043.10.188");
-        assert!(config.remove_private_tags);
+        assert!(config.remove_private_tags.unwrap());
         assert!(!config.remove_curves);
         assert!(config.remove_overlays);
 
@@ -391,7 +391,7 @@ mod tests {
         let original_config = Config {
             uid_root: UidRoot("1.2.826.0.1.3680043.10.188".to_string()),
             tag_actions: create_sample_tag_actions(),
-            remove_private_tags: true,
+            remove_private_tags: Some(true),
             remove_curves: false,
             remove_overlays: true,
             ..Default::default()
@@ -449,7 +449,7 @@ mod tests {
         let deserialized: Config = serde_json::from_str(&json).unwrap();
 
         assert_eq!(deserialized.uid_root.0, "1.2.826.0.1.3680043.10.188");
-        assert!(!deserialized.remove_private_tags);
+        assert_eq!(deserialized.remove_private_tags, None);
         assert!(!deserialized.remove_curves);
         assert!(!deserialized.remove_overlays);
         assert_eq!(deserialized.tag_actions.len(), 0);
@@ -468,7 +468,7 @@ mod tests {
         let config = result.unwrap();
 
         assert_eq!(config.uid_root.0, "1.2.826.0.1.3680043.10.188");
-        assert!(!config.remove_private_tags);
+        assert_eq!(config.remove_private_tags, None);
         assert!(!config.remove_curves);
         assert!(!config.remove_overlays);
         assert_eq!(config.tag_actions.len(), 1);
@@ -488,7 +488,7 @@ mod tests {
         let config = result.unwrap();
 
         assert_eq!(config.uid_root.0, "");
-        assert!(config.remove_private_tags);
+        assert!(config.remove_private_tags.unwrap());
         assert!(!config.remove_curves);
         assert!(config.remove_overlays);
         assert_eq!(config.tag_actions.len(), 0);
@@ -507,7 +507,7 @@ mod tests {
         let config = result.unwrap();
 
         assert_eq!(config.uid_root.0, "");
-        assert!(config.remove_private_tags);
+        assert!(config.remove_private_tags.unwrap());
         assert!(!config.remove_curves);
         assert!(config.remove_overlays);
         assert_eq!(config.tag_actions.len(), 0);
@@ -524,7 +524,7 @@ mod tests {
         let config = result.unwrap();
 
         assert_eq!(config.uid_root.0, "9999");
-        assert!(!config.remove_private_tags);
+        assert!(!config.remove_private_tags.unwrap_or(false));
         assert!(!config.remove_curves);
         assert!(!config.remove_overlays);
         assert_eq!(config.tag_actions.len(), 0);
@@ -540,7 +540,7 @@ mod tests {
         let config = result.unwrap();
 
         assert_eq!(config.uid_root.0, "");
-        assert!(!config.remove_private_tags);
+        assert_eq!(config.remove_private_tags, None);
         assert!(!config.remove_curves);
         assert!(!config.remove_overlays);
         assert_eq!(config.tag_actions.len(), 0);

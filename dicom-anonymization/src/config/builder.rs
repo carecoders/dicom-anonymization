@@ -186,7 +186,7 @@ impl ConfigBuilder {
     ///     .build();
     /// ```
     pub fn remove_private_tags(mut self, remove: bool) -> Self {
-        self.0.remove_private_tags = remove;
+        self.0.remove_private_tags = Some(remove);
         self
     }
 
