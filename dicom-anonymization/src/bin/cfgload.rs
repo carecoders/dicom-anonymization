@@ -11,7 +11,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     //   hash_fn: 0x10448bde4,
     //   uid_root: UidRoot(""),      // should be `None`
     //   remove_private_tags: None,
-    //   remove_curves: false,       // should be `None`
+    //   remove_curves: None,
     //   remove_overlays: false,     // should be `None`
     //   tag_actions: TagActionMap({})
     // }

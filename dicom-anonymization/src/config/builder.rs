@@ -216,7 +216,7 @@ impl ConfigBuilder {
     ///     .build();
     /// ```
     pub fn remove_curves(mut self, remove: bool) -> Self {
-        self.0.remove_curves = remove;
+        self.0.remove_curves = Some(remove);
         self
     }
 
