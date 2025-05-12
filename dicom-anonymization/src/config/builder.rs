@@ -105,7 +105,7 @@ impl ConfigBuilder {
     ///     .build();
     /// ```
     pub fn uid_root(mut self, uid_root: UidRoot) -> Self {
-        self.0.uid_root = uid_root;
+        self.0.uid_root = Some(uid_root);
         self
     }
 

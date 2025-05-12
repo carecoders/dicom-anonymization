@@ -50,9 +50,8 @@ pub struct Config {
     #[serde(skip, default = "default_hash_fn")]
     hash_fn: HashFn,
 
-    // TODO: these 4 need to be `Option`
     #[serde(default)]
-    uid_root: UidRoot,
+    uid_root: Option<UidRoot>,
     #[serde(default)]
     remove_private_tags: Option<bool>,
     #[serde(default)]
@@ -67,7 +66,7 @@ pub struct Config {
 impl Config {
     fn new(
         hash_fn: HashFn,
-        uid_root: UidRoot,
+        uid_root: Option<UidRoot>,
         remove_private_tags: Option<bool>,
         remove_curves: Option<bool>,
         remove_overlays: Option<bool>,
@@ -85,7 +84,7 @@ impl Config {
 
 impl Default for Config {
     fn default() -> Self {
-        Self::new(blake3_hash_fn, UidRoot::default(), None, None, None)
+        Self::new(blake3_hash_fn, None, None, None, None)
     }
 }
 
@@ -107,7 +106,7 @@ impl Config {
         self.hash_fn
     }
 
-    pub fn get_uid_root(&self) -> &UidRoot {
+    pub fn get_uid_root(&self) -> &Option<UidRoot> {
         &self.uid_root
     }
 
@@ -313,7 +312,7 @@ mod tests {
     fn test_config_serialization() {
         // Create a sample config
         let config = Config {
-            uid_root: UidRoot("1.2.826.0.1.3680043.10.188".to_string()),
+            uid_root: Some(UidRoot("1.2.826.0.1.3680043.10.188".to_string())),
             tag_actions: create_sample_tag_actions(),
             remove_private_tags: Some(true),
             remove_curves: Some(false),
@@ -358,7 +357,7 @@ mod tests {
         let config: Config = serde_json::from_str(json).unwrap();
 
         // Check basic fields
-        assert_eq!(config.uid_root.0, "1.2.826.0.1.3680043.10.188");
+        assert_eq!(config.uid_root.unwrap().0, "1.2.826.0.1.3680043.10.188");
         assert_eq!(config.remove_private_tags, Some(true));
         assert_eq!(config.remove_curves, Some(false));
         assert_eq!(config.remove_overlays, Some(true));
@@ -389,7 +388,7 @@ mod tests {
     fn test_config_roundtrip() {
         // Create original config
         let original_config = Config {
-            uid_root: UidRoot("1.2.826.0.1.3680043.10.188".to_string()),
+            uid_root: Some(UidRoot("1.2.826.0.1.3680043.10.188".to_string())),
             tag_actions: create_sample_tag_actions(),
             remove_private_tags: Some(true),
             remove_curves: Some(false),
@@ -402,7 +401,10 @@ mod tests {
         let deserialized: Config = serde_json::from_str(&json).unwrap();
 
         // Compare UID root
-        assert_eq!(original_config.uid_root.0, deserialized.uid_root.0);
+        assert_eq!(
+            original_config.uid_root.unwrap().0,
+            deserialized.uid_root.unwrap().0
+        );
 
         // Compare boolean flags
         assert_eq!(
@@ -439,7 +441,7 @@ mod tests {
         // Create a config with empty tag actions
         let empty_map = TagActionMap::new();
         let config = Config {
-            uid_root: UidRoot("1.2.826.0.1.3680043.10.188".to_string()),
+            uid_root: Some(UidRoot("1.2.826.0.1.3680043.10.188".to_string())),
             tag_actions: empty_map,
             ..Default::default()
         };
@@ -448,7 +450,10 @@ mod tests {
         let json = serde_json::to_string(&config).unwrap();
         let deserialized: Config = serde_json::from_str(&json).unwrap();
 
-        assert_eq!(deserialized.uid_root.0, "1.2.826.0.1.3680043.10.188");
+        assert_eq!(
+            deserialized.uid_root.unwrap().0,
+            "1.2.826.0.1.3680043.10.188"
+        );
         assert_eq!(deserialized.remove_private_tags, None);
         assert_eq!(deserialized.remove_curves, None);
         assert_eq!(deserialized.remove_overlays, None);
@@ -467,7 +472,7 @@ mod tests {
         let result: Result<Config, _> = serde_json::from_str(json);
         let config = result.unwrap();
 
-        assert_eq!(config.uid_root.0, "1.2.826.0.1.3680043.10.188");
+        assert_eq!(config.uid_root.unwrap().0, "1.2.826.0.1.3680043.10.188");
         assert_eq!(config.remove_private_tags, None);
         assert_eq!(config.remove_curves, None);
         assert_eq!(config.remove_overlays, None);
@@ -487,7 +492,7 @@ mod tests {
         let result: Result<Config, _> = serde_json::from_str(json);
         let config = result.unwrap();
 
-        assert_eq!(config.uid_root.0, "");
+        assert_eq!(config.uid_root.unwrap().0, "");
         assert_eq!(config.remove_private_tags, Some(true));
         assert_eq!(config.remove_curves, Some(false));
         assert_eq!(config.remove_overlays, Some(true));
@@ -506,7 +511,7 @@ mod tests {
         let result: Result<Config, _> = serde_json::from_str(json);
         let config = result.unwrap();
 
-        assert_eq!(config.uid_root.0, "");
+        assert_eq!(config.uid_root, None);
         assert_eq!(config.remove_private_tags, Some(true));
         assert_eq!(config.remove_curves, Some(false));
         assert_eq!(config.remove_overlays, Some(true));
@@ -523,8 +528,8 @@ mod tests {
         let result: Result<Config, _> = serde_json::from_str(json);
         let config = result.unwrap();
 
-        assert_eq!(config.uid_root.0, "9999");
-        assert!(!config.remove_private_tags.unwrap_or(false));
+        assert_eq!(config.uid_root, Some(UidRoot("9999".into())));
+        assert_eq!(config.remove_private_tags, None);
         assert_eq!(config.remove_curves, None);
         assert_eq!(config.remove_overlays, None);
         assert_eq!(config.tag_actions.len(), 0);
@@ -539,7 +544,7 @@ mod tests {
         let result: Result<Config, _> = serde_json::from_str(json);
         let config = result.unwrap();
 
-        assert_eq!(config.uid_root.0, "");
+        assert_eq!(config.uid_root, None);
         assert_eq!(config.remove_private_tags, None);
         assert_eq!(config.remove_curves, None);
         assert_eq!(config.remove_overlays, None);
@@ -553,7 +558,7 @@ mod tests {
         let result: Result<Config, _> = serde_json::from_str(json);
         let config = result.unwrap();
 
-        assert_eq!(config.uid_root.0, "");
+        assert_eq!(config.uid_root, None);
         assert_eq!(config.remove_private_tags, None);
         assert_eq!(config.remove_curves, None);
         assert_eq!(config.remove_overlays, None);

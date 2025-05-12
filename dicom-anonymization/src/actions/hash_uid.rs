@@ -49,7 +49,10 @@ impl DataElementAction for HashUID {
         }
 
         let hash_fn = config.get_hash_fn();
-        let uid_root = config.get_uid_root();
+        let uid_root = match config.get_uid_root() {
+            Some(uid_root) => uid_root,
+            None => &UidRoot("".into()),
+        };
         let elem_value = elem.value().string()?;
         let anonymized_value = self.anonymize(hash_fn, elem_value, uid_root)?;
 
