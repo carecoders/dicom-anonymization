@@ -62,7 +62,7 @@ struct Args {
     #[arg(short, long, value_name = "OUTPUT_PATH")]
     output: PathBuf,
 
-    /// Use builtin config profile (default: 'default', options: 'default', 'none')
+    /// Use builtin config profile ('default', 'none') (default 'default')
     #[arg(short, long)]
     profile: Option<String>,
 
@@ -70,7 +70,7 @@ struct Args {
     #[arg(short = 'c', long = "config", value_name = "CONFIG_FILE")]
     config_file: Option<PathBuf>,
 
-    /// UID root (default: '9999')
+    /// UID root (default '9999')
     #[arg(short, long)]
     uid_root: Option<String>,
 
