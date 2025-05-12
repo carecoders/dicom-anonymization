@@ -54,11 +54,19 @@ impl ConfigBuilder {
     ///
     /// ```
     pub fn from_config(mut self, config: &Config) -> Self {
-        // TODO: decide what to do with these and existing values
-        self.0.uid_root = config.uid_root.clone();
-        self.0.remove_private_tags = config.remove_private_tags;
-        self.0.remove_curves = config.remove_curves;
-        self.0.remove_overlays = config.remove_overlays;
+        // only explicitly set or override these if they are not `None` in the given `Config`
+        if let Some(uid_root) = config.uid_root.clone() {
+            self.0.uid_root = Some(uid_root);
+        }
+        if let Some(remove_private_tags) = config.remove_private_tags {
+            self.0.remove_private_tags = Some(remove_private_tags);
+        }
+        if let Some(remove_curves) = config.remove_curves {
+            self.0.remove_curves = Some(remove_curves);
+        }
+        if let Some(remove_overlays) = config.remove_overlays {
+            self.0.remove_overlays = Some(remove_overlays);
+        }
 
         // override existing tag actions
         for (tag, action) in &config.tag_actions {
