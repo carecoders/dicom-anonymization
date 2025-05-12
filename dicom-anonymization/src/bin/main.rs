@@ -70,7 +70,7 @@ struct Args {
     #[arg(short = 'c', long = "config", value_name = "CONFIG_FILE")]
     config_file: Option<PathBuf>,
 
-    /// UID root (default '9999')
+    /// UID root
     #[arg(short, long)]
     uid_root: Option<String>,
 
@@ -218,7 +218,8 @@ fn main() -> Result<()> {
 
     let mut config_builder = match profile.as_deref() {
         Some("none") => ConfigBuilder::new(),
-        _ => ConfigBuilder::default(),
+        Some("default") | None => ConfigBuilder::default(),
+        _ => bail!("profile should be either 'default' or 'none'"),
     };
 
     if let Some(config_path) = config_file {
