@@ -52,7 +52,7 @@ impl TypedValueParser for TagValueParser {
 
 /// Anonymize DICOM files
 #[derive(Parser, Debug)]
-#[command(version, about, long_about = None)]
+#[command(version, about = "Anonymize DICOM files", long_about = None)]
 struct Args {
     /// Input file ('-' for stdin) or directory
     #[arg(short, long, value_name = "INPUT_PATH")]
