@@ -50,10 +50,29 @@ impl TypedValueParser for TagValueParser {
     }
 }
 
+#[derive(Parser, Debug)]
+#[command(version, about, long_about = None)]
+struct Cli {
+    /// Show more verbose output
+    #[arg(short, long, global = true)]
+    verbose: bool,
+
+    #[command(subcommand)]
+    command: Commands,
+}
+
+#[derive(clap::Subcommand, Debug)]
+enum Commands {
+    /// Anonymize DICOM files
+    Anonymize(AnonymizeArgs),
+
+    /// Manage configuration files
+    Config(ConfigArgs),
+}
+
 /// Anonymize DICOM files
 #[derive(Parser, Debug)]
-#[command(version, about = "Anonymize DICOM files", long_about = None)]
-struct Args {
+struct AnonymizeArgs {
     /// Input file ('-' for stdin) or directory
     #[arg(short, long, value_name = "INPUT_PATH")]
     input: PathBuf,
@@ -85,10 +104,25 @@ struct Args {
     /// Continue when file found is not DICOM
     #[arg(long = "continue")]
     r#continue: bool,
+}
 
-    /// Show more verbose output
+#[derive(Parser, Debug)]
+struct ConfigArgs {
+    /// Path to save the config file
+    #[arg(short, long, value_name = "CONFIG_FILE")]
+    output: PathBuf,
+
+    /// Use preset config profile ('default', 'none')
+    #[arg(short, long, default_value = "default")]
+    profile: String,
+
+    /// UID root to use
     #[arg(short, long)]
-    verbose: bool,
+    uid_root: Option<String>,
+
+    /// Tags to exclude from anonymization, e.g. '00100020,00080050'
+    #[arg(long, value_name = "TAGS", value_delimiter = ',', value_parser = TagValueParser)]
+    exclude: Vec<Tag>,
 }
 
 struct DicomOutputFilePath {
@@ -182,39 +216,47 @@ fn anonymize(anonymizer: &Anonymizer, input_path: &PathBuf, output_path: &PathBu
     Ok(())
 }
 
-fn main() -> Result<()> {
-    let args = Args::parse();
-
-    let input_path = args.input;
-    let output_path = args.output;
-    let profile = args.profile;
-    let config_file = args.config_file;
-    let uid_root = args.uid_root;
-    let exclude_tags = args.exclude;
-    let recurse = args.recursive;
-    let continue_on_read_error = args.r#continue;
-    let verbose = args.verbose;
-
-    let log_level = if verbose {
-        LevelFilter::Info
-    } else {
-        LevelFilter::Error
+fn config_command(args: &ConfigArgs) -> Result<()> {
+    let mut config_builder = match args.profile.as_str() {
+        "none" => ConfigBuilder::new(),
+        "default" => ConfigBuilder::default(),
+        _ => bail!("profile should be either 'default' or 'none'"),
     };
 
-    let mut builder = Builder::from_default_env();
-    builder
-        .format(|buf, record| {
-            let level = match record.level() {
-                Level::Error => "Error",
-                Level::Warn => "Warning",
-                Level::Info => "Info",
-                Level::Debug => "Debug",
-                Level::Trace => "Trace",
-            };
-            writeln!(buf, "{}: {}", level, record.args())
-        })
-        .filter(None, log_level);
-    builder.init();
+    // Apply UID root if specified
+    if let Some(uid_root) = &args.uid_root {
+        match uid_root.parse::<UidRoot>() {
+            Ok(uid_root) => config_builder = config_builder.uid_root(uid_root),
+            Err(e) => bail!(e),
+        }
+    }
+
+    // Apply exclusions
+    for tag in &args.exclude {
+        config_builder = config_builder.tag_action(*tag, Action::Keep);
+    }
+
+    // Build the config
+    let config = config_builder.build();
+
+    // Serialize to JSON and write to file
+    let json = serde_json::to_string_pretty(&config)?;
+    std::fs::write(&args.output, json)
+        .with_context(|| format!("Failed to write config to {}", args.output.display()))?;
+
+    info!("Configuration saved to {}", args.output.display());
+    Ok(())
+}
+
+fn anonymize_command(args: &AnonymizeArgs) -> Result<()> {
+    let input_path = args.input.clone();
+    let output_path = args.output.clone();
+    let profile = args.profile.clone();
+    let config_file = args.config_file.clone();
+    let uid_root = args.uid_root.clone();
+    let exclude_tags = args.exclude.clone();
+    let recurse = args.recursive;
+    let continue_on_read_error = args.r#continue;
 
     let mut config_builder = match profile.as_deref() {
         Some("none") => ConfigBuilder::new(),
@@ -317,4 +359,38 @@ fn main() -> Result<()> {
     }
 
     bail!("Input should either be a file, stdin ('-') or a directory");
+}
+
+fn main() -> Result<()> {
+    let cli = Cli::parse();
+
+    let verbose = cli.verbose;
+
+    // Setup logging based on verbose flag
+    let log_level = if verbose {
+        LevelFilter::Info
+    } else {
+        LevelFilter::Error
+    };
+
+    let mut builder = Builder::from_default_env();
+    builder
+        .format(|buf, record| {
+            let level = match record.level() {
+                Level::Error => "Error",
+                Level::Warn => "Warning",
+                Level::Info => "Info",
+                Level::Debug => "Debug",
+                Level::Trace => "Trace",
+            };
+            writeln!(buf, "{}: {}", level, record.args())
+        })
+        .filter(None, log_level);
+    builder.init();
+
+    // Handle commands
+    match &cli.command {
+        Commands::Anonymize(args) => anonymize_command(args),
+        Commands::Config(args) => config_command(args),
+    }
 }
