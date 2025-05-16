@@ -187,7 +187,7 @@ mod tests {
         // Check that the JSON format has tag strings as keys
         assert_eq!(
             json,
-            r#"{"(0010,0010)":{"comment":"PatientName","action":"empty"},"(0010,0020)":{"comment":"PatientID","action":"remove"}}"#
+            r#"{"00100010":{"comment":"PatientName","action":"empty"},"00100020":{"comment":"PatientID","action":"remove"}}"#
         );
 
         // Test deserialization
@@ -230,7 +230,7 @@ mod tests {
         let json = serde_json::to_string(&map).unwrap();
         assert_eq!(
             json,
-            r#"{"(0010,0010)":{"comment":"PatientName","action":"empty"},"(0010,0020)":{"comment":"PatientID","action":"remove"}}"#
+            r#"{"00100010":{"comment":"PatientName","action":"empty"},"00100020":{"comment":"PatientID","action":"remove"}}"#
         );
     }
 
@@ -259,14 +259,14 @@ mod tests {
         let json = serde_json::to_string(&map).unwrap();
         assert_eq!(
             json,
-            r#"{"(0010,0010)":{"comment":"PatientName","action":"hash"},"(0010,0020)":{"comment":"PatientID","action":"remove"},"(0020,0010)":{"comment":"StudyID","action":"empty"}}"#
+            r#"{"00100010":{"comment":"PatientName","action":"hash"},"00100020":{"comment":"PatientID","action":"remove"},"00200010":{"comment":"StudyID","action":"empty"}}"#
         );
     }
 
     #[test]
     fn test_error_handling() {
         // Test invalid hex digits
-        let json = r#"{"(ZZZZ,0010)":{"action":"empty"}}"#;
+        let json = r#"{"ZZZZ0010":{"action":"empty"}}"#;
         let result: Result<TagActionMap, _> = serde_json::from_str(json);
         assert!(result.is_err());
     }
@@ -283,11 +283,11 @@ mod tests {
         let json = serde_json::to_string(&map).unwrap();
 
         // For the known tag, a comment should be present
-        assert!(json.contains("\"(0010,0010)\":{\"comment\":\"PatientName\",\"action\":\"empty\"}"));
+        assert!(json.contains("\"00100010\":{\"comment\":\"PatientName\",\"action\":\"empty\"}"));
 
         // For the unknown tag, the comment should be omitted
-        assert!(json.contains("\"(9999,9999)\":{\"action\":\"remove\"}"));
-        assert!(!json.contains("\"(9999,9999)\":{\"comment\""));
+        assert!(json.contains("\"99999999\":{\"action\":\"remove\"}"));
+        assert!(!json.contains("\"99999999\":{\"comment\""));
     }
 
     #[test]

@@ -329,11 +329,11 @@ mod tests {
         assert!(json.contains(r#""remove_overlays": true"#));
 
         // Check tag actions serialized correctly
-        assert!(json.contains(r#""(0010,0010)""#)); // Patient Name
+        assert!(json.contains(r#""00100010""#)); // Patient Name
         assert!(json.contains(r#""action": "empty""#));
-        assert!(json.contains(r#""(0010,0020)""#)); // Patient ID
+        assert!(json.contains(r#""00100020""#)); // Patient ID
         assert!(json.contains(r#""action": "remove""#));
-        assert!(json.contains(r#""(0008,0050)""#)); // Accession Number
+        assert!(json.contains(r#""00080050""#)); // Accession Number
         assert!(json.contains(r#""action": "hash""#));
     }
 
