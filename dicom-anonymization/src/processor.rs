@@ -88,7 +88,10 @@ impl Processor for DefaultProcessor {
         let process_result = action_struct.process(&self.config, obj, elem);
         match process_result {
             Ok(None) => Ok(None),
-            Ok(Some(v)) => Ok(Some(Cow::Owned(v.into_owned()))),
+            Ok(Some(v)) => {
+                // TODO: see if it's possible to process sequences here
+                Ok(Some(Cow::Owned(v.into_owned())))
+            }
             Err(ActionError::InvalidHashDateTag(e)) => {
                 // log a warning for this error, but return the element as is
                 warn!("{}", e);
