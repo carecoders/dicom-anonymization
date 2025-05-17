@@ -42,9 +42,7 @@ use std::io::{Read, Write};
 
 use crate::config::builder::ConfigBuilder;
 use crate::processor::{DefaultProcessor, Error as ProcessingError};
-use dicom_core::header::Header;
 pub use dicom_core::Tag;
-use dicom_core::VR;
 pub use dicom_dictionary_std::tags;
 use dicom_object::{DefaultDicomObject, FileDicomObject, OpenFileOptions, ReadError, WriteError};
 use processor::Processor;
@@ -180,13 +178,7 @@ impl Anonymizer {
             match result {
                 Ok(None) => continue,
                 Ok(Some(processed_elem)) => {
-                    let processed_elem = processed_elem.into_owned();
-                    if processed_elem.vr() == VR::SQ {
-                        // TODO: process sequence items, can this be done recursively?
-                        let tag = processed_elem.tag();
-                        warn!("Got sequence {:04X}{:04X}", tag.group(), tag.element());
-                    }
-                    new_obj.put(processed_elem);
+                    new_obj.put(processed_elem.into_owned());
                 }
                 Err(err) => return Err(err.into()),
             }
