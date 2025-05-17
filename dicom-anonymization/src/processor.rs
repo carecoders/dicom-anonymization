@@ -200,7 +200,9 @@ mod tests {
     use super::*;
 
     use dicom_core::header::HasLength;
+    use dicom_core::value::DataSetSequence;
     use dicom_core::value::Value;
+    use dicom_core::Tag;
     use dicom_core::{header, PrimitiveValue, VR};
     use dicom_object::FileDicomObject;
 
@@ -408,5 +410,73 @@ mod tests {
         let processor = DoNothingProcessor::new();
         let processed = processor.process_element(&obj, elem).unwrap();
         assert_eq!(processed.unwrap().into_owned(), elem.clone());
+    }
+
+    #[test]
+    fn test_process_sequence_replace_action_inside_item() {
+        let meta = make_file_meta();
+        let mut obj = FileDicomObject::new_empty_with_meta(meta);
+
+        let mut item = InMemDicomObject::new_empty();
+        item.put(InMemElement::new(
+            tags::PATIENT_NAME,
+            VR::PN,
+            Value::from("John Doe"),
+        ));
+
+        let seq_tag = Tag(0x0008, 0x1110);
+        let seq_value = Value::Sequence(DataSetSequence::from(vec![item]));
+        obj.put(InMemElement::new(seq_tag, VR::SQ, seq_value));
+
+        let config = ConfigBuilder::new()
+            .tag_action(
+                tags::PATIENT_NAME,
+                Action::Replace {
+                    value: "Jane Doe".into(),
+                },
+            )
+            .build();
+
+        let elem = obj.element(seq_tag).unwrap();
+        let processor = DefaultProcessor::new(config);
+        let processed = processor
+            .process_element(&obj, elem)
+            .unwrap()
+            .unwrap()
+            .into_owned();
+
+        if let Value::Sequence(seq) = processed.value() {
+            let pn_elem = seq.items()[0].element(tags::PATIENT_NAME).unwrap();
+            assert_eq!(pn_elem.value(), &Value::from("Jane Doe"));
+        } else {
+            panic!("Expected a sequence element");
+        }
+    }
+
+    #[test]
+    fn test_process_sequence_remove_whole_sequence_if_no_items_left() {
+        let meta = make_file_meta();
+        let mut obj = FileDicomObject::new_empty_with_meta(meta);
+
+        let mut item = InMemDicomObject::new_empty();
+        item.put(InMemElement::new(
+            tags::PATIENT_NAME,
+            VR::PN,
+            Value::from("John Doe"),
+        ));
+
+        let seq_tag = Tag(0x0008, 0x1110);
+        let seq_value = Value::Sequence(DataSetSequence::from(vec![item]));
+        obj.put(InMemElement::new(seq_tag, VR::SQ, seq_value));
+
+        let config = ConfigBuilder::new()
+            .tag_action(tags::PATIENT_NAME, Action::Remove)
+            .build();
+
+        let elem = obj.element(seq_tag).unwrap();
+        let processor = DefaultProcessor::new(config);
+        let processed = processor.process_element(&obj, elem).unwrap();
+
+        assert!(processed.is_none(), "Sequence should have been removed");
     }
 }
