@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0](https://github.com/carecoders/dicom-anonymization/compare/dicom-anonymization-v0.2.1...dicom-anonymization-v0.3.0) - 2025-05-17
+
+### Other
+
+- Process sequence items' elements ([#24](https://github.com/carecoders/dicom-anonymization/pull/24))
+- Update README
+- Raise error if profile is not 'default' or 'none'
+- Improve various option help texts for executable
+- Add --profile and --config options to executable ([#22](https://github.com/carecoders/dicom-anonymization/pull/22))
+- Add Python Anonymizer class ([#20](https://github.com/carecoders/dicom-anonymization/pull/20))
+
 ## [0.2.1](https://github.com/carecoders/dicom-anonymization/compare/v0.2.0...v0.2.1) - 2025-05-05
 
 ### Added
