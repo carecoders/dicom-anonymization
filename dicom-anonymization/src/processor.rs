@@ -3,7 +3,7 @@ use dicom_core::value::{CastValueError, DataSetSequence};
 use dicom_core::{DicomValue, VR};
 use dicom_object::mem::{InMemDicomObject, InMemElement};
 use dicom_object::{AccessError, DefaultDicomObject};
-use log::{debug, warn};
+use log::warn;
 use std::borrow::Cow;
 use thiserror::Error;
 
@@ -50,25 +50,54 @@ pub trait Processor {
     ) -> Result<Option<Cow<'a, InMemElement>>>;
 }
 
+/// DefaultProcessor is responsible for applying anonymization rules to DICOM elements
+///
+/// This processor uses a provided configuration to determine which anonymization
+/// actions should be applied to each DICOM element. It can process both individual
+/// elements and recursively handle sequence elements.
 #[derive(Debug, Clone, PartialEq)]
 pub struct DefaultProcessor {
     config: Config,
 }
 
 impl DefaultProcessor {
+    /// Creates a new instance of DefaultProcessor
+    ///
+    /// # Arguments
+    ///
+    /// * `config` - Configuration containing anonymization rules
+    ///
+    /// # Returns
+    ///
+    /// A new DefaultProcessor instance initialized with the provided configuration
     pub fn new(config: Config) -> Self {
         Self { config }
     }
 
-    fn process_sequence(
+    /// Process a sequence element by recursively processing each item in the sequence
+    ///
+    /// Takes a DICOM sequence element and applies the configured anonymization rules to each
+    /// element within each item of the sequence.
+    ///
+    /// # Arguments
+    ///
+    /// * `obj` - Reference to the parent DICOM object
+    /// * `seq_elem` - Reference to the sequence element to be processed
+    ///
+    /// # Returns
+    ///
+    /// Returns a `Result` containing:
+    /// * `Some(Cow<InMemElement>)` - The processed sequence element
+    /// * `None` - If the sequence should be removed (all items were empty after processing)
+    /// * `Err` - If there was an error processing the sequence
+    fn process_sequence<'a>(
         &self,
         obj: &DefaultDicomObject,
         seq_elem: &InMemElement,
-    ) -> Result<InMemElement> {
-        // TODO: make this function return a `Option<Cow<InMemElement>>`, similar to `process_element`
+    ) -> Result<Option<Cow<'a, InMemElement>>> {
         let DicomValue::Sequence(sequence) = seq_elem.value() else {
-            // should never happen, but if it does, we return the element as is
-            return Ok(seq_elem.clone());
+            // not a sequence apparently, return as is
+            return Ok(Some(Cow::Owned(seq_elem.clone())));
         };
 
         let mut new_items: Vec<InMemDicomObject> = Vec::with_capacity(sequence.items().len());
@@ -87,11 +116,14 @@ impl DefaultProcessor {
             }
         }
 
-        // TODO: if there are no new items here, return `None` (return type and handling in
-        // `process_element` needs to change for this)
-        let new_sequence = DataSetSequence::from(new_items);
-
-        Ok(InMemElement::new(seq_elem.tag(), VR::SQ, new_sequence))
+        match new_items.is_empty() {
+            true => Ok(None),
+            false => Ok(Some(Cow::Owned(InMemElement::new(
+                seq_elem.tag(),
+                VR::SQ,
+                DataSetSequence::from(new_items),
+            )))),
+        }
     }
 }
 
@@ -119,28 +151,16 @@ impl Processor for DefaultProcessor {
     ) -> Result<Option<Cow<'a, InMemElement>>> {
         let action = self.config.get_action(&elem.tag());
         let action_struct = action.get_action_struct();
-
         let process_result = action_struct.process(&self.config, obj, elem);
+
         match process_result {
             Ok(None) => Ok(None),
-            Ok(Some(v)) => {
-                let mut owned = v.into_owned();
-
-                // if it's a sequence, we need to process its items' elements
-                if owned.vr() == VR::SQ {
-                    let tag = elem.tag();
-                    debug!(
-                        "processing sequence {:04X}{:04X}",
-                        tag.group(),
-                        tag.element()
-                    );
-                    owned = self.process_sequence(obj, &owned)?;
-                }
-
-                Ok(Some(Cow::Owned(owned)))
-            }
+            Ok(Some(processed_elem)) => match processed_elem.vr() {
+                VR::SQ => self.process_sequence(obj, &processed_elem),
+                _ => Ok(Some(Cow::Owned(processed_elem.into_owned()))),
+            },
             Err(ActionError::InvalidHashDateTag(e)) => {
-                // log a warning for this error, but return the element as is
+                // return the element as is, but log a warning for this error
                 warn!("{}", e);
                 Ok(Some(Cow::Borrowed(elem)))
             }
