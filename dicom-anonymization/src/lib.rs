@@ -47,7 +47,6 @@ pub use dicom_core::Tag;
 use dicom_core::VR;
 pub use dicom_dictionary_std::tags;
 use dicom_object::{DefaultDicomObject, FileDicomObject, OpenFileOptions, ReadError, WriteError};
-use log::warn;
 use processor::Processor;
 use thiserror::Error;
 
