@@ -1,7 +1,7 @@
 use dicom_core::header::Header;
-use dicom_core::value::CastValueError;
-use dicom_core::VR;
-use dicom_object::mem::InMemElement;
+use dicom_core::value::{CastValueError, DataSetSequence};
+use dicom_core::{DicomValue, VR};
+use dicom_object::mem::{InMemDicomObject, InMemElement};
 use dicom_object::{AccessError, DefaultDicomObject};
 use log::{debug, warn};
 use std::borrow::Cow;
@@ -59,6 +59,40 @@ impl DefaultProcessor {
     pub fn new(config: Config) -> Self {
         Self { config }
     }
+
+    fn process_sequence(
+        &self,
+        obj: &DefaultDicomObject,
+        seq_elem: &InMemElement,
+    ) -> Result<InMemElement> {
+        // TODO: make this function return a `Option<Cow<InMemElement>>`, similar to `process_element`
+        let DicomValue::Sequence(sequence) = seq_elem.value() else {
+            // should never happen, but if it does, we return the element as is
+            return Ok(seq_elem.clone());
+        };
+
+        let mut new_items: Vec<InMemDicomObject> = Vec::with_capacity(sequence.items().len());
+
+        for item in sequence.items() {
+            let mut new_item = InMemDicomObject::new_empty();
+
+            for elem in item {
+                if let Some(processed_elem) = self.process_element(obj, elem)? {
+                    new_item.put(processed_elem.into_owned());
+                }
+            }
+
+            if new_item.iter().count() > 0 {
+                new_items.push(new_item);
+            }
+        }
+
+        // TODO: if there are no new items here, return `None` (return type and handling in
+        // `process_element` needs to change for this)
+        let new_sequence = DataSetSequence::from(new_items);
+
+        Ok(InMemElement::new(seq_elem.tag(), VR::SQ, new_sequence))
+    }
 }
 
 impl Processor for DefaultProcessor {
@@ -83,19 +117,28 @@ impl Processor for DefaultProcessor {
         obj: &DefaultDicomObject,
         elem: &'a InMemElement,
     ) -> Result<Option<Cow<'a, InMemElement>>> {
-        // TODO: see if it's possible to process sequences here somehow
-        let tag = elem.tag();
-        if elem.vr() == VR::SQ {
-            debug!("got sequence {:04X}{:04X}", tag.group(), tag.element());
-        }
-
         let action = self.config.get_action(&elem.tag());
         let action_struct = action.get_action_struct();
 
         let process_result = action_struct.process(&self.config, obj, elem);
         match process_result {
             Ok(None) => Ok(None),
-            Ok(Some(v)) => Ok(Some(Cow::Owned(v.into_owned()))),
+            Ok(Some(v)) => {
+                let mut owned = v.into_owned();
+
+                // if it's a sequence, we need to process its items' elements
+                if owned.vr() == VR::SQ {
+                    let tag = elem.tag();
+                    debug!(
+                        "Processing sequence {:04X}{:04X}",
+                        tag.group(),
+                        tag.element()
+                    );
+                    owned = self.process_sequence(obj, &owned)?;
+                }
+
+                Ok(Some(Cow::Owned(owned)))
+            }
             Err(ActionError::InvalidHashDateTag(e)) => {
                 // log a warning for this error, but return the element as is
                 warn!("{}", e);

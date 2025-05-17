@@ -10,7 +10,7 @@ use tag_action_map::TagActionMap;
 use thiserror::Error;
 use uid_root::{UidRoot, UidRootError};
 
-const DEIDENTIFIER: &str = "CARECODERS";
+const DEIDENTIFIER: &str = "CARECODERS.IO";
 
 #[derive(Error, Debug, Clone, Eq, PartialEq, Ord, PartialOrd)]
 pub enum ConfigError {
