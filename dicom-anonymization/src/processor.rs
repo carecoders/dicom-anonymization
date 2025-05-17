@@ -130,7 +130,7 @@ impl Processor for DefaultProcessor {
                 if owned.vr() == VR::SQ {
                     let tag = elem.tag();
                     debug!(
-                        "Processing sequence {:04X}{:04X}",
+                        "processing sequence {:04X}{:04X}",
                         tag.group(),
                         tag.element()
                     );

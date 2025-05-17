@@ -42,12 +42,8 @@ use std::io::{Read, Write};
 
 use crate::config::builder::ConfigBuilder;
 use crate::processor::{DefaultProcessor, Error as ProcessingError};
-use dicom_core::header::Header;
-use dicom_core::value::{DataSetSequence, Value};
 pub use dicom_core::Tag;
-use dicom_core::VR;
 pub use dicom_dictionary_std::tags;
-use dicom_object::mem::InMemElement;
 use dicom_object::{DefaultDicomObject, FileDicomObject, OpenFileOptions, ReadError, WriteError};
 use processor::Processor;
 use thiserror::Error;
@@ -182,27 +178,7 @@ impl Anonymizer {
             match result {
                 Ok(None) => continue,
                 Ok(Some(processed_elem)) => {
-                    let processed_elem = processed_elem.into_owned();
-                    if processed_elem.vr() == VR::SQ {
-                        // TODO: this should be done within `processor.process_element()`
-                        // Process sequence items recursively
-                        let tag = processed_elem.tag();
-                        if let Value::Sequence(items) = processed_elem.value() {
-                            let processed_items = self.process_sequence_items(items, &obj)?;
-                            // Create a new sequence element with the processed items
-                            let new_seq_elem = InMemElement::new(
-                                tag,
-                                VR::SQ,
-                                Value::Sequence(DataSetSequence::from(processed_items)),
-                            );
-                            new_obj.put(new_seq_elem);
-                        } else {
-                            // This shouldn't happen if VR is SQ, but handle it anyway
-                            new_obj.put(processed_elem);
-                        }
-                    } else {
-                        new_obj.put(processed_elem);
-                    }
+                    new_obj.put(processed_elem.into_owned());
                 }
                 Err(err) => return Err(err.into()),
             }
@@ -232,52 +208,6 @@ impl Anonymizer {
             original: obj,
             anonymized: new_obj,
         })
-    }
-
-    // Process sequence items recursively
-    fn process_sequence_items(
-        &self,
-        items: &DataSetSequence<dicom_object::mem::InMemDicomObject>,
-        parent: &DefaultDicomObject,
-    ) -> Result<Vec<dicom_object::mem::InMemDicomObject>> {
-        let mut processed_items = Vec::with_capacity(items.length().0 as usize);
-
-        for item in items.items() {
-            let mut new_item = dicom_object::mem::InMemDicomObject::new_empty();
-
-            for elem in item {
-                let result = self.processor.process_element(parent, elem);
-                match result {
-                    Ok(None) => continue,
-                    Ok(Some(processed_elem)) => {
-                        let processed_elem = processed_elem.into_owned();
-                        if processed_elem.vr() == VR::SQ {
-                            // Handle nested sequences
-                            let tag = processed_elem.tag();
-                            if let Value::Sequence(nested_items) = processed_elem.value() {
-                                let processed_nested_items =
-                                    self.process_sequence_items(nested_items, parent)?;
-                                let new_nested_seq = InMemElement::new(
-                                    tag,
-                                    VR::SQ,
-                                    Value::Sequence(DataSetSequence::from(processed_nested_items)),
-                                );
-                                new_item.put(new_nested_seq);
-                            } else {
-                                new_item.put(processed_elem);
-                            }
-                        } else {
-                            new_item.put(processed_elem);
-                        }
-                    }
-                    Err(err) => return Err(err.into()),
-                }
-            }
-
-            processed_items.push(new_item);
-        }
-
-        Ok(processed_items)
     }
 }
 
