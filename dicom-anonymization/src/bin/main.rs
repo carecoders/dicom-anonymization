@@ -57,6 +57,10 @@ struct Cli {
     #[arg(short, long, global = true)]
     verbose: bool,
 
+    /// Show debug output
+    #[arg(short, long, global = true)]
+    debug: bool,
+
     #[command(subcommand)]
     command: Commands,
 }
@@ -364,13 +368,13 @@ fn anonymize_command(args: &AnonymizeArgs) -> Result<()> {
 fn main() -> Result<()> {
     let cli = Cli::parse();
 
+    let debug = cli.debug;
     let verbose = cli.verbose;
 
-    // Setup logging based on verbose flag
-    let log_level = if verbose {
-        LevelFilter::Info
-    } else {
-        LevelFilter::Error
+    let log_level = match (debug, verbose) {
+        (true, _) => LevelFilter::Debug,
+        (false, true) => LevelFilter::Info,
+        (false, false) => LevelFilter::Error,
     };
 
     let mut builder = Builder::from_default_env();

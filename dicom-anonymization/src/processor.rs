@@ -1,8 +1,9 @@
 use dicom_core::header::Header;
 use dicom_core::value::CastValueError;
+use dicom_core::VR;
 use dicom_object::mem::InMemElement;
 use dicom_object::{AccessError, DefaultDicomObject};
-use log::warn;
+use log::{debug, warn};
 use std::borrow::Cow;
 use thiserror::Error;
 
@@ -82,16 +83,19 @@ impl Processor for DefaultProcessor {
         obj: &DefaultDicomObject,
         elem: &'a InMemElement,
     ) -> Result<Option<Cow<'a, InMemElement>>> {
+        // TODO: see if it's possible to process sequences here somehow
+        let tag = elem.tag();
+        if elem.vr() == VR::SQ {
+            debug!("got sequence {:04X}{:04X}", tag.group(), tag.element());
+        }
+
         let action = self.config.get_action(&elem.tag());
         let action_struct = action.get_action_struct();
 
         let process_result = action_struct.process(&self.config, obj, elem);
         match process_result {
             Ok(None) => Ok(None),
-            Ok(Some(v)) => {
-                // TODO: see if it's possible to process sequences here
-                Ok(Some(Cow::Owned(v.into_owned())))
-            }
+            Ok(Some(v)) => Ok(Some(Cow::Owned(v.into_owned()))),
             Err(ActionError::InvalidHashDateTag(e)) => {
                 // log a warning for this error, but return the element as is
                 warn!("{}", e);
