@@ -362,7 +362,7 @@ fn anonymize_command(args: &AnonymizeArgs) -> Result<()> {
         return Ok(());
     }
 
-    bail!("Input should either be a file, stdin ('-') or a directory");
+    bail!("input should either be a file, stdin ('-') or a directory");
 }
 
 fn main() -> Result<()> {
