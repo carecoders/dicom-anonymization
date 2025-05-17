@@ -58,18 +58,10 @@ impl<'de> Deserialize<'de> for TagString {
 
         let tag: Tag = tag_str.parse().map_err(|_| {
             serde::de::Error::custom(format!(
-                "Tag must be in format '(XXXX,XXXX)' where X is a hex digit, got: {}",
+                "Tag must be in format 'GGGGEEEE' where G and E are hex digits, got: {}",
                 tag_str
             ))
         })?;
-
-        // Make sure the tag string starts and ends with parentheses
-        if !tag_str.starts_with('(') || !tag_str.ends_with(')') {
-            return Err(serde::de::Error::custom(format!(
-                "Tag must be in format '(XXXX,XXXX)', got: {}",
-                tag_str
-            )));
-        }
 
         Ok(TagString(tag))
     }

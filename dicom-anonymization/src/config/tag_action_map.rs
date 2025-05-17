@@ -116,7 +116,7 @@ impl Serialize for TagActionMap {
             let alias = get_tag_alias(tag);
 
             // Convert tag to string format
-            let tag_str = format!("{}", tag);
+            let tag_str = format!("{:04X}{:04X}", tag.group(), tag.element());
 
             // Create the combined structure with an optional comment
             let action_with_desc = TagActionWithComment {
@@ -147,18 +147,10 @@ impl<'de> Deserialize<'de> for TagActionMap {
             // Parse the tag string
             let tag: Tag = tag_str.parse().map_err(|_| {
                 serde::de::Error::custom(format!(
-                    "Tag must be in format '(XXXX,XXXX)' where X is a hex digit, got: {}",
+                    "Tag must be in format 'GGGGEEEE' where G and E are hex digits, got: {}",
                     tag_str
                 ))
             })?;
-
-            // Make sure the tag string starts and ends with parentheses
-            if !tag_str.starts_with('(') || !tag_str.ends_with(')') {
-                return Err(serde::de::Error::custom(format!(
-                    "Tag must be in format '(XXXX,XXXX)', got: {}",
-                    tag_str
-                )));
-            }
 
             let action = action_with_comment.action;
 
@@ -195,7 +187,7 @@ mod tests {
         // Check that the JSON format has tag strings as keys
         assert_eq!(
             json,
-            r#"{"(0010,0010)":{"comment":"PatientName","action":"empty"},"(0010,0020)":{"comment":"PatientID","action":"remove"}}"#
+            r#"{"00100010":{"comment":"PatientName","action":"empty"},"00100020":{"comment":"PatientID","action":"remove"}}"#
         );
 
         // Test deserialization
@@ -238,7 +230,7 @@ mod tests {
         let json = serde_json::to_string(&map).unwrap();
         assert_eq!(
             json,
-            r#"{"(0010,0010)":{"comment":"PatientName","action":"empty"},"(0010,0020)":{"comment":"PatientID","action":"remove"}}"#
+            r#"{"00100010":{"comment":"PatientName","action":"empty"},"00100020":{"comment":"PatientID","action":"remove"}}"#
         );
     }
 
@@ -267,14 +259,14 @@ mod tests {
         let json = serde_json::to_string(&map).unwrap();
         assert_eq!(
             json,
-            r#"{"(0010,0010)":{"comment":"PatientName","action":"hash"},"(0010,0020)":{"comment":"PatientID","action":"remove"},"(0020,0010)":{"comment":"StudyID","action":"empty"}}"#
+            r#"{"00100010":{"comment":"PatientName","action":"hash"},"00100020":{"comment":"PatientID","action":"remove"},"00200010":{"comment":"StudyID","action":"empty"}}"#
         );
     }
 
     #[test]
     fn test_error_handling() {
         // Test invalid hex digits
-        let json = r#"{"(ZZZZ,0010)":{"action":"empty"}}"#;
+        let json = r#"{"ZZZZ0010":{"action":"empty"}}"#;
         let result: Result<TagActionMap, _> = serde_json::from_str(json);
         assert!(result.is_err());
     }
@@ -291,11 +283,11 @@ mod tests {
         let json = serde_json::to_string(&map).unwrap();
 
         // For the known tag, a comment should be present
-        assert!(json.contains("\"(0010,0010)\":{\"comment\":\"PatientName\",\"action\":\"empty\"}"));
+        assert!(json.contains("\"00100010\":{\"comment\":\"PatientName\",\"action\":\"empty\"}"));
 
         // For the unknown tag, the comment should be omitted
-        assert!(json.contains("\"(9999,9999)\":{\"action\":\"remove\"}"));
-        assert!(!json.contains("\"(9999,9999)\":{\"comment\""));
+        assert!(json.contains("\"99999999\":{\"action\":\"remove\"}"));
+        assert!(!json.contains("\"99999999\":{\"comment\""));
     }
 
     #[test]

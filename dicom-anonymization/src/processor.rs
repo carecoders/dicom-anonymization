@@ -1,6 +1,7 @@
 use dicom_core::header::Header;
-use dicom_core::value::CastValueError;
-use dicom_object::mem::InMemElement;
+use dicom_core::value::{CastValueError, DataSetSequence};
+use dicom_core::{DicomValue, VR};
+use dicom_object::mem::{InMemDicomObject, InMemElement};
 use dicom_object::{AccessError, DefaultDicomObject};
 use log::warn;
 use std::borrow::Cow;
@@ -49,14 +50,80 @@ pub trait Processor {
     ) -> Result<Option<Cow<'a, InMemElement>>>;
 }
 
+/// DefaultProcessor is responsible for applying anonymization rules to DICOM elements
+///
+/// This processor uses a provided configuration to determine which anonymization
+/// actions should be applied to each DICOM element. It can process both individual
+/// elements and recursively handle sequence elements.
 #[derive(Debug, Clone, PartialEq)]
 pub struct DefaultProcessor {
     config: Config,
 }
 
 impl DefaultProcessor {
+    /// Creates a new instance of DefaultProcessor
+    ///
+    /// # Arguments
+    ///
+    /// * `config` - Configuration containing anonymization rules
+    ///
+    /// # Returns
+    ///
+    /// A new DefaultProcessor instance initialized with the provided configuration
     pub fn new(config: Config) -> Self {
         Self { config }
+    }
+
+    /// Process a sequence element by recursively processing each item in the sequence
+    ///
+    /// Takes a DICOM sequence element and applies the configured anonymization rules to each
+    /// element within each item of the sequence.
+    ///
+    /// # Arguments
+    ///
+    /// * `obj` - Reference to the parent DICOM object
+    /// * `seq_elem` - Reference to the sequence element to be processed
+    ///
+    /// # Returns
+    ///
+    /// Returns a `Result` containing:
+    /// * `Some(Cow<InMemElement>)` - The processed sequence element
+    /// * `None` - If the sequence should be removed (all items were empty after processing)
+    /// * `Err` - If there was an error processing the sequence
+    fn process_sequence<'a>(
+        &self,
+        obj: &DefaultDicomObject,
+        seq_elem: &InMemElement,
+    ) -> Result<Option<Cow<'a, InMemElement>>> {
+        let DicomValue::Sequence(sequence) = seq_elem.value() else {
+            // not a sequence apparently, return as is
+            return Ok(Some(Cow::Owned(seq_elem.clone())));
+        };
+
+        let mut new_items: Vec<InMemDicomObject> = Vec::with_capacity(sequence.items().len());
+
+        for item in sequence.items() {
+            let mut new_item = InMemDicomObject::new_empty();
+
+            for elem in item {
+                if let Some(processed_elem) = self.process_element(obj, elem)? {
+                    new_item.put(processed_elem.into_owned());
+                }
+            }
+
+            if new_item.iter().count() > 0 {
+                new_items.push(new_item);
+            }
+        }
+
+        match new_items.is_empty() {
+            true => Ok(None),
+            false => Ok(Some(Cow::Owned(InMemElement::new(
+                seq_elem.tag(),
+                VR::SQ,
+                DataSetSequence::from(new_items),
+            )))),
+        }
     }
 }
 
@@ -84,13 +151,16 @@ impl Processor for DefaultProcessor {
     ) -> Result<Option<Cow<'a, InMemElement>>> {
         let action = self.config.get_action(&elem.tag());
         let action_struct = action.get_action_struct();
-
         let process_result = action_struct.process(&self.config, obj, elem);
+
         match process_result {
             Ok(None) => Ok(None),
-            Ok(Some(v)) => Ok(Some(Cow::Owned(v.into_owned()))),
+            Ok(Some(processed_elem)) => match processed_elem.vr() {
+                VR::SQ => self.process_sequence(obj, &processed_elem),
+                _ => Ok(Some(Cow::Owned(processed_elem.into_owned()))),
+            },
             Err(ActionError::InvalidHashDateTag(e)) => {
-                // log a warning for this error, but return the element as is
+                // return the element as is, but log a warning for this error
                 warn!("{}", e);
                 Ok(Some(Cow::Borrowed(elem)))
             }
@@ -130,7 +200,9 @@ mod tests {
     use super::*;
 
     use dicom_core::header::HasLength;
+    use dicom_core::value::DataSetSequence;
     use dicom_core::value::Value;
+    use dicom_core::Tag;
     use dicom_core::{header, PrimitiveValue, VR};
     use dicom_object::FileDicomObject;
 
@@ -338,5 +410,73 @@ mod tests {
         let processor = DoNothingProcessor::new();
         let processed = processor.process_element(&obj, elem).unwrap();
         assert_eq!(processed.unwrap().into_owned(), elem.clone());
+    }
+
+    #[test]
+    fn test_process_sequence_replace_action_inside_item() {
+        let meta = make_file_meta();
+        let mut obj = FileDicomObject::new_empty_with_meta(meta);
+
+        let mut item = InMemDicomObject::new_empty();
+        item.put(InMemElement::new(
+            tags::PATIENT_NAME,
+            VR::PN,
+            Value::from("John Doe"),
+        ));
+
+        let seq_tag = Tag(0x0008, 0x1110);
+        let seq_value = Value::Sequence(DataSetSequence::from(vec![item]));
+        obj.put(InMemElement::new(seq_tag, VR::SQ, seq_value));
+
+        let config = ConfigBuilder::new()
+            .tag_action(
+                tags::PATIENT_NAME,
+                Action::Replace {
+                    value: "Jane Doe".into(),
+                },
+            )
+            .build();
+
+        let elem = obj.element(seq_tag).unwrap();
+        let processor = DefaultProcessor::new(config);
+        let processed = processor
+            .process_element(&obj, elem)
+            .unwrap()
+            .unwrap()
+            .into_owned();
+
+        if let Value::Sequence(seq) = processed.value() {
+            let pn_elem = seq.items()[0].element(tags::PATIENT_NAME).unwrap();
+            assert_eq!(pn_elem.value(), &Value::from("Jane Doe"));
+        } else {
+            panic!("Expected a sequence element");
+        }
+    }
+
+    #[test]
+    fn test_process_sequence_remove_whole_sequence_if_no_items_left() {
+        let meta = make_file_meta();
+        let mut obj = FileDicomObject::new_empty_with_meta(meta);
+
+        let mut item = InMemDicomObject::new_empty();
+        item.put(InMemElement::new(
+            tags::PATIENT_NAME,
+            VR::PN,
+            Value::from("John Doe"),
+        ));
+
+        let seq_tag = Tag(0x0008, 0x1110);
+        let seq_value = Value::Sequence(DataSetSequence::from(vec![item]));
+        obj.put(InMemElement::new(seq_tag, VR::SQ, seq_value));
+
+        let config = ConfigBuilder::new()
+            .tag_action(tags::PATIENT_NAME, Action::Remove)
+            .build();
+
+        let elem = obj.element(seq_tag).unwrap();
+        let processor = DefaultProcessor::new(config);
+        let processed = processor.process_element(&obj, elem).unwrap();
+
+        assert!(processed.is_none(), "Sequence should have been removed");
     }
 }
