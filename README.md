@@ -7,13 +7,9 @@
 This repository provides a library and binary for anonymizing (or de-identifying) [DICOM](https://dicomstandard.org/) files.
 
 > [!WARNING]
-> This is a work in progress. Some major things may still change and not all things may work as expected yet until version 0.5.
+> This is a work in progress. Some things may still change and not all things may work as expected yet.
 
 The project prioritizes performance, reliability, safety and ease of use.
-
-## Limitations
-
-Only top-level DICOM tags are processed for now, not tags nested inside sequences. This may change in the future.
 
 ## Building
 
