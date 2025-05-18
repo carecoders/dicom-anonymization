@@ -66,12 +66,21 @@ struct Cli {
 }
 
 #[derive(clap::Subcommand, Debug)]
+enum ConfigCommands {
+    /// Create a configuration file
+    Create(ConfigCreateArgs),
+
+    Dump,
+}
+
+#[derive(clap::Subcommand, Debug)]
 enum Commands {
     /// Anonymize DICOM files
     Anonymize(AnonymizeArgs),
 
-    /// Manage configuration files
-    Config(ConfigArgs),
+    /// Configuration tools
+    #[command(subcommand)]
+    Config(ConfigCommands),
 }
 
 /// Anonymize DICOM files
@@ -107,14 +116,10 @@ struct AnonymizeArgs {
 }
 
 #[derive(Parser, Debug)]
-struct ConfigArgs {
+struct ConfigCreateArgs {
     /// Path to save the config file
     #[arg(short, long, value_name = "CONFIG_FILE")]
     output: PathBuf,
-
-    /// Use preset config profile ('default', 'none')
-    #[arg(short, long, default_value = "default")]
-    profile: String,
 
     /// UID root to use
     #[arg(short, long)]
@@ -216,12 +221,8 @@ fn anonymize(anonymizer: &Anonymizer, input_path: &PathBuf, output_path: &PathBu
     Ok(())
 }
 
-fn config_command(args: &ConfigArgs) -> Result<()> {
-    let mut config_builder = match args.profile.as_str() {
-        "none" => ConfigBuilder::new(),
-        "default" => ConfigBuilder::default(),
-        _ => bail!("profile should be either 'default' or 'none'"),
-    };
+fn config_create_command(args: &ConfigCreateArgs) -> Result<()> {
+    let mut config_builder = ConfigBuilder::default();
 
     // Apply UID root if specified
     if let Some(uid_root) = &args.uid_root {
@@ -245,6 +246,17 @@ fn config_command(args: &ConfigArgs) -> Result<()> {
         .with_context(|| format!("Failed to write config to {}", args.output.display()))?;
 
     info!("Configuration saved to {}", args.output.display());
+    Ok(())
+}
+
+fn config_dump_command() -> Result<()> {
+    use std::io::{self, Write};
+
+    let config = ConfigBuilder::default().build();
+    let stdout = io::stdout();
+    let mut w = stdout.lock();
+    serde_json::to_writer_pretty(&mut w, &config)?;
+    writeln!(w)?;
     Ok(())
 }
 
@@ -386,6 +398,9 @@ fn main() -> Result<()> {
     // Handle commands
     match &cli.command {
         Commands::Anonymize(args) => anonymize_command(args),
-        Commands::Config(args) => config_command(args),
+        Commands::Config(cfg_cmd) => match cfg_cmd {
+            ConfigCommands::Create(args) => config_create_command(args),
+            ConfigCommands::Dump => config_dump_command(),
+        },
     }
 }
