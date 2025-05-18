@@ -69,8 +69,6 @@ struct Cli {
 enum ConfigCommands {
     /// Create a configuration file
     Create(ConfigCreateArgs),
-
-    Dump,
 }
 
 #[derive(clap::Subcommand, Debug)]
@@ -249,17 +247,6 @@ fn config_create_command(args: &ConfigCreateArgs) -> Result<()> {
     Ok(())
 }
 
-fn config_dump_command() -> Result<()> {
-    use std::io::{self, Write};
-
-    let config = ConfigBuilder::default().build();
-    let stdout = io::stdout();
-    let mut w = stdout.lock();
-    serde_json::to_writer_pretty(&mut w, &config)?;
-    writeln!(w)?;
-    Ok(())
-}
-
 fn anonymize_command(args: &AnonymizeArgs) -> Result<()> {
     let input_path = args.input.clone();
     let output_path = args.output.clone();
@@ -400,7 +387,6 @@ fn main() -> Result<()> {
         Commands::Anonymize(args) => anonymize_command(args),
         Commands::Config(cfg_cmd) => match cfg_cmd {
             ConfigCommands::Create(args) => config_create_command(args),
-            ConfigCommands::Dump => config_dump_command(),
         },
     }
 }
