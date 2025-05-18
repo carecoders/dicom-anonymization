@@ -135,8 +135,25 @@ Options:
 dcmanon -i tests/data/test.dcm -o anonymized.dcm
 ```
 
-## Contributing
+##### config create
 
+```bash
+$ dcmanon config create --help
+Create a configuration file
+
+Usage: dcmanon config create [OPTIONS]
+
+Options:
+  -o, --output <CONFIG_FILE>  Path to save the config file  (‘-’ or omitted → stdout) [default: -]
+  -v, --verbose               Show more verbose output
+  -d, --debug                 Show debug output
+  -u, --uid-root <UID_ROOT>   UID root to use
+      --exclude <TAGS>        Tags to exclude from anonymization, e.g. '00100020,00080050'
+      --diff-only             Only output the dfferences with the default config
+  -h, --help                  Print help
+```
+
+## Contributing
 
 We welcome contributions from the community. If you are interested in contributing to the project, please read [CONTRIBUTING.md](CONTRIBUTING.md).
 
