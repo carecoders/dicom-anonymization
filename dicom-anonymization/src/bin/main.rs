@@ -93,7 +93,7 @@ struct AnonymizeArgs {
     #[arg(short = 'c', long = "config", value_name = "CONFIG_FILE")]
     config_file: Option<PathBuf>,
 
-    /// UID root
+    /// UID root (default '9999')
     #[arg(short, long)]
     uid_root: Option<String>,
 

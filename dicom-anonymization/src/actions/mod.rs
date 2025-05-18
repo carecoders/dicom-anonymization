@@ -67,26 +67,6 @@ impl<'de> Deserialize<'de> for TagString {
     }
 }
 
-mod tag_string_wrapper {
-    use super::TagString;
-    use crate::Tag;
-    use serde::{Deserialize, Deserializer, Serialize, Serializer};
-
-    pub fn serialize<S>(tag: &Tag, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: Serializer,
-    {
-        TagString(*tag).serialize(serializer)
-    }
-
-    pub fn deserialize<'de, D>(deserializer: D) -> Result<Tag, D::Error>
-    where
-        D: Deserializer<'de>,
-    {
-        TagString::deserialize(deserializer).map(|wrapper| wrapper.0)
-    }
-}
-
 /// Specifies the action to perform on DICOM data elements during processing.
 #[derive(Validate, Serialize, Deserialize, Debug, Clone, PartialEq)]
 #[serde(tag = "action", rename_all = "lowercase")]
@@ -101,12 +81,8 @@ pub enum Action {
         length: Option<usize>,
     },
 
-    /// Change a date, using a hash of the given other tag value to determine the offset.
-    HashDate {
-        #[serde(with = "tag_string_wrapper")]
-        #[garde(skip)]
-        other_tag: Tag,
-    },
+    /// Change a date, using a hash of the PatientID value to determine the offset.
+    HashDate,
 
     /// Generate a new unique identifier (UID) by hashing the original UID.
     HashUID,
@@ -135,7 +111,7 @@ impl Action {
                 let hash_length = length.as_ref().map(|length| HashLength(*length));
                 Box::new(Hash::new(hash_length))
             }
-            Action::HashDate { other_tag } => Box::new(HashDate::new(*other_tag)),
+            Action::HashDate => Box::new(HashDate::default()),
             Action::HashUID => Box::new(HashUID),
             Action::Keep => Box::new(Keep),
             Action::None => Box::new(NoAction),
@@ -148,7 +124,6 @@ impl Action {
 #[cfg(test)]
 mod tests {
     use super::Action;
-    use crate::tags;
     use serde_json;
 
     #[test]
@@ -167,11 +142,9 @@ mod tests {
 
     #[test]
     fn test_serialize_hash_date() {
-        let action = Action::HashDate {
-            other_tag: tags::PATIENT_ID,
-        };
+        let action = Action::HashDate;
         let json = serde_json::to_string(&action).unwrap();
-        assert_eq!(json, r#"{"action":"hashdate","other_tag":"(0010,0020)"}"#);
+        assert_eq!(json, r#"{"action":"hashdate"}"#);
     }
 
     #[test]
@@ -227,14 +200,9 @@ mod tests {
 
     #[test]
     fn test_deserialize_hash_date() {
-        let json = r#"{"action":"hashdate","other_tag":"(0010,0020)"}"#;
+        let json = r#"{"action":"hashdate"}"#;
         let action: Action = serde_json::from_str(json).unwrap();
-        assert_eq!(
-            action,
-            Action::HashDate {
-                other_tag: tags::PATIENT_ID
-            }
-        );
+        assert_eq!(action, Action::HashDate);
     }
 
     #[test]
@@ -301,9 +269,7 @@ mod tests {
         let variants = vec![
             Action::Empty,
             Action::Hash { length: None },
-            Action::HashDate {
-                other_tag: tags::PATIENT_ID,
-            },
+            Action::HashDate,
             Action::HashUID,
             Action::Keep,
             Action::None,

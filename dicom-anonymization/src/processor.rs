@@ -287,12 +287,7 @@ mod tests {
         ));
 
         let config = ConfigBuilder::new()
-            .tag_action(
-                tags::STUDY_DATE,
-                Action::HashDate {
-                    other_tag: tags::PATIENT_ID,
-                },
-            )
+            .tag_action(tags::STUDY_DATE, Action::HashDate)
             .build();
 
         let elem = obj.element(tags::STUDY_DATE).unwrap();
