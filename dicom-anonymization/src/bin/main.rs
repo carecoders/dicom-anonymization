@@ -128,7 +128,7 @@ struct ConfigCreateArgs {
     exclude: Vec<Tag>,
 
     /// Only output the dfferences with the default config
-    #[arg(long = "diff-only", default_value = "false")]
+    #[arg(long, default_value = "false")]
     diff_only: bool,
 }
 
