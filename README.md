@@ -107,22 +107,24 @@ cargo install dicom-anonymization
 
 #### Usage
 
+##### anonymize
+
 ```bash
-$ dcmanon --help
+$ dcmanon anonymize --help
 Anonymize DICOM files
 
-Usage: dcmanon [OPTIONS] --input <INPUT_PATH> --output <OUTPUT_PATH>
+Usage: dcmanon anonymize [OPTIONS] --input <INPUT_PATH> --output <OUTPUT_PATH>
 
 Options:
   -i, --input <INPUT_PATH>    Input file ('-' for stdin) or directory
   -o, --output <OUTPUT_PATH>  Output file ('-' for stdout) or directory
-  -p, --profile <PROFILE>     Use builtin config profile ('default', 'none') (default 'default')
   -c, --config <CONFIG_FILE>  Path to config JSON file
-  -u, --uid-root <UID_ROOT>   UID root
+  -u, --uid-root <UID_ROOT>   UID root (default '9999')
       --exclude <TAGS>        Tags to exclude from anonymization, e.g. '00100020,00080050'
   -r, --recursive             Recursively look for files in input directory
       --continue              Continue when file found is not DICOM
   -v, --verbose               Show more verbose output
+  -d, --debug                 Show debug output
   -h, --help                  Print help
   -V, --version               Print version
 ```
