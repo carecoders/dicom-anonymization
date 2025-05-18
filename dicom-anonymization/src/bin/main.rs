@@ -235,11 +235,12 @@ fn config_create_command(args: &ConfigCreateArgs) -> Result<()> {
 
     let config = config_builder.build();
 
-    let json = serde_json::to_string_pretty(&config)?;
+    let mut json = serde_json::to_string_pretty(&config)?;
+    json.push('\n'); // newline al final
 
     if args.output == Path::new("-") {
         let mut w = io::stdout().lock();
-        writeln!(w, "{json}")?;
+        write!(w, "{}", json)?;
     } else {
         std::fs::write(&args.output, json)
             .with_context(|| format!("failed to write config to {}", args.output.display()))?;
