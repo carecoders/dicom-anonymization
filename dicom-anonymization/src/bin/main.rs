@@ -117,8 +117,8 @@ struct AnonymizeArgs {
 
 #[derive(Parser, Debug)]
 struct ConfigCreateArgs {
-    /// Path to save the config file
-    #[arg(short, long, value_name = "CONFIG_FILE")]
+    /// Path to save the config file  (‘-’ or omitted → stdout)
+    #[arg(short, long, value_name = "CONFIG_FILE", default_value = "-")]
     output: PathBuf,
 
     /// UID root to use
@@ -224,7 +224,6 @@ fn anonymize(anonymizer: &Anonymizer, input_path: &PathBuf, output_path: &PathBu
 fn config_create_command(args: &ConfigCreateArgs) -> Result<()> {
     let mut config_builder = ConfigBuilder::default();
 
-    // Apply UID root if specified
     if let Some(uid_root) = &args.uid_root {
         match uid_root.parse::<UidRoot>() {
             Ok(uid_root) => config_builder = config_builder.uid_root(uid_root),
@@ -232,20 +231,21 @@ fn config_create_command(args: &ConfigCreateArgs) -> Result<()> {
         }
     }
 
-    // Apply exclusions
     for tag in &args.exclude {
         config_builder = config_builder.tag_action(*tag, Action::Keep);
     }
 
-    // Build the config
     let config = config_builder.build();
 
-    // Serialize to JSON and write to file
     let json = serde_json::to_string_pretty(&config)?;
-    std::fs::write(&args.output, json)
-        .with_context(|| format!("Failed to write config to {}", args.output.display()))?;
 
-    info!("Configuration saved to {}", args.output.display());
+    if args.output == Path::new("-") {
+        let mut w = io::stdout().lock();
+        writeln!(w, "{json}")?;
+    } else {
+        std::fs::write(&args.output, json)
+            .with_context(|| format!("failed to write config to {}", args.output.display()))?;
+    }
     Ok(())
 }
 
