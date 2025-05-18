@@ -151,8 +151,8 @@ impl ConfigBuilder {
     /// // Hash a UID
     /// config_builder = config_builder.tag_action(tags::STUDY_INSTANCE_UID, Action::HashUID);
     ///
-    /// // Replace a date with another date using a hash of another tag value to determine the offset
-    /// config_builder = config_builder.tag_action(tags::STUDY_DATE, Action::HashDate { other_tag: tags::PATIENT_ID });
+    /// // Replace a date with another date using a hash of the PatientID value to determine the offset
+    /// config_builder = config_builder.tag_action(tags::STUDY_DATE, Action::HashDate);
     ///
     /// // Replace the tag value with a specific value
     /// config_builder = config_builder.tag_action(tags::DEIDENTIFICATION_METHOD, Action::Replace { value: "MYAPP".into() });
@@ -299,37 +299,17 @@ impl Default for ConfigBuilder {
             .remove_overlays(true)
             .tag_action(tags::SPECIFIC_CHARACTER_SET, Action::None)
             .tag_action(tags::IMAGE_TYPE, Action::None)
-            .tag_action(
-                tags::INSTANCE_CREATION_DATE,
-                Action::HashDate {
-                    other_tag: tags::PATIENT_ID,
-                },
-            )
+            .tag_action(tags::INSTANCE_CREATION_DATE, Action::HashDate)
             .tag_action(tags::INSTANCE_CREATION_TIME, Action::None)
             .tag_action(tags::INSTANCE_CREATOR_UID, Action::HashUID)
-            .tag_action(
-                tags::INSTANCE_COERCION_DATE_TIME,
-                Action::HashDate {
-                    other_tag: tags::PATIENT_ID,
-                },
-            ) // nic
+            .tag_action(tags::INSTANCE_COERCION_DATE_TIME, Action::HashDate) // nic
             .tag_action(tags::SOP_CLASS_UID, Action::None)
             .tag_action(tags::ACQUISITION_UID, Action::HashUID) // nic
             .tag_action(tags::SOP_INSTANCE_UID, Action::HashUID)
-            .tag_action(
-                tags::STUDY_DATE,
-                Action::HashDate {
-                    other_tag: tags::PATIENT_ID,
-                },
-            )
+            .tag_action(tags::STUDY_DATE, Action::HashDate)
             .tag_action(tags::SERIES_DATE, Action::Remove)
             .tag_action(tags::ACQUISITION_DATE, Action::Remove)
-            .tag_action(
-                tags::CONTENT_DATE,
-                Action::HashDate {
-                    other_tag: tags::PATIENT_ID,
-                },
-            )
+            .tag_action(tags::CONTENT_DATE, Action::HashDate)
             .tag_action(tags::OVERLAY_DATE, Action::Remove)
             .tag_action(tags::CURVE_DATE, Action::Remove)
             .tag_action(tags::ACQUISITION_DATE_TIME, Action::Remove)
@@ -484,12 +464,7 @@ impl Default for ConfigBuilder {
             .tag_action(tags::PATIENT_NAME, Action::Hash { length: Some(10) })
             .tag_action(tags::PATIENT_ID, Action::Hash { length: Some(10) })
             .tag_action(tags::ISSUER_OF_PATIENT_ID, Action::Remove)
-            .tag_action(
-                tags::PATIENT_BIRTH_DATE,
-                Action::HashDate {
-                    other_tag: tags::PATIENT_ID,
-                },
-            )
+            .tag_action(tags::PATIENT_BIRTH_DATE, Action::HashDate)
             .tag_action(tags::PATIENT_BIRTH_TIME, Action::Remove)
             .tag_action(tags::PATIENT_SEX, Action::Empty)
             .tag_action(tags::PATIENT_INSURANCE_PLAN_CODE_SEQUENCE, Action::Remove)
@@ -601,12 +576,7 @@ impl Default for ConfigBuilder {
             .tag_action(tags::GANTRY_ID, Action::Remove)
             .tag_action(tags::SECONDARY_CAPTURE_DEVICE_ID, Action::None)
             .tag_action(tags::HARDCOPY_CREATION_DEVICE_ID, Action::None)
-            .tag_action(
-                tags::DATE_OF_SECONDARY_CAPTURE,
-                Action::HashDate {
-                    other_tag: tags::PATIENT_ID,
-                },
-            )
+            .tag_action(tags::DATE_OF_SECONDARY_CAPTURE, Action::HashDate)
             .tag_action(tags::TIME_OF_SECONDARY_CAPTURE, Action::None)
             .tag_action(tags::SECONDARY_CAPTURE_DEVICE_MANUFACTURER, Action::None)
             .tag_action(tags::HARDCOPY_DEVICE_MANUFACTURER, Action::None)
@@ -715,12 +685,7 @@ impl Default for ConfigBuilder {
             .tag_action(tags::ANODE_TARGET_MATERIAL, Action::None)
             .tag_action(tags::BODY_PART_THICKNESS, Action::None)
             .tag_action(tags::COMPRESSION_FORCE, Action::None)
-            .tag_action(
-                tags::DATE_OF_LAST_CALIBRATION,
-                Action::HashDate {
-                    other_tag: tags::PATIENT_ID,
-                },
-            )
+            .tag_action(tags::DATE_OF_LAST_CALIBRATION, Action::HashDate)
             .tag_action(tags::TIME_OF_LAST_CALIBRATION, Action::None)
             .tag_action(tags::CONVOLUTION_KERNEL, Action::None)
             .tag_action(tags::ACTUAL_FRAME_DURATION, Action::None)
@@ -849,12 +814,7 @@ impl Default for ConfigBuilder {
             .tag_action(tags::DETECTOR_DESCRIPTION, Action::None)
             .tag_action(tags::DETECTOR_MODE, Action::None)
             .tag_action(tags::DETECTOR_ID, Action::Remove)
-            .tag_action(
-                tags::DATE_OF_LAST_DETECTOR_CALIBRATION,
-                Action::HashDate {
-                    other_tag: tags::PATIENT_ID,
-                },
-            )
+            .tag_action(tags::DATE_OF_LAST_DETECTOR_CALIBRATION, Action::HashDate)
             .tag_action(tags::TIME_OF_LAST_DETECTOR_CALIBRATION, Action::None)
             .tag_action(
                 tags::EXPOSURES_ON_DETECTOR_SINCE_LAST_CALIBRATION,
@@ -945,12 +905,7 @@ impl Default for ConfigBuilder {
             .tag_action(tags::BASELINE_CORRECTION, Action::None)
             .tag_action(tags::CARDIAC_RR_INTERVAL_SPECIFIED, Action::None)
             .tag_action(tags::ACQUISITION_DURATION, Action::None)
-            .tag_action(
-                tags::FRAME_ACQUISITION_DATE_TIME,
-                Action::HashDate {
-                    other_tag: tags::PATIENT_ID,
-                },
-            )
+            .tag_action(tags::FRAME_ACQUISITION_DATE_TIME, Action::HashDate)
             .tag_action(tags::DIFFUSION_DIRECTIONALITY, Action::None)
             .tag_action(tags::DIFFUSION_GRADIENT_DIRECTION_SEQUENCE, Action::None)
             .tag_action(tags::PARALLEL_ACQUISITION, Action::None)
@@ -990,12 +945,7 @@ impl Default for ConfigBuilder {
             .tag_action(tags::VOLUME_LOCALIZATION_SEQUENCE, Action::None)
             .tag_action(tags::SPECTROSCOPY_ACQUISITION_DATA_COLUMNS, Action::None)
             .tag_action(tags::DIFFUSION_ANISOTROPY_TYPE, Action::None)
-            .tag_action(
-                tags::FRAME_REFERENCE_DATE_TIME,
-                Action::HashDate {
-                    other_tag: tags::PATIENT_ID,
-                },
-            )
+            .tag_action(tags::FRAME_REFERENCE_DATE_TIME, Action::HashDate)
             .tag_action(tags::MR_METABOLITE_MAP_SEQUENCE, Action::None)
             .tag_action(tags::PARALLEL_REDUCTION_FACTOR_OUT_OF_PLANE, Action::None)
             .tag_action(
@@ -1222,52 +1172,22 @@ impl Default for ConfigBuilder {
             .tag_action(tags::STUDY_STATUS_ID, Action::None)
             .tag_action(tags::STUDY_PRIORITY_ID, Action::None)
             .tag_action(tags::STUDY_ID_ISSUER, Action::Remove)
-            .tag_action(
-                tags::STUDY_VERIFIED_DATE,
-                Action::HashDate {
-                    other_tag: tags::PATIENT_ID,
-                },
-            )
+            .tag_action(tags::STUDY_VERIFIED_DATE, Action::HashDate)
             .tag_action(tags::STUDY_VERIFIED_TIME, Action::None)
-            .tag_action(
-                tags::STUDY_READ_DATE,
-                Action::HashDate {
-                    other_tag: tags::PATIENT_ID,
-                },
-            )
+            .tag_action(tags::STUDY_READ_DATE, Action::HashDate)
             .tag_action(tags::STUDY_READ_TIME, Action::None)
-            .tag_action(
-                tags::SCHEDULED_STUDY_START_DATE,
-                Action::HashDate {
-                    other_tag: tags::PATIENT_ID,
-                },
-            )
+            .tag_action(tags::SCHEDULED_STUDY_START_DATE, Action::HashDate)
             .tag_action(tags::SCHEDULED_STUDY_START_TIME, Action::None)
-            .tag_action(
-                tags::SCHEDULED_STUDY_STOP_DATE,
-                Action::HashDate {
-                    other_tag: tags::PATIENT_ID,
-                },
-            )
+            .tag_action(tags::SCHEDULED_STUDY_STOP_DATE, Action::HashDate)
             .tag_action(tags::SCHEDULED_STUDY_STOP_TIME, Action::None)
             .tag_action(tags::SCHEDULED_STUDY_LOCATION, Action::Remove)
             .tag_action(tags::SCHEDULED_STUDY_LOCATION_AE_TITLE, Action::Remove)
             .tag_action(tags::REASON_FOR_STUDY, Action::Remove)
             .tag_action(tags::REQUESTING_PHYSICIAN, Action::Remove)
             .tag_action(tags::REQUESTING_SERVICE, Action::Remove)
-            .tag_action(
-                tags::STUDY_ARRIVAL_DATE,
-                Action::HashDate {
-                    other_tag: tags::PATIENT_ID,
-                },
-            )
+            .tag_action(tags::STUDY_ARRIVAL_DATE, Action::HashDate)
             .tag_action(tags::STUDY_ARRIVAL_TIME, Action::None)
-            .tag_action(
-                tags::STUDY_COMPLETION_DATE,
-                Action::HashDate {
-                    other_tag: tags::PATIENT_ID,
-                },
-            )
+            .tag_action(tags::STUDY_COMPLETION_DATE, Action::HashDate)
             .tag_action(tags::STUDY_COMPLETION_TIME, Action::None)
             .tag_action(tags::STUDY_COMPONENT_STATUS_ID, Action::None)
             .tag_action(tags::REQUESTED_PROCEDURE_DESCRIPTION, Action::Remove)
@@ -1279,28 +1199,13 @@ impl Default for ConfigBuilder {
             .tag_action(tags::ADMISSION_ID, Action::Remove)
             .tag_action(tags::ISSUER_OF_ADMISSION_ID, Action::Remove)
             .tag_action(tags::ROUTE_OF_ADMISSIONS, Action::None)
-            .tag_action(
-                tags::SCHEDULED_ADMISSION_DATE,
-                Action::HashDate {
-                    other_tag: tags::PATIENT_ID,
-                },
-            )
+            .tag_action(tags::SCHEDULED_ADMISSION_DATE, Action::HashDate)
             .tag_action(tags::SCHEDULED_ADMISSION_TIME, Action::None)
-            .tag_action(
-                tags::SCHEDULED_DISCHARGE_DATE,
-                Action::HashDate {
-                    other_tag: tags::PATIENT_ID,
-                },
-            )
+            .tag_action(tags::SCHEDULED_DISCHARGE_DATE, Action::HashDate)
             .tag_action(tags::SCHEDULED_DISCHARGE_TIME, Action::None)
             .tag_action(tags::ADMITTING_DATE, Action::Remove)
             .tag_action(tags::ADMITTING_TIME, Action::Remove)
-            .tag_action(
-                tags::DISCHARGE_DATE,
-                Action::HashDate {
-                    other_tag: tags::PATIENT_ID,
-                },
-            )
+            .tag_action(tags::DISCHARGE_DATE, Action::HashDate)
             .tag_action(tags::DISCHARGE_TIME, Action::None)
             .tag_action(tags::DISCHARGE_DIAGNOSIS_DESCRIPTION, Action::Remove)
             .tag_action(tags::DISCHARGE_DIAGNOSIS_CODE_SEQUENCE, Action::None)
@@ -1339,19 +1244,9 @@ impl Default for ConfigBuilder {
             .tag_action(tags::NOTCH_FILTER_FREQUENCY, Action::None)
             .tag_action(tags::NOTCH_FILTER_BANDWIDTH, Action::None)
             .tag_action(tags::SCHEDULED_STATION_AE_TITLE, Action::Remove)
-            .tag_action(
-                tags::SCHEDULED_PROCEDURE_STEP_START_DATE,
-                Action::HashDate {
-                    other_tag: tags::PATIENT_ID,
-                },
-            )
+            .tag_action(tags::SCHEDULED_PROCEDURE_STEP_START_DATE, Action::HashDate)
             .tag_action(tags::SCHEDULED_PROCEDURE_STEP_START_TIME, Action::None)
-            .tag_action(
-                tags::SCHEDULED_PROCEDURE_STEP_END_DATE,
-                Action::HashDate {
-                    other_tag: tags::PATIENT_ID,
-                },
-            )
+            .tag_action(tags::SCHEDULED_PROCEDURE_STEP_END_DATE, Action::HashDate)
             .tag_action(tags::SCHEDULED_PROCEDURE_STEP_END_TIME, Action::None)
             .tag_action(tags::SCHEDULED_PERFORMING_PHYSICIAN_NAME, Action::Remove)
             .tag_action(tags::SCHEDULED_PROCEDURE_STEP_DESCRIPTION, Action::Remove)
@@ -1373,20 +1268,10 @@ impl Default for ConfigBuilder {
             .tag_action(tags::PERFORMED_STATION_AE_TITLE, Action::Remove)
             .tag_action(tags::PERFORMED_STATION_NAME, Action::Remove)
             .tag_action(tags::PERFORMED_LOCATION, Action::Remove)
-            .tag_action(
-                tags::PERFORMED_PROCEDURE_STEP_START_DATE,
-                Action::HashDate {
-                    other_tag: tags::PATIENT_ID,
-                },
-            )
+            .tag_action(tags::PERFORMED_PROCEDURE_STEP_START_DATE, Action::HashDate)
             .tag_action(tags::PERFORMED_PROCEDURE_STEP_START_TIME, Action::None)
             .tag_action(tags::PERFORMED_STATION_NAME_CODE_SEQUENCE, Action::Remove)
-            .tag_action(
-                tags::PERFORMED_PROCEDURE_STEP_END_DATE,
-                Action::HashDate {
-                    other_tag: tags::PATIENT_ID,
-                },
-            )
+            .tag_action(tags::PERFORMED_PROCEDURE_STEP_END_DATE, Action::HashDate)
             .tag_action(tags::PERFORMED_PROCEDURE_STEP_END_TIME, Action::None)
             .tag_action(tags::PERFORMED_PROCEDURE_STEP_ID, Action::Remove)
             .tag_action(tags::PERFORMED_PROCEDURE_STEP_DESCRIPTION, Action::Remove)
@@ -1459,9 +1344,7 @@ impl Default for ConfigBuilder {
             .tag_action(tags::REASON_FOR_THE_IMAGING_SERVICE_REQUEST, Action::Remove)
             .tag_action(
                 tags::ISSUE_DATE_OF_IMAGING_SERVICE_REQUEST,
-                Action::HashDate {
-                    other_tag: tags::PATIENT_ID,
-                },
+                Action::HashDate,
             )
             .tag_action(tags::ISSUE_TIME_OF_IMAGING_SERVICE_REQUEST, Action::None)
             .tag_action(tags::ORDER_ENTERED_BY, Action::Remove)
@@ -1507,18 +1390,8 @@ impl Default for ConfigBuilder {
             .tag_action(tags::REAL_WORLD_VALUE_SLOPE, Action::None)
             .tag_action(tags::RELATIONSHIP_TYPE, Action::None)
             .tag_action(tags::VERIFYING_ORGANIZATION, Action::Remove)
-            .tag_action(
-                tags::VERIFICATION_DATE_TIME,
-                Action::HashDate {
-                    other_tag: tags::PATIENT_ID,
-                },
-            )
-            .tag_action(
-                tags::OBSERVATION_DATE_TIME,
-                Action::HashDate {
-                    other_tag: tags::PATIENT_ID,
-                },
-            )
+            .tag_action(tags::VERIFICATION_DATE_TIME, Action::HashDate)
+            .tag_action(tags::OBSERVATION_DATE_TIME, Action::HashDate)
             .tag_action(tags::VALUE_TYPE, Action::None)
             .tag_action(tags::CONCEPT_NAME_CODE_SEQUENCE, Action::None)
             .tag_action(tags::CONTINUITY_OF_CONTENT, Action::None)
@@ -1532,18 +1405,8 @@ impl Default for ConfigBuilder {
                 Action::Remove,
             )
             .tag_action(tags::REFERENCED_WAVEFORM_CHANNELS, Action::None)
-            .tag_action(
-                tags::DATE_TIME,
-                Action::HashDate {
-                    other_tag: tags::PATIENT_ID,
-                },
-            )
-            .tag_action(
-                tags::DATE,
-                Action::HashDate {
-                    other_tag: tags::PATIENT_ID,
-                },
-            )
+            .tag_action(tags::DATE_TIME, Action::HashDate)
+            .tag_action(tags::DATE, Action::HashDate)
             .tag_action(tags::TIME, Action::None)
             .tag_action(tags::PERSON_NAME, Action::Remove)
             .tag_action(tags::UID, Action::HashUID)
@@ -1551,12 +1414,7 @@ impl Default for ConfigBuilder {
             .tag_action(tags::REFERENCED_SAMPLE_POSITIONS, Action::None)
             .tag_action(tags::REFERENCED_FRAME_NUMBERS, Action::None)
             .tag_action(tags::REFERENCED_TIME_OFFSETS, Action::None)
-            .tag_action(
-                tags::REFERENCED_DATE_TIME,
-                Action::HashDate {
-                    other_tag: tags::PATIENT_ID,
-                },
-            )
+            .tag_action(tags::REFERENCED_DATE_TIME, Action::HashDate)
             .tag_action(tags::TEXT_VALUE, Action::None)
             .tag_action(tags::CONCEPT_CODE_SEQUENCE, Action::None)
             .tag_action(tags::ANNOTATION_GROUP_NUMBER, Action::None)
