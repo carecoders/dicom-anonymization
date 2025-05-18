@@ -58,7 +58,10 @@ pub struct Config {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     remove_overlays: Option<bool>,
 
-    #[serde(default = "TagActionMap::default")]
+    #[serde(
+        default = "TagActionMap::default",
+        skip_serializing_if = "TagActionMap::is_empty"
+    )]
     tag_actions: TagActionMap,
 }
 
