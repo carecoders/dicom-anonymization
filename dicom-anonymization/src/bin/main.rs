@@ -126,6 +126,10 @@ struct ConfigCreateArgs {
     /// Tags to exclude from anonymization, e.g. '00100020,00080050'
     #[arg(long, value_name = "TAGS", value_delimiter = ',', value_parser = TagValueParser)]
     exclude: Vec<Tag>,
+
+    /// Only output the dfferences with the default config
+    #[arg(long = "diff-only", default_value = "false")]
+    diff_only: bool,
 }
 
 struct DicomOutputFilePath {
@@ -220,7 +224,10 @@ fn anonymize(anonymizer: &Anonymizer, input_path: &PathBuf, output_path: &PathBu
 }
 
 fn config_create_command(args: &ConfigCreateArgs) -> Result<()> {
-    let mut config_builder = ConfigBuilder::default();
+    let mut config_builder = match &args.diff_only {
+        true => ConfigBuilder::new(),
+        false => ConfigBuilder::default(),
+    };
 
     if let Some(uid_root) = &args.uid_root {
         match uid_root.parse::<UidRoot>() {
