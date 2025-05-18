@@ -85,10 +85,6 @@ struct AnonymizeArgs {
     #[arg(short, long, value_name = "OUTPUT_PATH")]
     output: PathBuf,
 
-    /// Use builtin config profile ('default', 'none') (default 'default')
-    #[arg(short, long)]
-    profile: Option<String>,
-
     /// Path to config JSON file
     #[arg(short = 'c', long = "config", value_name = "CONFIG_FILE")]
     config_file: Option<PathBuf>,
@@ -255,18 +251,13 @@ fn config_command(args: &ConfigArgs) -> Result<()> {
 fn anonymize_command(args: &AnonymizeArgs) -> Result<()> {
     let input_path = args.input.clone();
     let output_path = args.output.clone();
-    let profile = args.profile.clone();
     let config_file = args.config_file.clone();
     let uid_root = args.uid_root.clone();
     let exclude_tags = args.exclude.clone();
     let recurse = args.recursive;
     let continue_on_read_error = args.r#continue;
 
-    let mut config_builder = match profile.as_deref() {
-        Some("none") => ConfigBuilder::new(),
-        Some("default") | None => ConfigBuilder::default(),
-        _ => bail!("profile should be either 'default' or 'none'"),
-    };
+    let mut config_builder = ConfigBuilder::default();
 
     if let Some(config_path) = config_file {
         let json_content = std::fs::read_to_string(&config_path)
