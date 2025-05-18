@@ -251,6 +251,7 @@ fn config_create_command(args: &ConfigCreateArgs) -> Result<()> {
     } else {
         std::fs::write(&args.output, json)
             .with_context(|| format!("failed to write config to {}", args.output.display()))?;
+        info!("configuration saved to {}", args.output.display());
     }
     Ok(())
 }

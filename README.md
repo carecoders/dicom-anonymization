@@ -129,7 +129,7 @@ Options:
   -V, --version               Print version
 ```
 
-#### Example
+**Example**
 
 ```bash
 dcmanon -i tests/data/test.dcm -o anonymized.dcm
