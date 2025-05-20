@@ -5,6 +5,7 @@ use dicom_anonymization::Anonymizer as RustAnonymizer;
 use pyo3::create_exception;
 use pyo3::exceptions::{PyException, PyIOError, PyValueError};
 use pyo3::prelude::*;
+use pyo3::types::PyDict;
 use pyo3_file::PyFileLikeObject;
 use std::fs::File;
 use std::io::Read;
@@ -47,20 +48,33 @@ struct Anonymizer {
 impl Anonymizer {
     /// Create a new Anonymizer instance
     #[new]
-    // signature ideas:
-    // (profile: str | None = "default", config: dict | None = {...})
-    #[pyo3(signature = (uid_root="9999", remove_private_tags=false))]
-    fn new(uid_root: Option<&str>, remove_private_tags: Option<bool>) -> PyResult<Self> {
+    #[pyo3(signature = (uid_root=None, config=None))] // TODO: change config to tag_actions
+    fn new(uid_root: Option<&str>, config: Option<&Bound<'_, PyDict>>) -> PyResult<Self> {
         let mut builder = ConfigBuilder::default();
 
+        // Apply individual parameters (they take precedence)
         if let Some(uid_root) = uid_root {
             let uid_root =
                 UidRoot::new(uid_root).map_err(|e| PyErr::new::<PyValueError, _>(e.to_string()))?;
             builder = builder.uid_root(uid_root);
         }
 
-        if let Some(remove_private) = remove_private_tags {
-            builder = builder.remove_private_tags(remove_private);
+        // Apply settings from the config dictionary
+        if let Some(config_dict) = config {
+            // Process uid_root if not already set via parameter
+            if uid_root.is_none() && config_dict.contains("uid_root")? {
+                let uid_root_str: String = config_dict.get_item("uid_root")?.unwrap().extract()?;
+                let uid_root = UidRoot::new(&uid_root_str)
+                    .map_err(|e| PyErr::new::<PyValueError, _>(e.to_string()))?;
+                builder = builder.uid_root(uid_root);
+            }
+
+            // Additional config options can be added here following the same pattern
+            // Example:
+            // if config_dict.contains("option_name")? {
+            //     let value: ValueType = config_dict.get_item("option_name")?.extract()?;
+            //     builder = builder.option_name(value);
+            // }
         }
 
         let config = builder.build();
