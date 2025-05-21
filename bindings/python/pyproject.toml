@@ -1,12 +1,31 @@
 [project]
 name = "dcmanon"
+authors = [{ name = "Sander Smits", email = "sander@carecoders.io" }]
+maintainers = [{ name = "Sander Smits", email = "sander@carecoders.io" }]
+description = "Lightning-fast DICOM anonymization for Python, built in Rust."
+readme = "README.md"
+license = "MIT OR Apache-2.0"
+keywords = ["dicom", "anonymization", "python", "rust"]
 requires-python = ">=3.8"
 classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Healthcare Industry",
+    "Operating System :: MacOS",
+    "Operating System :: Microsoft",
+    "Operating System :: POSIX :: Linux",
     "Programming Language :: Rust",
     "Programming Language :: Python :: Implementation :: CPython",
     "Programming Language :: Python :: Implementation :: PyPy",
+    "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 dynamic = ["version"]
+
+[project.urls]
+Homepage = "https://github.com/carecoders/dicom-anonymization"
+Repository = "https://github.com/carecoders/dicom-anonymization.git"
+Issues = "https://github.com/carecoders/dicom-anonymization/issues"
+Changelog = "https://github.com/carecoders/dicom-anonymization/blob/main/CHANGELOG.md"
 
 [build-system]
 requires = ["maturin>=1.8,<2.0"]
