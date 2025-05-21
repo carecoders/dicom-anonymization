@@ -17,13 +17,11 @@ uid_root = "9999.12.3.4.5"
 
 # override some default tag actions
 tag_actions = {
-    "00080050": {
-        "comment": "AccessionNumber",
+    "00080050": {  # AccessionNumber
         "action": "hash",
         "length": 10,
     },
-    "00100010": {
-        "comment": "PatientName",
+    "00100010": {  # PatientName
         "action": "replace",
         "value": "John Doe",
     }
