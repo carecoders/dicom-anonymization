@@ -40,7 +40,33 @@ impl<'py> FromPyObject<'py> for FilePathOrFileLike {
     }
 }
 
-/// Anonymizer class
+/// Lightning-fast DICOM anonymization for Python, written in Rust.
+///
+/// The Anonymizer class provides methods to anonymize DICOM files by applying
+/// various actions to specific DICOM tags such as removing, hashing, or replacing
+/// patient identifiable information.
+///
+/// Args:
+///     uid_root (str, optional): UID root to use for generating new UIDs. Defaults to "9999".
+///     tag_actions (dict, optional): Dictionary mapping DICOM tags to anonymization actions.
+///         Keys should be tag strings in format "GGGGEEEE" and values should be action
+///         dictionaries with an "action" key. Available actions: "empty", "hash", "hashdate",
+///         "hashuid", "keep", "none", "remove", "replace".
+///
+/// Returns:
+///     Anonymizer: A new Anonymizer instance configured with the specified settings.
+///
+/// Example:
+///     >>> from dcmanon import Anonymizer
+///     >>> anonymizer = Anonymizer()
+///     >>> anonymized_data = anonymizer.anonymize("input.dcm")
+///
+///     >>> # with custom configuration
+///     >>> tag_actions = {
+///     ...     "(0010,0010)": {"action": "replace", "value": "Anonymous"},
+///     ...     "(0010,0020)": {"action": "hash", "length": 16}
+///     ... }
+///     >>> anonymizer = Anonymizer(uid_root="1.2.840.123", tag_actions=tag_actions)
 #[pyclass]
 struct Anonymizer {
     inner: RustAnonymizer,
