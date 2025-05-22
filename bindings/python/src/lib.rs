@@ -177,7 +177,37 @@ impl Anonymizer {
         Ok(Anonymizer { inner: anonymizer })
     }
 
-    /// Anonymize a DICOM object and return the anonymized DICOM object as bytes.
+    /// Anonymize a DICOM file.
+    ///
+    /// Processes a DICOM file by applying the configured anonymization actions to
+    /// remove, modify, or hash patient identifiable information according to the
+    /// anonymization rules specified during Anonymizer construction.
+    ///
+    /// Args:
+    ///     fp (str or file-like): Input DICOM file. Can be either:
+    ///         - A string path to a DICOM file on disk
+    ///         - A file-like object (e.g., BytesIO, open file) containing DICOM data
+    ///
+    /// Returns:
+    ///     bytes: The anonymized DICOM file as bytes, ready to be written to disk
+    ///         or processed further.
+    ///
+    /// Raises:
+    ///     AnonymizationError: If the DICOM file cannot be processed or anonymized.
+    ///     IOError: If the input file cannot be read or output cannot be generated.
+    ///
+    /// Example:
+    ///     >>> anonymizer = Anonymizer()
+    ///     >>> # from file path
+    ///     >>> anonymized_bytes = anonymizer.anonymize("patient_scan.dcm")
+    ///     >>> with open("anonymized_scan.dcm", "wb") as f:
+    ///     ...     f.write(anonymized_bytes)
+    ///
+    ///     >>> # from file-like object
+    ///     >>> from io import BytesIO
+    ///     >>> with open("input.dcm", "rb") as f:
+    ///     ...     dicom_data = BytesIO(f.read())
+    ///     >>> anonymized_bytes = anonymizer.anonymize(dicom_data)
     fn anonymize(&self, fp: FilePathOrFileLike) -> PyResult<Vec<u8>> {
         let file: Box<dyn Read> =
             match fp {
