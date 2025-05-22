@@ -1,6 +1,6 @@
 # dcmanon
 
-Lightning-fast DICOM anonymization for Python, built in Rust.
+Lightning-fast DICOM anonymization for Python, written in Rust.
 
 ## Installation
 

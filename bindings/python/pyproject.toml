@@ -2,7 +2,7 @@
 name = "dcmanon"
 authors = [{ name = "Sander Smits", email = "sander@carecoders.io" }]
 maintainers = [{ name = "Sander Smits", email = "sander@carecoders.io" }]
-description = "Lightning-fast DICOM anonymization for Python, built in Rust."
+description = "Lightning-fast DICOM anonymization for Python, written in Rust."
 readme = "README.md"
 license = "MIT OR Apache-2.0"
 keywords = ["dicom", "anonymization", "python", "rust"]
