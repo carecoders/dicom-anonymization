@@ -1,0 +1,4142 @@
+{
+  "uid_root": "9999",
+  "remove_private_tags": true,
+  "remove_curves": true,
+  "remove_overlays": true,
+  "tag_actions": {
+    "00080005": {
+      "comment": "SpecificCharacterSet",
+      "action": "none"
+    },
+    "00080008": {
+      "comment": "ImageType",
+      "action": "none"
+    },
+    "00080012": {
+      "comment": "InstanceCreationDate",
+      "action": "hashdate"
+    },
+    "00080013": {
+      "comment": "InstanceCreationTime",
+      "action": "none"
+    },
+    "00080014": {
+      "comment": "InstanceCreatorUID",
+      "action": "hashuid"
+    },
+    "00080015": {
+      "comment": "InstanceCoercionDateTime",
+      "action": "hashdate"
+    },
+    "00080016": {
+      "comment": "SOPClassUID",
+      "action": "none"
+    },
+    "00080017": {
+      "comment": "AcquisitionUID",
+      "action": "hashuid"
+    },
+    "00080018": {
+      "comment": "SOPInstanceUID",
+      "action": "hashuid"
+    },
+    "00080020": {
+      "comment": "StudyDate",
+      "action": "hashdate"
+    },
+    "00080021": {
+      "comment": "SeriesDate",
+      "action": "remove"
+    },
+    "00080022": {
+      "comment": "AcquisitionDate",
+      "action": "remove"
+    },
+    "00080023": {
+      "comment": "ContentDate",
+      "action": "hashdate"
+    },
+    "00080024": {
+      "comment": "OverlayDate",
+      "action": "remove"
+    },
+    "00080025": {
+      "comment": "CurveDate",
+      "action": "remove"
+    },
+    "0008002A": {
+      "comment": "AcquisitionDateTime",
+      "action": "remove"
+    },
+    "00080030": {
+      "comment": "StudyTime",
+      "action": "empty"
+    },
+    "00080031": {
+      "comment": "SeriesTime",
+      "action": "remove"
+    },
+    "00080032": {
+      "comment": "AcquisitionTime",
+      "action": "remove"
+    },
+    "00080033": {
+      "comment": "ContentTime",
+      "action": "empty"
+    },
+    "00080034": {
+      "comment": "OverlayTime",
+      "action": "remove"
+    },
+    "00080035": {
+      "comment": "CurveTime",
+      "action": "remove"
+    },
+    "00080050": {
+      "comment": "AccessionNumber",
+      "action": "hash",
+      "length": 16
+    },
+    "00080052": {
+      "comment": "QueryRetrieveLevel",
+      "action": "none"
+    },
+    "00080054": {
+      "comment": "RetrieveAETitle",
+      "action": "none"
+    },
+    "00080055": {
+      "comment": "StationAETitle",
+      "action": "none"
+    },
+    "00080056": {
+      "comment": "InstanceAvailability",
+      "action": "none"
+    },
+    "00080058": {
+      "comment": "FailedSOPInstanceUIDList",
+      "action": "hashuid"
+    },
+    "00080060": {
+      "comment": "Modality",
+      "action": "none"
+    },
+    "00080061": {
+      "comment": "ModalitiesInStudy",
+      "action": "none"
+    },
+    "00080063": {
+      "comment": "AnatomicRegionsInStudyCodeSequence",
+      "action": "none"
+    },
+    "00080064": {
+      "comment": "ConversionType",
+      "action": "none"
+    },
+    "00080068": {
+      "comment": "PresentationIntentType",
+      "action": "none"
+    },
+    "00080070": {
+      "comment": "Manufacturer",
+      "action": "empty"
+    },
+    "00080080": {
+      "comment": "InstitutionName",
+      "action": "remove"
+    },
+    "00080081": {
+      "comment": "InstitutionAddress",
+      "action": "remove"
+    },
+    "00080082": {
+      "comment": "InstitutionCodeSequence",
+      "action": "none"
+    },
+    "00080090": {
+      "comment": "ReferringPhysicianName",
+      "action": "empty"
+    },
+    "00080092": {
+      "comment": "ReferringPhysicianAddress",
+      "action": "remove"
+    },
+    "00080094": {
+      "comment": "ReferringPhysicianTelephoneNumbers",
+      "action": "remove"
+    },
+    "00080096": {
+      "comment": "ReferringPhysicianIdentificationSequence",
+      "action": "remove"
+    },
+    "0008009C": {
+      "comment": "ConsultingPhysicianName",
+      "action": "remove"
+    },
+    "0008009D": {
+      "comment": "ConsultingPhysicianIdentificationSequence",
+      "action": "remove"
+    },
+    "00080100": {
+      "comment": "CodeValue",
+      "action": "none"
+    },
+    "00080102": {
+      "comment": "CodingSchemeDesignator",
+      "action": "none"
+    },
+    "00080103": {
+      "comment": "CodingSchemeVersion",
+      "action": "none"
+    },
+    "00080104": {
+      "comment": "CodeMeaning",
+      "action": "none"
+    },
+    "00080105": {
+      "comment": "MappingResource",
+      "action": "none"
+    },
+    "00080106": {
+      "comment": "ContextGroupVersion",
+      "action": "none"
+    },
+    "00080107": {
+      "comment": "ContextGroupLocalVersion",
+      "action": "none"
+    },
+    "00080108": {
+      "comment": "ExtendedCodeMeaning",
+      "action": "none"
+    },
+    "0008010A": {
+      "comment": "CodingSchemeURLType",
+      "action": "none"
+    },
+    "0008010B": {
+      "comment": "ContextGroupExtensionFlag",
+      "action": "none"
+    },
+    "0008010C": {
+      "comment": "CodingSchemeUID",
+      "action": "hashuid"
+    },
+    "0008010D": {
+      "comment": "ContextGroupExtensionCreatorUID",
+      "action": "hashuid"
+    },
+    "0008010E": {
+      "comment": "CodingSchemeURL",
+      "action": "none"
+    },
+    "0008010F": {
+      "comment": "ContextIdentifier",
+      "action": "none"
+    },
+    "00080112": {
+      "comment": "CodingSchemeRegistry",
+      "action": "none"
+    },
+    "00080114": {
+      "comment": "CodingSchemeExternalID",
+      "action": "none"
+    },
+    "00080115": {
+      "comment": "CodingSchemeName",
+      "action": "none"
+    },
+    "00080116": {
+      "comment": "CodingSchemeResponsibleOrganization",
+      "action": "none"
+    },
+    "00080117": {
+      "comment": "ContextUID",
+      "action": "hashuid"
+    },
+    "00080118": {
+      "comment": "MappingResourceUID",
+      "action": "hashuid"
+    },
+    "00080119": {
+      "comment": "LongCodeValue",
+      "action": "none"
+    },
+    "00080120": {
+      "comment": "URNCodeValue",
+      "action": "none"
+    },
+    "00080121": {
+      "comment": "EquivalentCodeSequence",
+      "action": "none"
+    },
+    "00080122": {
+      "comment": "MappingResourceName",
+      "action": "none"
+    },
+    "00080201": {
+      "comment": "TimezoneOffsetFromUTC",
+      "action": "remove"
+    },
+    "00081010": {
+      "comment": "StationName",
+      "action": "remove"
+    },
+    "00081030": {
+      "comment": "StudyDescription",
+      "action": "none"
+    },
+    "00081032": {
+      "comment": "ProcedureCodeSequence",
+      "action": "none"
+    },
+    "0008103E": {
+      "comment": "SeriesDescription",
+      "action": "none"
+    },
+    "00081040": {
+      "comment": "InstitutionalDepartmentName",
+      "action": "remove"
+    },
+    "00081048": {
+      "comment": "PhysiciansOfRecord",
+      "action": "remove"
+    },
+    "00081049": {
+      "comment": "PhysiciansOfRecordIdentificationSequence",
+      "action": "remove"
+    },
+    "00081050": {
+      "comment": "PerformingPhysicianName",
+      "action": "remove"
+    },
+    "00081052": {
+      "comment": "PerformingPhysicianIdentificationSequence",
+      "action": "remove"
+    },
+    "00081060": {
+      "comment": "NameOfPhysiciansReadingStudy",
+      "action": "remove"
+    },
+    "00081062": {
+      "comment": "PhysiciansReadingStudyIdentificationSequence",
+      "action": "remove"
+    },
+    "00081070": {
+      "comment": "OperatorsName",
+      "action": "remove"
+    },
+    "00081072": {
+      "comment": "OperatorIdentificationSequence",
+      "action": "remove"
+    },
+    "00081080": {
+      "comment": "AdmittingDiagnosesDescription",
+      "action": "remove"
+    },
+    "00081084": {
+      "comment": "AdmittingDiagnosesCodeSequence",
+      "action": "remove"
+    },
+    "00081090": {
+      "comment": "ManufacturerModelName",
+      "action": "remove"
+    },
+    "00081100": {
+      "comment": "ReferencedResultsSequence",
+      "action": "none"
+    },
+    "00081110": {
+      "comment": "ReferencedStudySequence",
+      "action": "remove"
+    },
+    "00081111": {
+      "comment": "ReferencedPerformedProcedureStepSequence",
+      "action": "remove"
+    },
+    "00081115": {
+      "comment": "ReferencedSeriesSequence",
+      "action": "none"
+    },
+    "00081120": {
+      "comment": "ReferencedPatientSequence",
+      "action": "remove"
+    },
+    "00081125": {
+      "comment": "ReferencedVisitSequence",
+      "action": "none"
+    },
+    "00081130": {
+      "comment": "ReferencedOverlaySequence",
+      "action": "none"
+    },
+    "00081140": {
+      "comment": "ReferencedImageSequence",
+      "action": "remove"
+    },
+    "00081145": {
+      "comment": "ReferencedCurveSequence",
+      "action": "none"
+    },
+    "0008114A": {
+      "comment": "ReferencedInstanceSequence",
+      "action": "none"
+    },
+    "00081150": {
+      "comment": "ReferencedSOPClassUID",
+      "action": "none"
+    },
+    "00081155": {
+      "comment": "ReferencedSOPInstanceUID",
+      "action": "hashuid"
+    },
+    "0008115A": {
+      "comment": "SOPClassesSupported",
+      "action": "none"
+    },
+    "00081160": {
+      "comment": "ReferencedFrameNumber",
+      "action": "none"
+    },
+    "00081195": {
+      "comment": "TransactionUID",
+      "action": "hashuid"
+    },
+    "00081197": {
+      "comment": "FailureReason",
+      "action": "none"
+    },
+    "00081198": {
+      "comment": "FailedSOPSequence",
+      "action": "none"
+    },
+    "00081199": {
+      "comment": "ReferencedSOPSequence",
+      "action": "none"
+    },
+    "00082111": {
+      "comment": "DerivationDescription",
+      "action": "remove"
+    },
+    "00082112": {
+      "comment": "SourceImageSequence",
+      "action": "remove"
+    },
+    "00082120": {
+      "comment": "StageName",
+      "action": "none"
+    },
+    "00082122": {
+      "comment": "StageNumber",
+      "action": "none"
+    },
+    "00082124": {
+      "comment": "NumberOfStages",
+      "action": "none"
+    },
+    "00082128": {
+      "comment": "ViewNumber",
+      "action": "none"
+    },
+    "00082129": {
+      "comment": "NumberOfEventTimers",
+      "action": "none"
+    },
+    "0008212A": {
+      "comment": "NumberOfViewsInStage",
+      "action": "none"
+    },
+    "00082130": {
+      "comment": "EventElapsedTimes",
+      "action": "none"
+    },
+    "00082132": {
+      "comment": "EventTimerNames",
+      "action": "none"
+    },
+    "00082142": {
+      "comment": "StartTrim",
+      "action": "none"
+    },
+    "00082143": {
+      "comment": "StopTrim",
+      "action": "none"
+    },
+    "00082144": {
+      "comment": "RecommendedDisplayFrameRate",
+      "action": "none"
+    },
+    "00082218": {
+      "comment": "AnatomicRegionSequence",
+      "action": "none"
+    },
+    "00082220": {
+      "comment": "AnatomicRegionModifierSequence",
+      "action": "none"
+    },
+    "00082228": {
+      "comment": "PrimaryAnatomicStructureSequence",
+      "action": "none"
+    },
+    "00082229": {
+      "comment": "AnatomicStructureSpaceOrRegionSequence",
+      "action": "none"
+    },
+    "00082230": {
+      "comment": "PrimaryAnatomicStructureModifierSequence",
+      "action": "none"
+    },
+    "00082240": {
+      "comment": "TransducerPositionSequence",
+      "action": "none"
+    },
+    "00082242": {
+      "comment": "TransducerPositionModifierSequence",
+      "action": "none"
+    },
+    "00082244": {
+      "comment": "TransducerOrientationSequence",
+      "action": "none"
+    },
+    "00082246": {
+      "comment": "TransducerOrientationModifierSequence",
+      "action": "none"
+    },
+    "00083010": {
+      "comment": "IrradiationEventUID",
+      "action": "hashuid"
+    },
+    "00084000": {
+      "comment": "IdentifyingComments",
+      "action": "remove"
+    },
+    "00089007": {
+      "comment": "FrameType",
+      "action": "none"
+    },
+    "00089092": {
+      "comment": "ReferencedImageEvidenceSequence",
+      "action": "none"
+    },
+    "00089121": {
+      "comment": "ReferencedRawDataSequence",
+      "action": "none"
+    },
+    "00089123": {
+      "comment": "CreatorVersionUID",
+      "action": "hashuid"
+    },
+    "00089124": {
+      "comment": "DerivationImageSequence",
+      "action": "none"
+    },
+    "00089154": {
+      "comment": "SourceImageEvidenceSequence",
+      "action": "none"
+    },
+    "00089205": {
+      "comment": "PixelPresentation",
+      "action": "none"
+    },
+    "00089206": {
+      "comment": "VolumetricProperties",
+      "action": "none"
+    },
+    "00089207": {
+      "comment": "VolumeBasedCalculationTechnique",
+      "action": "none"
+    },
+    "00089208": {
+      "comment": "ComplexImageComponent",
+      "action": "none"
+    },
+    "00089209": {
+      "comment": "AcquisitionContrast",
+      "action": "none"
+    },
+    "00089215": {
+      "comment": "DerivationCodeSequence",
+      "action": "none"
+    },
+    "00089237": {
+      "comment": "ReferencedPresentationStateSequence",
+      "action": "none"
+    },
+    "00100010": {
+      "comment": "PatientName",
+      "action": "hash",
+      "length": 10
+    },
+    "00100020": {
+      "comment": "PatientID",
+      "action": "hash",
+      "length": 10
+    },
+    "00100021": {
+      "comment": "IssuerOfPatientID",
+      "action": "remove"
+    },
+    "00100030": {
+      "comment": "PatientBirthDate",
+      "action": "hashdate"
+    },
+    "00100032": {
+      "comment": "PatientBirthTime",
+      "action": "remove"
+    },
+    "00100040": {
+      "comment": "PatientSex",
+      "action": "empty"
+    },
+    "00100050": {
+      "comment": "PatientInsurancePlanCodeSequence",
+      "action": "remove"
+    },
+    "00100101": {
+      "comment": "PatientPrimaryLanguageCodeSequence",
+      "action": "remove"
+    },
+    "00101000": {
+      "comment": "OtherPatientIDs",
+      "action": "remove"
+    },
+    "00101001": {
+      "comment": "OtherPatientNames",
+      "action": "remove"
+    },
+    "00101002": {
+      "comment": "OtherPatientIDsSequence",
+      "action": "remove"
+    },
+    "00101005": {
+      "comment": "PatientBirthName",
+      "action": "remove"
+    },
+    "00101010": {
+      "comment": "PatientAge",
+      "action": "remove"
+    },
+    "00101020": {
+      "comment": "PatientSize",
+      "action": "remove"
+    },
+    "00101030": {
+      "comment": "PatientWeight",
+      "action": "remove"
+    },
+    "00101040": {
+      "comment": "PatientAddress",
+      "action": "remove"
+    },
+    "00101050": {
+      "comment": "InsurancePlanIdentification",
+      "action": "remove"
+    },
+    "00101060": {
+      "comment": "PatientMotherBirthName",
+      "action": "remove"
+    },
+    "00101080": {
+      "comment": "MilitaryRank",
+      "action": "remove"
+    },
+    "00101081": {
+      "comment": "BranchOfService",
+      "action": "remove"
+    },
+    "00101090": {
+      "comment": "MedicalRecordLocator",
+      "action": "remove"
+    },
+    "00102000": {
+      "comment": "MedicalAlerts",
+      "action": "remove"
+    },
+    "00102110": {
+      "comment": "Allergies",
+      "action": "remove"
+    },
+    "00102150": {
+      "comment": "CountryOfResidence",
+      "action": "remove"
+    },
+    "00102152": {
+      "comment": "RegionOfResidence",
+      "action": "remove"
+    },
+    "00102154": {
+      "comment": "PatientTelephoneNumbers",
+      "action": "remove"
+    },
+    "00102155": {
+      "comment": "PatientTelecomInformation",
+      "action": "remove"
+    },
+    "00102160": {
+      "comment": "EthnicGroup",
+      "action": "remove"
+    },
+    "00102180": {
+      "comment": "Occupation",
+      "action": "remove"
+    },
+    "001021A0": {
+      "comment": "SmokingStatus",
+      "action": "remove"
+    },
+    "001021B0": {
+      "comment": "AdditionalPatientHistory",
+      "action": "remove"
+    },
+    "001021C0": {
+      "comment": "PregnancyStatus",
+      "action": "remove"
+    },
+    "001021D0": {
+      "comment": "LastMenstrualDate",
+      "action": "remove"
+    },
+    "001021F0": {
+      "comment": "PatientReligiousPreference",
+      "action": "remove"
+    },
+    "00102203": {
+      "comment": "PatientSexNeutered",
+      "action": "remove"
+    },
+    "00102297": {
+      "comment": "ResponsiblePerson",
+      "action": "remove"
+    },
+    "00102299": {
+      "comment": "ResponsibleOrganization",
+      "action": "remove"
+    },
+    "00104000": {
+      "comment": "PatientComments",
+      "action": "remove"
+    },
+    "00120010": {
+      "comment": "ClinicalTrialSponsorName",
+      "action": "none"
+    },
+    "00120020": {
+      "comment": "ClinicalTrialProtocolID",
+      "action": "none"
+    },
+    "00120021": {
+      "comment": "ClinicalTrialProtocolName",
+      "action": "none"
+    },
+    "00120030": {
+      "comment": "ClinicalTrialSiteID",
+      "action": "none"
+    },
+    "00120031": {
+      "comment": "ClinicalTrialSiteName",
+      "action": "none"
+    },
+    "00120040": {
+      "comment": "ClinicalTrialSubjectID",
+      "action": "none"
+    },
+    "00120042": {
+      "comment": "ClinicalTrialSubjectReadingID",
+      "action": "none"
+    },
+    "00120050": {
+      "comment": "ClinicalTrialTimePointID",
+      "action": "none"
+    },
+    "00120051": {
+      "comment": "ClinicalTrialTimePointDescription",
+      "action": "none"
+    },
+    "00120060": {
+      "comment": "ClinicalTrialCoordinatingCenterName",
+      "action": "none"
+    },
+    "00120062": {
+      "comment": "PatientIdentityRemoved",
+      "action": "remove"
+    },
+    "00120063": {
+      "comment": "DeidentificationMethod",
+      "action": "replace",
+      "value": "CARECODERS.IO"
+    },
+    "00120064": {
+      "comment": "DeidentificationMethodCodeSequence",
+      "action": "remove"
+    },
+    "00180010": {
+      "comment": "ContrastBolusAgent",
+      "action": "empty"
+    },
+    "00180012": {
+      "comment": "ContrastBolusAgentSequence",
+      "action": "none"
+    },
+    "00180014": {
+      "comment": "ContrastBolusAdministrationRouteSequence",
+      "action": "none"
+    },
+    "00180015": {
+      "comment": "BodyPartExamined",
+      "action": "none"
+    },
+    "00180020": {
+      "comment": "ScanningSequence",
+      "action": "none"
+    },
+    "00180021": {
+      "comment": "SequenceVariant",
+      "action": "none"
+    },
+    "00180022": {
+      "comment": "ScanOptions",
+      "action": "none"
+    },
+    "00180023": {
+      "comment": "MRAcquisitionType",
+      "action": "none"
+    },
+    "00180024": {
+      "comment": "SequenceName",
+      "action": "none"
+    },
+    "00180025": {
+      "comment": "AngioFlag",
+      "action": "none"
+    },
+    "00180026": {
+      "comment": "InterventionDrugInformationSequence",
+      "action": "none"
+    },
+    "00180027": {
+      "comment": "InterventionDrugStopTime",
+      "action": "none"
+    },
+    "00180028": {
+      "comment": "InterventionDrugDose",
+      "action": "none"
+    },
+    "00180029": {
+      "comment": "InterventionDrugCodeSequence",
+      "action": "none"
+    },
+    "0018002A": {
+      "comment": "AdditionalDrugSequence",
+      "action": "none"
+    },
+    "00180031": {
+      "comment": "Radiopharmaceutical",
+      "action": "none"
+    },
+    "00180034": {
+      "comment": "InterventionDrugName",
+      "action": "none"
+    },
+    "00180035": {
+      "comment": "InterventionDrugStartTime",
+      "action": "none"
+    },
+    "00180036": {
+      "comment": "InterventionSequence",
+      "action": "none"
+    },
+    "00180037": {
+      "comment": "TherapyType",
+      "action": "none"
+    },
+    "00180038": {
+      "comment": "InterventionStatus",
+      "action": "none"
+    },
+    "00180039": {
+      "comment": "TherapyDescription",
+      "action": "none"
+    },
+    "00180040": {
+      "comment": "CineRate",
+      "action": "none"
+    },
+    "00180050": {
+      "comment": "SliceThickness",
+      "action": "none"
+    },
+    "00180060": {
+      "comment": "KVP",
+      "action": "none"
+    },
+    "00180070": {
+      "comment": "CountsAccumulated",
+      "action": "none"
+    },
+    "00180071": {
+      "comment": "AcquisitionTerminationCondition",
+      "action": "none"
+    },
+    "00180072": {
+      "comment": "EffectiveDuration",
+      "action": "none"
+    },
+    "00180073": {
+      "comment": "AcquisitionStartCondition",
+      "action": "none"
+    },
+    "00180074": {
+      "comment": "AcquisitionStartConditionData",
+      "action": "none"
+    },
+    "00180075": {
+      "comment": "AcquisitionTerminationConditionData",
+      "action": "none"
+    },
+    "00180080": {
+      "comment": "RepetitionTime",
+      "action": "none"
+    },
+    "00180081": {
+      "comment": "EchoTime",
+      "action": "none"
+    },
+    "00180082": {
+      "comment": "InversionTime",
+      "action": "none"
+    },
+    "00180083": {
+      "comment": "NumberOfAverages",
+      "action": "none"
+    },
+    "00180084": {
+      "comment": "ImagingFrequency",
+      "action": "none"
+    },
+    "00180085": {
+      "comment": "ImagedNucleus",
+      "action": "none"
+    },
+    "00180086": {
+      "comment": "EchoNumbers",
+      "action": "none"
+    },
+    "00180087": {
+      "comment": "MagneticFieldStrength",
+      "action": "none"
+    },
+    "00180088": {
+      "comment": "SpacingBetweenSlices",
+      "action": "none"
+    },
+    "00180089": {
+      "comment": "NumberOfPhaseEncodingSteps",
+      "action": "none"
+    },
+    "00180090": {
+      "comment": "DataCollectionDiameter",
+      "action": "none"
+    },
+    "00180091": {
+      "comment": "EchoTrainLength",
+      "action": "none"
+    },
+    "00180093": {
+      "comment": "PercentSampling",
+      "action": "none"
+    },
+    "00180094": {
+      "comment": "PercentPhaseFieldOfView",
+      "action": "none"
+    },
+    "00180095": {
+      "comment": "PixelBandwidth",
+      "action": "none"
+    },
+    "00181000": {
+      "comment": "DeviceSerialNumber",
+      "action": "remove"
+    },
+    "00181002": {
+      "comment": "DeviceUID",
+      "action": "hashuid"
+    },
+    "00181004": {
+      "comment": "PlateID",
+      "action": "remove"
+    },
+    "00181005": {
+      "comment": "GeneratorID",
+      "action": "remove"
+    },
+    "00181007": {
+      "comment": "CassetteID",
+      "action": "remove"
+    },
+    "00181008": {
+      "comment": "GantryID",
+      "action": "remove"
+    },
+    "00181010": {
+      "comment": "SecondaryCaptureDeviceID",
+      "action": "none"
+    },
+    "00181011": {
+      "comment": "HardcopyCreationDeviceID",
+      "action": "none"
+    },
+    "00181012": {
+      "comment": "DateOfSecondaryCapture",
+      "action": "hashdate"
+    },
+    "00181014": {
+      "comment": "TimeOfSecondaryCapture",
+      "action": "none"
+    },
+    "00181016": {
+      "comment": "SecondaryCaptureDeviceManufacturer",
+      "action": "none"
+    },
+    "00181017": {
+      "comment": "HardcopyDeviceManufacturer",
+      "action": "none"
+    },
+    "00181018": {
+      "comment": "SecondaryCaptureDeviceManufacturerModelName",
+      "action": "none"
+    },
+    "00181019": {
+      "comment": "SecondaryCaptureDeviceSoftwareVersions",
+      "action": "none"
+    },
+    "0018101A": {
+      "comment": "HardcopyDeviceSoftwareVersion",
+      "action": "none"
+    },
+    "0018101B": {
+      "comment": "HardcopyDeviceManufacturerModelName",
+      "action": "none"
+    },
+    "00181020": {
+      "comment": "SoftwareVersions",
+      "action": "remove"
+    },
+    "00181022": {
+      "comment": "VideoImageFormatAcquired",
+      "action": "none"
+    },
+    "00181023": {
+      "comment": "DigitalImageFormatAcquired",
+      "action": "none"
+    },
+    "00181030": {
+      "comment": "ProtocolName",
+      "action": "remove"
+    },
+    "00181040": {
+      "comment": "ContrastBolusRoute",
+      "action": "none"
+    },
+    "00181041": {
+      "comment": "ContrastBolusVolume",
+      "action": "none"
+    },
+    "00181042": {
+      "comment": "ContrastBolusStartTime",
+      "action": "none"
+    },
+    "00181043": {
+      "comment": "ContrastBolusStopTime",
+      "action": "none"
+    },
+    "00181044": {
+      "comment": "ContrastBolusTotalDose",
+      "action": "none"
+    },
+    "00181045": {
+      "comment": "SyringeCounts",
+      "action": "none"
+    },
+    "00181046": {
+      "comment": "ContrastFlowRate",
+      "action": "none"
+    },
+    "00181047": {
+      "comment": "ContrastFlowDuration",
+      "action": "none"
+    },
+    "00181048": {
+      "comment": "ContrastBolusIngredient",
+      "action": "none"
+    },
+    "00181049": {
+      "comment": "ContrastBolusIngredientConcentration",
+      "action": "none"
+    },
+    "00181050": {
+      "comment": "SpatialResolution",
+      "action": "none"
+    },
+    "00181060": {
+      "comment": "TriggerTime",
+      "action": "none"
+    },
+    "00181061": {
+      "comment": "TriggerSourceOrType",
+      "action": "none"
+    },
+    "00181062": {
+      "comment": "NominalInterval",
+      "action": "none"
+    },
+    "00181063": {
+      "comment": "FrameTime",
+      "action": "none"
+    },
+    "00181064": {
+      "comment": "CardiacFramingType",
+      "action": "none"
+    },
+    "00181065": {
+      "comment": "FrameTimeVector",
+      "action": "none"
+    },
+    "00181066": {
+      "comment": "FrameDelay",
+      "action": "none"
+    },
+    "00181067": {
+      "comment": "ImageTriggerDelay",
+      "action": "none"
+    },
+    "00181068": {
+      "comment": "MultiplexGroupTimeOffset",
+      "action": "none"
+    },
+    "00181069": {
+      "comment": "TriggerTimeOffset",
+      "action": "none"
+    },
+    "0018106A": {
+      "comment": "SynchronizationTrigger",
+      "action": "none"
+    },
+    "0018106C": {
+      "comment": "SynchronizationChannel",
+      "action": "none"
+    },
+    "0018106E": {
+      "comment": "TriggerSamplePosition",
+      "action": "none"
+    },
+    "00181070": {
+      "comment": "RadiopharmaceuticalRoute",
+      "action": "none"
+    },
+    "00181071": {
+      "comment": "RadiopharmaceuticalVolume",
+      "action": "none"
+    },
+    "00181072": {
+      "comment": "RadiopharmaceuticalStartTime",
+      "action": "none"
+    },
+    "00181073": {
+      "comment": "RadiopharmaceuticalStopTime",
+      "action": "none"
+    },
+    "00181074": {
+      "comment": "RadionuclideTotalDose",
+      "action": "none"
+    },
+    "00181075": {
+      "comment": "RadionuclideHalfLife",
+      "action": "none"
+    },
+    "00181076": {
+      "comment": "RadionuclidePositronFraction",
+      "action": "none"
+    },
+    "00181077": {
+      "comment": "RadiopharmaceuticalSpecificActivity",
+      "action": "none"
+    },
+    "00181080": {
+      "comment": "BeatRejectionFlag",
+      "action": "none"
+    },
+    "00181081": {
+      "comment": "LowRRValue",
+      "action": "none"
+    },
+    "00181082": {
+      "comment": "HighRRValue",
+      "action": "none"
+    },
+    "00181083": {
+      "comment": "IntervalsAcquired",
+      "action": "none"
+    },
+    "00181084": {
+      "comment": "IntervalsRejected",
+      "action": "none"
+    },
+    "00181085": {
+      "comment": "PVCRejection",
+      "action": "none"
+    },
+    "00181086": {
+      "comment": "SkipBeats",
+      "action": "none"
+    },
+    "00181088": {
+      "comment": "HeartRate",
+      "action": "none"
+    },
+    "00181090": {
+      "comment": "CardiacNumberOfImages",
+      "action": "none"
+    },
+    "00181094": {
+      "comment": "TriggerWindow",
+      "action": "none"
+    },
+    "00181100": {
+      "comment": "ReconstructionDiameter",
+      "action": "none"
+    },
+    "00181110": {
+      "comment": "DistanceSourceToDetector",
+      "action": "none"
+    },
+    "00181111": {
+      "comment": "DistanceSourceToPatient",
+      "action": "none"
+    },
+    "00181114": {
+      "comment": "EstimatedRadiographicMagnificationFactor",
+      "action": "none"
+    },
+    "00181120": {
+      "comment": "GantryDetectorTilt",
+      "action": "none"
+    },
+    "00181121": {
+      "comment": "GantryDetectorSlew",
+      "action": "none"
+    },
+    "00181130": {
+      "comment": "TableHeight",
+      "action": "none"
+    },
+    "00181131": {
+      "comment": "TableTraverse",
+      "action": "none"
+    },
+    "00181134": {
+      "comment": "TableMotion",
+      "action": "none"
+    },
+    "00181135": {
+      "comment": "TableVerticalIncrement",
+      "action": "none"
+    },
+    "00181136": {
+      "comment": "TableLateralIncrement",
+      "action": "none"
+    },
+    "00181137": {
+      "comment": "TableLongitudinalIncrement",
+      "action": "none"
+    },
+    "00181138": {
+      "comment": "TableAngle",
+      "action": "none"
+    },
+    "0018113A": {
+      "comment": "TableType",
+      "action": "none"
+    },
+    "00181140": {
+      "comment": "RotationDirection",
+      "action": "none"
+    },
+    "00181141": {
+      "comment": "AngularPosition",
+      "action": "none"
+    },
+    "00181142": {
+      "comment": "RadialPosition",
+      "action": "none"
+    },
+    "00181143": {
+      "comment": "ScanArc",
+      "action": "none"
+    },
+    "00181144": {
+      "comment": "AngularStep",
+      "action": "none"
+    },
+    "00181145": {
+      "comment": "CenterOfRotationOffset",
+      "action": "none"
+    },
+    "00181147": {
+      "comment": "FieldOfViewShape",
+      "action": "none"
+    },
+    "00181149": {
+      "comment": "FieldOfViewDimensions",
+      "action": "none"
+    },
+    "00181150": {
+      "comment": "ExposureTime",
+      "action": "none"
+    },
+    "00181151": {
+      "comment": "XRayTubeCurrent",
+      "action": "none"
+    },
+    "00181152": {
+      "comment": "Exposure",
+      "action": "none"
+    },
+    "00181153": {
+      "comment": "ExposureInuAs",
+      "action": "none"
+    },
+    "00181154": {
+      "comment": "AveragePulseWidth",
+      "action": "none"
+    },
+    "00181155": {
+      "comment": "RadiationSetting",
+      "action": "none"
+    },
+    "00181156": {
+      "comment": "RectificationType",
+      "action": "none"
+    },
+    "0018115A": {
+      "comment": "RadiationMode",
+      "action": "none"
+    },
+    "0018115E": {
+      "comment": "ImageAndFluoroscopyAreaDoseProduct",
+      "action": "none"
+    },
+    "00181160": {
+      "comment": "FilterType",
+      "action": "none"
+    },
+    "00181161": {
+      "comment": "TypeOfFilters",
+      "action": "none"
+    },
+    "00181162": {
+      "comment": "IntensifierSize",
+      "action": "none"
+    },
+    "00181164": {
+      "comment": "ImagerPixelSpacing",
+      "action": "none"
+    },
+    "00181166": {
+      "comment": "Grid",
+      "action": "none"
+    },
+    "00181170": {
+      "comment": "GeneratorPower",
+      "action": "none"
+    },
+    "00181180": {
+      "comment": "CollimatorGridName",
+      "action": "none"
+    },
+    "00181181": {
+      "comment": "CollimatorType",
+      "action": "none"
+    },
+    "00181182": {
+      "comment": "FocalDistance",
+      "action": "none"
+    },
+    "00181183": {
+      "comment": "XFocusCenter",
+      "action": "none"
+    },
+    "00181184": {
+      "comment": "YFocusCenter",
+      "action": "none"
+    },
+    "00181190": {
+      "comment": "FocalSpots",
+      "action": "none"
+    },
+    "00181191": {
+      "comment": "AnodeTargetMaterial",
+      "action": "none"
+    },
+    "001811A0": {
+      "comment": "BodyPartThickness",
+      "action": "none"
+    },
+    "001811A2": {
+      "comment": "CompressionForce",
+      "action": "none"
+    },
+    "00181200": {
+      "comment": "DateOfLastCalibration",
+      "action": "hashdate"
+    },
+    "00181201": {
+      "comment": "TimeOfLastCalibration",
+      "action": "none"
+    },
+    "00181210": {
+      "comment": "ConvolutionKernel",
+      "action": "none"
+    },
+    "00181242": {
+      "comment": "ActualFrameDuration",
+      "action": "none"
+    },
+    "00181243": {
+      "comment": "CountRate",
+      "action": "none"
+    },
+    "00181244": {
+      "comment": "PreferredPlaybackSequencing",
+      "action": "none"
+    },
+    "00181250": {
+      "comment": "ReceiveCoilName",
+      "action": "none"
+    },
+    "00181251": {
+      "comment": "TransmitCoilName",
+      "action": "none"
+    },
+    "00181260": {
+      "comment": "PlateType",
+      "action": "none"
+    },
+    "00181261": {
+      "comment": "PhosphorType",
+      "action": "none"
+    },
+    "00181300": {
+      "comment": "ScanVelocity",
+      "action": "none"
+    },
+    "00181301": {
+      "comment": "WholeBodyTechnique",
+      "action": "none"
+    },
+    "00181302": {
+      "comment": "ScanLength",
+      "action": "none"
+    },
+    "00181310": {
+      "comment": "AcquisitionMatrix",
+      "action": "none"
+    },
+    "00181312": {
+      "comment": "InPlanePhaseEncodingDirection",
+      "action": "none"
+    },
+    "00181314": {
+      "comment": "FlipAngle",
+      "action": "none"
+    },
+    "00181315": {
+      "comment": "VariableFlipAngleFlag",
+      "action": "none"
+    },
+    "00181316": {
+      "comment": "SAR",
+      "action": "none"
+    },
+    "00181318": {
+      "comment": "dBdt",
+      "action": "none"
+    },
+    "00181400": {
+      "comment": "AcquisitionDeviceProcessingDescription",
+      "action": "remove"
+    },
+    "00181401": {
+      "comment": "AcquisitionDeviceProcessingCode",
+      "action": "none"
+    },
+    "00181402": {
+      "comment": "CassetteOrientation",
+      "action": "none"
+    },
+    "00181403": {
+      "comment": "CassetteSize",
+      "action": "none"
+    },
+    "00181404": {
+      "comment": "ExposuresOnPlate",
+      "action": "none"
+    },
+    "00181405": {
+      "comment": "RelativeXRayExposure",
+      "action": "none"
+    },
+    "00181450": {
+      "comment": "ColumnAngulation",
+      "action": "none"
+    },
+    "00181460": {
+      "comment": "TomoLayerHeight",
+      "action": "none"
+    },
+    "00181470": {
+      "comment": "TomoAngle",
+      "action": "none"
+    },
+    "00181480": {
+      "comment": "TomoTime",
+      "action": "none"
+    },
+    "00181490": {
+      "comment": "TomoType",
+      "action": "none"
+    },
+    "00181491": {
+      "comment": "TomoClass",
+      "action": "none"
+    },
+    "00181495": {
+      "comment": "NumberOfTomosynthesisSourceImages",
+      "action": "none"
+    },
+    "00181500": {
+      "comment": "PositionerMotion",
+      "action": "none"
+    },
+    "00181508": {
+      "comment": "PositionerType",
+      "action": "none"
+    },
+    "00181510": {
+      "comment": "PositionerPrimaryAngle",
+      "action": "none"
+    },
+    "00181511": {
+      "comment": "PositionerSecondaryAngle",
+      "action": "none"
+    },
+    "00181520": {
+      "comment": "PositionerPrimaryAngleIncrement",
+      "action": "none"
+    },
+    "00181521": {
+      "comment": "PositionerSecondaryAngleIncrement",
+      "action": "none"
+    },
+    "00181530": {
+      "comment": "DetectorPrimaryAngle",
+      "action": "none"
+    },
+    "00181531": {
+      "comment": "DetectorSecondaryAngle",
+      "action": "none"
+    },
+    "00181600": {
+      "comment": "ShutterShape",
+      "action": "none"
+    },
+    "00181602": {
+      "comment": "ShutterLeftVerticalEdge",
+      "action": "none"
+    },
+    "00181604": {
+      "comment": "ShutterRightVerticalEdge",
+      "action": "none"
+    },
+    "00181606": {
+      "comment": "ShutterUpperHorizontalEdge",
+      "action": "none"
+    },
+    "00181608": {
+      "comment": "ShutterLowerHorizontalEdge",
+      "action": "none"
+    },
+    "00181610": {
+      "comment": "CenterOfCircularShutter",
+      "action": "none"
+    },
+    "00181612": {
+      "comment": "RadiusOfCircularShutter",
+      "action": "none"
+    },
+    "00181620": {
+      "comment": "VerticesOfThePolygonalShutter",
+      "action": "none"
+    },
+    "00181622": {
+      "comment": "ShutterPresentationValue",
+      "action": "none"
+    },
+    "00181623": {
+      "comment": "ShutterOverlayGroup",
+      "action": "none"
+    },
+    "00181700": {
+      "comment": "CollimatorShape",
+      "action": "none"
+    },
+    "00181702": {
+      "comment": "CollimatorLeftVerticalEdge",
+      "action": "none"
+    },
+    "00181704": {
+      "comment": "CollimatorRightVerticalEdge",
+      "action": "none"
+    },
+    "00181706": {
+      "comment": "CollimatorUpperHorizontalEdge",
+      "action": "none"
+    },
+    "00181708": {
+      "comment": "CollimatorLowerHorizontalEdge",
+      "action": "none"
+    },
+    "00181710": {
+      "comment": "CenterOfCircularCollimator",
+      "action": "none"
+    },
+    "00181712": {
+      "comment": "RadiusOfCircularCollimator",
+      "action": "none"
+    },
+    "00181720": {
+      "comment": "VerticesOfThePolygonalCollimator",
+      "action": "none"
+    },
+    "00181800": {
+      "comment": "AcquisitionTimeSynchronized",
+      "action": "none"
+    },
+    "00181801": {
+      "comment": "TimeSource",
+      "action": "none"
+    },
+    "00181802": {
+      "comment": "TimeDistributionProtocol",
+      "action": "none"
+    },
+    "00184000": {
+      "comment": "AcquisitionComments",
+      "action": "remove"
+    },
+    "00185000": {
+      "comment": "OutputPower",
+      "action": "none"
+    },
+    "00185010": {
+      "comment": "TransducerData",
+      "action": "none"
+    },
+    "00185012": {
+      "comment": "FocusDepth",
+      "action": "none"
+    },
+    "00185020": {
+      "comment": "ProcessingFunction",
+      "action": "none"
+    },
+    "00185021": {
+      "comment": "PostprocessingFunction",
+      "action": "none"
+    },
+    "00185022": {
+      "comment": "MechanicalIndex",
+      "action": "none"
+    },
+    "00185024": {
+      "comment": "BoneThermalIndex",
+      "action": "none"
+    },
+    "00185026": {
+      "comment": "CranialThermalIndex",
+      "action": "none"
+    },
+    "00185027": {
+      "comment": "SoftTissueThermalIndex",
+      "action": "none"
+    },
+    "00185028": {
+      "comment": "SoftTissueFocusThermalIndex",
+      "action": "none"
+    },
+    "00185029": {
+      "comment": "SoftTissueSurfaceThermalIndex",
+      "action": "none"
+    },
+    "00185050": {
+      "comment": "DepthOfScanField",
+      "action": "none"
+    },
+    "00185100": {
+      "comment": "PatientPosition",
+      "action": "none"
+    },
+    "00185101": {
+      "comment": "ViewPosition",
+      "action": "none"
+    },
+    "00185104": {
+      "comment": "ProjectionEponymousNameCodeSequence",
+      "action": "none"
+    },
+    "00185210": {
+      "comment": "ImageTransformationMatrix",
+      "action": "none"
+    },
+    "00185212": {
+      "comment": "ImageTranslationVector",
+      "action": "none"
+    },
+    "00186000": {
+      "comment": "Sensitivity",
+      "action": "none"
+    },
+    "00186011": {
+      "comment": "SequenceOfUltrasoundRegions",
+      "action": "none"
+    },
+    "00186012": {
+      "comment": "RegionSpatialFormat",
+      "action": "none"
+    },
+    "00186014": {
+      "comment": "RegionDataType",
+      "action": "none"
+    },
+    "00186016": {
+      "comment": "RegionFlags",
+      "action": "none"
+    },
+    "00186018": {
+      "comment": "RegionLocationMinX0",
+      "action": "none"
+    },
+    "0018601A": {
+      "comment": "RegionLocationMinY0",
+      "action": "none"
+    },
+    "0018601C": {
+      "comment": "RegionLocationMaxX1",
+      "action": "none"
+    },
+    "0018601E": {
+      "comment": "RegionLocationMaxY1",
+      "action": "none"
+    },
+    "00186020": {
+      "comment": "ReferencePixelX0",
+      "action": "none"
+    },
+    "00186022": {
+      "comment": "ReferencePixelY0",
+      "action": "none"
+    },
+    "00186024": {
+      "comment": "PhysicalUnitsXDirection",
+      "action": "none"
+    },
+    "00186026": {
+      "comment": "PhysicalUnitsYDirection",
+      "action": "none"
+    },
+    "00186028": {
+      "comment": "ReferencePixelPhysicalValueX",
+      "action": "none"
+    },
+    "0018602A": {
+      "comment": "ReferencePixelPhysicalValueY",
+      "action": "none"
+    },
+    "0018602C": {
+      "comment": "PhysicalDeltaX",
+      "action": "none"
+    },
+    "0018602E": {
+      "comment": "PhysicalDeltaY",
+      "action": "none"
+    },
+    "00186030": {
+      "comment": "TransducerFrequency",
+      "action": "none"
+    },
+    "00186031": {
+      "comment": "TransducerType",
+      "action": "none"
+    },
+    "00186032": {
+      "comment": "PulseRepetitionFrequency",
+      "action": "none"
+    },
+    "00186034": {
+      "comment": "DopplerCorrectionAngle",
+      "action": "none"
+    },
+    "00186036": {
+      "comment": "SteeringAngle",
+      "action": "none"
+    },
+    "00186039": {
+      "comment": "DopplerSampleVolumeXPosition",
+      "action": "none"
+    },
+    "0018603B": {
+      "comment": "DopplerSampleVolumeYPosition",
+      "action": "none"
+    },
+    "0018603D": {
+      "comment": "TMLinePositionX0",
+      "action": "none"
+    },
+    "0018603F": {
+      "comment": "TMLinePositionY0",
+      "action": "none"
+    },
+    "00186041": {
+      "comment": "TMLinePositionX1",
+      "action": "none"
+    },
+    "00186043": {
+      "comment": "TMLinePositionY1",
+      "action": "none"
+    },
+    "00186044": {
+      "comment": "PixelComponentOrganization",
+      "action": "none"
+    },
+    "00186046": {
+      "comment": "PixelComponentMask",
+      "action": "none"
+    },
+    "00186048": {
+      "comment": "PixelComponentRangeStart",
+      "action": "none"
+    },
+    "0018604A": {
+      "comment": "PixelComponentRangeStop",
+      "action": "none"
+    },
+    "0018604C": {
+      "comment": "PixelComponentPhysicalUnits",
+      "action": "none"
+    },
+    "0018604E": {
+      "comment": "PixelComponentDataType",
+      "action": "none"
+    },
+    "00186050": {
+      "comment": "NumberOfTableBreakPoints",
+      "action": "none"
+    },
+    "00186052": {
+      "comment": "TableOfXBreakPoints",
+      "action": "none"
+    },
+    "00186054": {
+      "comment": "TableOfYBreakPoints",
+      "action": "none"
+    },
+    "00186056": {
+      "comment": "NumberOfTableEntries",
+      "action": "none"
+    },
+    "00186058": {
+      "comment": "TableOfPixelValues",
+      "action": "none"
+    },
+    "0018605A": {
+      "comment": "TableOfParameterValues",
+      "action": "none"
+    },
+    "00187000": {
+      "comment": "DetectorConditionsNominalFlag",
+      "action": "none"
+    },
+    "00187001": {
+      "comment": "DetectorTemperature",
+      "action": "none"
+    },
+    "00187004": {
+      "comment": "DetectorType",
+      "action": "none"
+    },
+    "00187005": {
+      "comment": "DetectorConfiguration",
+      "action": "none"
+    },
+    "00187006": {
+      "comment": "DetectorDescription",
+      "action": "none"
+    },
+    "00187008": {
+      "comment": "DetectorMode",
+      "action": "none"
+    },
+    "0018700A": {
+      "comment": "DetectorID",
+      "action": "remove"
+    },
+    "0018700C": {
+      "comment": "DateOfLastDetectorCalibration",
+      "action": "hashdate"
+    },
+    "0018700E": {
+      "comment": "TimeOfLastDetectorCalibration",
+      "action": "none"
+    },
+    "00187010": {
+      "comment": "ExposuresOnDetectorSinceLastCalibration",
+      "action": "none"
+    },
+    "00187011": {
+      "comment": "ExposuresOnDetectorSinceManufactured",
+      "action": "none"
+    },
+    "00187012": {
+      "comment": "DetectorTimeSinceLastExposure",
+      "action": "none"
+    },
+    "00187014": {
+      "comment": "DetectorActiveTime",
+      "action": "none"
+    },
+    "00187016": {
+      "comment": "DetectorActivationOffsetFromExposure",
+      "action": "none"
+    },
+    "0018701A": {
+      "comment": "DetectorBinning",
+      "action": "none"
+    },
+    "00187020": {
+      "comment": "DetectorElementPhysicalSize",
+      "action": "none"
+    },
+    "00187022": {
+      "comment": "DetectorElementSpacing",
+      "action": "none"
+    },
+    "00187024": {
+      "comment": "DetectorActiveShape",
+      "action": "none"
+    },
+    "00187026": {
+      "comment": "DetectorActiveDimensions",
+      "action": "none"
+    },
+    "00187028": {
+      "comment": "DetectorActiveOrigin",
+      "action": "none"
+    },
+    "00187030": {
+      "comment": "FieldOfViewOrigin",
+      "action": "none"
+    },
+    "00187032": {
+      "comment": "FieldOfViewRotation",
+      "action": "none"
+    },
+    "00187034": {
+      "comment": "FieldOfViewHorizontalFlip",
+      "action": "none"
+    },
+    "00187040": {
+      "comment": "GridAbsorbingMaterial",
+      "action": "none"
+    },
+    "00187041": {
+      "comment": "GridSpacingMaterial",
+      "action": "none"
+    },
+    "00187042": {
+      "comment": "GridThickness",
+      "action": "none"
+    },
+    "00187044": {
+      "comment": "GridPitch",
+      "action": "none"
+    },
+    "00187046": {
+      "comment": "GridAspectRatio",
+      "action": "none"
+    },
+    "00187048": {
+      "comment": "GridPeriod",
+      "action": "none"
+    },
+    "0018704C": {
+      "comment": "GridFocalDistance",
+      "action": "none"
+    },
+    "00187050": {
+      "comment": "FilterMaterial",
+      "action": "none"
+    },
+    "00187052": {
+      "comment": "FilterThicknessMinimum",
+      "action": "none"
+    },
+    "00187054": {
+      "comment": "FilterThicknessMaximum",
+      "action": "none"
+    },
+    "00187060": {
+      "comment": "ExposureControlMode",
+      "action": "none"
+    },
+    "00187062": {
+      "comment": "ExposureControlModeDescription",
+      "action": "none"
+    },
+    "00187064": {
+      "comment": "ExposureStatus",
+      "action": "none"
+    },
+    "00187065": {
+      "comment": "PhototimerSetting",
+      "action": "none"
+    },
+    "00188150": {
+      "comment": "ExposureTimeInuS",
+      "action": "none"
+    },
+    "00188151": {
+      "comment": "XRayTubeCurrentInuA",
+      "action": "none"
+    },
+    "00189004": {
+      "comment": "ContentQualification",
+      "action": "none"
+    },
+    "00189005": {
+      "comment": "PulseSequenceName",
+      "action": "none"
+    },
+    "00189006": {
+      "comment": "MRImagingModifierSequence",
+      "action": "none"
+    },
+    "00189008": {
+      "comment": "EchoPulseSequence",
+      "action": "none"
+    },
+    "00189009": {
+      "comment": "InversionRecovery",
+      "action": "none"
+    },
+    "00189010": {
+      "comment": "FlowCompensation",
+      "action": "none"
+    },
+    "00189011": {
+      "comment": "MultipleSpinEcho",
+      "action": "none"
+    },
+    "00189012": {
+      "comment": "MultiPlanarExcitation",
+      "action": "none"
+    },
+    "00189014": {
+      "comment": "PhaseContrast",
+      "action": "none"
+    },
+    "00189015": {
+      "comment": "TimeOfFlightContrast",
+      "action": "none"
+    },
+    "00189016": {
+      "comment": "Spoiling",
+      "action": "none"
+    },
+    "00189017": {
+      "comment": "SteadyStatePulseSequence",
+      "action": "none"
+    },
+    "00189018": {
+      "comment": "EchoPlanarPulseSequence",
+      "action": "none"
+    },
+    "00189019": {
+      "comment": "TagAngleFirstAxis",
+      "action": "none"
+    },
+    "00189020": {
+      "comment": "MagnetizationTransfer",
+      "action": "none"
+    },
+    "00189021": {
+      "comment": "T2Preparation",
+      "action": "none"
+    },
+    "00189022": {
+      "comment": "BloodSignalNulling",
+      "action": "none"
+    },
+    "00189024": {
+      "comment": "SaturationRecovery",
+      "action": "none"
+    },
+    "00189025": {
+      "comment": "SpectrallySelectedSuppression",
+      "action": "none"
+    },
+    "00189026": {
+      "comment": "SpectrallySelectedExcitation",
+      "action": "none"
+    },
+    "00189027": {
+      "comment": "SpatialPresaturation",
+      "action": "none"
+    },
+    "00189028": {
+      "comment": "Tagging",
+      "action": "none"
+    },
+    "00189029": {
+      "comment": "OversamplingPhase",
+      "action": "none"
+    },
+    "00189030": {
+      "comment": "TagSpacingFirstDimension",
+      "action": "none"
+    },
+    "00189032": {
+      "comment": "GeometryOfKSpaceTraversal",
+      "action": "none"
+    },
+    "00189033": {
+      "comment": "SegmentedKSpaceTraversal",
+      "action": "none"
+    },
+    "00189034": {
+      "comment": "RectilinearPhaseEncodeReordering",
+      "action": "none"
+    },
+    "00189035": {
+      "comment": "TagThickness",
+      "action": "none"
+    },
+    "00189036": {
+      "comment": "PartialFourierDirection",
+      "action": "none"
+    },
+    "00189037": {
+      "comment": "CardiacSynchronizationTechnique",
+      "action": "none"
+    },
+    "00189041": {
+      "comment": "ReceiveCoilManufacturerName",
+      "action": "none"
+    },
+    "00189042": {
+      "comment": "MRReceiveCoilSequence",
+      "action": "none"
+    },
+    "00189043": {
+      "comment": "ReceiveCoilType",
+      "action": "none"
+    },
+    "00189044": {
+      "comment": "QuadratureReceiveCoil",
+      "action": "none"
+    },
+    "00189045": {
+      "comment": "MultiCoilDefinitionSequence",
+      "action": "none"
+    },
+    "00189046": {
+      "comment": "MultiCoilConfiguration",
+      "action": "none"
+    },
+    "00189047": {
+      "comment": "MultiCoilElementName",
+      "action": "none"
+    },
+    "00189048": {
+      "comment": "MultiCoilElementUsed",
+      "action": "none"
+    },
+    "00189049": {
+      "comment": "MRTransmitCoilSequence",
+      "action": "none"
+    },
+    "00189050": {
+      "comment": "TransmitCoilManufacturerName",
+      "action": "none"
+    },
+    "00189051": {
+      "comment": "TransmitCoilType",
+      "action": "none"
+    },
+    "00189052": {
+      "comment": "SpectralWidth",
+      "action": "none"
+    },
+    "00189053": {
+      "comment": "ChemicalShiftReference",
+      "action": "none"
+    },
+    "00189054": {
+      "comment": "VolumeLocalizationTechnique",
+      "action": "none"
+    },
+    "00189058": {
+      "comment": "MRAcquisitionFrequencyEncodingSteps",
+      "action": "none"
+    },
+    "00189059": {
+      "comment": "Decoupling",
+      "action": "none"
+    },
+    "00189060": {
+      "comment": "DecoupledNucleus",
+      "action": "none"
+    },
+    "00189061": {
+      "comment": "DecouplingFrequency",
+      "action": "none"
+    },
+    "00189062": {
+      "comment": "DecouplingMethod",
+      "action": "none"
+    },
+    "00189063": {
+      "comment": "DecouplingChemicalShiftReference",
+      "action": "none"
+    },
+    "00189064": {
+      "comment": "KSpaceFiltering",
+      "action": "none"
+    },
+    "00189065": {
+      "comment": "TimeDomainFiltering",
+      "action": "none"
+    },
+    "00189066": {
+      "comment": "NumberOfZeroFills",
+      "action": "none"
+    },
+    "00189067": {
+      "comment": "BaselineCorrection",
+      "action": "none"
+    },
+    "00189069": {
+      "comment": "ParallelReductionFactorInPlane",
+      "action": "none"
+    },
+    "00189070": {
+      "comment": "CardiacRRIntervalSpecified",
+      "action": "none"
+    },
+    "00189073": {
+      "comment": "AcquisitionDuration",
+      "action": "none"
+    },
+    "00189074": {
+      "comment": "FrameAcquisitionDateTime",
+      "action": "hashdate"
+    },
+    "00189075": {
+      "comment": "DiffusionDirectionality",
+      "action": "none"
+    },
+    "00189076": {
+      "comment": "DiffusionGradientDirectionSequence",
+      "action": "none"
+    },
+    "00189077": {
+      "comment": "ParallelAcquisition",
+      "action": "none"
+    },
+    "00189078": {
+      "comment": "ParallelAcquisitionTechnique",
+      "action": "none"
+    },
+    "00189079": {
+      "comment": "InversionTimes",
+      "action": "none"
+    },
+    "00189080": {
+      "comment": "MetaboliteMapDescription",
+      "action": "none"
+    },
+    "00189081": {
+      "comment": "PartialFourier",
+      "action": "none"
+    },
+    "00189082": {
+      "comment": "EffectiveEchoTime",
+      "action": "none"
+    },
+    "00189084": {
+      "comment": "ChemicalShiftSequence",
+      "action": "none"
+    },
+    "00189085": {
+      "comment": "CardiacSignalSource",
+      "action": "none"
+    },
+    "00189087": {
+      "comment": "DiffusionBValue",
+      "action": "none"
+    },
+    "00189089": {
+      "comment": "DiffusionGradientOrientation",
+      "action": "none"
+    },
+    "00189090": {
+      "comment": "VelocityEncodingDirection",
+      "action": "none"
+    },
+    "00189091": {
+      "comment": "VelocityEncodingMinimumValue",
+      "action": "none"
+    },
+    "00189093": {
+      "comment": "NumberOfKSpaceTrajectories",
+      "action": "none"
+    },
+    "00189094": {
+      "comment": "CoverageOfKSpace",
+      "action": "none"
+    },
+    "00189095": {
+      "comment": "SpectroscopyAcquisitionPhaseRows",
+      "action": "none"
+    },
+    "00189098": {
+      "comment": "TransmitterFrequency",
+      "action": "none"
+    },
+    "00189100": {
+      "comment": "ResonantNucleus",
+      "action": "none"
+    },
+    "00189101": {
+      "comment": "FrequencyCorrection",
+      "action": "none"
+    },
+    "00189103": {
+      "comment": "MRSpectroscopyFOVGeometrySequence",
+      "action": "none"
+    },
+    "00189104": {
+      "comment": "SlabThickness",
+      "action": "none"
+    },
+    "00189105": {
+      "comment": "SlabOrientation",
+      "action": "none"
+    },
+    "00189106": {
+      "comment": "MidSlabPosition",
+      "action": "none"
+    },
+    "00189107": {
+      "comment": "MRSpatialSaturationSequence",
+      "action": "none"
+    },
+    "00189112": {
+      "comment": "MRTimingAndRelatedParametersSequence",
+      "action": "none"
+    },
+    "00189114": {
+      "comment": "MREchoSequence",
+      "action": "none"
+    },
+    "00189115": {
+      "comment": "MRModifierSequence",
+      "action": "none"
+    },
+    "00189117": {
+      "comment": "MRDiffusionSequence",
+      "action": "none"
+    },
+    "00189118": {
+      "comment": "CardiacSynchronizationSequence",
+      "action": "none"
+    },
+    "00189119": {
+      "comment": "MRAveragesSequence",
+      "action": "none"
+    },
+    "00189125": {
+      "comment": "MRFOVGeometrySequence",
+      "action": "none"
+    },
+    "00189126": {
+      "comment": "VolumeLocalizationSequence",
+      "action": "none"
+    },
+    "00189127": {
+      "comment": "SpectroscopyAcquisitionDataColumns",
+      "action": "none"
+    },
+    "00189147": {
+      "comment": "DiffusionAnisotropyType",
+      "action": "none"
+    },
+    "00189151": {
+      "comment": "FrameReferenceDateTime",
+      "action": "hashdate"
+    },
+    "00189152": {
+      "comment": "MRMetaboliteMapSequence",
+      "action": "none"
+    },
+    "00189155": {
+      "comment": "ParallelReductionFactorOutOfPlane",
+      "action": "none"
+    },
+    "00189159": {
+      "comment": "SpectroscopyAcquisitionOutOfPlanePhaseSteps",
+      "action": "none"
+    },
+    "00189166": {
+      "comment": "BulkMotionStatus",
+      "action": "none"
+    },
+    "00189168": {
+      "comment": "ParallelReductionFactorSecondInPlane",
+      "action": "none"
+    },
+    "00189169": {
+      "comment": "CardiacBeatRejectionTechnique",
+      "action": "none"
+    },
+    "00189170": {
+      "comment": "RespiratoryMotionCompensationTechnique",
+      "action": "none"
+    },
+    "00189171": {
+      "comment": "RespiratorySignalSource",
+      "action": "none"
+    },
+    "00189172": {
+      "comment": "BulkMotionCompensationTechnique",
+      "action": "none"
+    },
+    "00189173": {
+      "comment": "BulkMotionSignalSource",
+      "action": "none"
+    },
+    "00189174": {
+      "comment": "ApplicableSafetyStandardAgency",
+      "action": "none"
+    },
+    "00189175": {
+      "comment": "ApplicableSafetyStandardDescription",
+      "action": "none"
+    },
+    "00189176": {
+      "comment": "OperatingModeSequence",
+      "action": "none"
+    },
+    "00189177": {
+      "comment": "OperatingModeType",
+      "action": "none"
+    },
+    "00189178": {
+      "comment": "OperatingMode",
+      "action": "none"
+    },
+    "00189179": {
+      "comment": "SpecificAbsorptionRateDefinition",
+      "action": "none"
+    },
+    "00189180": {
+      "comment": "GradientOutputType",
+      "action": "none"
+    },
+    "00189181": {
+      "comment": "SpecificAbsorptionRateValue",
+      "action": "none"
+    },
+    "00189182": {
+      "comment": "GradientOutput",
+      "action": "none"
+    },
+    "00189183": {
+      "comment": "FlowCompensationDirection",
+      "action": "none"
+    },
+    "00189184": {
+      "comment": "TaggingDelay",
+      "action": "none"
+    },
+    "00189195": {
+      "comment": "ChemicalShiftMinimumIntegrationLimitInHz",
+      "action": "none"
+    },
+    "00189196": {
+      "comment": "ChemicalShiftMaximumIntegrationLimitInHz",
+      "action": "none"
+    },
+    "00189197": {
+      "comment": "MRVelocityEncodingSequence",
+      "action": "none"
+    },
+    "00189198": {
+      "comment": "FirstOrderPhaseCorrection",
+      "action": "none"
+    },
+    "00189199": {
+      "comment": "WaterReferencedPhaseCorrection",
+      "action": "none"
+    },
+    "00189200": {
+      "comment": "MRSpectroscopyAcquisitionType",
+      "action": "none"
+    },
+    "00189214": {
+      "comment": "RespiratoryCyclePosition",
+      "action": "none"
+    },
+    "00189217": {
+      "comment": "VelocityEncodingMaximumValue",
+      "action": "none"
+    },
+    "00189218": {
+      "comment": "TagSpacingSecondDimension",
+      "action": "none"
+    },
+    "00189219": {
+      "comment": "TagAngleSecondAxis",
+      "action": "none"
+    },
+    "00189220": {
+      "comment": "FrameAcquisitionDuration",
+      "action": "none"
+    },
+    "00189226": {
+      "comment": "MRImageFrameTypeSequence",
+      "action": "none"
+    },
+    "00189227": {
+      "comment": "MRSpectroscopyFrameTypeSequence",
+      "action": "none"
+    },
+    "00189231": {
+      "comment": "MRAcquisitionPhaseEncodingStepsInPlane",
+      "action": "none"
+    },
+    "00189232": {
+      "comment": "MRAcquisitionPhaseEncodingStepsOutOfPlane",
+      "action": "none"
+    },
+    "00189234": {
+      "comment": "SpectroscopyAcquisitionPhaseColumns",
+      "action": "none"
+    },
+    "00189236": {
+      "comment": "CardiacCyclePosition",
+      "action": "none"
+    },
+    "00189239": {
+      "comment": "SpecificAbsorptionRateSequence",
+      "action": "none"
+    },
+    "0018A003": {
+      "comment": "ContributionDescription",
+      "action": "remove"
+    },
+    "0020000D": {
+      "comment": "StudyInstanceUID",
+      "action": "hashuid"
+    },
+    "0020000E": {
+      "comment": "SeriesInstanceUID",
+      "action": "hashuid"
+    },
+    "00200010": {
+      "comment": "StudyID",
+      "action": "empty"
+    },
+    "00200011": {
+      "comment": "SeriesNumber",
+      "action": "none"
+    },
+    "00200012": {
+      "comment": "AcquisitionNumber",
+      "action": "none"
+    },
+    "00200013": {
+      "comment": "InstanceNumber",
+      "action": "none"
+    },
+    "00200019": {
+      "comment": "ItemNumber",
+      "action": "none"
+    },
+    "00200020": {
+      "comment": "PatientOrientation",
+      "action": "none"
+    },
+    "00200022": {
+      "comment": "OverlayNumber",
+      "action": "none"
+    },
+    "00200024": {
+      "comment": "CurveNumber",
+      "action": "none"
+    },
+    "00200026": {
+      "comment": "LUTNumber",
+      "action": "none"
+    },
+    "00200030": {
+      "comment": "ImagePosition",
+      "action": "none"
+    },
+    "00200035": {
+      "comment": "ImageOrientation",
+      "action": "none"
+    },
+    "00200052": {
+      "comment": "FrameOfReferenceUID",
+      "action": "hashuid"
+    },
+    "00200060": {
+      "comment": "Laterality",
+      "action": "none"
+    },
+    "00200062": {
+      "comment": "ImageLaterality",
+      "action": "none"
+    },
+    "00200100": {
+      "comment": "TemporalPositionIdentifier",
+      "action": "none"
+    },
+    "00200105": {
+      "comment": "NumberOfTemporalPositions",
+      "action": "none"
+    },
+    "00200110": {
+      "comment": "TemporalResolution",
+      "action": "none"
+    },
+    "00200200": {
+      "comment": "SynchronizationFrameOfReferenceUID",
+      "action": "hashuid"
+    },
+    "00201000": {
+      "comment": "SeriesInStudy",
+      "action": "none"
+    },
+    "00201002": {
+      "comment": "ImagesInAcquisition",
+      "action": "none"
+    },
+    "00201004": {
+      "comment": "AcquisitionsInStudy",
+      "action": "none"
+    },
+    "00201040": {
+      "comment": "PositionReferenceIndicator",
+      "action": "none"
+    },
+    "00201041": {
+      "comment": "SliceLocation",
+      "action": "none"
+    },
+    "00201070": {
+      "comment": "OtherStudyNumbers",
+      "action": "none"
+    },
+    "00201200": {
+      "comment": "NumberOfPatientRelatedStudies",
+      "action": "none"
+    },
+    "00201202": {
+      "comment": "NumberOfPatientRelatedSeries",
+      "action": "none"
+    },
+    "00201204": {
+      "comment": "NumberOfPatientRelatedInstances",
+      "action": "none"
+    },
+    "00201206": {
+      "comment": "NumberOfStudyRelatedSeries",
+      "action": "none"
+    },
+    "00201208": {
+      "comment": "NumberOfStudyRelatedInstances",
+      "action": "none"
+    },
+    "00201209": {
+      "comment": "NumberOfSeriesRelatedInstances",
+      "action": "none"
+    },
+    "00203401": {
+      "comment": "ModifyingDeviceID",
+      "action": "remove"
+    },
+    "00203404": {
+      "comment": "ModifyingDeviceManufacturer",
+      "action": "remove"
+    },
+    "00203406": {
+      "comment": "ModifiedImageDescription",
+      "action": "remove"
+    },
+    "00204000": {
+      "comment": "ImageComments",
+      "action": "remove"
+    },
+    "00209056": {
+      "comment": "StackID",
+      "action": "none"
+    },
+    "00209057": {
+      "comment": "InStackPositionNumber",
+      "action": "none"
+    },
+    "00209071": {
+      "comment": "FrameAnatomySequence",
+      "action": "none"
+    },
+    "00209072": {
+      "comment": "FrameLaterality",
+      "action": "none"
+    },
+    "00209111": {
+      "comment": "FrameContentSequence",
+      "action": "none"
+    },
+    "00209113": {
+      "comment": "PlanePositionSequence",
+      "action": "none"
+    },
+    "00209116": {
+      "comment": "PlaneOrientationSequence",
+      "action": "none"
+    },
+    "00209128": {
+      "comment": "TemporalPositionIndex",
+      "action": "none"
+    },
+    "00209153": {
+      "comment": "NominalCardiacTriggerDelayTime",
+      "action": "none"
+    },
+    "00209156": {
+      "comment": "FrameAcquisitionNumber",
+      "action": "none"
+    },
+    "00209157": {
+      "comment": "DimensionIndexValues",
+      "action": "none"
+    },
+    "00209158": {
+      "comment": "FrameComments",
+      "action": "none"
+    },
+    "00209161": {
+      "comment": "ConcatenationUID",
+      "action": "hashuid"
+    },
+    "00209162": {
+      "comment": "InConcatenationNumber",
+      "action": "none"
+    },
+    "00209163": {
+      "comment": "InConcatenationTotalNumber",
+      "action": "none"
+    },
+    "00209164": {
+      "comment": "DimensionOrganizationUID",
+      "action": "hashuid"
+    },
+    "00209165": {
+      "comment": "DimensionIndexPointer",
+      "action": "none"
+    },
+    "00209167": {
+      "comment": "FunctionalGroupPointer",
+      "action": "none"
+    },
+    "00209213": {
+      "comment": "DimensionIndexPrivateCreator",
+      "action": "none"
+    },
+    "00209221": {
+      "comment": "DimensionOrganizationSequence",
+      "action": "none"
+    },
+    "00209222": {
+      "comment": "DimensionIndexSequence",
+      "action": "none"
+    },
+    "00209228": {
+      "comment": "ConcatenationFrameOffsetNumber",
+      "action": "none"
+    },
+    "00209238": {
+      "comment": "FunctionalGroupPrivateCreator",
+      "action": "none"
+    },
+    "00280002": {
+      "comment": "SamplesPerPixel",
+      "action": "none"
+    },
+    "00280004": {
+      "comment": "PhotometricInterpretation",
+      "action": "none"
+    },
+    "00280006": {
+      "comment": "PlanarConfiguration",
+      "action": "none"
+    },
+    "00280008": {
+      "comment": "NumberOfFrames",
+      "action": "none"
+    },
+    "00280009": {
+      "comment": "FrameIncrementPointer",
+      "action": "none"
+    },
+    "00280010": {
+      "comment": "Rows",
+      "action": "none"
+    },
+    "00280011": {
+      "comment": "Columns",
+      "action": "none"
+    },
+    "00280012": {
+      "comment": "Planes",
+      "action": "none"
+    },
+    "00280014": {
+      "comment": "UltrasoundColorDataPresent",
+      "action": "none"
+    },
+    "00280030": {
+      "comment": "PixelSpacing",
+      "action": "none"
+    },
+    "00280031": {
+      "comment": "ZoomFactor",
+      "action": "none"
+    },
+    "00280032": {
+      "comment": "ZoomCenter",
+      "action": "none"
+    },
+    "00280034": {
+      "comment": "PixelAspectRatio",
+      "action": "none"
+    },
+    "00280051": {
+      "comment": "CorrectedImage",
+      "action": "none"
+    },
+    "00280100": {
+      "comment": "BitsAllocated",
+      "action": "none"
+    },
+    "00280101": {
+      "comment": "BitsStored",
+      "action": "none"
+    },
+    "00280102": {
+      "comment": "HighBit",
+      "action": "none"
+    },
+    "00280103": {
+      "comment": "PixelRepresentation",
+      "action": "none"
+    },
+    "00280106": {
+      "comment": "SmallestImagePixelValue",
+      "action": "none"
+    },
+    "00280107": {
+      "comment": "LargestImagePixelValue",
+      "action": "none"
+    },
+    "00280108": {
+      "comment": "SmallestPixelValueInSeries",
+      "action": "none"
+    },
+    "00280109": {
+      "comment": "LargestPixelValueInSeries",
+      "action": "none"
+    },
+    "00280110": {
+      "comment": "SmallestImagePixelValueInPlane",
+      "action": "none"
+    },
+    "00280111": {
+      "comment": "LargestImagePixelValueInPlane",
+      "action": "none"
+    },
+    "00280120": {
+      "comment": "PixelPaddingValue",
+      "action": "none"
+    },
+    "00280300": {
+      "comment": "QualityControlImage",
+      "action": "none"
+    },
+    "00280301": {
+      "comment": "BurnedInAnnotation",
+      "action": "none"
+    },
+    "00281040": {
+      "comment": "PixelIntensityRelationship",
+      "action": "none"
+    },
+    "00281041": {
+      "comment": "PixelIntensityRelationshipSign",
+      "action": "none"
+    },
+    "00281050": {
+      "comment": "WindowCenter",
+      "action": "none"
+    },
+    "00281051": {
+      "comment": "WindowWidth",
+      "action": "none"
+    },
+    "00281052": {
+      "comment": "RescaleIntercept",
+      "action": "none"
+    },
+    "00281053": {
+      "comment": "RescaleSlope",
+      "action": "none"
+    },
+    "00281054": {
+      "comment": "RescaleType",
+      "action": "none"
+    },
+    "00281055": {
+      "comment": "WindowCenterWidthExplanation",
+      "action": "none"
+    },
+    "00281090": {
+      "comment": "RecommendedViewingMode",
+      "action": "none"
+    },
+    "00281101": {
+      "comment": "RedPaletteColorLookupTableDescriptor",
+      "action": "none"
+    },
+    "00281102": {
+      "comment": "GreenPaletteColorLookupTableDescriptor",
+      "action": "none"
+    },
+    "00281103": {
+      "comment": "BluePaletteColorLookupTableDescriptor",
+      "action": "none"
+    },
+    "00281199": {
+      "comment": "PaletteColorLookupTableUID",
+      "action": "hashuid"
+    },
+    "00281201": {
+      "comment": "RedPaletteColorLookupTableData",
+      "action": "none"
+    },
+    "00281202": {
+      "comment": "GreenPaletteColorLookupTableData",
+      "action": "none"
+    },
+    "00281203": {
+      "comment": "BluePaletteColorLookupTableData",
+      "action": "none"
+    },
+    "00281214": {
+      "comment": "LargePaletteColorLookupTableUID",
+      "action": "hashuid"
+    },
+    "00281221": {
+      "comment": "SegmentedRedPaletteColorLookupTableData",
+      "action": "none"
+    },
+    "00281222": {
+      "comment": "SegmentedGreenPaletteColorLookupTableData",
+      "action": "none"
+    },
+    "00281223": {
+      "comment": "SegmentedBluePaletteColorLookupTableData",
+      "action": "none"
+    },
+    "00281300": {
+      "comment": "BreastImplantPresent",
+      "action": "none"
+    },
+    "00281350": {
+      "comment": "PartialView",
+      "action": "none"
+    },
+    "00281351": {
+      "comment": "PartialViewDescription",
+      "action": "none"
+    },
+    "00282110": {
+      "comment": "LossyImageCompression",
+      "action": "none"
+    },
+    "00282112": {
+      "comment": "LossyImageCompressionRatio",
+      "action": "none"
+    },
+    "00283000": {
+      "comment": "ModalityLUTSequence",
+      "action": "none"
+    },
+    "00283002": {
+      "comment": "LUTDescriptor",
+      "action": "none"
+    },
+    "00283003": {
+      "comment": "LUTExplanation",
+      "action": "none"
+    },
+    "00283004": {
+      "comment": "ModalityLUTType",
+      "action": "none"
+    },
+    "00283006": {
+      "comment": "LUTData",
+      "action": "none"
+    },
+    "00283010": {
+      "comment": "VOILUTSequence",
+      "action": "none"
+    },
+    "00283110": {
+      "comment": "SoftcopyVOILUTSequence",
+      "action": "none"
+    },
+    "00284000": {
+      "comment": "ImagePresentationComments",
+      "action": "remove"
+    },
+    "00285000": {
+      "comment": "BiPlaneAcquisitionSequence",
+      "action": "none"
+    },
+    "00286010": {
+      "comment": "RepresentativeFrameNumber",
+      "action": "none"
+    },
+    "00286020": {
+      "comment": "FrameNumbersOfInterest",
+      "action": "none"
+    },
+    "00286022": {
+      "comment": "FrameOfInterestDescription",
+      "action": "none"
+    },
+    "00286030": {
+      "comment": "MaskPointers",
+      "action": "none"
+    },
+    "00286100": {
+      "comment": "MaskSubtractionSequence",
+      "action": "none"
+    },
+    "00286101": {
+      "comment": "MaskOperation",
+      "action": "none"
+    },
+    "00286102": {
+      "comment": "ApplicableFrameRange",
+      "action": "none"
+    },
+    "00286110": {
+      "comment": "MaskFrameNumbers",
+      "action": "none"
+    },
+    "00286112": {
+      "comment": "ContrastFrameAveraging",
+      "action": "none"
+    },
+    "00286114": {
+      "comment": "MaskSubPixelShift",
+      "action": "none"
+    },
+    "00286120": {
+      "comment": "TIDOffset",
+      "action": "none"
+    },
+    "00286190": {
+      "comment": "MaskOperationExplanation",
+      "action": "none"
+    },
+    "00289001": {
+      "comment": "DataPointRows",
+      "action": "none"
+    },
+    "00289002": {
+      "comment": "DataPointColumns",
+      "action": "none"
+    },
+    "00289003": {
+      "comment": "SignalDomainColumns",
+      "action": "none"
+    },
+    "00289099": {
+      "comment": "LargestMonochromePixelValue",
+      "action": "none"
+    },
+    "00289108": {
+      "comment": "DataRepresentation",
+      "action": "none"
+    },
+    "00289110": {
+      "comment": "PixelMeasuresSequence",
+      "action": "none"
+    },
+    "00289132": {
+      "comment": "FrameVOILUTSequence",
+      "action": "none"
+    },
+    "00289145": {
+      "comment": "PixelValueTransformationSequence",
+      "action": "none"
+    },
+    "00289235": {
+      "comment": "SignalDomainRows",
+      "action": "none"
+    },
+    "0032000A": {
+      "comment": "StudyStatusID",
+      "action": "none"
+    },
+    "0032000C": {
+      "comment": "StudyPriorityID",
+      "action": "none"
+    },
+    "00320012": {
+      "comment": "StudyIDIssuer",
+      "action": "remove"
+    },
+    "00320032": {
+      "comment": "StudyVerifiedDate",
+      "action": "hashdate"
+    },
+    "00320033": {
+      "comment": "StudyVerifiedTime",
+      "action": "none"
+    },
+    "00320034": {
+      "comment": "StudyReadDate",
+      "action": "hashdate"
+    },
+    "00320035": {
+      "comment": "StudyReadTime",
+      "action": "none"
+    },
+    "00321000": {
+      "comment": "ScheduledStudyStartDate",
+      "action": "hashdate"
+    },
+    "00321001": {
+      "comment": "ScheduledStudyStartTime",
+      "action": "none"
+    },
+    "00321010": {
+      "comment": "ScheduledStudyStopDate",
+      "action": "hashdate"
+    },
+    "00321011": {
+      "comment": "ScheduledStudyStopTime",
+      "action": "none"
+    },
+    "00321020": {
+      "comment": "ScheduledStudyLocation",
+      "action": "remove"
+    },
+    "00321021": {
+      "comment": "ScheduledStudyLocationAETitle",
+      "action": "remove"
+    },
+    "00321030": {
+      "comment": "ReasonForStudy",
+      "action": "remove"
+    },
+    "00321032": {
+      "comment": "RequestingPhysician",
+      "action": "remove"
+    },
+    "00321033": {
+      "comment": "RequestingService",
+      "action": "remove"
+    },
+    "00321040": {
+      "comment": "StudyArrivalDate",
+      "action": "hashdate"
+    },
+    "00321041": {
+      "comment": "StudyArrivalTime",
+      "action": "none"
+    },
+    "00321050": {
+      "comment": "StudyCompletionDate",
+      "action": "hashdate"
+    },
+    "00321051": {
+      "comment": "StudyCompletionTime",
+      "action": "none"
+    },
+    "00321055": {
+      "comment": "StudyComponentStatusID",
+      "action": "none"
+    },
+    "00321060": {
+      "comment": "RequestedProcedureDescription",
+      "action": "remove"
+    },
+    "00321064": {
+      "comment": "RequestedProcedureCodeSequence",
+      "action": "none"
+    },
+    "00321070": {
+      "comment": "RequestedContrastAgent",
+      "action": "remove"
+    },
+    "00324000": {
+      "comment": "StudyComments",
+      "action": "remove"
+    },
+    "00380004": {
+      "comment": "ReferencedPatientAliasSequence",
+      "action": "remove"
+    },
+    "00380008": {
+      "comment": "VisitStatusID",
+      "action": "none"
+    },
+    "00380010": {
+      "comment": "AdmissionID",
+      "action": "remove"
+    },
+    "00380011": {
+      "comment": "IssuerOfAdmissionID",
+      "action": "remove"
+    },
+    "00380016": {
+      "comment": "RouteOfAdmissions",
+      "action": "none"
+    },
+    "0038001A": {
+      "comment": "ScheduledAdmissionDate",
+      "action": "hashdate"
+    },
+    "0038001B": {
+      "comment": "ScheduledAdmissionTime",
+      "action": "none"
+    },
+    "0038001C": {
+      "comment": "ScheduledDischargeDate",
+      "action": "hashdate"
+    },
+    "0038001D": {
+      "comment": "ScheduledDischargeTime",
+      "action": "none"
+    },
+    "00380020": {
+      "comment": "AdmittingDate",
+      "action": "remove"
+    },
+    "00380021": {
+      "comment": "AdmittingTime",
+      "action": "remove"
+    },
+    "00380030": {
+      "comment": "DischargeDate",
+      "action": "hashdate"
+    },
+    "00380032": {
+      "comment": "DischargeTime",
+      "action": "none"
+    },
+    "00380040": {
+      "comment": "DischargeDiagnosisDescription",
+      "action": "remove"
+    },
+    "00380044": {
+      "comment": "DischargeDiagnosisCodeSequence",
+      "action": "none"
+    },
+    "00380050": {
+      "comment": "SpecialNeeds",
+      "action": "remove"
+    },
+    "00380060": {
+      "comment": "ServiceEpisodeID",
+      "action": "remove"
+    },
+    "00380061": {
+      "comment": "IssuerOfServiceEpisodeID",
+      "action": "remove"
+    },
+    "00380062": {
+      "comment": "ServiceEpisodeDescription",
+      "action": "remove"
+    },
+    "00380300": {
+      "comment": "CurrentPatientLocation",
+      "action": "remove"
+    },
+    "00380400": {
+      "comment": "PatientInstitutionResidence",
+      "action": "remove"
+    },
+    "00380500": {
+      "comment": "PatientState",
+      "action": "remove"
+    },
+    "00384000": {
+      "comment": "VisitComments",
+      "action": "remove"
+    },
+    "003A0004": {
+      "comment": "WaveformOriginality",
+      "action": "none"
+    },
+    "003A0005": {
+      "comment": "NumberOfWaveformChannels",
+      "action": "none"
+    },
+    "003A0010": {
+      "comment": "NumberOfWaveformSamples",
+      "action": "none"
+    },
+    "003A001A": {
+      "comment": "SamplingFrequency",
+      "action": "none"
+    },
+    "003A0020": {
+      "comment": "MultiplexGroupLabel",
+      "action": "none"
+    },
+    "003A0200": {
+      "comment": "ChannelDefinitionSequence",
+      "action": "none"
+    },
+    "003A0202": {
+      "comment": "WaveformChannelNumber",
+      "action": "none"
+    },
+    "003A0203": {
+      "comment": "ChannelLabel",
+      "action": "none"
+    },
+    "003A0205": {
+      "comment": "ChannelStatus",
+      "action": "none"
+    },
+    "003A0208": {
+      "comment": "ChannelSourceSequence",
+      "action": "none"
+    },
+    "003A0209": {
+      "comment": "ChannelSourceModifiersSequence",
+      "action": "none"
+    },
+    "003A020A": {
+      "comment": "SourceWaveformSequence",
+      "action": "none"
+    },
+    "003A020C": {
+      "comment": "ChannelDerivationDescription",
+      "action": "none"
+    },
+    "003A0210": {
+      "comment": "ChannelSensitivity",
+      "action": "none"
+    },
+    "003A0211": {
+      "comment": "ChannelSensitivityUnitsSequence",
+      "action": "none"
+    },
+    "003A0212": {
+      "comment": "ChannelSensitivityCorrectionFactor",
+      "action": "none"
+    },
+    "003A0213": {
+      "comment": "ChannelBaseline",
+      "action": "none"
+    },
+    "003A0214": {
+      "comment": "ChannelTimeSkew",
+      "action": "none"
+    },
+    "003A0215": {
+      "comment": "ChannelSampleSkew",
+      "action": "none"
+    },
+    "003A0218": {
+      "comment": "ChannelOffset",
+      "action": "none"
+    },
+    "003A021A": {
+      "comment": "WaveformBitsStored",
+      "action": "none"
+    },
+    "003A0220": {
+      "comment": "FilterLowFrequency",
+      "action": "none"
+    },
+    "003A0221": {
+      "comment": "FilterHighFrequency",
+      "action": "none"
+    },
+    "003A0222": {
+      "comment": "NotchFilterFrequency",
+      "action": "none"
+    },
+    "003A0223": {
+      "comment": "NotchFilterBandwidth",
+      "action": "none"
+    },
+    "00400001": {
+      "comment": "ScheduledStationAETitle",
+      "action": "remove"
+    },
+    "00400002": {
+      "comment": "ScheduledProcedureStepStartDate",
+      "action": "hashdate"
+    },
+    "00400003": {
+      "comment": "ScheduledProcedureStepStartTime",
+      "action": "none"
+    },
+    "00400004": {
+      "comment": "ScheduledProcedureStepEndDate",
+      "action": "hashdate"
+    },
+    "00400005": {
+      "comment": "ScheduledProcedureStepEndTime",
+      "action": "none"
+    },
+    "00400006": {
+      "comment": "ScheduledPerformingPhysicianName",
+      "action": "remove"
+    },
+    "00400007": {
+      "comment": "ScheduledProcedureStepDescription",
+      "action": "remove"
+    },
+    "00400008": {
+      "comment": "ScheduledProtocolCodeSequence",
+      "action": "none"
+    },
+    "00400009": {
+      "comment": "ScheduledProcedureStepID",
+      "action": "none"
+    },
+    "0040000B": {
+      "comment": "ScheduledPerformingPhysicianIdentificationSequence",
+      "action": "remove"
+    },
+    "00400010": {
+      "comment": "ScheduledStationName",
+      "action": "remove"
+    },
+    "00400011": {
+      "comment": "ScheduledProcedureStepLocation",
+      "action": "remove"
+    },
+    "00400012": {
+      "comment": "PreMedication",
+      "action": "remove"
+    },
+    "00400020": {
+      "comment": "ScheduledProcedureStepStatus",
+      "action": "none"
+    },
+    "00400100": {
+      "comment": "ScheduledProcedureStepSequence",
+      "action": "none"
+    },
+    "00400220": {
+      "comment": "ReferencedNonImageCompositeSOPInstanceSequence",
+      "action": "none"
+    },
+    "00400241": {
+      "comment": "PerformedStationAETitle",
+      "action": "remove"
+    },
+    "00400242": {
+      "comment": "PerformedStationName",
+      "action": "remove"
+    },
+    "00400243": {
+      "comment": "PerformedLocation",
+      "action": "remove"
+    },
+    "00400244": {
+      "comment": "PerformedProcedureStepStartDate",
+      "action": "hashdate"
+    },
+    "00400245": {
+      "comment": "PerformedProcedureStepStartTime",
+      "action": "none"
+    },
+    "00400250": {
+      "comment": "PerformedProcedureStepEndDate",
+      "action": "hashdate"
+    },
+    "00400251": {
+      "comment": "PerformedProcedureStepEndTime",
+      "action": "none"
+    },
+    "00400253": {
+      "comment": "PerformedProcedureStepID",
+      "action": "remove"
+    },
+    "00400254": {
+      "comment": "PerformedProcedureStepDescription",
+      "action": "remove"
+    },
+    "00400255": {
+      "comment": "PerformedProcedureTypeDescription",
+      "action": "none"
+    },
+    "00400260": {
+      "comment": "PerformedProtocolCodeSequence",
+      "action": "none"
+    },
+    "00400270": {
+      "comment": "ScheduledStepAttributesSequence",
+      "action": "none"
+    },
+    "00400275": {
+      "comment": "RequestAttributesSequence",
+      "action": "remove"
+    },
+    "00400280": {
+      "comment": "CommentsOnThePerformedProcedureStep",
+      "action": "remove"
+    },
+    "00400281": {
+      "comment": "PerformedProcedureStepDiscontinuationReasonCodeSequence",
+      "action": "none"
+    },
+    "00400293": {
+      "comment": "QuantitySequence",
+      "action": "none"
+    },
+    "00400294": {
+      "comment": "Quantity",
+      "action": "none"
+    },
+    "00400295": {
+      "comment": "MeasuringUnitsSequence",
+      "action": "none"
+    },
+    "00400296": {
+      "comment": "BillingItemSequence",
+      "action": "none"
+    },
+    "00400300": {
+      "comment": "TotalTimeOfFluoroscopy",
+      "action": "none"
+    },
+    "00400301": {
+      "comment": "TotalNumberOfExposures",
+      "action": "none"
+    },
+    "00400302": {
+      "comment": "EntranceDose",
+      "action": "none"
+    },
+    "00400303": {
+      "comment": "ExposedArea",
+      "action": "none"
+    },
+    "00400306": {
+      "comment": "DistanceSourceToEntrance",
+      "action": "none"
+    },
+    "00400307": {
+      "comment": "DistanceSourceToSupport",
+      "action": "none"
+    },
+    "0040030E": {
+      "comment": "ExposureDoseSequence",
+      "action": "none"
+    },
+    "00400310": {
+      "comment": "CommentsOnRadiationDose",
+      "action": "none"
+    },
+    "00400312": {
+      "comment": "XRayOutput",
+      "action": "none"
+    },
+    "00400314": {
+      "comment": "HalfValueLayer",
+      "action": "none"
+    },
+    "00400316": {
+      "comment": "OrganDose",
+      "action": "none"
+    },
+    "00400318": {
+      "comment": "OrganExposed",
+      "action": "none"
+    },
+    "00400320": {
+      "comment": "BillingProcedureStepSequence",
+      "action": "none"
+    },
+    "00400321": {
+      "comment": "FilmConsumptionSequence",
+      "action": "none"
+    },
+    "00400324": {
+      "comment": "BillingSuppliesAndDevicesSequence",
+      "action": "none"
+    },
+    "00400330": {
+      "comment": "ReferencedProcedureStepSequence",
+      "action": "none"
+    },
+    "00400340": {
+      "comment": "PerformedSeriesSequence",
+      "action": "none"
+    },
+    "00400400": {
+      "comment": "CommentsOnTheScheduledProcedureStep",
+      "action": "none"
+    },
+    "0040050A": {
+      "comment": "SpecimenAccessionNumber",
+      "action": "none"
+    },
+    "00400550": {
+      "comment": "SpecimenSequence",
+      "action": "none"
+    },
+    "00400551": {
+      "comment": "SpecimenIdentifier",
+      "action": "none"
+    },
+    "00400555": {
+      "comment": "AcquisitionContextSequence",
+      "action": "remove"
+    },
+    "00400556": {
+      "comment": "AcquisitionContextDescription",
+      "action": "none"
+    },
+    "0040059A": {
+      "comment": "SpecimenTypeCodeSequence",
+      "action": "none"
+    },
+    "004006FA": {
+      "comment": "SlideIdentifier",
+      "action": "none"
+    },
+    "0040071A": {
+      "comment": "ImageCenterPointCoordinatesSequence",
+      "action": "none"
+    },
+    "0040072A": {
+      "comment": "XOffsetInSlideCoordinateSystem",
+      "action": "none"
+    },
+    "0040073A": {
+      "comment": "YOffsetInSlideCoordinateSystem",
+      "action": "none"
+    },
+    "0040074A": {
+      "comment": "ZOffsetInSlideCoordinateSystem",
+      "action": "none"
+    },
+    "004008D8": {
+      "comment": "PixelSpacingSequence",
+      "action": "none"
+    },
+    "004008DA": {
+      "comment": "CoordinateSystemAxisCodeSequence",
+      "action": "none"
+    },
+    "004008EA": {
+      "comment": "MeasurementUnitsCodeSequence",
+      "action": "none"
+    },
+    "00401001": {
+      "comment": "RequestedProcedureID",
+      "action": "none"
+    },
+    "00401002": {
+      "comment": "ReasonForTheRequestedProcedure",
+      "action": "none"
+    },
+    "00401003": {
+      "comment": "RequestedProcedurePriority",
+      "action": "none"
+    },
+    "00401004": {
+      "comment": "PatientTransportArrangements",
+      "action": "remove"
+    },
+    "00401005": {
+      "comment": "RequestedProcedureLocation",
+      "action": "remove"
+    },
+    "00401008": {
+      "comment": "ConfidentialityCode",
+      "action": "none"
+    },
+    "00401009": {
+      "comment": "ReportingPriority",
+      "action": "none"
+    },
+    "00401010": {
+      "comment": "NamesOfIntendedRecipientsOfResults",
+      "action": "remove"
+    },
+    "00401011": {
+      "comment": "IntendedRecipientsOfResultsIdentificationSequence",
+      "action": "remove"
+    },
+    "00401102": {
+      "comment": "PersonAddress",
+      "action": "remove"
+    },
+    "00401103": {
+      "comment": "PersonTelephoneNumbers",
+      "action": "remove"
+    },
+    "00401400": {
+      "comment": "RequestedProcedureComments",
+      "action": "remove"
+    },
+    "00402001": {
+      "comment": "ReasonForTheImagingServiceRequest",
+      "action": "remove"
+    },
+    "00402004": {
+      "comment": "IssueDateOfImagingServiceRequest",
+      "action": "hashdate"
+    },
+    "00402005": {
+      "comment": "IssueTimeOfImagingServiceRequest",
+      "action": "none"
+    },
+    "00402008": {
+      "comment": "OrderEnteredBy",
+      "action": "remove"
+    },
+    "00402009": {
+      "comment": "OrderEntererLocation",
+      "action": "remove"
+    },
+    "00402010": {
+      "comment": "OrderCallbackPhoneNumber",
+      "action": "remove"
+    },
+    "00402016": {
+      "comment": "PlacerOrderNumberImagingServiceRequest",
+      "action": "hash",
+      "length": 16
+    },
+    "00402017": {
+      "comment": "FillerOrderNumberImagingServiceRequest",
+      "action": "hash",
+      "length": 16
+    },
+    "00402400": {
+      "comment": "ImagingServiceRequestComments",
+      "action": "remove"
+    },
+    "00403001": {
+      "comment": "ConfidentialityConstraintOnPatientDataDescription",
+      "action": "remove"
+    },
+    "00404023": {
+      "comment": "ReferencedGeneralPurposeScheduledProcedureStepTransactionUID",
+      "action": "hashuid"
+    },
+    "00404025": {
+      "comment": "ScheduledStationNameCodeSequence",
+      "action": "remove"
+    },
+    "00404027": {
+      "comment": "ScheduledStationGeographicLocationCodeSequence",
+      "action": "remove"
+    },
+    "00404028": {
+      "comment": "PerformedStationNameCodeSequence",
+      "action": "remove"
+    },
+    "00404030": {
+      "comment": "PerformedStationGeographicLocationCodeSequence",
+      "action": "remove"
+    },
+    "00404034": {
+      "comment": "ScheduledHumanPerformersSequence",
+      "action": "remove"
+    },
+    "00404035": {
+      "comment": "ActualHumanPerformersSequence",
+      "action": "remove"
+    },
+    "00404036": {
+      "comment": "HumanPerformerOrganization",
+      "action": "remove"
+    },
+    "00404037": {
+      "comment": "HumanPerformerName",
+      "action": "remove"
+    },
+    "00408302": {
+      "comment": "EntranceDoseInmGy",
+      "action": "none"
+    },
+    "00409096": {
+      "comment": "RealWorldValueMappingSequence",
+      "action": "none"
+    },
+    "00409210": {
+      "comment": "LUTLabel",
+      "action": "none"
+    },
+    "00409211": {
+      "comment": "RealWorldValueLastValueMapped",
+      "action": "none"
+    },
+    "00409212": {
+      "comment": "RealWorldValueLUTData",
+      "action": "none"
+    },
+    "00409216": {
+      "comment": "RealWorldValueFirstValueMapped",
+      "action": "none"
+    },
+    "00409224": {
+      "comment": "RealWorldValueIntercept",
+      "action": "none"
+    },
+    "00409225": {
+      "comment": "RealWorldValueSlope",
+      "action": "none"
+    },
+    "0040A010": {
+      "comment": "RelationshipType",
+      "action": "none"
+    },
+    "0040A027": {
+      "comment": "VerifyingOrganization",
+      "action": "remove"
+    },
+    "0040A030": {
+      "comment": "VerificationDateTime",
+      "action": "hashdate"
+    },
+    "0040A032": {
+      "comment": "ObservationDateTime",
+      "action": "hashdate"
+    },
+    "0040A040": {
+      "comment": "ValueType",
+      "action": "none"
+    },
+    "0040A043": {
+      "comment": "ConceptNameCodeSequence",
+      "action": "none"
+    },
+    "0040A050": {
+      "comment": "ContinuityOfContent",
+      "action": "none"
+    },
+    "0040A073": {
+      "comment": "VerifyingObserverSequence",
+      "action": "remove"
+    },
+    "0040A075": {
+      "comment": "VerifyingObserverName",
+      "action": "remove"
+    },
+    "0040A078": {
+      "comment": "AuthorObserverSequence",
+      "action": "remove"
+    },
+    "0040A07A": {
+      "comment": "ParticipantSequence",
+      "action": "remove"
+    },
+    "0040A07C": {
+      "comment": "CustodialOrganizationSequence",
+      "action": "remove"
+    },
+    "0040A088": {
+      "comment": "VerifyingObserverIdentificationCodeSequence",
+      "action": "remove"
+    },
+    "0040A0B0": {
+      "comment": "ReferencedWaveformChannels",
+      "action": "none"
+    },
+    "0040A120": {
+      "comment": "DateTime",
+      "action": "hashdate"
+    },
+    "0040A121": {
+      "comment": "Date",
+      "action": "hashdate"
+    },
+    "0040A122": {
+      "comment": "Time",
+      "action": "none"
+    },
+    "0040A123": {
+      "comment": "PersonName",
+      "action": "remove"
+    },
+    "0040A124": {
+      "comment": "UID",
+      "action": "hashuid"
+    },
+    "0040A130": {
+      "comment": "TemporalRangeType",
+      "action": "none"
+    },
+    "0040A132": {
+      "comment": "ReferencedSamplePositions",
+      "action": "none"
+    },
+    "0040A136": {
+      "comment": "ReferencedFrameNumbers",
+      "action": "none"
+    },
+    "0040A138": {
+      "comment": "ReferencedTimeOffsets",
+      "action": "none"
+    },
+    "0040A13A": {
+      "comment": "ReferencedDateTime",
+      "action": "hashdate"
+    },
+    "0040A160": {
+      "comment": "TextValue",
+      "action": "none"
+    },
+    "0040A168": {
+      "comment": "ConceptCodeSequence",
+      "action": "none"
+    },
+    "0040A180": {
+      "comment": "AnnotationGroupNumber",
+      "action": "none"
+    },
+    "0040A195": {
+      "comment": "ModifierCodeSequence",
+      "action": "none"
+    },
+    "0040A300": {
+      "comment": "MeasuredValueSequence",
+      "action": "none"
+    },
+    "0040A30A": {
+      "comment": "NumericValue",
+      "action": "none"
+    },
+    "0040A360": {
+      "comment": "PredecessorDocumentsSequence",
+      "action": "none"
+    },
+    "0040A370": {
+      "comment": "ReferencedRequestSequence",
+      "action": "none"
+    },
+    "0040A372": {
+      "comment": "PerformedProcedureCodeSequence",
+      "action": "none"
+    },
+    "0040A375": {
+      "comment": "CurrentRequestedProcedureEvidenceSequence",
+      "action": "none"
+    },
+    "0040A385": {
+      "comment": "PertinentOtherEvidenceSequence",
+      "action": "none"
+    },
+    "0040A491": {
+      "comment": "CompletionFlag",
+      "action": "none"
+    },
+    "0040A493": {
+      "comment": "VerificationFlag",
+      "action": "none"
+    },
+    "0040A504": {
+      "comment": "ContentTemplateSequence",
+      "action": "none"
+    },
+    "0040A525": {
+      "comment": "IdenticalDocumentsSequence",
+      "action": "none"
+    },
+    "0040A730": {
+      "comment": "ContentSequence",
+      "action": "remove"
+    },
+    "0040B020": {
+      "comment": "WaveformAnnotationSequence",
+      "action": "none"
+    },
+    "0040DB06": {
+      "comment": "TemplateVersion",
+      "action": "none"
+    },
+    "0040DB07": {
+      "comment": "TemplateLocalVersion",
+      "action": "none"
+    },
+    "0040DB0B": {
+      "comment": "TemplateExtensionFlag",
+      "action": "none"
+    },
+    "0040DB0C": {
+      "comment": "TemplateExtensionOrganizationUID",
+      "action": "hashuid"
+    },
+    "0040DB0D": {
+      "comment": "TemplateExtensionCreatorUID",
+      "action": "hashuid"
+    },
+    "0040DB73": {
+      "comment": "ReferencedContentItemIdentifier",
+      "action": "none"
+    },
+    "0070031A": {
+      "comment": "FiducialUID",
+      "action": "hashuid"
+    },
+    "00880140": {
+      "comment": "StorageMediaFileSetUID",
+      "action": "hashuid"
+    },
+    "00880200": {
+      "comment": "IconImageSequence",
+      "action": "remove"
+    },
+    "00880906": {
+      "comment": "TopicSubject",
+      "action": "remove"
+    },
+    "00880910": {
+      "comment": "TopicAuthor",
+      "action": "remove"
+    },
+    "00880912": {
+      "comment": "TopicKeywords",
+      "action": "remove"
+    },
+    "04000100": {
+      "comment": "DigitalSignatureUID",
+      "action": "hashuid"
+    },
+    "20300020": {
+      "comment": "TextString",
+      "action": "remove"
+    },
+    "30060024": {
+      "comment": "ReferencedFrameOfReferenceUID",
+      "action": "hashuid"
+    },
+    "300600C2": {
+      "comment": "RelatedFrameOfReferenceUID",
+      "action": "hashuid"
+    },
+    "300A0013": {
+      "comment": "DoseReferenceUID",
+      "action": "hashuid"
+    },
+    "40000010": {
+      "comment": "Arbitrary",
+      "action": "remove"
+    },
+    "40004000": {
+      "comment": "TextComments",
+      "action": "remove"
+    },
+    "40080042": {
+      "comment": "ResultsIDIssuer",
+      "action": "remove"
+    },
+    "40080102": {
+      "comment": "InterpretationRecorder",
+      "action": "remove"
+    },
+    "4008010A": {
+      "comment": "InterpretationTranscriber",
+      "action": "remove"
+    },
+    "4008010B": {
+      "comment": "InterpretationText",
+      "action": "remove"
+    },
+    "4008010C": {
+      "comment": "InterpretationAuthor",
+      "action": "remove"
+    },
+    "40080111": {
+      "comment": "InterpretationApproverSequence",
+      "action": "remove"
+    },
+    "40080114": {
+      "comment": "PhysicianApprovingInterpretation",
+      "action": "remove"
+    },
+    "40080115": {
+      "comment": "InterpretationDiagnosisDescription",
+      "action": "remove"
+    },
+    "40080118": {
+      "comment": "ResultsDistributionListSequence",
+      "action": "remove"
+    },
+    "40080119": {
+      "comment": "DistributionName",
+      "action": "remove"
+    },
+    "4008011A": {
+      "comment": "DistributionAddress",
+      "action": "remove"
+    },
+    "40080202": {
+      "comment": "InterpretationIDIssuer",
+      "action": "remove"
+    },
+    "40080300": {
+      "comment": "Impressions",
+      "action": "remove"
+    },
+    "40084000": {
+      "comment": "ResultsComments",
+      "action": "remove"
+    },
+    "FFFAFFFA": {
+      "comment": "DigitalSignaturesSequence",
+      "action": "remove"
+    },
+    "FFFCFFFC": {
+      "comment": "DataSetTrailingPadding",
+      "action": "remove"
+    }
+  }
+}

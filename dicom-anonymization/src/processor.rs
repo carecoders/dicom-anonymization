@@ -170,21 +170,21 @@ impl Processor for DefaultProcessor {
 }
 
 #[derive(Debug, Clone, PartialEq)]
-struct DoNothingProcessor;
+struct NoopProcessor;
 
-impl DoNothingProcessor {
+impl NoopProcessor {
     fn new() -> Self {
         Self {}
     }
 }
 
-impl Default for DoNothingProcessor {
+impl Default for NoopProcessor {
     fn default() -> Self {
         Self::new()
     }
 }
 
-impl Processor for DoNothingProcessor {
+impl Processor for NoopProcessor {
     fn process_element<'a>(
         &'a self,
         _obj: &DefaultDicomObject,
@@ -391,7 +391,7 @@ mod tests {
     }
 
     #[test]
-    fn test_do_nothing_processor() {
+    fn test_noop_processor() {
         let meta = make_file_meta();
         let mut obj = FileDicomObject::new_empty_with_meta(meta);
 
@@ -402,7 +402,7 @@ mod tests {
         ));
 
         let elem = obj.element(tags::PATIENT_NAME).unwrap();
-        let processor = DoNothingProcessor::new();
+        let processor = NoopProcessor::new();
         let processed = processor.process_element(&obj, elem).unwrap();
         assert_eq!(processed.unwrap().into_owned(), elem.clone());
     }

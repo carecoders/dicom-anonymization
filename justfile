@@ -27,5 +27,9 @@ build-python:
     maturin develop
 
 [working-directory: 'bindings/python']
+test-python:
+    uv run --no-project --with 'maturin,pydicom,pytest' sh -c "maturin develop && pytest"
+
+[working-directory: 'bindings/python']
 build-python-release:
     maturin build
