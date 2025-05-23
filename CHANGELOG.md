@@ -11,16 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Other
 
-- Add link to Python bindings README to the root README ([#29](https://github.com/carecoders/dicom-anonymization/pull/29))
 - Improve Python bindings ([#28](https://github.com/carecoders/dicom-anonymization/pull/28))
 - Implement config create sub-command ([#27](https://github.com/carecoders/dicom-anonymization/pull/27))
 - Always use default profile for dcmanon ([#26](https://github.com/carecoders/dicom-anonymization/pull/26))
 - Simplify HashDate action to always use PatientID as reference tag ([#25](https://github.com/carecoders/dicom-anonymization/pull/25))
 - Process sequence items' elements ([#24](https://github.com/carecoders/dicom-anonymization/pull/24))
-- Update README
-- Raise error if profile is not 'default' or 'none'
-- Improve various option help texts for executable
-- Add --profile and --config options to executable ([#22](https://github.com/carecoders/dicom-anonymization/pull/22))
+- Update documentation
 - Add Python Anonymizer class ([#20](https://github.com/carecoders/dicom-anonymization/pull/20))
 
 ## [0.2.1](https://github.com/carecoders/dicom-anonymization/compare/v0.2.0...v0.2.1) - 2025-05-05
