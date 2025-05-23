@@ -12,9 +12,9 @@
   "main": "pkg/dicom_anonymization_wasm.js",
   "name": "dicom-anonymization-wasm",
   "scripts": {
-    "build": "wasm-pack build --target web --out-dir pkg && cp -r pkg www/",
-    "build:dev": "wasm-pack build --dev --target web --out-dir pkg && cp -r pkg www/",
-    "serve": "python3 -m http.server --directory www 8080"
+    "build": "wasm-pack build --target web --out-dir www/pkg",
+    "build:dev": "wasm-pack build --dev --target web --out-dir www/pkg",
+    "serve": "python -m http.server --directory www 8080"
   },
   "types": "pkg/dicom_anonymization_wasm.d.ts",
   "version": "0.1.0"
