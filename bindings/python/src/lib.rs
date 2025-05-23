@@ -147,7 +147,7 @@ impl Anonymizer {
                                 };
 
                             Action::Replace {
-                                value: replace_value.into(),
+                                value: replace_value,
                             }
                         }
                         _ => {
