@@ -26,28 +26,29 @@ pip install dcmanon
 ```python
 from dcmanon import Anonymizer
 
-# Basic anonymization with default settings
+# Use default anonymization settings
 anonymizer = Anonymizer()
-anonymized_bytes = anonymizer.anonymize("/path/to/dicom.dcm")
+anonymized_bytes = anonymizer.anonymize("original.dcm")
 
 with open("anonymized.dcm", "wb") as f:
     f.write(anonymized_bytes)
 ```
 
-## Examples
+## Default Settings
 
-### Basic Anonymization
+When the `Anonymizer` is initialized without any arguments, the default anonymization settings are used. To see those
+default settings, you can either find them [here](https://github.com/carecoders/dicom-anonymization/blob/main/dicom-anonymization/config_default.json)
+or you can generate them yourself like this:
 
-```python
-from dcmanon import Anonymizer
-
-# Use default anonymization settings
-anonymizer = Anonymizer()
-anonymized_data = anonymizer.anonymize("input.dcm")
-
-with open("output.dcm", "wb") as f:
-    f.write(anonymized_data)
+```bash
+cargo install dcmanon
+dcmanon config create -o config_default.json
 ```
+
+You can customize the default UID root and tag actions by providing your own when you
+initialize the `Anonymizer`. See the following examples.
+
+## Examples
 
 ### Custom UID Root
 
@@ -65,7 +66,7 @@ anonymized_data = anonymizer.anonymize("input.dcm")
 ```python
 from dcmanon import Anonymizer
 
-# Define custom actions for specific DICOM tags
+# Define custom actions for specific DICOM tags (these will override the default actions for these tags)
 tag_actions = {
     "00080050": {  # AccessionNumber
         "action": "hash",
@@ -124,13 +125,13 @@ for dcm_file in input_dir.glob("*.dcm"):
 from dcmanon import Anonymizer
 
 # Complex anonymization configuration (as an example, as most of these actions are already in the
-# default config)
+# default settings)
 tag_actions = {
     # Patient information
     "00100010": {"action": "replace", "value": "PATIENT^ANONYMOUS"},
     "00100020": {"action": "hash", "length": 12},
     "00100030": {"action": "hashdate"},  # Hash birth date
-    "00100040": {"action": "keep"},      # Keep patient sex
+    "00100040": {"action": "keep"},      # Keep patient sex (`"none"` does the same)
 
     # Study information
     "0020000D": {"action": "hashuid"},   # Study Instance UID
@@ -161,8 +162,8 @@ anonymized_data = anonymizer.anonymize("complex_dicom.dcm")
 - **`empty`**: Set the tag value to empty
 - **`replace`**: Replace with a specified value
 - **`remove`**: Completely remove the DICOM tag
-- **`keep`**: Keep the original tag (to keep certain private tags, for example)
-- **`none`**: Do nothing (to disable actions from the default config)
+- **`keep`**: Keep the original tag and value (to keep certain private tags, for example)
+- **`none`**: Do nothing (to disable/override actions from the default config)
 
 ## Error Handling
 
