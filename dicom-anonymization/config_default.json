@@ -1,4142 +1,4142 @@
 {
+  "uid_root": "9999",
+  "remove_private_tags": true,
   "remove_curves": true,
   "remove_overlays": true,
-  "remove_private_tags": true,
   "tag_actions": {
     "00080005": {
-      "action": "none",
-      "comment": "SpecificCharacterSet"
+      "comment": "SpecificCharacterSet",
+      "action": "none"
     },
     "00080008": {
-      "action": "none",
-      "comment": "ImageType"
+      "comment": "ImageType",
+      "action": "none"
     },
     "00080012": {
-      "action": "hashdate",
-      "comment": "InstanceCreationDate"
+      "comment": "InstanceCreationDate",
+      "action": "hashdate"
     },
     "00080013": {
-      "action": "none",
-      "comment": "InstanceCreationTime"
+      "comment": "InstanceCreationTime",
+      "action": "none"
     },
     "00080014": {
-      "action": "hashuid",
-      "comment": "InstanceCreatorUID"
+      "comment": "InstanceCreatorUID",
+      "action": "hashuid"
     },
     "00080015": {
-      "action": "hashdate",
-      "comment": "InstanceCoercionDateTime"
+      "comment": "InstanceCoercionDateTime",
+      "action": "hashdate"
     },
     "00080016": {
-      "action": "none",
-      "comment": "SOPClassUID"
+      "comment": "SOPClassUID",
+      "action": "none"
     },
     "00080017": {
-      "action": "hashuid",
-      "comment": "AcquisitionUID"
+      "comment": "AcquisitionUID",
+      "action": "hashuid"
     },
     "00080018": {
-      "action": "hashuid",
-      "comment": "SOPInstanceUID"
+      "comment": "SOPInstanceUID",
+      "action": "hashuid"
     },
     "00080020": {
-      "action": "hashdate",
-      "comment": "StudyDate"
+      "comment": "StudyDate",
+      "action": "hashdate"
     },
     "00080021": {
-      "action": "remove",
-      "comment": "SeriesDate"
+      "comment": "SeriesDate",
+      "action": "remove"
     },
     "00080022": {
-      "action": "remove",
-      "comment": "AcquisitionDate"
+      "comment": "AcquisitionDate",
+      "action": "remove"
     },
     "00080023": {
-      "action": "hashdate",
-      "comment": "ContentDate"
+      "comment": "ContentDate",
+      "action": "hashdate"
     },
     "00080024": {
-      "action": "remove",
-      "comment": "OverlayDate"
+      "comment": "OverlayDate",
+      "action": "remove"
     },
     "00080025": {
-      "action": "remove",
-      "comment": "CurveDate"
+      "comment": "CurveDate",
+      "action": "remove"
     },
     "0008002A": {
-      "action": "remove",
-      "comment": "AcquisitionDateTime"
+      "comment": "AcquisitionDateTime",
+      "action": "remove"
     },
     "00080030": {
-      "action": "empty",
-      "comment": "StudyTime"
+      "comment": "StudyTime",
+      "action": "empty"
     },
     "00080031": {
-      "action": "remove",
-      "comment": "SeriesTime"
+      "comment": "SeriesTime",
+      "action": "remove"
     },
     "00080032": {
-      "action": "remove",
-      "comment": "AcquisitionTime"
+      "comment": "AcquisitionTime",
+      "action": "remove"
     },
     "00080033": {
-      "action": "empty",
-      "comment": "ContentTime"
+      "comment": "ContentTime",
+      "action": "empty"
     },
     "00080034": {
-      "action": "remove",
-      "comment": "OverlayTime"
+      "comment": "OverlayTime",
+      "action": "remove"
     },
     "00080035": {
-      "action": "remove",
-      "comment": "CurveTime"
+      "comment": "CurveTime",
+      "action": "remove"
     },
     "00080050": {
-      "action": "hash",
       "comment": "AccessionNumber",
+      "action": "hash",
       "length": 16
     },
     "00080052": {
-      "action": "none",
-      "comment": "QueryRetrieveLevel"
+      "comment": "QueryRetrieveLevel",
+      "action": "none"
     },
     "00080054": {
-      "action": "none",
-      "comment": "RetrieveAETitle"
+      "comment": "RetrieveAETitle",
+      "action": "none"
     },
     "00080055": {
-      "action": "none",
-      "comment": "StationAETitle"
+      "comment": "StationAETitle",
+      "action": "none"
     },
     "00080056": {
-      "action": "none",
-      "comment": "InstanceAvailability"
+      "comment": "InstanceAvailability",
+      "action": "none"
     },
     "00080058": {
-      "action": "hashuid",
-      "comment": "FailedSOPInstanceUIDList"
+      "comment": "FailedSOPInstanceUIDList",
+      "action": "hashuid"
     },
     "00080060": {
-      "action": "none",
-      "comment": "Modality"
+      "comment": "Modality",
+      "action": "none"
     },
     "00080061": {
-      "action": "none",
-      "comment": "ModalitiesInStudy"
+      "comment": "ModalitiesInStudy",
+      "action": "none"
     },
     "00080063": {
-      "action": "none",
-      "comment": "AnatomicRegionsInStudyCodeSequence"
+      "comment": "AnatomicRegionsInStudyCodeSequence",
+      "action": "none"
     },
     "00080064": {
-      "action": "none",
-      "comment": "ConversionType"
+      "comment": "ConversionType",
+      "action": "none"
     },
     "00080068": {
-      "action": "none",
-      "comment": "PresentationIntentType"
+      "comment": "PresentationIntentType",
+      "action": "none"
     },
     "00080070": {
-      "action": "empty",
-      "comment": "Manufacturer"
+      "comment": "Manufacturer",
+      "action": "empty"
     },
     "00080080": {
-      "action": "remove",
-      "comment": "InstitutionName"
+      "comment": "InstitutionName",
+      "action": "remove"
     },
     "00080081": {
-      "action": "remove",
-      "comment": "InstitutionAddress"
+      "comment": "InstitutionAddress",
+      "action": "remove"
     },
     "00080082": {
-      "action": "none",
-      "comment": "InstitutionCodeSequence"
+      "comment": "InstitutionCodeSequence",
+      "action": "none"
     },
     "00080090": {
-      "action": "empty",
-      "comment": "ReferringPhysicianName"
+      "comment": "ReferringPhysicianName",
+      "action": "empty"
     },
     "00080092": {
-      "action": "remove",
-      "comment": "ReferringPhysicianAddress"
+      "comment": "ReferringPhysicianAddress",
+      "action": "remove"
     },
     "00080094": {
-      "action": "remove",
-      "comment": "ReferringPhysicianTelephoneNumbers"
+      "comment": "ReferringPhysicianTelephoneNumbers",
+      "action": "remove"
     },
     "00080096": {
-      "action": "remove",
-      "comment": "ReferringPhysicianIdentificationSequence"
+      "comment": "ReferringPhysicianIdentificationSequence",
+      "action": "remove"
     },
     "0008009C": {
-      "action": "remove",
-      "comment": "ConsultingPhysicianName"
+      "comment": "ConsultingPhysicianName",
+      "action": "remove"
     },
     "0008009D": {
-      "action": "remove",
-      "comment": "ConsultingPhysicianIdentificationSequence"
+      "comment": "ConsultingPhysicianIdentificationSequence",
+      "action": "remove"
     },
     "00080100": {
-      "action": "none",
-      "comment": "CodeValue"
+      "comment": "CodeValue",
+      "action": "none"
     },
     "00080102": {
-      "action": "none",
-      "comment": "CodingSchemeDesignator"
+      "comment": "CodingSchemeDesignator",
+      "action": "none"
     },
     "00080103": {
-      "action": "none",
-      "comment": "CodingSchemeVersion"
+      "comment": "CodingSchemeVersion",
+      "action": "none"
     },
     "00080104": {
-      "action": "none",
-      "comment": "CodeMeaning"
+      "comment": "CodeMeaning",
+      "action": "none"
     },
     "00080105": {
-      "action": "none",
-      "comment": "MappingResource"
+      "comment": "MappingResource",
+      "action": "none"
     },
     "00080106": {
-      "action": "none",
-      "comment": "ContextGroupVersion"
+      "comment": "ContextGroupVersion",
+      "action": "none"
     },
     "00080107": {
-      "action": "none",
-      "comment": "ContextGroupLocalVersion"
+      "comment": "ContextGroupLocalVersion",
+      "action": "none"
     },
     "00080108": {
-      "action": "none",
-      "comment": "ExtendedCodeMeaning"
+      "comment": "ExtendedCodeMeaning",
+      "action": "none"
     },
     "0008010A": {
-      "action": "none",
-      "comment": "CodingSchemeURLType"
+      "comment": "CodingSchemeURLType",
+      "action": "none"
     },
     "0008010B": {
-      "action": "none",
-      "comment": "ContextGroupExtensionFlag"
+      "comment": "ContextGroupExtensionFlag",
+      "action": "none"
     },
     "0008010C": {
-      "action": "hashuid",
-      "comment": "CodingSchemeUID"
+      "comment": "CodingSchemeUID",
+      "action": "hashuid"
     },
     "0008010D": {
-      "action": "hashuid",
-      "comment": "ContextGroupExtensionCreatorUID"
+      "comment": "ContextGroupExtensionCreatorUID",
+      "action": "hashuid"
     },
     "0008010E": {
-      "action": "none",
-      "comment": "CodingSchemeURL"
+      "comment": "CodingSchemeURL",
+      "action": "none"
     },
     "0008010F": {
-      "action": "none",
-      "comment": "ContextIdentifier"
+      "comment": "ContextIdentifier",
+      "action": "none"
     },
     "00080112": {
-      "action": "none",
-      "comment": "CodingSchemeRegistry"
+      "comment": "CodingSchemeRegistry",
+      "action": "none"
     },
     "00080114": {
-      "action": "none",
-      "comment": "CodingSchemeExternalID"
+      "comment": "CodingSchemeExternalID",
+      "action": "none"
     },
     "00080115": {
-      "action": "none",
-      "comment": "CodingSchemeName"
+      "comment": "CodingSchemeName",
+      "action": "none"
     },
     "00080116": {
-      "action": "none",
-      "comment": "CodingSchemeResponsibleOrganization"
+      "comment": "CodingSchemeResponsibleOrganization",
+      "action": "none"
     },
     "00080117": {
-      "action": "hashuid",
-      "comment": "ContextUID"
+      "comment": "ContextUID",
+      "action": "hashuid"
     },
     "00080118": {
-      "action": "hashuid",
-      "comment": "MappingResourceUID"
+      "comment": "MappingResourceUID",
+      "action": "hashuid"
     },
     "00080119": {
-      "action": "none",
-      "comment": "LongCodeValue"
+      "comment": "LongCodeValue",
+      "action": "none"
     },
     "00080120": {
-      "action": "none",
-      "comment": "URNCodeValue"
+      "comment": "URNCodeValue",
+      "action": "none"
     },
     "00080121": {
-      "action": "none",
-      "comment": "EquivalentCodeSequence"
+      "comment": "EquivalentCodeSequence",
+      "action": "none"
     },
     "00080122": {
-      "action": "none",
-      "comment": "MappingResourceName"
+      "comment": "MappingResourceName",
+      "action": "none"
     },
     "00080201": {
-      "action": "remove",
-      "comment": "TimezoneOffsetFromUTC"
+      "comment": "TimezoneOffsetFromUTC",
+      "action": "remove"
     },
     "00081010": {
-      "action": "remove",
-      "comment": "StationName"
+      "comment": "StationName",
+      "action": "remove"
     },
     "00081030": {
-      "action": "none",
-      "comment": "StudyDescription"
+      "comment": "StudyDescription",
+      "action": "none"
     },
     "00081032": {
-      "action": "none",
-      "comment": "ProcedureCodeSequence"
+      "comment": "ProcedureCodeSequence",
+      "action": "none"
     },
     "0008103E": {
-      "action": "none",
-      "comment": "SeriesDescription"
+      "comment": "SeriesDescription",
+      "action": "none"
     },
     "00081040": {
-      "action": "remove",
-      "comment": "InstitutionalDepartmentName"
+      "comment": "InstitutionalDepartmentName",
+      "action": "remove"
     },
     "00081048": {
-      "action": "remove",
-      "comment": "PhysiciansOfRecord"
+      "comment": "PhysiciansOfRecord",
+      "action": "remove"
     },
     "00081049": {
-      "action": "remove",
-      "comment": "PhysiciansOfRecordIdentificationSequence"
+      "comment": "PhysiciansOfRecordIdentificationSequence",
+      "action": "remove"
     },
     "00081050": {
-      "action": "remove",
-      "comment": "PerformingPhysicianName"
+      "comment": "PerformingPhysicianName",
+      "action": "remove"
     },
     "00081052": {
-      "action": "remove",
-      "comment": "PerformingPhysicianIdentificationSequence"
+      "comment": "PerformingPhysicianIdentificationSequence",
+      "action": "remove"
     },
     "00081060": {
-      "action": "remove",
-      "comment": "NameOfPhysiciansReadingStudy"
+      "comment": "NameOfPhysiciansReadingStudy",
+      "action": "remove"
     },
     "00081062": {
-      "action": "remove",
-      "comment": "PhysiciansReadingStudyIdentificationSequence"
+      "comment": "PhysiciansReadingStudyIdentificationSequence",
+      "action": "remove"
     },
     "00081070": {
-      "action": "remove",
-      "comment": "OperatorsName"
+      "comment": "OperatorsName",
+      "action": "remove"
     },
     "00081072": {
-      "action": "remove",
-      "comment": "OperatorIdentificationSequence"
+      "comment": "OperatorIdentificationSequence",
+      "action": "remove"
     },
     "00081080": {
-      "action": "remove",
-      "comment": "AdmittingDiagnosesDescription"
+      "comment": "AdmittingDiagnosesDescription",
+      "action": "remove"
     },
     "00081084": {
-      "action": "remove",
-      "comment": "AdmittingDiagnosesCodeSequence"
+      "comment": "AdmittingDiagnosesCodeSequence",
+      "action": "remove"
     },
     "00081090": {
-      "action": "remove",
-      "comment": "ManufacturerModelName"
+      "comment": "ManufacturerModelName",
+      "action": "remove"
     },
     "00081100": {
-      "action": "none",
-      "comment": "ReferencedResultsSequence"
+      "comment": "ReferencedResultsSequence",
+      "action": "none"
     },
     "00081110": {
-      "action": "remove",
-      "comment": "ReferencedStudySequence"
+      "comment": "ReferencedStudySequence",
+      "action": "remove"
     },
     "00081111": {
-      "action": "remove",
-      "comment": "ReferencedPerformedProcedureStepSequence"
+      "comment": "ReferencedPerformedProcedureStepSequence",
+      "action": "remove"
     },
     "00081115": {
-      "action": "none",
-      "comment": "ReferencedSeriesSequence"
+      "comment": "ReferencedSeriesSequence",
+      "action": "none"
     },
     "00081120": {
-      "action": "remove",
-      "comment": "ReferencedPatientSequence"
+      "comment": "ReferencedPatientSequence",
+      "action": "remove"
     },
     "00081125": {
-      "action": "none",
-      "comment": "ReferencedVisitSequence"
+      "comment": "ReferencedVisitSequence",
+      "action": "none"
     },
     "00081130": {
-      "action": "none",
-      "comment": "ReferencedOverlaySequence"
+      "comment": "ReferencedOverlaySequence",
+      "action": "none"
     },
     "00081140": {
-      "action": "remove",
-      "comment": "ReferencedImageSequence"
+      "comment": "ReferencedImageSequence",
+      "action": "remove"
     },
     "00081145": {
-      "action": "none",
-      "comment": "ReferencedCurveSequence"
+      "comment": "ReferencedCurveSequence",
+      "action": "none"
     },
     "0008114A": {
-      "action": "none",
-      "comment": "ReferencedInstanceSequence"
+      "comment": "ReferencedInstanceSequence",
+      "action": "none"
     },
     "00081150": {
-      "action": "none",
-      "comment": "ReferencedSOPClassUID"
+      "comment": "ReferencedSOPClassUID",
+      "action": "none"
     },
     "00081155": {
-      "action": "hashuid",
-      "comment": "ReferencedSOPInstanceUID"
+      "comment": "ReferencedSOPInstanceUID",
+      "action": "hashuid"
     },
     "0008115A": {
-      "action": "none",
-      "comment": "SOPClassesSupported"
+      "comment": "SOPClassesSupported",
+      "action": "none"
     },
     "00081160": {
-      "action": "none",
-      "comment": "ReferencedFrameNumber"
+      "comment": "ReferencedFrameNumber",
+      "action": "none"
     },
     "00081195": {
-      "action": "hashuid",
-      "comment": "TransactionUID"
+      "comment": "TransactionUID",
+      "action": "hashuid"
     },
     "00081197": {
-      "action": "none",
-      "comment": "FailureReason"
+      "comment": "FailureReason",
+      "action": "none"
     },
     "00081198": {
-      "action": "none",
-      "comment": "FailedSOPSequence"
+      "comment": "FailedSOPSequence",
+      "action": "none"
     },
     "00081199": {
-      "action": "none",
-      "comment": "ReferencedSOPSequence"
+      "comment": "ReferencedSOPSequence",
+      "action": "none"
     },
     "00082111": {
-      "action": "remove",
-      "comment": "DerivationDescription"
+      "comment": "DerivationDescription",
+      "action": "remove"
     },
     "00082112": {
-      "action": "remove",
-      "comment": "SourceImageSequence"
+      "comment": "SourceImageSequence",
+      "action": "remove"
     },
     "00082120": {
-      "action": "none",
-      "comment": "StageName"
+      "comment": "StageName",
+      "action": "none"
     },
     "00082122": {
-      "action": "none",
-      "comment": "StageNumber"
+      "comment": "StageNumber",
+      "action": "none"
     },
     "00082124": {
-      "action": "none",
-      "comment": "NumberOfStages"
+      "comment": "NumberOfStages",
+      "action": "none"
     },
     "00082128": {
-      "action": "none",
-      "comment": "ViewNumber"
+      "comment": "ViewNumber",
+      "action": "none"
     },
     "00082129": {
-      "action": "none",
-      "comment": "NumberOfEventTimers"
+      "comment": "NumberOfEventTimers",
+      "action": "none"
     },
     "0008212A": {
-      "action": "none",
-      "comment": "NumberOfViewsInStage"
+      "comment": "NumberOfViewsInStage",
+      "action": "none"
     },
     "00082130": {
-      "action": "none",
-      "comment": "EventElapsedTimes"
+      "comment": "EventElapsedTimes",
+      "action": "none"
     },
     "00082132": {
-      "action": "none",
-      "comment": "EventTimerNames"
+      "comment": "EventTimerNames",
+      "action": "none"
     },
     "00082142": {
-      "action": "none",
-      "comment": "StartTrim"
+      "comment": "StartTrim",
+      "action": "none"
     },
     "00082143": {
-      "action": "none",
-      "comment": "StopTrim"
+      "comment": "StopTrim",
+      "action": "none"
     },
     "00082144": {
-      "action": "none",
-      "comment": "RecommendedDisplayFrameRate"
+      "comment": "RecommendedDisplayFrameRate",
+      "action": "none"
     },
     "00082218": {
-      "action": "none",
-      "comment": "AnatomicRegionSequence"
+      "comment": "AnatomicRegionSequence",
+      "action": "none"
     },
     "00082220": {
-      "action": "none",
-      "comment": "AnatomicRegionModifierSequence"
+      "comment": "AnatomicRegionModifierSequence",
+      "action": "none"
     },
     "00082228": {
-      "action": "none",
-      "comment": "PrimaryAnatomicStructureSequence"
+      "comment": "PrimaryAnatomicStructureSequence",
+      "action": "none"
     },
     "00082229": {
-      "action": "none",
-      "comment": "AnatomicStructureSpaceOrRegionSequence"
+      "comment": "AnatomicStructureSpaceOrRegionSequence",
+      "action": "none"
     },
     "00082230": {
-      "action": "none",
-      "comment": "PrimaryAnatomicStructureModifierSequence"
+      "comment": "PrimaryAnatomicStructureModifierSequence",
+      "action": "none"
     },
     "00082240": {
-      "action": "none",
-      "comment": "TransducerPositionSequence"
+      "comment": "TransducerPositionSequence",
+      "action": "none"
     },
     "00082242": {
-      "action": "none",
-      "comment": "TransducerPositionModifierSequence"
+      "comment": "TransducerPositionModifierSequence",
+      "action": "none"
     },
     "00082244": {
-      "action": "none",
-      "comment": "TransducerOrientationSequence"
+      "comment": "TransducerOrientationSequence",
+      "action": "none"
     },
     "00082246": {
-      "action": "none",
-      "comment": "TransducerOrientationModifierSequence"
+      "comment": "TransducerOrientationModifierSequence",
+      "action": "none"
     },
     "00083010": {
-      "action": "hashuid",
-      "comment": "IrradiationEventUID"
+      "comment": "IrradiationEventUID",
+      "action": "hashuid"
     },
     "00084000": {
-      "action": "remove",
-      "comment": "IdentifyingComments"
+      "comment": "IdentifyingComments",
+      "action": "remove"
     },
     "00089007": {
-      "action": "none",
-      "comment": "FrameType"
+      "comment": "FrameType",
+      "action": "none"
     },
     "00089092": {
-      "action": "none",
-      "comment": "ReferencedImageEvidenceSequence"
+      "comment": "ReferencedImageEvidenceSequence",
+      "action": "none"
     },
     "00089121": {
-      "action": "none",
-      "comment": "ReferencedRawDataSequence"
+      "comment": "ReferencedRawDataSequence",
+      "action": "none"
     },
     "00089123": {
-      "action": "hashuid",
-      "comment": "CreatorVersionUID"
+      "comment": "CreatorVersionUID",
+      "action": "hashuid"
     },
     "00089124": {
-      "action": "none",
-      "comment": "DerivationImageSequence"
+      "comment": "DerivationImageSequence",
+      "action": "none"
     },
     "00089154": {
-      "action": "none",
-      "comment": "SourceImageEvidenceSequence"
+      "comment": "SourceImageEvidenceSequence",
+      "action": "none"
     },
     "00089205": {
-      "action": "none",
-      "comment": "PixelPresentation"
+      "comment": "PixelPresentation",
+      "action": "none"
     },
     "00089206": {
-      "action": "none",
-      "comment": "VolumetricProperties"
+      "comment": "VolumetricProperties",
+      "action": "none"
     },
     "00089207": {
-      "action": "none",
-      "comment": "VolumeBasedCalculationTechnique"
+      "comment": "VolumeBasedCalculationTechnique",
+      "action": "none"
     },
     "00089208": {
-      "action": "none",
-      "comment": "ComplexImageComponent"
+      "comment": "ComplexImageComponent",
+      "action": "none"
     },
     "00089209": {
-      "action": "none",
-      "comment": "AcquisitionContrast"
+      "comment": "AcquisitionContrast",
+      "action": "none"
     },
     "00089215": {
-      "action": "none",
-      "comment": "DerivationCodeSequence"
+      "comment": "DerivationCodeSequence",
+      "action": "none"
     },
     "00089237": {
-      "action": "none",
-      "comment": "ReferencedPresentationStateSequence"
+      "comment": "ReferencedPresentationStateSequence",
+      "action": "none"
     },
     "00100010": {
-      "action": "hash",
       "comment": "PatientName",
+      "action": "hash",
       "length": 10
     },
     "00100020": {
-      "action": "hash",
       "comment": "PatientID",
+      "action": "hash",
       "length": 10
     },
     "00100021": {
-      "action": "remove",
-      "comment": "IssuerOfPatientID"
+      "comment": "IssuerOfPatientID",
+      "action": "remove"
     },
     "00100030": {
-      "action": "hashdate",
-      "comment": "PatientBirthDate"
+      "comment": "PatientBirthDate",
+      "action": "hashdate"
     },
     "00100032": {
-      "action": "remove",
-      "comment": "PatientBirthTime"
+      "comment": "PatientBirthTime",
+      "action": "remove"
     },
     "00100040": {
-      "action": "empty",
-      "comment": "PatientSex"
+      "comment": "PatientSex",
+      "action": "empty"
     },
     "00100050": {
-      "action": "remove",
-      "comment": "PatientInsurancePlanCodeSequence"
+      "comment": "PatientInsurancePlanCodeSequence",
+      "action": "remove"
     },
     "00100101": {
-      "action": "remove",
-      "comment": "PatientPrimaryLanguageCodeSequence"
+      "comment": "PatientPrimaryLanguageCodeSequence",
+      "action": "remove"
     },
     "00101000": {
-      "action": "remove",
-      "comment": "OtherPatientIDs"
+      "comment": "OtherPatientIDs",
+      "action": "remove"
     },
     "00101001": {
-      "action": "remove",
-      "comment": "OtherPatientNames"
+      "comment": "OtherPatientNames",
+      "action": "remove"
     },
     "00101002": {
-      "action": "remove",
-      "comment": "OtherPatientIDsSequence"
+      "comment": "OtherPatientIDsSequence",
+      "action": "remove"
     },
     "00101005": {
-      "action": "remove",
-      "comment": "PatientBirthName"
+      "comment": "PatientBirthName",
+      "action": "remove"
     },
     "00101010": {
-      "action": "remove",
-      "comment": "PatientAge"
+      "comment": "PatientAge",
+      "action": "remove"
     },
     "00101020": {
-      "action": "remove",
-      "comment": "PatientSize"
+      "comment": "PatientSize",
+      "action": "remove"
     },
     "00101030": {
-      "action": "remove",
-      "comment": "PatientWeight"
+      "comment": "PatientWeight",
+      "action": "remove"
     },
     "00101040": {
-      "action": "remove",
-      "comment": "PatientAddress"
+      "comment": "PatientAddress",
+      "action": "remove"
     },
     "00101050": {
-      "action": "remove",
-      "comment": "InsurancePlanIdentification"
+      "comment": "InsurancePlanIdentification",
+      "action": "remove"
     },
     "00101060": {
-      "action": "remove",
-      "comment": "PatientMotherBirthName"
+      "comment": "PatientMotherBirthName",
+      "action": "remove"
     },
     "00101080": {
-      "action": "remove",
-      "comment": "MilitaryRank"
+      "comment": "MilitaryRank",
+      "action": "remove"
     },
     "00101081": {
-      "action": "remove",
-      "comment": "BranchOfService"
+      "comment": "BranchOfService",
+      "action": "remove"
     },
     "00101090": {
-      "action": "remove",
-      "comment": "MedicalRecordLocator"
+      "comment": "MedicalRecordLocator",
+      "action": "remove"
     },
     "00102000": {
-      "action": "remove",
-      "comment": "MedicalAlerts"
+      "comment": "MedicalAlerts",
+      "action": "remove"
     },
     "00102110": {
-      "action": "remove",
-      "comment": "Allergies"
+      "comment": "Allergies",
+      "action": "remove"
     },
     "00102150": {
-      "action": "remove",
-      "comment": "CountryOfResidence"
+      "comment": "CountryOfResidence",
+      "action": "remove"
     },
     "00102152": {
-      "action": "remove",
-      "comment": "RegionOfResidence"
+      "comment": "RegionOfResidence",
+      "action": "remove"
     },
     "00102154": {
-      "action": "remove",
-      "comment": "PatientTelephoneNumbers"
+      "comment": "PatientTelephoneNumbers",
+      "action": "remove"
     },
     "00102155": {
-      "action": "remove",
-      "comment": "PatientTelecomInformation"
+      "comment": "PatientTelecomInformation",
+      "action": "remove"
     },
     "00102160": {
-      "action": "remove",
-      "comment": "EthnicGroup"
+      "comment": "EthnicGroup",
+      "action": "remove"
     },
     "00102180": {
-      "action": "remove",
-      "comment": "Occupation"
+      "comment": "Occupation",
+      "action": "remove"
     },
     "001021A0": {
-      "action": "remove",
-      "comment": "SmokingStatus"
+      "comment": "SmokingStatus",
+      "action": "remove"
     },
     "001021B0": {
-      "action": "remove",
-      "comment": "AdditionalPatientHistory"
+      "comment": "AdditionalPatientHistory",
+      "action": "remove"
     },
     "001021C0": {
-      "action": "remove",
-      "comment": "PregnancyStatus"
+      "comment": "PregnancyStatus",
+      "action": "remove"
     },
     "001021D0": {
-      "action": "remove",
-      "comment": "LastMenstrualDate"
+      "comment": "LastMenstrualDate",
+      "action": "remove"
     },
     "001021F0": {
-      "action": "remove",
-      "comment": "PatientReligiousPreference"
+      "comment": "PatientReligiousPreference",
+      "action": "remove"
     },
     "00102203": {
-      "action": "remove",
-      "comment": "PatientSexNeutered"
+      "comment": "PatientSexNeutered",
+      "action": "remove"
     },
     "00102297": {
-      "action": "remove",
-      "comment": "ResponsiblePerson"
+      "comment": "ResponsiblePerson",
+      "action": "remove"
     },
     "00102299": {
-      "action": "remove",
-      "comment": "ResponsibleOrganization"
+      "comment": "ResponsibleOrganization",
+      "action": "remove"
     },
     "00104000": {
-      "action": "remove",
-      "comment": "PatientComments"
+      "comment": "PatientComments",
+      "action": "remove"
     },
     "00120010": {
-      "action": "none",
-      "comment": "ClinicalTrialSponsorName"
+      "comment": "ClinicalTrialSponsorName",
+      "action": "none"
     },
     "00120020": {
-      "action": "none",
-      "comment": "ClinicalTrialProtocolID"
+      "comment": "ClinicalTrialProtocolID",
+      "action": "none"
     },
     "00120021": {
-      "action": "none",
-      "comment": "ClinicalTrialProtocolName"
+      "comment": "ClinicalTrialProtocolName",
+      "action": "none"
     },
     "00120030": {
-      "action": "none",
-      "comment": "ClinicalTrialSiteID"
+      "comment": "ClinicalTrialSiteID",
+      "action": "none"
     },
     "00120031": {
-      "action": "none",
-      "comment": "ClinicalTrialSiteName"
+      "comment": "ClinicalTrialSiteName",
+      "action": "none"
     },
     "00120040": {
-      "action": "none",
-      "comment": "ClinicalTrialSubjectID"
+      "comment": "ClinicalTrialSubjectID",
+      "action": "none"
     },
     "00120042": {
-      "action": "none",
-      "comment": "ClinicalTrialSubjectReadingID"
+      "comment": "ClinicalTrialSubjectReadingID",
+      "action": "none"
     },
     "00120050": {
-      "action": "none",
-      "comment": "ClinicalTrialTimePointID"
+      "comment": "ClinicalTrialTimePointID",
+      "action": "none"
     },
     "00120051": {
-      "action": "none",
-      "comment": "ClinicalTrialTimePointDescription"
+      "comment": "ClinicalTrialTimePointDescription",
+      "action": "none"
     },
     "00120060": {
-      "action": "none",
-      "comment": "ClinicalTrialCoordinatingCenterName"
+      "comment": "ClinicalTrialCoordinatingCenterName",
+      "action": "none"
     },
     "00120062": {
-      "action": "remove",
-      "comment": "PatientIdentityRemoved"
+      "comment": "PatientIdentityRemoved",
+      "action": "remove"
     },
     "00120063": {
-      "action": "replace",
       "comment": "DeidentificationMethod",
+      "action": "replace",
       "value": "CARECODERS.IO"
     },
     "00120064": {
-      "action": "remove",
-      "comment": "DeidentificationMethodCodeSequence"
+      "comment": "DeidentificationMethodCodeSequence",
+      "action": "remove"
     },
     "00180010": {
-      "action": "empty",
-      "comment": "ContrastBolusAgent"
+      "comment": "ContrastBolusAgent",
+      "action": "empty"
     },
     "00180012": {
-      "action": "none",
-      "comment": "ContrastBolusAgentSequence"
+      "comment": "ContrastBolusAgentSequence",
+      "action": "none"
     },
     "00180014": {
-      "action": "none",
-      "comment": "ContrastBolusAdministrationRouteSequence"
+      "comment": "ContrastBolusAdministrationRouteSequence",
+      "action": "none"
     },
     "00180015": {
-      "action": "none",
-      "comment": "BodyPartExamined"
+      "comment": "BodyPartExamined",
+      "action": "none"
     },
     "00180020": {
-      "action": "none",
-      "comment": "ScanningSequence"
+      "comment": "ScanningSequence",
+      "action": "none"
     },
     "00180021": {
-      "action": "none",
-      "comment": "SequenceVariant"
+      "comment": "SequenceVariant",
+      "action": "none"
     },
     "00180022": {
-      "action": "none",
-      "comment": "ScanOptions"
+      "comment": "ScanOptions",
+      "action": "none"
     },
     "00180023": {
-      "action": "none",
-      "comment": "MRAcquisitionType"
+      "comment": "MRAcquisitionType",
+      "action": "none"
     },
     "00180024": {
-      "action": "none",
-      "comment": "SequenceName"
+      "comment": "SequenceName",
+      "action": "none"
     },
     "00180025": {
-      "action": "none",
-      "comment": "AngioFlag"
+      "comment": "AngioFlag",
+      "action": "none"
     },
     "00180026": {
-      "action": "none",
-      "comment": "InterventionDrugInformationSequence"
+      "comment": "InterventionDrugInformationSequence",
+      "action": "none"
     },
     "00180027": {
-      "action": "none",
-      "comment": "InterventionDrugStopTime"
+      "comment": "InterventionDrugStopTime",
+      "action": "none"
     },
     "00180028": {
-      "action": "none",
-      "comment": "InterventionDrugDose"
+      "comment": "InterventionDrugDose",
+      "action": "none"
     },
     "00180029": {
-      "action": "none",
-      "comment": "InterventionDrugCodeSequence"
+      "comment": "InterventionDrugCodeSequence",
+      "action": "none"
     },
     "0018002A": {
-      "action": "none",
-      "comment": "AdditionalDrugSequence"
+      "comment": "AdditionalDrugSequence",
+      "action": "none"
     },
     "00180031": {
-      "action": "none",
-      "comment": "Radiopharmaceutical"
+      "comment": "Radiopharmaceutical",
+      "action": "none"
     },
     "00180034": {
-      "action": "none",
-      "comment": "InterventionDrugName"
+      "comment": "InterventionDrugName",
+      "action": "none"
     },
     "00180035": {
-      "action": "none",
-      "comment": "InterventionDrugStartTime"
+      "comment": "InterventionDrugStartTime",
+      "action": "none"
     },
     "00180036": {
-      "action": "none",
-      "comment": "InterventionSequence"
+      "comment": "InterventionSequence",
+      "action": "none"
     },
     "00180037": {
-      "action": "none",
-      "comment": "TherapyType"
+      "comment": "TherapyType",
+      "action": "none"
     },
     "00180038": {
-      "action": "none",
-      "comment": "InterventionStatus"
+      "comment": "InterventionStatus",
+      "action": "none"
     },
     "00180039": {
-      "action": "none",
-      "comment": "TherapyDescription"
+      "comment": "TherapyDescription",
+      "action": "none"
     },
     "00180040": {
-      "action": "none",
-      "comment": "CineRate"
+      "comment": "CineRate",
+      "action": "none"
     },
     "00180050": {
-      "action": "none",
-      "comment": "SliceThickness"
+      "comment": "SliceThickness",
+      "action": "none"
     },
     "00180060": {
-      "action": "none",
-      "comment": "KVP"
+      "comment": "KVP",
+      "action": "none"
     },
     "00180070": {
-      "action": "none",
-      "comment": "CountsAccumulated"
+      "comment": "CountsAccumulated",
+      "action": "none"
     },
     "00180071": {
-      "action": "none",
-      "comment": "AcquisitionTerminationCondition"
+      "comment": "AcquisitionTerminationCondition",
+      "action": "none"
     },
     "00180072": {
-      "action": "none",
-      "comment": "EffectiveDuration"
+      "comment": "EffectiveDuration",
+      "action": "none"
     },
     "00180073": {
-      "action": "none",
-      "comment": "AcquisitionStartCondition"
+      "comment": "AcquisitionStartCondition",
+      "action": "none"
     },
     "00180074": {
-      "action": "none",
-      "comment": "AcquisitionStartConditionData"
+      "comment": "AcquisitionStartConditionData",
+      "action": "none"
     },
     "00180075": {
-      "action": "none",
-      "comment": "AcquisitionTerminationConditionData"
+      "comment": "AcquisitionTerminationConditionData",
+      "action": "none"
     },
     "00180080": {
-      "action": "none",
-      "comment": "RepetitionTime"
+      "comment": "RepetitionTime",
+      "action": "none"
     },
     "00180081": {
-      "action": "none",
-      "comment": "EchoTime"
+      "comment": "EchoTime",
+      "action": "none"
     },
     "00180082": {
-      "action": "none",
-      "comment": "InversionTime"
+      "comment": "InversionTime",
+      "action": "none"
     },
     "00180083": {
-      "action": "none",
-      "comment": "NumberOfAverages"
+      "comment": "NumberOfAverages",
+      "action": "none"
     },
     "00180084": {
-      "action": "none",
-      "comment": "ImagingFrequency"
+      "comment": "ImagingFrequency",
+      "action": "none"
     },
     "00180085": {
-      "action": "none",
-      "comment": "ImagedNucleus"
+      "comment": "ImagedNucleus",
+      "action": "none"
     },
     "00180086": {
-      "action": "none",
-      "comment": "EchoNumbers"
+      "comment": "EchoNumbers",
+      "action": "none"
     },
     "00180087": {
-      "action": "none",
-      "comment": "MagneticFieldStrength"
+      "comment": "MagneticFieldStrength",
+      "action": "none"
     },
     "00180088": {
-      "action": "none",
-      "comment": "SpacingBetweenSlices"
+      "comment": "SpacingBetweenSlices",
+      "action": "none"
     },
     "00180089": {
-      "action": "none",
-      "comment": "NumberOfPhaseEncodingSteps"
+      "comment": "NumberOfPhaseEncodingSteps",
+      "action": "none"
     },
     "00180090": {
-      "action": "none",
-      "comment": "DataCollectionDiameter"
+      "comment": "DataCollectionDiameter",
+      "action": "none"
     },
     "00180091": {
-      "action": "none",
-      "comment": "EchoTrainLength"
+      "comment": "EchoTrainLength",
+      "action": "none"
     },
     "00180093": {
-      "action": "none",
-      "comment": "PercentSampling"
+      "comment": "PercentSampling",
+      "action": "none"
     },
     "00180094": {
-      "action": "none",
-      "comment": "PercentPhaseFieldOfView"
+      "comment": "PercentPhaseFieldOfView",
+      "action": "none"
     },
     "00180095": {
-      "action": "none",
-      "comment": "PixelBandwidth"
+      "comment": "PixelBandwidth",
+      "action": "none"
     },
     "00181000": {
-      "action": "remove",
-      "comment": "DeviceSerialNumber"
+      "comment": "DeviceSerialNumber",
+      "action": "remove"
     },
     "00181002": {
-      "action": "hashuid",
-      "comment": "DeviceUID"
+      "comment": "DeviceUID",
+      "action": "hashuid"
     },
     "00181004": {
-      "action": "remove",
-      "comment": "PlateID"
+      "comment": "PlateID",
+      "action": "remove"
     },
     "00181005": {
-      "action": "remove",
-      "comment": "GeneratorID"
+      "comment": "GeneratorID",
+      "action": "remove"
     },
     "00181007": {
-      "action": "remove",
-      "comment": "CassetteID"
+      "comment": "CassetteID",
+      "action": "remove"
     },
     "00181008": {
-      "action": "remove",
-      "comment": "GantryID"
+      "comment": "GantryID",
+      "action": "remove"
     },
     "00181010": {
-      "action": "none",
-      "comment": "SecondaryCaptureDeviceID"
+      "comment": "SecondaryCaptureDeviceID",
+      "action": "none"
     },
     "00181011": {
-      "action": "none",
-      "comment": "HardcopyCreationDeviceID"
+      "comment": "HardcopyCreationDeviceID",
+      "action": "none"
     },
     "00181012": {
-      "action": "hashdate",
-      "comment": "DateOfSecondaryCapture"
+      "comment": "DateOfSecondaryCapture",
+      "action": "hashdate"
     },
     "00181014": {
-      "action": "none",
-      "comment": "TimeOfSecondaryCapture"
+      "comment": "TimeOfSecondaryCapture",
+      "action": "none"
     },
     "00181016": {
-      "action": "none",
-      "comment": "SecondaryCaptureDeviceManufacturer"
+      "comment": "SecondaryCaptureDeviceManufacturer",
+      "action": "none"
     },
     "00181017": {
-      "action": "none",
-      "comment": "HardcopyDeviceManufacturer"
+      "comment": "HardcopyDeviceManufacturer",
+      "action": "none"
     },
     "00181018": {
-      "action": "none",
-      "comment": "SecondaryCaptureDeviceManufacturerModelName"
+      "comment": "SecondaryCaptureDeviceManufacturerModelName",
+      "action": "none"
     },
     "00181019": {
-      "action": "none",
-      "comment": "SecondaryCaptureDeviceSoftwareVersions"
+      "comment": "SecondaryCaptureDeviceSoftwareVersions",
+      "action": "none"
     },
     "0018101A": {
-      "action": "none",
-      "comment": "HardcopyDeviceSoftwareVersion"
+      "comment": "HardcopyDeviceSoftwareVersion",
+      "action": "none"
     },
     "0018101B": {
-      "action": "none",
-      "comment": "HardcopyDeviceManufacturerModelName"
+      "comment": "HardcopyDeviceManufacturerModelName",
+      "action": "none"
     },
     "00181020": {
-      "action": "remove",
-      "comment": "SoftwareVersions"
+      "comment": "SoftwareVersions",
+      "action": "remove"
     },
     "00181022": {
-      "action": "none",
-      "comment": "VideoImageFormatAcquired"
+      "comment": "VideoImageFormatAcquired",
+      "action": "none"
     },
     "00181023": {
-      "action": "none",
-      "comment": "DigitalImageFormatAcquired"
+      "comment": "DigitalImageFormatAcquired",
+      "action": "none"
     },
     "00181030": {
-      "action": "remove",
-      "comment": "ProtocolName"
+      "comment": "ProtocolName",
+      "action": "remove"
     },
     "00181040": {
-      "action": "none",
-      "comment": "ContrastBolusRoute"
+      "comment": "ContrastBolusRoute",
+      "action": "none"
     },
     "00181041": {
-      "action": "none",
-      "comment": "ContrastBolusVolume"
+      "comment": "ContrastBolusVolume",
+      "action": "none"
     },
     "00181042": {
-      "action": "none",
-      "comment": "ContrastBolusStartTime"
+      "comment": "ContrastBolusStartTime",
+      "action": "none"
     },
     "00181043": {
-      "action": "none",
-      "comment": "ContrastBolusStopTime"
+      "comment": "ContrastBolusStopTime",
+      "action": "none"
     },
     "00181044": {
-      "action": "none",
-      "comment": "ContrastBolusTotalDose"
+      "comment": "ContrastBolusTotalDose",
+      "action": "none"
     },
     "00181045": {
-      "action": "none",
-      "comment": "SyringeCounts"
+      "comment": "SyringeCounts",
+      "action": "none"
     },
     "00181046": {
-      "action": "none",
-      "comment": "ContrastFlowRate"
+      "comment": "ContrastFlowRate",
+      "action": "none"
     },
     "00181047": {
-      "action": "none",
-      "comment": "ContrastFlowDuration"
+      "comment": "ContrastFlowDuration",
+      "action": "none"
     },
     "00181048": {
-      "action": "none",
-      "comment": "ContrastBolusIngredient"
+      "comment": "ContrastBolusIngredient",
+      "action": "none"
     },
     "00181049": {
-      "action": "none",
-      "comment": "ContrastBolusIngredientConcentration"
+      "comment": "ContrastBolusIngredientConcentration",
+      "action": "none"
     },
     "00181050": {
-      "action": "none",
-      "comment": "SpatialResolution"
+      "comment": "SpatialResolution",
+      "action": "none"
     },
     "00181060": {
-      "action": "none",
-      "comment": "TriggerTime"
+      "comment": "TriggerTime",
+      "action": "none"
     },
     "00181061": {
-      "action": "none",
-      "comment": "TriggerSourceOrType"
+      "comment": "TriggerSourceOrType",
+      "action": "none"
     },
     "00181062": {
-      "action": "none",
-      "comment": "NominalInterval"
+      "comment": "NominalInterval",
+      "action": "none"
     },
     "00181063": {
-      "action": "none",
-      "comment": "FrameTime"
+      "comment": "FrameTime",
+      "action": "none"
     },
     "00181064": {
-      "action": "none",
-      "comment": "CardiacFramingType"
+      "comment": "CardiacFramingType",
+      "action": "none"
     },
     "00181065": {
-      "action": "none",
-      "comment": "FrameTimeVector"
+      "comment": "FrameTimeVector",
+      "action": "none"
     },
     "00181066": {
-      "action": "none",
-      "comment": "FrameDelay"
+      "comment": "FrameDelay",
+      "action": "none"
     },
     "00181067": {
-      "action": "none",
-      "comment": "ImageTriggerDelay"
+      "comment": "ImageTriggerDelay",
+      "action": "none"
     },
     "00181068": {
-      "action": "none",
-      "comment": "MultiplexGroupTimeOffset"
+      "comment": "MultiplexGroupTimeOffset",
+      "action": "none"
     },
     "00181069": {
-      "action": "none",
-      "comment": "TriggerTimeOffset"
+      "comment": "TriggerTimeOffset",
+      "action": "none"
     },
     "0018106A": {
-      "action": "none",
-      "comment": "SynchronizationTrigger"
+      "comment": "SynchronizationTrigger",
+      "action": "none"
     },
     "0018106C": {
-      "action": "none",
-      "comment": "SynchronizationChannel"
+      "comment": "SynchronizationChannel",
+      "action": "none"
     },
     "0018106E": {
-      "action": "none",
-      "comment": "TriggerSamplePosition"
+      "comment": "TriggerSamplePosition",
+      "action": "none"
     },
     "00181070": {
-      "action": "none",
-      "comment": "RadiopharmaceuticalRoute"
+      "comment": "RadiopharmaceuticalRoute",
+      "action": "none"
     },
     "00181071": {
-      "action": "none",
-      "comment": "RadiopharmaceuticalVolume"
+      "comment": "RadiopharmaceuticalVolume",
+      "action": "none"
     },
     "00181072": {
-      "action": "none",
-      "comment": "RadiopharmaceuticalStartTime"
+      "comment": "RadiopharmaceuticalStartTime",
+      "action": "none"
     },
     "00181073": {
-      "action": "none",
-      "comment": "RadiopharmaceuticalStopTime"
+      "comment": "RadiopharmaceuticalStopTime",
+      "action": "none"
     },
     "00181074": {
-      "action": "none",
-      "comment": "RadionuclideTotalDose"
+      "comment": "RadionuclideTotalDose",
+      "action": "none"
     },
     "00181075": {
-      "action": "none",
-      "comment": "RadionuclideHalfLife"
+      "comment": "RadionuclideHalfLife",
+      "action": "none"
     },
     "00181076": {
-      "action": "none",
-      "comment": "RadionuclidePositronFraction"
+      "comment": "RadionuclidePositronFraction",
+      "action": "none"
     },
     "00181077": {
-      "action": "none",
-      "comment": "RadiopharmaceuticalSpecificActivity"
+      "comment": "RadiopharmaceuticalSpecificActivity",
+      "action": "none"
     },
     "00181080": {
-      "action": "none",
-      "comment": "BeatRejectionFlag"
+      "comment": "BeatRejectionFlag",
+      "action": "none"
     },
     "00181081": {
-      "action": "none",
-      "comment": "LowRRValue"
+      "comment": "LowRRValue",
+      "action": "none"
     },
     "00181082": {
-      "action": "none",
-      "comment": "HighRRValue"
+      "comment": "HighRRValue",
+      "action": "none"
     },
     "00181083": {
-      "action": "none",
-      "comment": "IntervalsAcquired"
+      "comment": "IntervalsAcquired",
+      "action": "none"
     },
     "00181084": {
-      "action": "none",
-      "comment": "IntervalsRejected"
+      "comment": "IntervalsRejected",
+      "action": "none"
     },
     "00181085": {
-      "action": "none",
-      "comment": "PVCRejection"
+      "comment": "PVCRejection",
+      "action": "none"
     },
     "00181086": {
-      "action": "none",
-      "comment": "SkipBeats"
+      "comment": "SkipBeats",
+      "action": "none"
     },
     "00181088": {
-      "action": "none",
-      "comment": "HeartRate"
+      "comment": "HeartRate",
+      "action": "none"
     },
     "00181090": {
-      "action": "none",
-      "comment": "CardiacNumberOfImages"
+      "comment": "CardiacNumberOfImages",
+      "action": "none"
     },
     "00181094": {
-      "action": "none",
-      "comment": "TriggerWindow"
+      "comment": "TriggerWindow",
+      "action": "none"
     },
     "00181100": {
-      "action": "none",
-      "comment": "ReconstructionDiameter"
+      "comment": "ReconstructionDiameter",
+      "action": "none"
     },
     "00181110": {
-      "action": "none",
-      "comment": "DistanceSourceToDetector"
+      "comment": "DistanceSourceToDetector",
+      "action": "none"
     },
     "00181111": {
-      "action": "none",
-      "comment": "DistanceSourceToPatient"
+      "comment": "DistanceSourceToPatient",
+      "action": "none"
     },
     "00181114": {
-      "action": "none",
-      "comment": "EstimatedRadiographicMagnificationFactor"
+      "comment": "EstimatedRadiographicMagnificationFactor",
+      "action": "none"
     },
     "00181120": {
-      "action": "none",
-      "comment": "GantryDetectorTilt"
+      "comment": "GantryDetectorTilt",
+      "action": "none"
     },
     "00181121": {
-      "action": "none",
-      "comment": "GantryDetectorSlew"
+      "comment": "GantryDetectorSlew",
+      "action": "none"
     },
     "00181130": {
-      "action": "none",
-      "comment": "TableHeight"
+      "comment": "TableHeight",
+      "action": "none"
     },
     "00181131": {
-      "action": "none",
-      "comment": "TableTraverse"
+      "comment": "TableTraverse",
+      "action": "none"
     },
     "00181134": {
-      "action": "none",
-      "comment": "TableMotion"
+      "comment": "TableMotion",
+      "action": "none"
     },
     "00181135": {
-      "action": "none",
-      "comment": "TableVerticalIncrement"
+      "comment": "TableVerticalIncrement",
+      "action": "none"
     },
     "00181136": {
-      "action": "none",
-      "comment": "TableLateralIncrement"
+      "comment": "TableLateralIncrement",
+      "action": "none"
     },
     "00181137": {
-      "action": "none",
-      "comment": "TableLongitudinalIncrement"
+      "comment": "TableLongitudinalIncrement",
+      "action": "none"
     },
     "00181138": {
-      "action": "none",
-      "comment": "TableAngle"
+      "comment": "TableAngle",
+      "action": "none"
     },
     "0018113A": {
-      "action": "none",
-      "comment": "TableType"
+      "comment": "TableType",
+      "action": "none"
     },
     "00181140": {
-      "action": "none",
-      "comment": "RotationDirection"
+      "comment": "RotationDirection",
+      "action": "none"
     },
     "00181141": {
-      "action": "none",
-      "comment": "AngularPosition"
+      "comment": "AngularPosition",
+      "action": "none"
     },
     "00181142": {
-      "action": "none",
-      "comment": "RadialPosition"
+      "comment": "RadialPosition",
+      "action": "none"
     },
     "00181143": {
-      "action": "none",
-      "comment": "ScanArc"
+      "comment": "ScanArc",
+      "action": "none"
     },
     "00181144": {
-      "action": "none",
-      "comment": "AngularStep"
+      "comment": "AngularStep",
+      "action": "none"
     },
     "00181145": {
-      "action": "none",
-      "comment": "CenterOfRotationOffset"
+      "comment": "CenterOfRotationOffset",
+      "action": "none"
     },
     "00181147": {
-      "action": "none",
-      "comment": "FieldOfViewShape"
+      "comment": "FieldOfViewShape",
+      "action": "none"
     },
     "00181149": {
-      "action": "none",
-      "comment": "FieldOfViewDimensions"
+      "comment": "FieldOfViewDimensions",
+      "action": "none"
     },
     "00181150": {
-      "action": "none",
-      "comment": "ExposureTime"
+      "comment": "ExposureTime",
+      "action": "none"
     },
     "00181151": {
-      "action": "none",
-      "comment": "XRayTubeCurrent"
+      "comment": "XRayTubeCurrent",
+      "action": "none"
     },
     "00181152": {
-      "action": "none",
-      "comment": "Exposure"
+      "comment": "Exposure",
+      "action": "none"
     },
     "00181153": {
-      "action": "none",
-      "comment": "ExposureInuAs"
+      "comment": "ExposureInuAs",
+      "action": "none"
     },
     "00181154": {
-      "action": "none",
-      "comment": "AveragePulseWidth"
+      "comment": "AveragePulseWidth",
+      "action": "none"
     },
     "00181155": {
-      "action": "none",
-      "comment": "RadiationSetting"
+      "comment": "RadiationSetting",
+      "action": "none"
     },
     "00181156": {
-      "action": "none",
-      "comment": "RectificationType"
+      "comment": "RectificationType",
+      "action": "none"
     },
     "0018115A": {
-      "action": "none",
-      "comment": "RadiationMode"
+      "comment": "RadiationMode",
+      "action": "none"
     },
     "0018115E": {
-      "action": "none",
-      "comment": "ImageAndFluoroscopyAreaDoseProduct"
+      "comment": "ImageAndFluoroscopyAreaDoseProduct",
+      "action": "none"
     },
     "00181160": {
-      "action": "none",
-      "comment": "FilterType"
+      "comment": "FilterType",
+      "action": "none"
     },
     "00181161": {
-      "action": "none",
-      "comment": "TypeOfFilters"
+      "comment": "TypeOfFilters",
+      "action": "none"
     },
     "00181162": {
-      "action": "none",
-      "comment": "IntensifierSize"
+      "comment": "IntensifierSize",
+      "action": "none"
     },
     "00181164": {
-      "action": "none",
-      "comment": "ImagerPixelSpacing"
+      "comment": "ImagerPixelSpacing",
+      "action": "none"
     },
     "00181166": {
-      "action": "none",
-      "comment": "Grid"
+      "comment": "Grid",
+      "action": "none"
     },
     "00181170": {
-      "action": "none",
-      "comment": "GeneratorPower"
+      "comment": "GeneratorPower",
+      "action": "none"
     },
     "00181180": {
-      "action": "none",
-      "comment": "CollimatorGridName"
+      "comment": "CollimatorGridName",
+      "action": "none"
     },
     "00181181": {
-      "action": "none",
-      "comment": "CollimatorType"
+      "comment": "CollimatorType",
+      "action": "none"
     },
     "00181182": {
-      "action": "none",
-      "comment": "FocalDistance"
+      "comment": "FocalDistance",
+      "action": "none"
     },
     "00181183": {
-      "action": "none",
-      "comment": "XFocusCenter"
+      "comment": "XFocusCenter",
+      "action": "none"
     },
     "00181184": {
-      "action": "none",
-      "comment": "YFocusCenter"
+      "comment": "YFocusCenter",
+      "action": "none"
     },
     "00181190": {
-      "action": "none",
-      "comment": "FocalSpots"
+      "comment": "FocalSpots",
+      "action": "none"
     },
     "00181191": {
-      "action": "none",
-      "comment": "AnodeTargetMaterial"
+      "comment": "AnodeTargetMaterial",
+      "action": "none"
     },
     "001811A0": {
-      "action": "none",
-      "comment": "BodyPartThickness"
+      "comment": "BodyPartThickness",
+      "action": "none"
     },
     "001811A2": {
-      "action": "none",
-      "comment": "CompressionForce"
+      "comment": "CompressionForce",
+      "action": "none"
     },
     "00181200": {
-      "action": "hashdate",
-      "comment": "DateOfLastCalibration"
+      "comment": "DateOfLastCalibration",
+      "action": "hashdate"
     },
     "00181201": {
-      "action": "none",
-      "comment": "TimeOfLastCalibration"
+      "comment": "TimeOfLastCalibration",
+      "action": "none"
     },
     "00181210": {
-      "action": "none",
-      "comment": "ConvolutionKernel"
+      "comment": "ConvolutionKernel",
+      "action": "none"
     },
     "00181242": {
-      "action": "none",
-      "comment": "ActualFrameDuration"
+      "comment": "ActualFrameDuration",
+      "action": "none"
     },
     "00181243": {
-      "action": "none",
-      "comment": "CountRate"
+      "comment": "CountRate",
+      "action": "none"
     },
     "00181244": {
-      "action": "none",
-      "comment": "PreferredPlaybackSequencing"
+      "comment": "PreferredPlaybackSequencing",
+      "action": "none"
     },
     "00181250": {
-      "action": "none",
-      "comment": "ReceiveCoilName"
+      "comment": "ReceiveCoilName",
+      "action": "none"
     },
     "00181251": {
-      "action": "none",
-      "comment": "TransmitCoilName"
+      "comment": "TransmitCoilName",
+      "action": "none"
     },
     "00181260": {
-      "action": "none",
-      "comment": "PlateType"
+      "comment": "PlateType",
+      "action": "none"
     },
     "00181261": {
-      "action": "none",
-      "comment": "PhosphorType"
+      "comment": "PhosphorType",
+      "action": "none"
     },
     "00181300": {
-      "action": "none",
-      "comment": "ScanVelocity"
+      "comment": "ScanVelocity",
+      "action": "none"
     },
     "00181301": {
-      "action": "none",
-      "comment": "WholeBodyTechnique"
+      "comment": "WholeBodyTechnique",
+      "action": "none"
     },
     "00181302": {
-      "action": "none",
-      "comment": "ScanLength"
+      "comment": "ScanLength",
+      "action": "none"
     },
     "00181310": {
-      "action": "none",
-      "comment": "AcquisitionMatrix"
+      "comment": "AcquisitionMatrix",
+      "action": "none"
     },
     "00181312": {
-      "action": "none",
-      "comment": "InPlanePhaseEncodingDirection"
+      "comment": "InPlanePhaseEncodingDirection",
+      "action": "none"
     },
     "00181314": {
-      "action": "none",
-      "comment": "FlipAngle"
+      "comment": "FlipAngle",
+      "action": "none"
     },
     "00181315": {
-      "action": "none",
-      "comment": "VariableFlipAngleFlag"
+      "comment": "VariableFlipAngleFlag",
+      "action": "none"
     },
     "00181316": {
-      "action": "none",
-      "comment": "SAR"
+      "comment": "SAR",
+      "action": "none"
     },
     "00181318": {
-      "action": "none",
-      "comment": "dBdt"
+      "comment": "dBdt",
+      "action": "none"
     },
     "00181400": {
-      "action": "remove",
-      "comment": "AcquisitionDeviceProcessingDescription"
+      "comment": "AcquisitionDeviceProcessingDescription",
+      "action": "remove"
     },
     "00181401": {
-      "action": "none",
-      "comment": "AcquisitionDeviceProcessingCode"
+      "comment": "AcquisitionDeviceProcessingCode",
+      "action": "none"
     },
     "00181402": {
-      "action": "none",
-      "comment": "CassetteOrientation"
+      "comment": "CassetteOrientation",
+      "action": "none"
     },
     "00181403": {
-      "action": "none",
-      "comment": "CassetteSize"
+      "comment": "CassetteSize",
+      "action": "none"
     },
     "00181404": {
-      "action": "none",
-      "comment": "ExposuresOnPlate"
+      "comment": "ExposuresOnPlate",
+      "action": "none"
     },
     "00181405": {
-      "action": "none",
-      "comment": "RelativeXRayExposure"
+      "comment": "RelativeXRayExposure",
+      "action": "none"
     },
     "00181450": {
-      "action": "none",
-      "comment": "ColumnAngulation"
+      "comment": "ColumnAngulation",
+      "action": "none"
     },
     "00181460": {
-      "action": "none",
-      "comment": "TomoLayerHeight"
+      "comment": "TomoLayerHeight",
+      "action": "none"
     },
     "00181470": {
-      "action": "none",
-      "comment": "TomoAngle"
+      "comment": "TomoAngle",
+      "action": "none"
     },
     "00181480": {
-      "action": "none",
-      "comment": "TomoTime"
+      "comment": "TomoTime",
+      "action": "none"
     },
     "00181490": {
-      "action": "none",
-      "comment": "TomoType"
+      "comment": "TomoType",
+      "action": "none"
     },
     "00181491": {
-      "action": "none",
-      "comment": "TomoClass"
+      "comment": "TomoClass",
+      "action": "none"
     },
     "00181495": {
-      "action": "none",
-      "comment": "NumberOfTomosynthesisSourceImages"
+      "comment": "NumberOfTomosynthesisSourceImages",
+      "action": "none"
     },
     "00181500": {
-      "action": "none",
-      "comment": "PositionerMotion"
+      "comment": "PositionerMotion",
+      "action": "none"
     },
     "00181508": {
-      "action": "none",
-      "comment": "PositionerType"
+      "comment": "PositionerType",
+      "action": "none"
     },
     "00181510": {
-      "action": "none",
-      "comment": "PositionerPrimaryAngle"
+      "comment": "PositionerPrimaryAngle",
+      "action": "none"
     },
     "00181511": {
-      "action": "none",
-      "comment": "PositionerSecondaryAngle"
+      "comment": "PositionerSecondaryAngle",
+      "action": "none"
     },
     "00181520": {
-      "action": "none",
-      "comment": "PositionerPrimaryAngleIncrement"
+      "comment": "PositionerPrimaryAngleIncrement",
+      "action": "none"
     },
     "00181521": {
-      "action": "none",
-      "comment": "PositionerSecondaryAngleIncrement"
+      "comment": "PositionerSecondaryAngleIncrement",
+      "action": "none"
     },
     "00181530": {
-      "action": "none",
-      "comment": "DetectorPrimaryAngle"
+      "comment": "DetectorPrimaryAngle",
+      "action": "none"
     },
     "00181531": {
-      "action": "none",
-      "comment": "DetectorSecondaryAngle"
+      "comment": "DetectorSecondaryAngle",
+      "action": "none"
     },
     "00181600": {
-      "action": "none",
-      "comment": "ShutterShape"
+      "comment": "ShutterShape",
+      "action": "none"
     },
     "00181602": {
-      "action": "none",
-      "comment": "ShutterLeftVerticalEdge"
+      "comment": "ShutterLeftVerticalEdge",
+      "action": "none"
     },
     "00181604": {
-      "action": "none",
-      "comment": "ShutterRightVerticalEdge"
+      "comment": "ShutterRightVerticalEdge",
+      "action": "none"
     },
     "00181606": {
-      "action": "none",
-      "comment": "ShutterUpperHorizontalEdge"
+      "comment": "ShutterUpperHorizontalEdge",
+      "action": "none"
     },
     "00181608": {
-      "action": "none",
-      "comment": "ShutterLowerHorizontalEdge"
+      "comment": "ShutterLowerHorizontalEdge",
+      "action": "none"
     },
     "00181610": {
-      "action": "none",
-      "comment": "CenterOfCircularShutter"
+      "comment": "CenterOfCircularShutter",
+      "action": "none"
     },
     "00181612": {
-      "action": "none",
-      "comment": "RadiusOfCircularShutter"
+      "comment": "RadiusOfCircularShutter",
+      "action": "none"
     },
     "00181620": {
-      "action": "none",
-      "comment": "VerticesOfThePolygonalShutter"
+      "comment": "VerticesOfThePolygonalShutter",
+      "action": "none"
     },
     "00181622": {
-      "action": "none",
-      "comment": "ShutterPresentationValue"
+      "comment": "ShutterPresentationValue",
+      "action": "none"
     },
     "00181623": {
-      "action": "none",
-      "comment": "ShutterOverlayGroup"
+      "comment": "ShutterOverlayGroup",
+      "action": "none"
     },
     "00181700": {
-      "action": "none",
-      "comment": "CollimatorShape"
+      "comment": "CollimatorShape",
+      "action": "none"
     },
     "00181702": {
-      "action": "none",
-      "comment": "CollimatorLeftVerticalEdge"
+      "comment": "CollimatorLeftVerticalEdge",
+      "action": "none"
     },
     "00181704": {
-      "action": "none",
-      "comment": "CollimatorRightVerticalEdge"
+      "comment": "CollimatorRightVerticalEdge",
+      "action": "none"
     },
     "00181706": {
-      "action": "none",
-      "comment": "CollimatorUpperHorizontalEdge"
+      "comment": "CollimatorUpperHorizontalEdge",
+      "action": "none"
     },
     "00181708": {
-      "action": "none",
-      "comment": "CollimatorLowerHorizontalEdge"
+      "comment": "CollimatorLowerHorizontalEdge",
+      "action": "none"
     },
     "00181710": {
-      "action": "none",
-      "comment": "CenterOfCircularCollimator"
+      "comment": "CenterOfCircularCollimator",
+      "action": "none"
     },
     "00181712": {
-      "action": "none",
-      "comment": "RadiusOfCircularCollimator"
+      "comment": "RadiusOfCircularCollimator",
+      "action": "none"
     },
     "00181720": {
-      "action": "none",
-      "comment": "VerticesOfThePolygonalCollimator"
+      "comment": "VerticesOfThePolygonalCollimator",
+      "action": "none"
     },
     "00181800": {
-      "action": "none",
-      "comment": "AcquisitionTimeSynchronized"
+      "comment": "AcquisitionTimeSynchronized",
+      "action": "none"
     },
     "00181801": {
-      "action": "none",
-      "comment": "TimeSource"
+      "comment": "TimeSource",
+      "action": "none"
     },
     "00181802": {
-      "action": "none",
-      "comment": "TimeDistributionProtocol"
+      "comment": "TimeDistributionProtocol",
+      "action": "none"
     },
     "00184000": {
-      "action": "remove",
-      "comment": "AcquisitionComments"
+      "comment": "AcquisitionComments",
+      "action": "remove"
     },
     "00185000": {
-      "action": "none",
-      "comment": "OutputPower"
+      "comment": "OutputPower",
+      "action": "none"
     },
     "00185010": {
-      "action": "none",
-      "comment": "TransducerData"
+      "comment": "TransducerData",
+      "action": "none"
     },
     "00185012": {
-      "action": "none",
-      "comment": "FocusDepth"
+      "comment": "FocusDepth",
+      "action": "none"
     },
     "00185020": {
-      "action": "none",
-      "comment": "ProcessingFunction"
+      "comment": "ProcessingFunction",
+      "action": "none"
     },
     "00185021": {
-      "action": "none",
-      "comment": "PostprocessingFunction"
+      "comment": "PostprocessingFunction",
+      "action": "none"
     },
     "00185022": {
-      "action": "none",
-      "comment": "MechanicalIndex"
+      "comment": "MechanicalIndex",
+      "action": "none"
     },
     "00185024": {
-      "action": "none",
-      "comment": "BoneThermalIndex"
+      "comment": "BoneThermalIndex",
+      "action": "none"
     },
     "00185026": {
-      "action": "none",
-      "comment": "CranialThermalIndex"
+      "comment": "CranialThermalIndex",
+      "action": "none"
     },
     "00185027": {
-      "action": "none",
-      "comment": "SoftTissueThermalIndex"
+      "comment": "SoftTissueThermalIndex",
+      "action": "none"
     },
     "00185028": {
-      "action": "none",
-      "comment": "SoftTissueFocusThermalIndex"
+      "comment": "SoftTissueFocusThermalIndex",
+      "action": "none"
     },
     "00185029": {
-      "action": "none",
-      "comment": "SoftTissueSurfaceThermalIndex"
+      "comment": "SoftTissueSurfaceThermalIndex",
+      "action": "none"
     },
     "00185050": {
-      "action": "none",
-      "comment": "DepthOfScanField"
+      "comment": "DepthOfScanField",
+      "action": "none"
     },
     "00185100": {
-      "action": "none",
-      "comment": "PatientPosition"
+      "comment": "PatientPosition",
+      "action": "none"
     },
     "00185101": {
-      "action": "none",
-      "comment": "ViewPosition"
+      "comment": "ViewPosition",
+      "action": "none"
     },
     "00185104": {
-      "action": "none",
-      "comment": "ProjectionEponymousNameCodeSequence"
+      "comment": "ProjectionEponymousNameCodeSequence",
+      "action": "none"
     },
     "00185210": {
-      "action": "none",
-      "comment": "ImageTransformationMatrix"
+      "comment": "ImageTransformationMatrix",
+      "action": "none"
     },
     "00185212": {
-      "action": "none",
-      "comment": "ImageTranslationVector"
+      "comment": "ImageTranslationVector",
+      "action": "none"
     },
     "00186000": {
-      "action": "none",
-      "comment": "Sensitivity"
+      "comment": "Sensitivity",
+      "action": "none"
     },
     "00186011": {
-      "action": "none",
-      "comment": "SequenceOfUltrasoundRegions"
+      "comment": "SequenceOfUltrasoundRegions",
+      "action": "none"
     },
     "00186012": {
-      "action": "none",
-      "comment": "RegionSpatialFormat"
+      "comment": "RegionSpatialFormat",
+      "action": "none"
     },
     "00186014": {
-      "action": "none",
-      "comment": "RegionDataType"
+      "comment": "RegionDataType",
+      "action": "none"
     },
     "00186016": {
-      "action": "none",
-      "comment": "RegionFlags"
+      "comment": "RegionFlags",
+      "action": "none"
     },
     "00186018": {
-      "action": "none",
-      "comment": "RegionLocationMinX0"
+      "comment": "RegionLocationMinX0",
+      "action": "none"
     },
     "0018601A": {
-      "action": "none",
-      "comment": "RegionLocationMinY0"
+      "comment": "RegionLocationMinY0",
+      "action": "none"
     },
     "0018601C": {
-      "action": "none",
-      "comment": "RegionLocationMaxX1"
+      "comment": "RegionLocationMaxX1",
+      "action": "none"
     },
     "0018601E": {
-      "action": "none",
-      "comment": "RegionLocationMaxY1"
+      "comment": "RegionLocationMaxY1",
+      "action": "none"
     },
     "00186020": {
-      "action": "none",
-      "comment": "ReferencePixelX0"
+      "comment": "ReferencePixelX0",
+      "action": "none"
     },
     "00186022": {
-      "action": "none",
-      "comment": "ReferencePixelY0"
+      "comment": "ReferencePixelY0",
+      "action": "none"
     },
     "00186024": {
-      "action": "none",
-      "comment": "PhysicalUnitsXDirection"
+      "comment": "PhysicalUnitsXDirection",
+      "action": "none"
     },
     "00186026": {
-      "action": "none",
-      "comment": "PhysicalUnitsYDirection"
+      "comment": "PhysicalUnitsYDirection",
+      "action": "none"
     },
     "00186028": {
-      "action": "none",
-      "comment": "ReferencePixelPhysicalValueX"
+      "comment": "ReferencePixelPhysicalValueX",
+      "action": "none"
     },
     "0018602A": {
-      "action": "none",
-      "comment": "ReferencePixelPhysicalValueY"
+      "comment": "ReferencePixelPhysicalValueY",
+      "action": "none"
     },
     "0018602C": {
-      "action": "none",
-      "comment": "PhysicalDeltaX"
+      "comment": "PhysicalDeltaX",
+      "action": "none"
     },
     "0018602E": {
-      "action": "none",
-      "comment": "PhysicalDeltaY"
+      "comment": "PhysicalDeltaY",
+      "action": "none"
     },
     "00186030": {
-      "action": "none",
-      "comment": "TransducerFrequency"
+      "comment": "TransducerFrequency",
+      "action": "none"
     },
     "00186031": {
-      "action": "none",
-      "comment": "TransducerType"
+      "comment": "TransducerType",
+      "action": "none"
     },
     "00186032": {
-      "action": "none",
-      "comment": "PulseRepetitionFrequency"
+      "comment": "PulseRepetitionFrequency",
+      "action": "none"
     },
     "00186034": {
-      "action": "none",
-      "comment": "DopplerCorrectionAngle"
+      "comment": "DopplerCorrectionAngle",
+      "action": "none"
     },
     "00186036": {
-      "action": "none",
-      "comment": "SteeringAngle"
+      "comment": "SteeringAngle",
+      "action": "none"
     },
     "00186039": {
-      "action": "none",
-      "comment": "DopplerSampleVolumeXPosition"
+      "comment": "DopplerSampleVolumeXPosition",
+      "action": "none"
     },
     "0018603B": {
-      "action": "none",
-      "comment": "DopplerSampleVolumeYPosition"
+      "comment": "DopplerSampleVolumeYPosition",
+      "action": "none"
     },
     "0018603D": {
-      "action": "none",
-      "comment": "TMLinePositionX0"
+      "comment": "TMLinePositionX0",
+      "action": "none"
     },
     "0018603F": {
-      "action": "none",
-      "comment": "TMLinePositionY0"
+      "comment": "TMLinePositionY0",
+      "action": "none"
     },
     "00186041": {
-      "action": "none",
-      "comment": "TMLinePositionX1"
+      "comment": "TMLinePositionX1",
+      "action": "none"
     },
     "00186043": {
-      "action": "none",
-      "comment": "TMLinePositionY1"
+      "comment": "TMLinePositionY1",
+      "action": "none"
     },
     "00186044": {
-      "action": "none",
-      "comment": "PixelComponentOrganization"
+      "comment": "PixelComponentOrganization",
+      "action": "none"
     },
     "00186046": {
-      "action": "none",
-      "comment": "PixelComponentMask"
+      "comment": "PixelComponentMask",
+      "action": "none"
     },
     "00186048": {
-      "action": "none",
-      "comment": "PixelComponentRangeStart"
+      "comment": "PixelComponentRangeStart",
+      "action": "none"
     },
     "0018604A": {
-      "action": "none",
-      "comment": "PixelComponentRangeStop"
+      "comment": "PixelComponentRangeStop",
+      "action": "none"
     },
     "0018604C": {
-      "action": "none",
-      "comment": "PixelComponentPhysicalUnits"
+      "comment": "PixelComponentPhysicalUnits",
+      "action": "none"
     },
     "0018604E": {
-      "action": "none",
-      "comment": "PixelComponentDataType"
+      "comment": "PixelComponentDataType",
+      "action": "none"
     },
     "00186050": {
-      "action": "none",
-      "comment": "NumberOfTableBreakPoints"
+      "comment": "NumberOfTableBreakPoints",
+      "action": "none"
     },
     "00186052": {
-      "action": "none",
-      "comment": "TableOfXBreakPoints"
+      "comment": "TableOfXBreakPoints",
+      "action": "none"
     },
     "00186054": {
-      "action": "none",
-      "comment": "TableOfYBreakPoints"
+      "comment": "TableOfYBreakPoints",
+      "action": "none"
     },
     "00186056": {
-      "action": "none",
-      "comment": "NumberOfTableEntries"
+      "comment": "NumberOfTableEntries",
+      "action": "none"
     },
     "00186058": {
-      "action": "none",
-      "comment": "TableOfPixelValues"
+      "comment": "TableOfPixelValues",
+      "action": "none"
     },
     "0018605A": {
-      "action": "none",
-      "comment": "TableOfParameterValues"
+      "comment": "TableOfParameterValues",
+      "action": "none"
     },
     "00187000": {
-      "action": "none",
-      "comment": "DetectorConditionsNominalFlag"
+      "comment": "DetectorConditionsNominalFlag",
+      "action": "none"
     },
     "00187001": {
-      "action": "none",
-      "comment": "DetectorTemperature"
+      "comment": "DetectorTemperature",
+      "action": "none"
     },
     "00187004": {
-      "action": "none",
-      "comment": "DetectorType"
+      "comment": "DetectorType",
+      "action": "none"
     },
     "00187005": {
-      "action": "none",
-      "comment": "DetectorConfiguration"
+      "comment": "DetectorConfiguration",
+      "action": "none"
     },
     "00187006": {
-      "action": "none",
-      "comment": "DetectorDescription"
+      "comment": "DetectorDescription",
+      "action": "none"
     },
     "00187008": {
-      "action": "none",
-      "comment": "DetectorMode"
+      "comment": "DetectorMode",
+      "action": "none"
     },
     "0018700A": {
-      "action": "remove",
-      "comment": "DetectorID"
+      "comment": "DetectorID",
+      "action": "remove"
     },
     "0018700C": {
-      "action": "hashdate",
-      "comment": "DateOfLastDetectorCalibration"
+      "comment": "DateOfLastDetectorCalibration",
+      "action": "hashdate"
     },
     "0018700E": {
-      "action": "none",
-      "comment": "TimeOfLastDetectorCalibration"
+      "comment": "TimeOfLastDetectorCalibration",
+      "action": "none"
     },
     "00187010": {
-      "action": "none",
-      "comment": "ExposuresOnDetectorSinceLastCalibration"
+      "comment": "ExposuresOnDetectorSinceLastCalibration",
+      "action": "none"
     },
     "00187011": {
-      "action": "none",
-      "comment": "ExposuresOnDetectorSinceManufactured"
+      "comment": "ExposuresOnDetectorSinceManufactured",
+      "action": "none"
     },
     "00187012": {
-      "action": "none",
-      "comment": "DetectorTimeSinceLastExposure"
+      "comment": "DetectorTimeSinceLastExposure",
+      "action": "none"
     },
     "00187014": {
-      "action": "none",
-      "comment": "DetectorActiveTime"
+      "comment": "DetectorActiveTime",
+      "action": "none"
     },
     "00187016": {
-      "action": "none",
-      "comment": "DetectorActivationOffsetFromExposure"
+      "comment": "DetectorActivationOffsetFromExposure",
+      "action": "none"
     },
     "0018701A": {
-      "action": "none",
-      "comment": "DetectorBinning"
+      "comment": "DetectorBinning",
+      "action": "none"
     },
     "00187020": {
-      "action": "none",
-      "comment": "DetectorElementPhysicalSize"
+      "comment": "DetectorElementPhysicalSize",
+      "action": "none"
     },
     "00187022": {
-      "action": "none",
-      "comment": "DetectorElementSpacing"
+      "comment": "DetectorElementSpacing",
+      "action": "none"
     },
     "00187024": {
-      "action": "none",
-      "comment": "DetectorActiveShape"
+      "comment": "DetectorActiveShape",
+      "action": "none"
     },
     "00187026": {
-      "action": "none",
-      "comment": "DetectorActiveDimensions"
+      "comment": "DetectorActiveDimensions",
+      "action": "none"
     },
     "00187028": {
-      "action": "none",
-      "comment": "DetectorActiveOrigin"
+      "comment": "DetectorActiveOrigin",
+      "action": "none"
     },
     "00187030": {
-      "action": "none",
-      "comment": "FieldOfViewOrigin"
+      "comment": "FieldOfViewOrigin",
+      "action": "none"
     },
     "00187032": {
-      "action": "none",
-      "comment": "FieldOfViewRotation"
+      "comment": "FieldOfViewRotation",
+      "action": "none"
     },
     "00187034": {
-      "action": "none",
-      "comment": "FieldOfViewHorizontalFlip"
+      "comment": "FieldOfViewHorizontalFlip",
+      "action": "none"
     },
     "00187040": {
-      "action": "none",
-      "comment": "GridAbsorbingMaterial"
+      "comment": "GridAbsorbingMaterial",
+      "action": "none"
     },
     "00187041": {
-      "action": "none",
-      "comment": "GridSpacingMaterial"
+      "comment": "GridSpacingMaterial",
+      "action": "none"
     },
     "00187042": {
-      "action": "none",
-      "comment": "GridThickness"
+      "comment": "GridThickness",
+      "action": "none"
     },
     "00187044": {
-      "action": "none",
-      "comment": "GridPitch"
+      "comment": "GridPitch",
+      "action": "none"
     },
     "00187046": {
-      "action": "none",
-      "comment": "GridAspectRatio"
+      "comment": "GridAspectRatio",
+      "action": "none"
     },
     "00187048": {
-      "action": "none",
-      "comment": "GridPeriod"
+      "comment": "GridPeriod",
+      "action": "none"
     },
     "0018704C": {
-      "action": "none",
-      "comment": "GridFocalDistance"
+      "comment": "GridFocalDistance",
+      "action": "none"
     },
     "00187050": {
-      "action": "none",
-      "comment": "FilterMaterial"
+      "comment": "FilterMaterial",
+      "action": "none"
     },
     "00187052": {
-      "action": "none",
-      "comment": "FilterThicknessMinimum"
+      "comment": "FilterThicknessMinimum",
+      "action": "none"
     },
     "00187054": {
-      "action": "none",
-      "comment": "FilterThicknessMaximum"
+      "comment": "FilterThicknessMaximum",
+      "action": "none"
     },
     "00187060": {
-      "action": "none",
-      "comment": "ExposureControlMode"
+      "comment": "ExposureControlMode",
+      "action": "none"
     },
     "00187062": {
-      "action": "none",
-      "comment": "ExposureControlModeDescription"
+      "comment": "ExposureControlModeDescription",
+      "action": "none"
     },
     "00187064": {
-      "action": "none",
-      "comment": "ExposureStatus"
+      "comment": "ExposureStatus",
+      "action": "none"
     },
     "00187065": {
-      "action": "none",
-      "comment": "PhototimerSetting"
+      "comment": "PhototimerSetting",
+      "action": "none"
     },
     "00188150": {
-      "action": "none",
-      "comment": "ExposureTimeInuS"
+      "comment": "ExposureTimeInuS",
+      "action": "none"
     },
     "00188151": {
-      "action": "none",
-      "comment": "XRayTubeCurrentInuA"
+      "comment": "XRayTubeCurrentInuA",
+      "action": "none"
     },
     "00189004": {
-      "action": "none",
-      "comment": "ContentQualification"
+      "comment": "ContentQualification",
+      "action": "none"
     },
     "00189005": {
-      "action": "none",
-      "comment": "PulseSequenceName"
+      "comment": "PulseSequenceName",
+      "action": "none"
     },
     "00189006": {
-      "action": "none",
-      "comment": "MRImagingModifierSequence"
+      "comment": "MRImagingModifierSequence",
+      "action": "none"
     },
     "00189008": {
-      "action": "none",
-      "comment": "EchoPulseSequence"
+      "comment": "EchoPulseSequence",
+      "action": "none"
     },
     "00189009": {
-      "action": "none",
-      "comment": "InversionRecovery"
+      "comment": "InversionRecovery",
+      "action": "none"
     },
     "00189010": {
-      "action": "none",
-      "comment": "FlowCompensation"
+      "comment": "FlowCompensation",
+      "action": "none"
     },
     "00189011": {
-      "action": "none",
-      "comment": "MultipleSpinEcho"
+      "comment": "MultipleSpinEcho",
+      "action": "none"
     },
     "00189012": {
-      "action": "none",
-      "comment": "MultiPlanarExcitation"
+      "comment": "MultiPlanarExcitation",
+      "action": "none"
     },
     "00189014": {
-      "action": "none",
-      "comment": "PhaseContrast"
+      "comment": "PhaseContrast",
+      "action": "none"
     },
     "00189015": {
-      "action": "none",
-      "comment": "TimeOfFlightContrast"
+      "comment": "TimeOfFlightContrast",
+      "action": "none"
     },
     "00189016": {
-      "action": "none",
-      "comment": "Spoiling"
+      "comment": "Spoiling",
+      "action": "none"
     },
     "00189017": {
-      "action": "none",
-      "comment": "SteadyStatePulseSequence"
+      "comment": "SteadyStatePulseSequence",
+      "action": "none"
     },
     "00189018": {
-      "action": "none",
-      "comment": "EchoPlanarPulseSequence"
+      "comment": "EchoPlanarPulseSequence",
+      "action": "none"
     },
     "00189019": {
-      "action": "none",
-      "comment": "TagAngleFirstAxis"
+      "comment": "TagAngleFirstAxis",
+      "action": "none"
     },
     "00189020": {
-      "action": "none",
-      "comment": "MagnetizationTransfer"
+      "comment": "MagnetizationTransfer",
+      "action": "none"
     },
     "00189021": {
-      "action": "none",
-      "comment": "T2Preparation"
+      "comment": "T2Preparation",
+      "action": "none"
     },
     "00189022": {
-      "action": "none",
-      "comment": "BloodSignalNulling"
+      "comment": "BloodSignalNulling",
+      "action": "none"
     },
     "00189024": {
-      "action": "none",
-      "comment": "SaturationRecovery"
+      "comment": "SaturationRecovery",
+      "action": "none"
     },
     "00189025": {
-      "action": "none",
-      "comment": "SpectrallySelectedSuppression"
+      "comment": "SpectrallySelectedSuppression",
+      "action": "none"
     },
     "00189026": {
-      "action": "none",
-      "comment": "SpectrallySelectedExcitation"
+      "comment": "SpectrallySelectedExcitation",
+      "action": "none"
     },
     "00189027": {
-      "action": "none",
-      "comment": "SpatialPresaturation"
+      "comment": "SpatialPresaturation",
+      "action": "none"
     },
     "00189028": {
-      "action": "none",
-      "comment": "Tagging"
+      "comment": "Tagging",
+      "action": "none"
     },
     "00189029": {
-      "action": "none",
-      "comment": "OversamplingPhase"
+      "comment": "OversamplingPhase",
+      "action": "none"
     },
     "00189030": {
-      "action": "none",
-      "comment": "TagSpacingFirstDimension"
+      "comment": "TagSpacingFirstDimension",
+      "action": "none"
     },
     "00189032": {
-      "action": "none",
-      "comment": "GeometryOfKSpaceTraversal"
+      "comment": "GeometryOfKSpaceTraversal",
+      "action": "none"
     },
     "00189033": {
-      "action": "none",
-      "comment": "SegmentedKSpaceTraversal"
+      "comment": "SegmentedKSpaceTraversal",
+      "action": "none"
     },
     "00189034": {
-      "action": "none",
-      "comment": "RectilinearPhaseEncodeReordering"
+      "comment": "RectilinearPhaseEncodeReordering",
+      "action": "none"
     },
     "00189035": {
-      "action": "none",
-      "comment": "TagThickness"
+      "comment": "TagThickness",
+      "action": "none"
     },
     "00189036": {
-      "action": "none",
-      "comment": "PartialFourierDirection"
+      "comment": "PartialFourierDirection",
+      "action": "none"
     },
     "00189037": {
-      "action": "none",
-      "comment": "CardiacSynchronizationTechnique"
+      "comment": "CardiacSynchronizationTechnique",
+      "action": "none"
     },
     "00189041": {
-      "action": "none",
-      "comment": "ReceiveCoilManufacturerName"
+      "comment": "ReceiveCoilManufacturerName",
+      "action": "none"
     },
     "00189042": {
-      "action": "none",
-      "comment": "MRReceiveCoilSequence"
+      "comment": "MRReceiveCoilSequence",
+      "action": "none"
     },
     "00189043": {
-      "action": "none",
-      "comment": "ReceiveCoilType"
+      "comment": "ReceiveCoilType",
+      "action": "none"
     },
     "00189044": {
-      "action": "none",
-      "comment": "QuadratureReceiveCoil"
+      "comment": "QuadratureReceiveCoil",
+      "action": "none"
     },
     "00189045": {
-      "action": "none",
-      "comment": "MultiCoilDefinitionSequence"
+      "comment": "MultiCoilDefinitionSequence",
+      "action": "none"
     },
     "00189046": {
-      "action": "none",
-      "comment": "MultiCoilConfiguration"
+      "comment": "MultiCoilConfiguration",
+      "action": "none"
     },
     "00189047": {
-      "action": "none",
-      "comment": "MultiCoilElementName"
+      "comment": "MultiCoilElementName",
+      "action": "none"
     },
     "00189048": {
-      "action": "none",
-      "comment": "MultiCoilElementUsed"
+      "comment": "MultiCoilElementUsed",
+      "action": "none"
     },
     "00189049": {
-      "action": "none",
-      "comment": "MRTransmitCoilSequence"
+      "comment": "MRTransmitCoilSequence",
+      "action": "none"
     },
     "00189050": {
-      "action": "none",
-      "comment": "TransmitCoilManufacturerName"
+      "comment": "TransmitCoilManufacturerName",
+      "action": "none"
     },
     "00189051": {
-      "action": "none",
-      "comment": "TransmitCoilType"
+      "comment": "TransmitCoilType",
+      "action": "none"
     },
     "00189052": {
-      "action": "none",
-      "comment": "SpectralWidth"
+      "comment": "SpectralWidth",
+      "action": "none"
     },
     "00189053": {
-      "action": "none",
-      "comment": "ChemicalShiftReference"
+      "comment": "ChemicalShiftReference",
+      "action": "none"
     },
     "00189054": {
-      "action": "none",
-      "comment": "VolumeLocalizationTechnique"
+      "comment": "VolumeLocalizationTechnique",
+      "action": "none"
     },
     "00189058": {
-      "action": "none",
-      "comment": "MRAcquisitionFrequencyEncodingSteps"
+      "comment": "MRAcquisitionFrequencyEncodingSteps",
+      "action": "none"
     },
     "00189059": {
-      "action": "none",
-      "comment": "Decoupling"
+      "comment": "Decoupling",
+      "action": "none"
     },
     "00189060": {
-      "action": "none",
-      "comment": "DecoupledNucleus"
+      "comment": "DecoupledNucleus",
+      "action": "none"
     },
     "00189061": {
-      "action": "none",
-      "comment": "DecouplingFrequency"
+      "comment": "DecouplingFrequency",
+      "action": "none"
     },
     "00189062": {
-      "action": "none",
-      "comment": "DecouplingMethod"
+      "comment": "DecouplingMethod",
+      "action": "none"
     },
     "00189063": {
-      "action": "none",
-      "comment": "DecouplingChemicalShiftReference"
+      "comment": "DecouplingChemicalShiftReference",
+      "action": "none"
     },
     "00189064": {
-      "action": "none",
-      "comment": "KSpaceFiltering"
+      "comment": "KSpaceFiltering",
+      "action": "none"
     },
     "00189065": {
-      "action": "none",
-      "comment": "TimeDomainFiltering"
+      "comment": "TimeDomainFiltering",
+      "action": "none"
     },
     "00189066": {
-      "action": "none",
-      "comment": "NumberOfZeroFills"
+      "comment": "NumberOfZeroFills",
+      "action": "none"
     },
     "00189067": {
-      "action": "none",
-      "comment": "BaselineCorrection"
+      "comment": "BaselineCorrection",
+      "action": "none"
     },
     "00189069": {
-      "action": "none",
-      "comment": "ParallelReductionFactorInPlane"
+      "comment": "ParallelReductionFactorInPlane",
+      "action": "none"
     },
     "00189070": {
-      "action": "none",
-      "comment": "CardiacRRIntervalSpecified"
+      "comment": "CardiacRRIntervalSpecified",
+      "action": "none"
     },
     "00189073": {
-      "action": "none",
-      "comment": "AcquisitionDuration"
+      "comment": "AcquisitionDuration",
+      "action": "none"
     },
     "00189074": {
-      "action": "hashdate",
-      "comment": "FrameAcquisitionDateTime"
+      "comment": "FrameAcquisitionDateTime",
+      "action": "hashdate"
     },
     "00189075": {
-      "action": "none",
-      "comment": "DiffusionDirectionality"
+      "comment": "DiffusionDirectionality",
+      "action": "none"
     },
     "00189076": {
-      "action": "none",
-      "comment": "DiffusionGradientDirectionSequence"
+      "comment": "DiffusionGradientDirectionSequence",
+      "action": "none"
     },
     "00189077": {
-      "action": "none",
-      "comment": "ParallelAcquisition"
+      "comment": "ParallelAcquisition",
+      "action": "none"
     },
     "00189078": {
-      "action": "none",
-      "comment": "ParallelAcquisitionTechnique"
+      "comment": "ParallelAcquisitionTechnique",
+      "action": "none"
     },
     "00189079": {
-      "action": "none",
-      "comment": "InversionTimes"
+      "comment": "InversionTimes",
+      "action": "none"
     },
     "00189080": {
-      "action": "none",
-      "comment": "MetaboliteMapDescription"
+      "comment": "MetaboliteMapDescription",
+      "action": "none"
     },
     "00189081": {
-      "action": "none",
-      "comment": "PartialFourier"
+      "comment": "PartialFourier",
+      "action": "none"
     },
     "00189082": {
-      "action": "none",
-      "comment": "EffectiveEchoTime"
+      "comment": "EffectiveEchoTime",
+      "action": "none"
     },
     "00189084": {
-      "action": "none",
-      "comment": "ChemicalShiftSequence"
+      "comment": "ChemicalShiftSequence",
+      "action": "none"
     },
     "00189085": {
-      "action": "none",
-      "comment": "CardiacSignalSource"
+      "comment": "CardiacSignalSource",
+      "action": "none"
     },
     "00189087": {
-      "action": "none",
-      "comment": "DiffusionBValue"
+      "comment": "DiffusionBValue",
+      "action": "none"
     },
     "00189089": {
-      "action": "none",
-      "comment": "DiffusionGradientOrientation"
+      "comment": "DiffusionGradientOrientation",
+      "action": "none"
     },
     "00189090": {
-      "action": "none",
-      "comment": "VelocityEncodingDirection"
+      "comment": "VelocityEncodingDirection",
+      "action": "none"
     },
     "00189091": {
-      "action": "none",
-      "comment": "VelocityEncodingMinimumValue"
+      "comment": "VelocityEncodingMinimumValue",
+      "action": "none"
     },
     "00189093": {
-      "action": "none",
-      "comment": "NumberOfKSpaceTrajectories"
+      "comment": "NumberOfKSpaceTrajectories",
+      "action": "none"
     },
     "00189094": {
-      "action": "none",
-      "comment": "CoverageOfKSpace"
+      "comment": "CoverageOfKSpace",
+      "action": "none"
     },
     "00189095": {
-      "action": "none",
-      "comment": "SpectroscopyAcquisitionPhaseRows"
+      "comment": "SpectroscopyAcquisitionPhaseRows",
+      "action": "none"
     },
     "00189098": {
-      "action": "none",
-      "comment": "TransmitterFrequency"
+      "comment": "TransmitterFrequency",
+      "action": "none"
     },
     "00189100": {
-      "action": "none",
-      "comment": "ResonantNucleus"
+      "comment": "ResonantNucleus",
+      "action": "none"
     },
     "00189101": {
-      "action": "none",
-      "comment": "FrequencyCorrection"
+      "comment": "FrequencyCorrection",
+      "action": "none"
     },
     "00189103": {
-      "action": "none",
-      "comment": "MRSpectroscopyFOVGeometrySequence"
+      "comment": "MRSpectroscopyFOVGeometrySequence",
+      "action": "none"
     },
     "00189104": {
-      "action": "none",
-      "comment": "SlabThickness"
+      "comment": "SlabThickness",
+      "action": "none"
     },
     "00189105": {
-      "action": "none",
-      "comment": "SlabOrientation"
+      "comment": "SlabOrientation",
+      "action": "none"
     },
     "00189106": {
-      "action": "none",
-      "comment": "MidSlabPosition"
+      "comment": "MidSlabPosition",
+      "action": "none"
     },
     "00189107": {
-      "action": "none",
-      "comment": "MRSpatialSaturationSequence"
+      "comment": "MRSpatialSaturationSequence",
+      "action": "none"
     },
     "00189112": {
-      "action": "none",
-      "comment": "MRTimingAndRelatedParametersSequence"
+      "comment": "MRTimingAndRelatedParametersSequence",
+      "action": "none"
     },
     "00189114": {
-      "action": "none",
-      "comment": "MREchoSequence"
+      "comment": "MREchoSequence",
+      "action": "none"
     },
     "00189115": {
-      "action": "none",
-      "comment": "MRModifierSequence"
+      "comment": "MRModifierSequence",
+      "action": "none"
     },
     "00189117": {
-      "action": "none",
-      "comment": "MRDiffusionSequence"
+      "comment": "MRDiffusionSequence",
+      "action": "none"
     },
     "00189118": {
-      "action": "none",
-      "comment": "CardiacSynchronizationSequence"
+      "comment": "CardiacSynchronizationSequence",
+      "action": "none"
     },
     "00189119": {
-      "action": "none",
-      "comment": "MRAveragesSequence"
+      "comment": "MRAveragesSequence",
+      "action": "none"
     },
     "00189125": {
-      "action": "none",
-      "comment": "MRFOVGeometrySequence"
+      "comment": "MRFOVGeometrySequence",
+      "action": "none"
     },
     "00189126": {
-      "action": "none",
-      "comment": "VolumeLocalizationSequence"
+      "comment": "VolumeLocalizationSequence",
+      "action": "none"
     },
     "00189127": {
-      "action": "none",
-      "comment": "SpectroscopyAcquisitionDataColumns"
+      "comment": "SpectroscopyAcquisitionDataColumns",
+      "action": "none"
     },
     "00189147": {
-      "action": "none",
-      "comment": "DiffusionAnisotropyType"
+      "comment": "DiffusionAnisotropyType",
+      "action": "none"
     },
     "00189151": {
-      "action": "hashdate",
-      "comment": "FrameReferenceDateTime"
+      "comment": "FrameReferenceDateTime",
+      "action": "hashdate"
     },
     "00189152": {
-      "action": "none",
-      "comment": "MRMetaboliteMapSequence"
+      "comment": "MRMetaboliteMapSequence",
+      "action": "none"
     },
     "00189155": {
-      "action": "none",
-      "comment": "ParallelReductionFactorOutOfPlane"
+      "comment": "ParallelReductionFactorOutOfPlane",
+      "action": "none"
     },
     "00189159": {
-      "action": "none",
-      "comment": "SpectroscopyAcquisitionOutOfPlanePhaseSteps"
+      "comment": "SpectroscopyAcquisitionOutOfPlanePhaseSteps",
+      "action": "none"
     },
     "00189166": {
-      "action": "none",
-      "comment": "BulkMotionStatus"
+      "comment": "BulkMotionStatus",
+      "action": "none"
     },
     "00189168": {
-      "action": "none",
-      "comment": "ParallelReductionFactorSecondInPlane"
+      "comment": "ParallelReductionFactorSecondInPlane",
+      "action": "none"
     },
     "00189169": {
-      "action": "none",
-      "comment": "CardiacBeatRejectionTechnique"
+      "comment": "CardiacBeatRejectionTechnique",
+      "action": "none"
     },
     "00189170": {
-      "action": "none",
-      "comment": "RespiratoryMotionCompensationTechnique"
+      "comment": "RespiratoryMotionCompensationTechnique",
+      "action": "none"
     },
     "00189171": {
-      "action": "none",
-      "comment": "RespiratorySignalSource"
+      "comment": "RespiratorySignalSource",
+      "action": "none"
     },
     "00189172": {
-      "action": "none",
-      "comment": "BulkMotionCompensationTechnique"
+      "comment": "BulkMotionCompensationTechnique",
+      "action": "none"
     },
     "00189173": {
-      "action": "none",
-      "comment": "BulkMotionSignalSource"
+      "comment": "BulkMotionSignalSource",
+      "action": "none"
     },
     "00189174": {
-      "action": "none",
-      "comment": "ApplicableSafetyStandardAgency"
+      "comment": "ApplicableSafetyStandardAgency",
+      "action": "none"
     },
     "00189175": {
-      "action": "none",
-      "comment": "ApplicableSafetyStandardDescription"
+      "comment": "ApplicableSafetyStandardDescription",
+      "action": "none"
     },
     "00189176": {
-      "action": "none",
-      "comment": "OperatingModeSequence"
+      "comment": "OperatingModeSequence",
+      "action": "none"
     },
     "00189177": {
-      "action": "none",
-      "comment": "OperatingModeType"
+      "comment": "OperatingModeType",
+      "action": "none"
     },
     "00189178": {
-      "action": "none",
-      "comment": "OperatingMode"
+      "comment": "OperatingMode",
+      "action": "none"
     },
     "00189179": {
-      "action": "none",
-      "comment": "SpecificAbsorptionRateDefinition"
+      "comment": "SpecificAbsorptionRateDefinition",
+      "action": "none"
     },
     "00189180": {
-      "action": "none",
-      "comment": "GradientOutputType"
+      "comment": "GradientOutputType",
+      "action": "none"
     },
     "00189181": {
-      "action": "none",
-      "comment": "SpecificAbsorptionRateValue"
+      "comment": "SpecificAbsorptionRateValue",
+      "action": "none"
     },
     "00189182": {
-      "action": "none",
-      "comment": "GradientOutput"
+      "comment": "GradientOutput",
+      "action": "none"
     },
     "00189183": {
-      "action": "none",
-      "comment": "FlowCompensationDirection"
+      "comment": "FlowCompensationDirection",
+      "action": "none"
     },
     "00189184": {
-      "action": "none",
-      "comment": "TaggingDelay"
+      "comment": "TaggingDelay",
+      "action": "none"
     },
     "00189195": {
-      "action": "none",
-      "comment": "ChemicalShiftMinimumIntegrationLimitInHz"
+      "comment": "ChemicalShiftMinimumIntegrationLimitInHz",
+      "action": "none"
     },
     "00189196": {
-      "action": "none",
-      "comment": "ChemicalShiftMaximumIntegrationLimitInHz"
+      "comment": "ChemicalShiftMaximumIntegrationLimitInHz",
+      "action": "none"
     },
     "00189197": {
-      "action": "none",
-      "comment": "MRVelocityEncodingSequence"
+      "comment": "MRVelocityEncodingSequence",
+      "action": "none"
     },
     "00189198": {
-      "action": "none",
-      "comment": "FirstOrderPhaseCorrection"
+      "comment": "FirstOrderPhaseCorrection",
+      "action": "none"
     },
     "00189199": {
-      "action": "none",
-      "comment": "WaterReferencedPhaseCorrection"
+      "comment": "WaterReferencedPhaseCorrection",
+      "action": "none"
     },
     "00189200": {
-      "action": "none",
-      "comment": "MRSpectroscopyAcquisitionType"
+      "comment": "MRSpectroscopyAcquisitionType",
+      "action": "none"
     },
     "00189214": {
-      "action": "none",
-      "comment": "RespiratoryCyclePosition"
+      "comment": "RespiratoryCyclePosition",
+      "action": "none"
     },
     "00189217": {
-      "action": "none",
-      "comment": "VelocityEncodingMaximumValue"
+      "comment": "VelocityEncodingMaximumValue",
+      "action": "none"
     },
     "00189218": {
-      "action": "none",
-      "comment": "TagSpacingSecondDimension"
+      "comment": "TagSpacingSecondDimension",
+      "action": "none"
     },
     "00189219": {
-      "action": "none",
-      "comment": "TagAngleSecondAxis"
+      "comment": "TagAngleSecondAxis",
+      "action": "none"
     },
     "00189220": {
-      "action": "none",
-      "comment": "FrameAcquisitionDuration"
+      "comment": "FrameAcquisitionDuration",
+      "action": "none"
     },
     "00189226": {
-      "action": "none",
-      "comment": "MRImageFrameTypeSequence"
+      "comment": "MRImageFrameTypeSequence",
+      "action": "none"
     },
     "00189227": {
-      "action": "none",
-      "comment": "MRSpectroscopyFrameTypeSequence"
+      "comment": "MRSpectroscopyFrameTypeSequence",
+      "action": "none"
     },
     "00189231": {
-      "action": "none",
-      "comment": "MRAcquisitionPhaseEncodingStepsInPlane"
+      "comment": "MRAcquisitionPhaseEncodingStepsInPlane",
+      "action": "none"
     },
     "00189232": {
-      "action": "none",
-      "comment": "MRAcquisitionPhaseEncodingStepsOutOfPlane"
+      "comment": "MRAcquisitionPhaseEncodingStepsOutOfPlane",
+      "action": "none"
     },
     "00189234": {
-      "action": "none",
-      "comment": "SpectroscopyAcquisitionPhaseColumns"
+      "comment": "SpectroscopyAcquisitionPhaseColumns",
+      "action": "none"
     },
     "00189236": {
-      "action": "none",
-      "comment": "CardiacCyclePosition"
+      "comment": "CardiacCyclePosition",
+      "action": "none"
     },
     "00189239": {
-      "action": "none",
-      "comment": "SpecificAbsorptionRateSequence"
+      "comment": "SpecificAbsorptionRateSequence",
+      "action": "none"
     },
     "0018A003": {
-      "action": "remove",
-      "comment": "ContributionDescription"
+      "comment": "ContributionDescription",
+      "action": "remove"
     },
     "0020000D": {
-      "action": "hashuid",
-      "comment": "StudyInstanceUID"
+      "comment": "StudyInstanceUID",
+      "action": "hashuid"
     },
     "0020000E": {
-      "action": "hashuid",
-      "comment": "SeriesInstanceUID"
+      "comment": "SeriesInstanceUID",
+      "action": "hashuid"
     },
     "00200010": {
-      "action": "empty",
-      "comment": "StudyID"
+      "comment": "StudyID",
+      "action": "empty"
     },
     "00200011": {
-      "action": "none",
-      "comment": "SeriesNumber"
+      "comment": "SeriesNumber",
+      "action": "none"
     },
     "00200012": {
-      "action": "none",
-      "comment": "AcquisitionNumber"
+      "comment": "AcquisitionNumber",
+      "action": "none"
     },
     "00200013": {
-      "action": "none",
-      "comment": "InstanceNumber"
+      "comment": "InstanceNumber",
+      "action": "none"
     },
     "00200019": {
-      "action": "none",
-      "comment": "ItemNumber"
+      "comment": "ItemNumber",
+      "action": "none"
     },
     "00200020": {
-      "action": "none",
-      "comment": "PatientOrientation"
+      "comment": "PatientOrientation",
+      "action": "none"
     },
     "00200022": {
-      "action": "none",
-      "comment": "OverlayNumber"
+      "comment": "OverlayNumber",
+      "action": "none"
     },
     "00200024": {
-      "action": "none",
-      "comment": "CurveNumber"
+      "comment": "CurveNumber",
+      "action": "none"
     },
     "00200026": {
-      "action": "none",
-      "comment": "LUTNumber"
+      "comment": "LUTNumber",
+      "action": "none"
     },
     "00200030": {
-      "action": "none",
-      "comment": "ImagePosition"
+      "comment": "ImagePosition",
+      "action": "none"
     },
     "00200035": {
-      "action": "none",
-      "comment": "ImageOrientation"
+      "comment": "ImageOrientation",
+      "action": "none"
     },
     "00200052": {
-      "action": "hashuid",
-      "comment": "FrameOfReferenceUID"
+      "comment": "FrameOfReferenceUID",
+      "action": "hashuid"
     },
     "00200060": {
-      "action": "none",
-      "comment": "Laterality"
+      "comment": "Laterality",
+      "action": "none"
     },
     "00200062": {
-      "action": "none",
-      "comment": "ImageLaterality"
+      "comment": "ImageLaterality",
+      "action": "none"
     },
     "00200100": {
-      "action": "none",
-      "comment": "TemporalPositionIdentifier"
+      "comment": "TemporalPositionIdentifier",
+      "action": "none"
     },
     "00200105": {
-      "action": "none",
-      "comment": "NumberOfTemporalPositions"
+      "comment": "NumberOfTemporalPositions",
+      "action": "none"
     },
     "00200110": {
-      "action": "none",
-      "comment": "TemporalResolution"
+      "comment": "TemporalResolution",
+      "action": "none"
     },
     "00200200": {
-      "action": "hashuid",
-      "comment": "SynchronizationFrameOfReferenceUID"
+      "comment": "SynchronizationFrameOfReferenceUID",
+      "action": "hashuid"
     },
     "00201000": {
-      "action": "none",
-      "comment": "SeriesInStudy"
+      "comment": "SeriesInStudy",
+      "action": "none"
     },
     "00201002": {
-      "action": "none",
-      "comment": "ImagesInAcquisition"
+      "comment": "ImagesInAcquisition",
+      "action": "none"
     },
     "00201004": {
-      "action": "none",
-      "comment": "AcquisitionsInStudy"
+      "comment": "AcquisitionsInStudy",
+      "action": "none"
     },
     "00201040": {
-      "action": "none",
-      "comment": "PositionReferenceIndicator"
+      "comment": "PositionReferenceIndicator",
+      "action": "none"
     },
     "00201041": {
-      "action": "none",
-      "comment": "SliceLocation"
+      "comment": "SliceLocation",
+      "action": "none"
     },
     "00201070": {
-      "action": "none",
-      "comment": "OtherStudyNumbers"
+      "comment": "OtherStudyNumbers",
+      "action": "none"
     },
     "00201200": {
-      "action": "none",
-      "comment": "NumberOfPatientRelatedStudies"
+      "comment": "NumberOfPatientRelatedStudies",
+      "action": "none"
     },
     "00201202": {
-      "action": "none",
-      "comment": "NumberOfPatientRelatedSeries"
+      "comment": "NumberOfPatientRelatedSeries",
+      "action": "none"
     },
     "00201204": {
-      "action": "none",
-      "comment": "NumberOfPatientRelatedInstances"
+      "comment": "NumberOfPatientRelatedInstances",
+      "action": "none"
     },
     "00201206": {
-      "action": "none",
-      "comment": "NumberOfStudyRelatedSeries"
+      "comment": "NumberOfStudyRelatedSeries",
+      "action": "none"
     },
     "00201208": {
-      "action": "none",
-      "comment": "NumberOfStudyRelatedInstances"
+      "comment": "NumberOfStudyRelatedInstances",
+      "action": "none"
     },
     "00201209": {
-      "action": "none",
-      "comment": "NumberOfSeriesRelatedInstances"
+      "comment": "NumberOfSeriesRelatedInstances",
+      "action": "none"
     },
     "00203401": {
-      "action": "remove",
-      "comment": "ModifyingDeviceID"
+      "comment": "ModifyingDeviceID",
+      "action": "remove"
     },
     "00203404": {
-      "action": "remove",
-      "comment": "ModifyingDeviceManufacturer"
+      "comment": "ModifyingDeviceManufacturer",
+      "action": "remove"
     },
     "00203406": {
-      "action": "remove",
-      "comment": "ModifiedImageDescription"
+      "comment": "ModifiedImageDescription",
+      "action": "remove"
     },
     "00204000": {
-      "action": "remove",
-      "comment": "ImageComments"
+      "comment": "ImageComments",
+      "action": "remove"
     },
     "00209056": {
-      "action": "none",
-      "comment": "StackID"
+      "comment": "StackID",
+      "action": "none"
     },
     "00209057": {
-      "action": "none",
-      "comment": "InStackPositionNumber"
+      "comment": "InStackPositionNumber",
+      "action": "none"
     },
     "00209071": {
-      "action": "none",
-      "comment": "FrameAnatomySequence"
+      "comment": "FrameAnatomySequence",
+      "action": "none"
     },
     "00209072": {
-      "action": "none",
-      "comment": "FrameLaterality"
+      "comment": "FrameLaterality",
+      "action": "none"
     },
     "00209111": {
-      "action": "none",
-      "comment": "FrameContentSequence"
+      "comment": "FrameContentSequence",
+      "action": "none"
     },
     "00209113": {
-      "action": "none",
-      "comment": "PlanePositionSequence"
+      "comment": "PlanePositionSequence",
+      "action": "none"
     },
     "00209116": {
-      "action": "none",
-      "comment": "PlaneOrientationSequence"
+      "comment": "PlaneOrientationSequence",
+      "action": "none"
     },
     "00209128": {
-      "action": "none",
-      "comment": "TemporalPositionIndex"
+      "comment": "TemporalPositionIndex",
+      "action": "none"
     },
     "00209153": {
-      "action": "none",
-      "comment": "NominalCardiacTriggerDelayTime"
+      "comment": "NominalCardiacTriggerDelayTime",
+      "action": "none"
     },
     "00209156": {
-      "action": "none",
-      "comment": "FrameAcquisitionNumber"
+      "comment": "FrameAcquisitionNumber",
+      "action": "none"
     },
     "00209157": {
-      "action": "none",
-      "comment": "DimensionIndexValues"
+      "comment": "DimensionIndexValues",
+      "action": "none"
     },
     "00209158": {
-      "action": "none",
-      "comment": "FrameComments"
+      "comment": "FrameComments",
+      "action": "none"
     },
     "00209161": {
-      "action": "hashuid",
-      "comment": "ConcatenationUID"
+      "comment": "ConcatenationUID",
+      "action": "hashuid"
     },
     "00209162": {
-      "action": "none",
-      "comment": "InConcatenationNumber"
+      "comment": "InConcatenationNumber",
+      "action": "none"
     },
     "00209163": {
-      "action": "none",
-      "comment": "InConcatenationTotalNumber"
+      "comment": "InConcatenationTotalNumber",
+      "action": "none"
     },
     "00209164": {
-      "action": "hashuid",
-      "comment": "DimensionOrganizationUID"
+      "comment": "DimensionOrganizationUID",
+      "action": "hashuid"
     },
     "00209165": {
-      "action": "none",
-      "comment": "DimensionIndexPointer"
+      "comment": "DimensionIndexPointer",
+      "action": "none"
     },
     "00209167": {
-      "action": "none",
-      "comment": "FunctionalGroupPointer"
+      "comment": "FunctionalGroupPointer",
+      "action": "none"
     },
     "00209213": {
-      "action": "none",
-      "comment": "DimensionIndexPrivateCreator"
+      "comment": "DimensionIndexPrivateCreator",
+      "action": "none"
     },
     "00209221": {
-      "action": "none",
-      "comment": "DimensionOrganizationSequence"
+      "comment": "DimensionOrganizationSequence",
+      "action": "none"
     },
     "00209222": {
-      "action": "none",
-      "comment": "DimensionIndexSequence"
+      "comment": "DimensionIndexSequence",
+      "action": "none"
     },
     "00209228": {
-      "action": "none",
-      "comment": "ConcatenationFrameOffsetNumber"
+      "comment": "ConcatenationFrameOffsetNumber",
+      "action": "none"
     },
     "00209238": {
-      "action": "none",
-      "comment": "FunctionalGroupPrivateCreator"
+      "comment": "FunctionalGroupPrivateCreator",
+      "action": "none"
     },
     "00280002": {
-      "action": "none",
-      "comment": "SamplesPerPixel"
+      "comment": "SamplesPerPixel",
+      "action": "none"
     },
     "00280004": {
-      "action": "none",
-      "comment": "PhotometricInterpretation"
+      "comment": "PhotometricInterpretation",
+      "action": "none"
     },
     "00280006": {
-      "action": "none",
-      "comment": "PlanarConfiguration"
+      "comment": "PlanarConfiguration",
+      "action": "none"
     },
     "00280008": {
-      "action": "none",
-      "comment": "NumberOfFrames"
+      "comment": "NumberOfFrames",
+      "action": "none"
     },
     "00280009": {
-      "action": "none",
-      "comment": "FrameIncrementPointer"
+      "comment": "FrameIncrementPointer",
+      "action": "none"
     },
     "00280010": {
-      "action": "none",
-      "comment": "Rows"
+      "comment": "Rows",
+      "action": "none"
     },
     "00280011": {
-      "action": "none",
-      "comment": "Columns"
+      "comment": "Columns",
+      "action": "none"
     },
     "00280012": {
-      "action": "none",
-      "comment": "Planes"
+      "comment": "Planes",
+      "action": "none"
     },
     "00280014": {
-      "action": "none",
-      "comment": "UltrasoundColorDataPresent"
+      "comment": "UltrasoundColorDataPresent",
+      "action": "none"
     },
     "00280030": {
-      "action": "none",
-      "comment": "PixelSpacing"
+      "comment": "PixelSpacing",
+      "action": "none"
     },
     "00280031": {
-      "action": "none",
-      "comment": "ZoomFactor"
+      "comment": "ZoomFactor",
+      "action": "none"
     },
     "00280032": {
-      "action": "none",
-      "comment": "ZoomCenter"
+      "comment": "ZoomCenter",
+      "action": "none"
     },
     "00280034": {
-      "action": "none",
-      "comment": "PixelAspectRatio"
+      "comment": "PixelAspectRatio",
+      "action": "none"
     },
     "00280051": {
-      "action": "none",
-      "comment": "CorrectedImage"
+      "comment": "CorrectedImage",
+      "action": "none"
     },
     "00280100": {
-      "action": "none",
-      "comment": "BitsAllocated"
+      "comment": "BitsAllocated",
+      "action": "none"
     },
     "00280101": {
-      "action": "none",
-      "comment": "BitsStored"
+      "comment": "BitsStored",
+      "action": "none"
     },
     "00280102": {
-      "action": "none",
-      "comment": "HighBit"
+      "comment": "HighBit",
+      "action": "none"
     },
     "00280103": {
-      "action": "none",
-      "comment": "PixelRepresentation"
+      "comment": "PixelRepresentation",
+      "action": "none"
     },
     "00280106": {
-      "action": "none",
-      "comment": "SmallestImagePixelValue"
+      "comment": "SmallestImagePixelValue",
+      "action": "none"
     },
     "00280107": {
-      "action": "none",
-      "comment": "LargestImagePixelValue"
+      "comment": "LargestImagePixelValue",
+      "action": "none"
     },
     "00280108": {
-      "action": "none",
-      "comment": "SmallestPixelValueInSeries"
+      "comment": "SmallestPixelValueInSeries",
+      "action": "none"
     },
     "00280109": {
-      "action": "none",
-      "comment": "LargestPixelValueInSeries"
+      "comment": "LargestPixelValueInSeries",
+      "action": "none"
     },
     "00280110": {
-      "action": "none",
-      "comment": "SmallestImagePixelValueInPlane"
+      "comment": "SmallestImagePixelValueInPlane",
+      "action": "none"
     },
     "00280111": {
-      "action": "none",
-      "comment": "LargestImagePixelValueInPlane"
+      "comment": "LargestImagePixelValueInPlane",
+      "action": "none"
     },
     "00280120": {
-      "action": "none",
-      "comment": "PixelPaddingValue"
+      "comment": "PixelPaddingValue",
+      "action": "none"
     },
     "00280300": {
-      "action": "none",
-      "comment": "QualityControlImage"
+      "comment": "QualityControlImage",
+      "action": "none"
     },
     "00280301": {
-      "action": "none",
-      "comment": "BurnedInAnnotation"
+      "comment": "BurnedInAnnotation",
+      "action": "none"
     },
     "00281040": {
-      "action": "none",
-      "comment": "PixelIntensityRelationship"
+      "comment": "PixelIntensityRelationship",
+      "action": "none"
     },
     "00281041": {
-      "action": "none",
-      "comment": "PixelIntensityRelationshipSign"
+      "comment": "PixelIntensityRelationshipSign",
+      "action": "none"
     },
     "00281050": {
-      "action": "none",
-      "comment": "WindowCenter"
+      "comment": "WindowCenter",
+      "action": "none"
     },
     "00281051": {
-      "action": "none",
-      "comment": "WindowWidth"
+      "comment": "WindowWidth",
+      "action": "none"
     },
     "00281052": {
-      "action": "none",
-      "comment": "RescaleIntercept"
+      "comment": "RescaleIntercept",
+      "action": "none"
     },
     "00281053": {
-      "action": "none",
-      "comment": "RescaleSlope"
+      "comment": "RescaleSlope",
+      "action": "none"
     },
     "00281054": {
-      "action": "none",
-      "comment": "RescaleType"
+      "comment": "RescaleType",
+      "action": "none"
     },
     "00281055": {
-      "action": "none",
-      "comment": "WindowCenterWidthExplanation"
+      "comment": "WindowCenterWidthExplanation",
+      "action": "none"
     },
     "00281090": {
-      "action": "none",
-      "comment": "RecommendedViewingMode"
+      "comment": "RecommendedViewingMode",
+      "action": "none"
     },
     "00281101": {
-      "action": "none",
-      "comment": "RedPaletteColorLookupTableDescriptor"
+      "comment": "RedPaletteColorLookupTableDescriptor",
+      "action": "none"
     },
     "00281102": {
-      "action": "none",
-      "comment": "GreenPaletteColorLookupTableDescriptor"
+      "comment": "GreenPaletteColorLookupTableDescriptor",
+      "action": "none"
     },
     "00281103": {
-      "action": "none",
-      "comment": "BluePaletteColorLookupTableDescriptor"
+      "comment": "BluePaletteColorLookupTableDescriptor",
+      "action": "none"
     },
     "00281199": {
-      "action": "hashuid",
-      "comment": "PaletteColorLookupTableUID"
+      "comment": "PaletteColorLookupTableUID",
+      "action": "hashuid"
     },
     "00281201": {
-      "action": "none",
-      "comment": "RedPaletteColorLookupTableData"
+      "comment": "RedPaletteColorLookupTableData",
+      "action": "none"
     },
     "00281202": {
-      "action": "none",
-      "comment": "GreenPaletteColorLookupTableData"
+      "comment": "GreenPaletteColorLookupTableData",
+      "action": "none"
     },
     "00281203": {
-      "action": "none",
-      "comment": "BluePaletteColorLookupTableData"
+      "comment": "BluePaletteColorLookupTableData",
+      "action": "none"
     },
     "00281214": {
-      "action": "hashuid",
-      "comment": "LargePaletteColorLookupTableUID"
+      "comment": "LargePaletteColorLookupTableUID",
+      "action": "hashuid"
     },
     "00281221": {
-      "action": "none",
-      "comment": "SegmentedRedPaletteColorLookupTableData"
+      "comment": "SegmentedRedPaletteColorLookupTableData",
+      "action": "none"
     },
     "00281222": {
-      "action": "none",
-      "comment": "SegmentedGreenPaletteColorLookupTableData"
+      "comment": "SegmentedGreenPaletteColorLookupTableData",
+      "action": "none"
     },
     "00281223": {
-      "action": "none",
-      "comment": "SegmentedBluePaletteColorLookupTableData"
+      "comment": "SegmentedBluePaletteColorLookupTableData",
+      "action": "none"
     },
     "00281300": {
-      "action": "none",
-      "comment": "BreastImplantPresent"
+      "comment": "BreastImplantPresent",
+      "action": "none"
     },
     "00281350": {
-      "action": "none",
-      "comment": "PartialView"
+      "comment": "PartialView",
+      "action": "none"
     },
     "00281351": {
-      "action": "none",
-      "comment": "PartialViewDescription"
+      "comment": "PartialViewDescription",
+      "action": "none"
     },
     "00282110": {
-      "action": "none",
-      "comment": "LossyImageCompression"
+      "comment": "LossyImageCompression",
+      "action": "none"
     },
     "00282112": {
-      "action": "none",
-      "comment": "LossyImageCompressionRatio"
+      "comment": "LossyImageCompressionRatio",
+      "action": "none"
     },
     "00283000": {
-      "action": "none",
-      "comment": "ModalityLUTSequence"
+      "comment": "ModalityLUTSequence",
+      "action": "none"
     },
     "00283002": {
-      "action": "none",
-      "comment": "LUTDescriptor"
+      "comment": "LUTDescriptor",
+      "action": "none"
     },
     "00283003": {
-      "action": "none",
-      "comment": "LUTExplanation"
+      "comment": "LUTExplanation",
+      "action": "none"
     },
     "00283004": {
-      "action": "none",
-      "comment": "ModalityLUTType"
+      "comment": "ModalityLUTType",
+      "action": "none"
     },
     "00283006": {
-      "action": "none",
-      "comment": "LUTData"
+      "comment": "LUTData",
+      "action": "none"
     },
     "00283010": {
-      "action": "none",
-      "comment": "VOILUTSequence"
+      "comment": "VOILUTSequence",
+      "action": "none"
     },
     "00283110": {
-      "action": "none",
-      "comment": "SoftcopyVOILUTSequence"
+      "comment": "SoftcopyVOILUTSequence",
+      "action": "none"
     },
     "00284000": {
-      "action": "remove",
-      "comment": "ImagePresentationComments"
+      "comment": "ImagePresentationComments",
+      "action": "remove"
     },
     "00285000": {
-      "action": "none",
-      "comment": "BiPlaneAcquisitionSequence"
+      "comment": "BiPlaneAcquisitionSequence",
+      "action": "none"
     },
     "00286010": {
-      "action": "none",
-      "comment": "RepresentativeFrameNumber"
+      "comment": "RepresentativeFrameNumber",
+      "action": "none"
     },
     "00286020": {
-      "action": "none",
-      "comment": "FrameNumbersOfInterest"
+      "comment": "FrameNumbersOfInterest",
+      "action": "none"
     },
     "00286022": {
-      "action": "none",
-      "comment": "FrameOfInterestDescription"
+      "comment": "FrameOfInterestDescription",
+      "action": "none"
     },
     "00286030": {
-      "action": "none",
-      "comment": "MaskPointers"
+      "comment": "MaskPointers",
+      "action": "none"
     },
     "00286100": {
-      "action": "none",
-      "comment": "MaskSubtractionSequence"
+      "comment": "MaskSubtractionSequence",
+      "action": "none"
     },
     "00286101": {
-      "action": "none",
-      "comment": "MaskOperation"
+      "comment": "MaskOperation",
+      "action": "none"
     },
     "00286102": {
-      "action": "none",
-      "comment": "ApplicableFrameRange"
+      "comment": "ApplicableFrameRange",
+      "action": "none"
     },
     "00286110": {
-      "action": "none",
-      "comment": "MaskFrameNumbers"
+      "comment": "MaskFrameNumbers",
+      "action": "none"
     },
     "00286112": {
-      "action": "none",
-      "comment": "ContrastFrameAveraging"
+      "comment": "ContrastFrameAveraging",
+      "action": "none"
     },
     "00286114": {
-      "action": "none",
-      "comment": "MaskSubPixelShift"
+      "comment": "MaskSubPixelShift",
+      "action": "none"
     },
     "00286120": {
-      "action": "none",
-      "comment": "TIDOffset"
+      "comment": "TIDOffset",
+      "action": "none"
     },
     "00286190": {
-      "action": "none",
-      "comment": "MaskOperationExplanation"
+      "comment": "MaskOperationExplanation",
+      "action": "none"
     },
     "00289001": {
-      "action": "none",
-      "comment": "DataPointRows"
+      "comment": "DataPointRows",
+      "action": "none"
     },
     "00289002": {
-      "action": "none",
-      "comment": "DataPointColumns"
+      "comment": "DataPointColumns",
+      "action": "none"
     },
     "00289003": {
-      "action": "none",
-      "comment": "SignalDomainColumns"
+      "comment": "SignalDomainColumns",
+      "action": "none"
     },
     "00289099": {
-      "action": "none",
-      "comment": "LargestMonochromePixelValue"
+      "comment": "LargestMonochromePixelValue",
+      "action": "none"
     },
     "00289108": {
-      "action": "none",
-      "comment": "DataRepresentation"
+      "comment": "DataRepresentation",
+      "action": "none"
     },
     "00289110": {
-      "action": "none",
-      "comment": "PixelMeasuresSequence"
+      "comment": "PixelMeasuresSequence",
+      "action": "none"
     },
     "00289132": {
-      "action": "none",
-      "comment": "FrameVOILUTSequence"
+      "comment": "FrameVOILUTSequence",
+      "action": "none"
     },
     "00289145": {
-      "action": "none",
-      "comment": "PixelValueTransformationSequence"
+      "comment": "PixelValueTransformationSequence",
+      "action": "none"
     },
     "00289235": {
-      "action": "none",
-      "comment": "SignalDomainRows"
+      "comment": "SignalDomainRows",
+      "action": "none"
     },
     "0032000A": {
-      "action": "none",
-      "comment": "StudyStatusID"
+      "comment": "StudyStatusID",
+      "action": "none"
     },
     "0032000C": {
-      "action": "none",
-      "comment": "StudyPriorityID"
+      "comment": "StudyPriorityID",
+      "action": "none"
     },
     "00320012": {
-      "action": "remove",
-      "comment": "StudyIDIssuer"
+      "comment": "StudyIDIssuer",
+      "action": "remove"
     },
     "00320032": {
-      "action": "hashdate",
-      "comment": "StudyVerifiedDate"
+      "comment": "StudyVerifiedDate",
+      "action": "hashdate"
     },
     "00320033": {
-      "action": "none",
-      "comment": "StudyVerifiedTime"
+      "comment": "StudyVerifiedTime",
+      "action": "none"
     },
     "00320034": {
-      "action": "hashdate",
-      "comment": "StudyReadDate"
+      "comment": "StudyReadDate",
+      "action": "hashdate"
     },
     "00320035": {
-      "action": "none",
-      "comment": "StudyReadTime"
+      "comment": "StudyReadTime",
+      "action": "none"
     },
     "00321000": {
-      "action": "hashdate",
-      "comment": "ScheduledStudyStartDate"
+      "comment": "ScheduledStudyStartDate",
+      "action": "hashdate"
     },
     "00321001": {
-      "action": "none",
-      "comment": "ScheduledStudyStartTime"
+      "comment": "ScheduledStudyStartTime",
+      "action": "none"
     },
     "00321010": {
-      "action": "hashdate",
-      "comment": "ScheduledStudyStopDate"
+      "comment": "ScheduledStudyStopDate",
+      "action": "hashdate"
     },
     "00321011": {
-      "action": "none",
-      "comment": "ScheduledStudyStopTime"
+      "comment": "ScheduledStudyStopTime",
+      "action": "none"
     },
     "00321020": {
-      "action": "remove",
-      "comment": "ScheduledStudyLocation"
+      "comment": "ScheduledStudyLocation",
+      "action": "remove"
     },
     "00321021": {
-      "action": "remove",
-      "comment": "ScheduledStudyLocationAETitle"
+      "comment": "ScheduledStudyLocationAETitle",
+      "action": "remove"
     },
     "00321030": {
-      "action": "remove",
-      "comment": "ReasonForStudy"
+      "comment": "ReasonForStudy",
+      "action": "remove"
     },
     "00321032": {
-      "action": "remove",
-      "comment": "RequestingPhysician"
+      "comment": "RequestingPhysician",
+      "action": "remove"
     },
     "00321033": {
-      "action": "remove",
-      "comment": "RequestingService"
+      "comment": "RequestingService",
+      "action": "remove"
     },
     "00321040": {
-      "action": "hashdate",
-      "comment": "StudyArrivalDate"
+      "comment": "StudyArrivalDate",
+      "action": "hashdate"
     },
     "00321041": {
-      "action": "none",
-      "comment": "StudyArrivalTime"
+      "comment": "StudyArrivalTime",
+      "action": "none"
     },
     "00321050": {
-      "action": "hashdate",
-      "comment": "StudyCompletionDate"
+      "comment": "StudyCompletionDate",
+      "action": "hashdate"
     },
     "00321051": {
-      "action": "none",
-      "comment": "StudyCompletionTime"
+      "comment": "StudyCompletionTime",
+      "action": "none"
     },
     "00321055": {
-      "action": "none",
-      "comment": "StudyComponentStatusID"
+      "comment": "StudyComponentStatusID",
+      "action": "none"
     },
     "00321060": {
-      "action": "remove",
-      "comment": "RequestedProcedureDescription"
+      "comment": "RequestedProcedureDescription",
+      "action": "remove"
     },
     "00321064": {
-      "action": "none",
-      "comment": "RequestedProcedureCodeSequence"
+      "comment": "RequestedProcedureCodeSequence",
+      "action": "none"
     },
     "00321070": {
-      "action": "remove",
-      "comment": "RequestedContrastAgent"
+      "comment": "RequestedContrastAgent",
+      "action": "remove"
     },
     "00324000": {
-      "action": "remove",
-      "comment": "StudyComments"
+      "comment": "StudyComments",
+      "action": "remove"
     },
     "00380004": {
-      "action": "remove",
-      "comment": "ReferencedPatientAliasSequence"
+      "comment": "ReferencedPatientAliasSequence",
+      "action": "remove"
     },
     "00380008": {
-      "action": "none",
-      "comment": "VisitStatusID"
+      "comment": "VisitStatusID",
+      "action": "none"
     },
     "00380010": {
-      "action": "remove",
-      "comment": "AdmissionID"
+      "comment": "AdmissionID",
+      "action": "remove"
     },
     "00380011": {
-      "action": "remove",
-      "comment": "IssuerOfAdmissionID"
+      "comment": "IssuerOfAdmissionID",
+      "action": "remove"
     },
     "00380016": {
-      "action": "none",
-      "comment": "RouteOfAdmissions"
+      "comment": "RouteOfAdmissions",
+      "action": "none"
     },
     "0038001A": {
-      "action": "hashdate",
-      "comment": "ScheduledAdmissionDate"
+      "comment": "ScheduledAdmissionDate",
+      "action": "hashdate"
     },
     "0038001B": {
-      "action": "none",
-      "comment": "ScheduledAdmissionTime"
+      "comment": "ScheduledAdmissionTime",
+      "action": "none"
     },
     "0038001C": {
-      "action": "hashdate",
-      "comment": "ScheduledDischargeDate"
+      "comment": "ScheduledDischargeDate",
+      "action": "hashdate"
     },
     "0038001D": {
-      "action": "none",
-      "comment": "ScheduledDischargeTime"
+      "comment": "ScheduledDischargeTime",
+      "action": "none"
     },
     "00380020": {
-      "action": "remove",
-      "comment": "AdmittingDate"
+      "comment": "AdmittingDate",
+      "action": "remove"
     },
     "00380021": {
-      "action": "remove",
-      "comment": "AdmittingTime"
+      "comment": "AdmittingTime",
+      "action": "remove"
     },
     "00380030": {
-      "action": "hashdate",
-      "comment": "DischargeDate"
+      "comment": "DischargeDate",
+      "action": "hashdate"
     },
     "00380032": {
-      "action": "none",
-      "comment": "DischargeTime"
+      "comment": "DischargeTime",
+      "action": "none"
     },
     "00380040": {
-      "action": "remove",
-      "comment": "DischargeDiagnosisDescription"
+      "comment": "DischargeDiagnosisDescription",
+      "action": "remove"
     },
     "00380044": {
-      "action": "none",
-      "comment": "DischargeDiagnosisCodeSequence"
+      "comment": "DischargeDiagnosisCodeSequence",
+      "action": "none"
     },
     "00380050": {
-      "action": "remove",
-      "comment": "SpecialNeeds"
+      "comment": "SpecialNeeds",
+      "action": "remove"
     },
     "00380060": {
-      "action": "remove",
-      "comment": "ServiceEpisodeID"
+      "comment": "ServiceEpisodeID",
+      "action": "remove"
     },
     "00380061": {
-      "action": "remove",
-      "comment": "IssuerOfServiceEpisodeID"
+      "comment": "IssuerOfServiceEpisodeID",
+      "action": "remove"
     },
     "00380062": {
-      "action": "remove",
-      "comment": "ServiceEpisodeDescription"
+      "comment": "ServiceEpisodeDescription",
+      "action": "remove"
     },
     "00380300": {
-      "action": "remove",
-      "comment": "CurrentPatientLocation"
+      "comment": "CurrentPatientLocation",
+      "action": "remove"
     },
     "00380400": {
-      "action": "remove",
-      "comment": "PatientInstitutionResidence"
+      "comment": "PatientInstitutionResidence",
+      "action": "remove"
     },
     "00380500": {
-      "action": "remove",
-      "comment": "PatientState"
+      "comment": "PatientState",
+      "action": "remove"
     },
     "00384000": {
-      "action": "remove",
-      "comment": "VisitComments"
+      "comment": "VisitComments",
+      "action": "remove"
     },
     "003A0004": {
-      "action": "none",
-      "comment": "WaveformOriginality"
+      "comment": "WaveformOriginality",
+      "action": "none"
     },
     "003A0005": {
-      "action": "none",
-      "comment": "NumberOfWaveformChannels"
+      "comment": "NumberOfWaveformChannels",
+      "action": "none"
     },
     "003A0010": {
-      "action": "none",
-      "comment": "NumberOfWaveformSamples"
+      "comment": "NumberOfWaveformSamples",
+      "action": "none"
     },
     "003A001A": {
-      "action": "none",
-      "comment": "SamplingFrequency"
+      "comment": "SamplingFrequency",
+      "action": "none"
     },
     "003A0020": {
-      "action": "none",
-      "comment": "MultiplexGroupLabel"
+      "comment": "MultiplexGroupLabel",
+      "action": "none"
     },
     "003A0200": {
-      "action": "none",
-      "comment": "ChannelDefinitionSequence"
+      "comment": "ChannelDefinitionSequence",
+      "action": "none"
     },
     "003A0202": {
-      "action": "none",
-      "comment": "WaveformChannelNumber"
+      "comment": "WaveformChannelNumber",
+      "action": "none"
     },
     "003A0203": {
-      "action": "none",
-      "comment": "ChannelLabel"
+      "comment": "ChannelLabel",
+      "action": "none"
     },
     "003A0205": {
-      "action": "none",
-      "comment": "ChannelStatus"
+      "comment": "ChannelStatus",
+      "action": "none"
     },
     "003A0208": {
-      "action": "none",
-      "comment": "ChannelSourceSequence"
+      "comment": "ChannelSourceSequence",
+      "action": "none"
     },
     "003A0209": {
-      "action": "none",
-      "comment": "ChannelSourceModifiersSequence"
+      "comment": "ChannelSourceModifiersSequence",
+      "action": "none"
     },
     "003A020A": {
-      "action": "none",
-      "comment": "SourceWaveformSequence"
+      "comment": "SourceWaveformSequence",
+      "action": "none"
     },
     "003A020C": {
-      "action": "none",
-      "comment": "ChannelDerivationDescription"
+      "comment": "ChannelDerivationDescription",
+      "action": "none"
     },
     "003A0210": {
-      "action": "none",
-      "comment": "ChannelSensitivity"
+      "comment": "ChannelSensitivity",
+      "action": "none"
     },
     "003A0211": {
-      "action": "none",
-      "comment": "ChannelSensitivityUnitsSequence"
+      "comment": "ChannelSensitivityUnitsSequence",
+      "action": "none"
     },
     "003A0212": {
-      "action": "none",
-      "comment": "ChannelSensitivityCorrectionFactor"
+      "comment": "ChannelSensitivityCorrectionFactor",
+      "action": "none"
     },
     "003A0213": {
-      "action": "none",
-      "comment": "ChannelBaseline"
+      "comment": "ChannelBaseline",
+      "action": "none"
     },
     "003A0214": {
-      "action": "none",
-      "comment": "ChannelTimeSkew"
+      "comment": "ChannelTimeSkew",
+      "action": "none"
     },
     "003A0215": {
-      "action": "none",
-      "comment": "ChannelSampleSkew"
+      "comment": "ChannelSampleSkew",
+      "action": "none"
     },
     "003A0218": {
-      "action": "none",
-      "comment": "ChannelOffset"
+      "comment": "ChannelOffset",
+      "action": "none"
     },
     "003A021A": {
-      "action": "none",
-      "comment": "WaveformBitsStored"
+      "comment": "WaveformBitsStored",
+      "action": "none"
     },
     "003A0220": {
-      "action": "none",
-      "comment": "FilterLowFrequency"
+      "comment": "FilterLowFrequency",
+      "action": "none"
     },
     "003A0221": {
-      "action": "none",
-      "comment": "FilterHighFrequency"
+      "comment": "FilterHighFrequency",
+      "action": "none"
     },
     "003A0222": {
-      "action": "none",
-      "comment": "NotchFilterFrequency"
+      "comment": "NotchFilterFrequency",
+      "action": "none"
     },
     "003A0223": {
-      "action": "none",
-      "comment": "NotchFilterBandwidth"
+      "comment": "NotchFilterBandwidth",
+      "action": "none"
     },
     "00400001": {
-      "action": "remove",
-      "comment": "ScheduledStationAETitle"
+      "comment": "ScheduledStationAETitle",
+      "action": "remove"
     },
     "00400002": {
-      "action": "hashdate",
-      "comment": "ScheduledProcedureStepStartDate"
+      "comment": "ScheduledProcedureStepStartDate",
+      "action": "hashdate"
     },
     "00400003": {
-      "action": "none",
-      "comment": "ScheduledProcedureStepStartTime"
+      "comment": "ScheduledProcedureStepStartTime",
+      "action": "none"
     },
     "00400004": {
-      "action": "hashdate",
-      "comment": "ScheduledProcedureStepEndDate"
+      "comment": "ScheduledProcedureStepEndDate",
+      "action": "hashdate"
     },
     "00400005": {
-      "action": "none",
-      "comment": "ScheduledProcedureStepEndTime"
+      "comment": "ScheduledProcedureStepEndTime",
+      "action": "none"
     },
     "00400006": {
-      "action": "remove",
-      "comment": "ScheduledPerformingPhysicianName"
+      "comment": "ScheduledPerformingPhysicianName",
+      "action": "remove"
     },
     "00400007": {
-      "action": "remove",
-      "comment": "ScheduledProcedureStepDescription"
+      "comment": "ScheduledProcedureStepDescription",
+      "action": "remove"
     },
     "00400008": {
-      "action": "none",
-      "comment": "ScheduledProtocolCodeSequence"
+      "comment": "ScheduledProtocolCodeSequence",
+      "action": "none"
     },
     "00400009": {
-      "action": "none",
-      "comment": "ScheduledProcedureStepID"
+      "comment": "ScheduledProcedureStepID",
+      "action": "none"
     },
     "0040000B": {
-      "action": "remove",
-      "comment": "ScheduledPerformingPhysicianIdentificationSequence"
+      "comment": "ScheduledPerformingPhysicianIdentificationSequence",
+      "action": "remove"
     },
     "00400010": {
-      "action": "remove",
-      "comment": "ScheduledStationName"
+      "comment": "ScheduledStationName",
+      "action": "remove"
     },
     "00400011": {
-      "action": "remove",
-      "comment": "ScheduledProcedureStepLocation"
+      "comment": "ScheduledProcedureStepLocation",
+      "action": "remove"
     },
     "00400012": {
-      "action": "remove",
-      "comment": "PreMedication"
+      "comment": "PreMedication",
+      "action": "remove"
     },
     "00400020": {
-      "action": "none",
-      "comment": "ScheduledProcedureStepStatus"
+      "comment": "ScheduledProcedureStepStatus",
+      "action": "none"
     },
     "00400100": {
-      "action": "none",
-      "comment": "ScheduledProcedureStepSequence"
+      "comment": "ScheduledProcedureStepSequence",
+      "action": "none"
     },
     "00400220": {
-      "action": "none",
-      "comment": "ReferencedNonImageCompositeSOPInstanceSequence"
+      "comment": "ReferencedNonImageCompositeSOPInstanceSequence",
+      "action": "none"
     },
     "00400241": {
-      "action": "remove",
-      "comment": "PerformedStationAETitle"
+      "comment": "PerformedStationAETitle",
+      "action": "remove"
     },
     "00400242": {
-      "action": "remove",
-      "comment": "PerformedStationName"
+      "comment": "PerformedStationName",
+      "action": "remove"
     },
     "00400243": {
-      "action": "remove",
-      "comment": "PerformedLocation"
+      "comment": "PerformedLocation",
+      "action": "remove"
     },
     "00400244": {
-      "action": "hashdate",
-      "comment": "PerformedProcedureStepStartDate"
+      "comment": "PerformedProcedureStepStartDate",
+      "action": "hashdate"
     },
     "00400245": {
-      "action": "none",
-      "comment": "PerformedProcedureStepStartTime"
+      "comment": "PerformedProcedureStepStartTime",
+      "action": "none"
     },
     "00400250": {
-      "action": "hashdate",
-      "comment": "PerformedProcedureStepEndDate"
+      "comment": "PerformedProcedureStepEndDate",
+      "action": "hashdate"
     },
     "00400251": {
-      "action": "none",
-      "comment": "PerformedProcedureStepEndTime"
+      "comment": "PerformedProcedureStepEndTime",
+      "action": "none"
     },
     "00400253": {
-      "action": "remove",
-      "comment": "PerformedProcedureStepID"
+      "comment": "PerformedProcedureStepID",
+      "action": "remove"
     },
     "00400254": {
-      "action": "remove",
-      "comment": "PerformedProcedureStepDescription"
+      "comment": "PerformedProcedureStepDescription",
+      "action": "remove"
     },
     "00400255": {
-      "action": "none",
-      "comment": "PerformedProcedureTypeDescription"
+      "comment": "PerformedProcedureTypeDescription",
+      "action": "none"
     },
     "00400260": {
-      "action": "none",
-      "comment": "PerformedProtocolCodeSequence"
+      "comment": "PerformedProtocolCodeSequence",
+      "action": "none"
     },
     "00400270": {
-      "action": "none",
-      "comment": "ScheduledStepAttributesSequence"
+      "comment": "ScheduledStepAttributesSequence",
+      "action": "none"
     },
     "00400275": {
-      "action": "remove",
-      "comment": "RequestAttributesSequence"
+      "comment": "RequestAttributesSequence",
+      "action": "remove"
     },
     "00400280": {
-      "action": "remove",
-      "comment": "CommentsOnThePerformedProcedureStep"
+      "comment": "CommentsOnThePerformedProcedureStep",
+      "action": "remove"
     },
     "00400281": {
-      "action": "none",
-      "comment": "PerformedProcedureStepDiscontinuationReasonCodeSequence"
+      "comment": "PerformedProcedureStepDiscontinuationReasonCodeSequence",
+      "action": "none"
     },
     "00400293": {
-      "action": "none",
-      "comment": "QuantitySequence"
+      "comment": "QuantitySequence",
+      "action": "none"
     },
     "00400294": {
-      "action": "none",
-      "comment": "Quantity"
+      "comment": "Quantity",
+      "action": "none"
     },
     "00400295": {
-      "action": "none",
-      "comment": "MeasuringUnitsSequence"
+      "comment": "MeasuringUnitsSequence",
+      "action": "none"
     },
     "00400296": {
-      "action": "none",
-      "comment": "BillingItemSequence"
+      "comment": "BillingItemSequence",
+      "action": "none"
     },
     "00400300": {
-      "action": "none",
-      "comment": "TotalTimeOfFluoroscopy"
+      "comment": "TotalTimeOfFluoroscopy",
+      "action": "none"
     },
     "00400301": {
-      "action": "none",
-      "comment": "TotalNumberOfExposures"
+      "comment": "TotalNumberOfExposures",
+      "action": "none"
     },
     "00400302": {
-      "action": "none",
-      "comment": "EntranceDose"
+      "comment": "EntranceDose",
+      "action": "none"
     },
     "00400303": {
-      "action": "none",
-      "comment": "ExposedArea"
+      "comment": "ExposedArea",
+      "action": "none"
     },
     "00400306": {
-      "action": "none",
-      "comment": "DistanceSourceToEntrance"
+      "comment": "DistanceSourceToEntrance",
+      "action": "none"
     },
     "00400307": {
-      "action": "none",
-      "comment": "DistanceSourceToSupport"
+      "comment": "DistanceSourceToSupport",
+      "action": "none"
     },
     "0040030E": {
-      "action": "none",
-      "comment": "ExposureDoseSequence"
+      "comment": "ExposureDoseSequence",
+      "action": "none"
     },
     "00400310": {
-      "action": "none",
-      "comment": "CommentsOnRadiationDose"
+      "comment": "CommentsOnRadiationDose",
+      "action": "none"
     },
     "00400312": {
-      "action": "none",
-      "comment": "XRayOutput"
+      "comment": "XRayOutput",
+      "action": "none"
     },
     "00400314": {
-      "action": "none",
-      "comment": "HalfValueLayer"
+      "comment": "HalfValueLayer",
+      "action": "none"
     },
     "00400316": {
-      "action": "none",
-      "comment": "OrganDose"
+      "comment": "OrganDose",
+      "action": "none"
     },
     "00400318": {
-      "action": "none",
-      "comment": "OrganExposed"
+      "comment": "OrganExposed",
+      "action": "none"
     },
     "00400320": {
-      "action": "none",
-      "comment": "BillingProcedureStepSequence"
+      "comment": "BillingProcedureStepSequence",
+      "action": "none"
     },
     "00400321": {
-      "action": "none",
-      "comment": "FilmConsumptionSequence"
+      "comment": "FilmConsumptionSequence",
+      "action": "none"
     },
     "00400324": {
-      "action": "none",
-      "comment": "BillingSuppliesAndDevicesSequence"
+      "comment": "BillingSuppliesAndDevicesSequence",
+      "action": "none"
     },
     "00400330": {
-      "action": "none",
-      "comment": "ReferencedProcedureStepSequence"
+      "comment": "ReferencedProcedureStepSequence",
+      "action": "none"
     },
     "00400340": {
-      "action": "none",
-      "comment": "PerformedSeriesSequence"
+      "comment": "PerformedSeriesSequence",
+      "action": "none"
     },
     "00400400": {
-      "action": "none",
-      "comment": "CommentsOnTheScheduledProcedureStep"
+      "comment": "CommentsOnTheScheduledProcedureStep",
+      "action": "none"
     },
     "0040050A": {
-      "action": "none",
-      "comment": "SpecimenAccessionNumber"
+      "comment": "SpecimenAccessionNumber",
+      "action": "none"
     },
     "00400550": {
-      "action": "none",
-      "comment": "SpecimenSequence"
+      "comment": "SpecimenSequence",
+      "action": "none"
     },
     "00400551": {
-      "action": "none",
-      "comment": "SpecimenIdentifier"
+      "comment": "SpecimenIdentifier",
+      "action": "none"
     },
     "00400555": {
-      "action": "remove",
-      "comment": "AcquisitionContextSequence"
+      "comment": "AcquisitionContextSequence",
+      "action": "remove"
     },
     "00400556": {
-      "action": "none",
-      "comment": "AcquisitionContextDescription"
+      "comment": "AcquisitionContextDescription",
+      "action": "none"
     },
     "0040059A": {
-      "action": "none",
-      "comment": "SpecimenTypeCodeSequence"
+      "comment": "SpecimenTypeCodeSequence",
+      "action": "none"
     },
     "004006FA": {
-      "action": "none",
-      "comment": "SlideIdentifier"
+      "comment": "SlideIdentifier",
+      "action": "none"
     },
     "0040071A": {
-      "action": "none",
-      "comment": "ImageCenterPointCoordinatesSequence"
+      "comment": "ImageCenterPointCoordinatesSequence",
+      "action": "none"
     },
     "0040072A": {
-      "action": "none",
-      "comment": "XOffsetInSlideCoordinateSystem"
+      "comment": "XOffsetInSlideCoordinateSystem",
+      "action": "none"
     },
     "0040073A": {
-      "action": "none",
-      "comment": "YOffsetInSlideCoordinateSystem"
+      "comment": "YOffsetInSlideCoordinateSystem",
+      "action": "none"
     },
     "0040074A": {
-      "action": "none",
-      "comment": "ZOffsetInSlideCoordinateSystem"
+      "comment": "ZOffsetInSlideCoordinateSystem",
+      "action": "none"
     },
     "004008D8": {
-      "action": "none",
-      "comment": "PixelSpacingSequence"
+      "comment": "PixelSpacingSequence",
+      "action": "none"
     },
     "004008DA": {
-      "action": "none",
-      "comment": "CoordinateSystemAxisCodeSequence"
+      "comment": "CoordinateSystemAxisCodeSequence",
+      "action": "none"
     },
     "004008EA": {
-      "action": "none",
-      "comment": "MeasurementUnitsCodeSequence"
+      "comment": "MeasurementUnitsCodeSequence",
+      "action": "none"
     },
     "00401001": {
-      "action": "none",
-      "comment": "RequestedProcedureID"
+      "comment": "RequestedProcedureID",
+      "action": "none"
     },
     "00401002": {
-      "action": "none",
-      "comment": "ReasonForTheRequestedProcedure"
+      "comment": "ReasonForTheRequestedProcedure",
+      "action": "none"
     },
     "00401003": {
-      "action": "none",
-      "comment": "RequestedProcedurePriority"
+      "comment": "RequestedProcedurePriority",
+      "action": "none"
     },
     "00401004": {
-      "action": "remove",
-      "comment": "PatientTransportArrangements"
+      "comment": "PatientTransportArrangements",
+      "action": "remove"
     },
     "00401005": {
-      "action": "remove",
-      "comment": "RequestedProcedureLocation"
+      "comment": "RequestedProcedureLocation",
+      "action": "remove"
     },
     "00401008": {
-      "action": "none",
-      "comment": "ConfidentialityCode"
+      "comment": "ConfidentialityCode",
+      "action": "none"
     },
     "00401009": {
-      "action": "none",
-      "comment": "ReportingPriority"
+      "comment": "ReportingPriority",
+      "action": "none"
     },
     "00401010": {
-      "action": "remove",
-      "comment": "NamesOfIntendedRecipientsOfResults"
+      "comment": "NamesOfIntendedRecipientsOfResults",
+      "action": "remove"
     },
     "00401011": {
-      "action": "remove",
-      "comment": "IntendedRecipientsOfResultsIdentificationSequence"
+      "comment": "IntendedRecipientsOfResultsIdentificationSequence",
+      "action": "remove"
     },
     "00401102": {
-      "action": "remove",
-      "comment": "PersonAddress"
+      "comment": "PersonAddress",
+      "action": "remove"
     },
     "00401103": {
-      "action": "remove",
-      "comment": "PersonTelephoneNumbers"
+      "comment": "PersonTelephoneNumbers",
+      "action": "remove"
     },
     "00401400": {
-      "action": "remove",
-      "comment": "RequestedProcedureComments"
+      "comment": "RequestedProcedureComments",
+      "action": "remove"
     },
     "00402001": {
-      "action": "remove",
-      "comment": "ReasonForTheImagingServiceRequest"
+      "comment": "ReasonForTheImagingServiceRequest",
+      "action": "remove"
     },
     "00402004": {
-      "action": "hashdate",
-      "comment": "IssueDateOfImagingServiceRequest"
+      "comment": "IssueDateOfImagingServiceRequest",
+      "action": "hashdate"
     },
     "00402005": {
-      "action": "none",
-      "comment": "IssueTimeOfImagingServiceRequest"
+      "comment": "IssueTimeOfImagingServiceRequest",
+      "action": "none"
     },
     "00402008": {
-      "action": "remove",
-      "comment": "OrderEnteredBy"
+      "comment": "OrderEnteredBy",
+      "action": "remove"
     },
     "00402009": {
-      "action": "remove",
-      "comment": "OrderEntererLocation"
+      "comment": "OrderEntererLocation",
+      "action": "remove"
     },
     "00402010": {
-      "action": "remove",
-      "comment": "OrderCallbackPhoneNumber"
+      "comment": "OrderCallbackPhoneNumber",
+      "action": "remove"
     },
     "00402016": {
-      "action": "hash",
       "comment": "PlacerOrderNumberImagingServiceRequest",
+      "action": "hash",
       "length": 16
     },
     "00402017": {
-      "action": "hash",
       "comment": "FillerOrderNumberImagingServiceRequest",
+      "action": "hash",
       "length": 16
     },
     "00402400": {
-      "action": "remove",
-      "comment": "ImagingServiceRequestComments"
+      "comment": "ImagingServiceRequestComments",
+      "action": "remove"
     },
     "00403001": {
-      "action": "remove",
-      "comment": "ConfidentialityConstraintOnPatientDataDescription"
+      "comment": "ConfidentialityConstraintOnPatientDataDescription",
+      "action": "remove"
     },
     "00404023": {
-      "action": "hashuid",
-      "comment": "ReferencedGeneralPurposeScheduledProcedureStepTransactionUID"
+      "comment": "ReferencedGeneralPurposeScheduledProcedureStepTransactionUID",
+      "action": "hashuid"
     },
     "00404025": {
-      "action": "remove",
-      "comment": "ScheduledStationNameCodeSequence"
+      "comment": "ScheduledStationNameCodeSequence",
+      "action": "remove"
     },
     "00404027": {
-      "action": "remove",
-      "comment": "ScheduledStationGeographicLocationCodeSequence"
+      "comment": "ScheduledStationGeographicLocationCodeSequence",
+      "action": "remove"
     },
     "00404028": {
-      "action": "remove",
-      "comment": "PerformedStationNameCodeSequence"
+      "comment": "PerformedStationNameCodeSequence",
+      "action": "remove"
     },
     "00404030": {
-      "action": "remove",
-      "comment": "PerformedStationGeographicLocationCodeSequence"
+      "comment": "PerformedStationGeographicLocationCodeSequence",
+      "action": "remove"
     },
     "00404034": {
-      "action": "remove",
-      "comment": "ScheduledHumanPerformersSequence"
+      "comment": "ScheduledHumanPerformersSequence",
+      "action": "remove"
     },
     "00404035": {
-      "action": "remove",
-      "comment": "ActualHumanPerformersSequence"
+      "comment": "ActualHumanPerformersSequence",
+      "action": "remove"
     },
     "00404036": {
-      "action": "remove",
-      "comment": "HumanPerformerOrganization"
+      "comment": "HumanPerformerOrganization",
+      "action": "remove"
     },
     "00404037": {
-      "action": "remove",
-      "comment": "HumanPerformerName"
+      "comment": "HumanPerformerName",
+      "action": "remove"
     },
     "00408302": {
-      "action": "none",
-      "comment": "EntranceDoseInmGy"
+      "comment": "EntranceDoseInmGy",
+      "action": "none"
     },
     "00409096": {
-      "action": "none",
-      "comment": "RealWorldValueMappingSequence"
+      "comment": "RealWorldValueMappingSequence",
+      "action": "none"
     },
     "00409210": {
-      "action": "none",
-      "comment": "LUTLabel"
+      "comment": "LUTLabel",
+      "action": "none"
     },
     "00409211": {
-      "action": "none",
-      "comment": "RealWorldValueLastValueMapped"
+      "comment": "RealWorldValueLastValueMapped",
+      "action": "none"
     },
     "00409212": {
-      "action": "none",
-      "comment": "RealWorldValueLUTData"
+      "comment": "RealWorldValueLUTData",
+      "action": "none"
     },
     "00409216": {
-      "action": "none",
-      "comment": "RealWorldValueFirstValueMapped"
+      "comment": "RealWorldValueFirstValueMapped",
+      "action": "none"
     },
     "00409224": {
-      "action": "none",
-      "comment": "RealWorldValueIntercept"
+      "comment": "RealWorldValueIntercept",
+      "action": "none"
     },
     "00409225": {
-      "action": "none",
-      "comment": "RealWorldValueSlope"
+      "comment": "RealWorldValueSlope",
+      "action": "none"
     },
     "0040A010": {
-      "action": "none",
-      "comment": "RelationshipType"
+      "comment": "RelationshipType",
+      "action": "none"
     },
     "0040A027": {
-      "action": "remove",
-      "comment": "VerifyingOrganization"
+      "comment": "VerifyingOrganization",
+      "action": "remove"
     },
     "0040A030": {
-      "action": "hashdate",
-      "comment": "VerificationDateTime"
+      "comment": "VerificationDateTime",
+      "action": "hashdate"
     },
     "0040A032": {
-      "action": "hashdate",
-      "comment": "ObservationDateTime"
+      "comment": "ObservationDateTime",
+      "action": "hashdate"
     },
     "0040A040": {
-      "action": "none",
-      "comment": "ValueType"
+      "comment": "ValueType",
+      "action": "none"
     },
     "0040A043": {
-      "action": "none",
-      "comment": "ConceptNameCodeSequence"
+      "comment": "ConceptNameCodeSequence",
+      "action": "none"
     },
     "0040A050": {
-      "action": "none",
-      "comment": "ContinuityOfContent"
+      "comment": "ContinuityOfContent",
+      "action": "none"
     },
     "0040A073": {
-      "action": "remove",
-      "comment": "VerifyingObserverSequence"
+      "comment": "VerifyingObserverSequence",
+      "action": "remove"
     },
     "0040A075": {
-      "action": "remove",
-      "comment": "VerifyingObserverName"
+      "comment": "VerifyingObserverName",
+      "action": "remove"
     },
     "0040A078": {
-      "action": "remove",
-      "comment": "AuthorObserverSequence"
+      "comment": "AuthorObserverSequence",
+      "action": "remove"
     },
     "0040A07A": {
-      "action": "remove",
-      "comment": "ParticipantSequence"
+      "comment": "ParticipantSequence",
+      "action": "remove"
     },
     "0040A07C": {
-      "action": "remove",
-      "comment": "CustodialOrganizationSequence"
+      "comment": "CustodialOrganizationSequence",
+      "action": "remove"
     },
     "0040A088": {
-      "action": "remove",
-      "comment": "VerifyingObserverIdentificationCodeSequence"
+      "comment": "VerifyingObserverIdentificationCodeSequence",
+      "action": "remove"
     },
     "0040A0B0": {
-      "action": "none",
-      "comment": "ReferencedWaveformChannels"
+      "comment": "ReferencedWaveformChannels",
+      "action": "none"
     },
     "0040A120": {
-      "action": "hashdate",
-      "comment": "DateTime"
+      "comment": "DateTime",
+      "action": "hashdate"
     },
     "0040A121": {
-      "action": "hashdate",
-      "comment": "Date"
+      "comment": "Date",
+      "action": "hashdate"
     },
     "0040A122": {
-      "action": "none",
-      "comment": "Time"
+      "comment": "Time",
+      "action": "none"
     },
     "0040A123": {
-      "action": "remove",
-      "comment": "PersonName"
+      "comment": "PersonName",
+      "action": "remove"
     },
     "0040A124": {
-      "action": "hashuid",
-      "comment": "UID"
+      "comment": "UID",
+      "action": "hashuid"
     },
     "0040A130": {
-      "action": "none",
-      "comment": "TemporalRangeType"
+      "comment": "TemporalRangeType",
+      "action": "none"
     },
     "0040A132": {
-      "action": "none",
-      "comment": "ReferencedSamplePositions"
+      "comment": "ReferencedSamplePositions",
+      "action": "none"
     },
     "0040A136": {
-      "action": "none",
-      "comment": "ReferencedFrameNumbers"
+      "comment": "ReferencedFrameNumbers",
+      "action": "none"
     },
     "0040A138": {
-      "action": "none",
-      "comment": "ReferencedTimeOffsets"
+      "comment": "ReferencedTimeOffsets",
+      "action": "none"
     },
     "0040A13A": {
-      "action": "hashdate",
-      "comment": "ReferencedDateTime"
+      "comment": "ReferencedDateTime",
+      "action": "hashdate"
     },
     "0040A160": {
-      "action": "none",
-      "comment": "TextValue"
+      "comment": "TextValue",
+      "action": "none"
     },
     "0040A168": {
-      "action": "none",
-      "comment": "ConceptCodeSequence"
+      "comment": "ConceptCodeSequence",
+      "action": "none"
     },
     "0040A180": {
-      "action": "none",
-      "comment": "AnnotationGroupNumber"
+      "comment": "AnnotationGroupNumber",
+      "action": "none"
     },
     "0040A195": {
-      "action": "none",
-      "comment": "ModifierCodeSequence"
+      "comment": "ModifierCodeSequence",
+      "action": "none"
     },
     "0040A300": {
-      "action": "none",
-      "comment": "MeasuredValueSequence"
+      "comment": "MeasuredValueSequence",
+      "action": "none"
     },
     "0040A30A": {
-      "action": "none",
-      "comment": "NumericValue"
+      "comment": "NumericValue",
+      "action": "none"
     },
     "0040A360": {
-      "action": "none",
-      "comment": "PredecessorDocumentsSequence"
+      "comment": "PredecessorDocumentsSequence",
+      "action": "none"
     },
     "0040A370": {
-      "action": "none",
-      "comment": "ReferencedRequestSequence"
+      "comment": "ReferencedRequestSequence",
+      "action": "none"
     },
     "0040A372": {
-      "action": "none",
-      "comment": "PerformedProcedureCodeSequence"
+      "comment": "PerformedProcedureCodeSequence",
+      "action": "none"
     },
     "0040A375": {
-      "action": "none",
-      "comment": "CurrentRequestedProcedureEvidenceSequence"
+      "comment": "CurrentRequestedProcedureEvidenceSequence",
+      "action": "none"
     },
     "0040A385": {
-      "action": "none",
-      "comment": "PertinentOtherEvidenceSequence"
+      "comment": "PertinentOtherEvidenceSequence",
+      "action": "none"
     },
     "0040A491": {
-      "action": "none",
-      "comment": "CompletionFlag"
+      "comment": "CompletionFlag",
+      "action": "none"
     },
     "0040A493": {
-      "action": "none",
-      "comment": "VerificationFlag"
+      "comment": "VerificationFlag",
+      "action": "none"
     },
     "0040A504": {
-      "action": "none",
-      "comment": "ContentTemplateSequence"
+      "comment": "ContentTemplateSequence",
+      "action": "none"
     },
     "0040A525": {
-      "action": "none",
-      "comment": "IdenticalDocumentsSequence"
+      "comment": "IdenticalDocumentsSequence",
+      "action": "none"
     },
     "0040A730": {
-      "action": "remove",
-      "comment": "ContentSequence"
+      "comment": "ContentSequence",
+      "action": "remove"
     },
     "0040B020": {
-      "action": "none",
-      "comment": "WaveformAnnotationSequence"
+      "comment": "WaveformAnnotationSequence",
+      "action": "none"
     },
     "0040DB06": {
-      "action": "none",
-      "comment": "TemplateVersion"
+      "comment": "TemplateVersion",
+      "action": "none"
     },
     "0040DB07": {
-      "action": "none",
-      "comment": "TemplateLocalVersion"
+      "comment": "TemplateLocalVersion",
+      "action": "none"
     },
     "0040DB0B": {
-      "action": "none",
-      "comment": "TemplateExtensionFlag"
+      "comment": "TemplateExtensionFlag",
+      "action": "none"
     },
     "0040DB0C": {
-      "action": "hashuid",
-      "comment": "TemplateExtensionOrganizationUID"
+      "comment": "TemplateExtensionOrganizationUID",
+      "action": "hashuid"
     },
     "0040DB0D": {
-      "action": "hashuid",
-      "comment": "TemplateExtensionCreatorUID"
+      "comment": "TemplateExtensionCreatorUID",
+      "action": "hashuid"
     },
     "0040DB73": {
-      "action": "none",
-      "comment": "ReferencedContentItemIdentifier"
+      "comment": "ReferencedContentItemIdentifier",
+      "action": "none"
     },
     "0070031A": {
-      "action": "hashuid",
-      "comment": "FiducialUID"
+      "comment": "FiducialUID",
+      "action": "hashuid"
     },
     "00880140": {
-      "action": "hashuid",
-      "comment": "StorageMediaFileSetUID"
+      "comment": "StorageMediaFileSetUID",
+      "action": "hashuid"
     },
     "00880200": {
-      "action": "remove",
-      "comment": "IconImageSequence"
+      "comment": "IconImageSequence",
+      "action": "remove"
     },
     "00880906": {
-      "action": "remove",
-      "comment": "TopicSubject"
+      "comment": "TopicSubject",
+      "action": "remove"
     },
     "00880910": {
-      "action": "remove",
-      "comment": "TopicAuthor"
+      "comment": "TopicAuthor",
+      "action": "remove"
     },
     "00880912": {
-      "action": "remove",
-      "comment": "TopicKeywords"
+      "comment": "TopicKeywords",
+      "action": "remove"
     },
     "04000100": {
-      "action": "hashuid",
-      "comment": "DigitalSignatureUID"
+      "comment": "DigitalSignatureUID",
+      "action": "hashuid"
     },
     "20300020": {
-      "action": "remove",
-      "comment": "TextString"
+      "comment": "TextString",
+      "action": "remove"
     },
     "30060024": {
-      "action": "hashuid",
-      "comment": "ReferencedFrameOfReferenceUID"
+      "comment": "ReferencedFrameOfReferenceUID",
+      "action": "hashuid"
     },
     "300600C2": {
-      "action": "hashuid",
-      "comment": "RelatedFrameOfReferenceUID"
+      "comment": "RelatedFrameOfReferenceUID",
+      "action": "hashuid"
     },
     "300A0013": {
-      "action": "hashuid",
-      "comment": "DoseReferenceUID"
+      "comment": "DoseReferenceUID",
+      "action": "hashuid"
     },
     "40000010": {
-      "action": "remove",
-      "comment": "Arbitrary"
+      "comment": "Arbitrary",
+      "action": "remove"
     },
     "40004000": {
-      "action": "remove",
-      "comment": "TextComments"
+      "comment": "TextComments",
+      "action": "remove"
     },
     "40080042": {
-      "action": "remove",
-      "comment": "ResultsIDIssuer"
+      "comment": "ResultsIDIssuer",
+      "action": "remove"
     },
     "40080102": {
-      "action": "remove",
-      "comment": "InterpretationRecorder"
+      "comment": "InterpretationRecorder",
+      "action": "remove"
     },
     "4008010A": {
-      "action": "remove",
-      "comment": "InterpretationTranscriber"
+      "comment": "InterpretationTranscriber",
+      "action": "remove"
     },
     "4008010B": {
-      "action": "remove",
-      "comment": "InterpretationText"
+      "comment": "InterpretationText",
+      "action": "remove"
     },
     "4008010C": {
-      "action": "remove",
-      "comment": "InterpretationAuthor"
+      "comment": "InterpretationAuthor",
+      "action": "remove"
     },
     "40080111": {
-      "action": "remove",
-      "comment": "InterpretationApproverSequence"
+      "comment": "InterpretationApproverSequence",
+      "action": "remove"
     },
     "40080114": {
-      "action": "remove",
-      "comment": "PhysicianApprovingInterpretation"
+      "comment": "PhysicianApprovingInterpretation",
+      "action": "remove"
     },
     "40080115": {
-      "action": "remove",
-      "comment": "InterpretationDiagnosisDescription"
+      "comment": "InterpretationDiagnosisDescription",
+      "action": "remove"
     },
     "40080118": {
-      "action": "remove",
-      "comment": "ResultsDistributionListSequence"
+      "comment": "ResultsDistributionListSequence",
+      "action": "remove"
     },
     "40080119": {
-      "action": "remove",
-      "comment": "DistributionName"
+      "comment": "DistributionName",
+      "action": "remove"
     },
     "4008011A": {
-      "action": "remove",
-      "comment": "DistributionAddress"
+      "comment": "DistributionAddress",
+      "action": "remove"
     },
     "40080202": {
-      "action": "remove",
-      "comment": "InterpretationIDIssuer"
+      "comment": "InterpretationIDIssuer",
+      "action": "remove"
     },
     "40080300": {
-      "action": "remove",
-      "comment": "Impressions"
+      "comment": "Impressions",
+      "action": "remove"
     },
     "40084000": {
-      "action": "remove",
-      "comment": "ResultsComments"
+      "comment": "ResultsComments",
+      "action": "remove"
     },
     "FFFAFFFA": {
-      "action": "remove",
-      "comment": "DigitalSignaturesSequence"
+      "comment": "DigitalSignaturesSequence",
+      "action": "remove"
     },
     "FFFCFFFC": {
-      "action": "remove",
-      "comment": "DataSetTrailingPadding"
+      "comment": "DataSetTrailingPadding",
+      "action": "remove"
     }
-  },
-  "uid_root": "9999"
+  }
 }
