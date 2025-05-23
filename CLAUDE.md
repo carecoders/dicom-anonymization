@@ -8,7 +8,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `just build` - Build release version
 - `just test` - Run tests
 - `just clippy` - Run linter
-- `cargo deny check` - Check licenses and vulnerabilities
+- `just deny` - Check licenses and vulnerabilities of dependencies
+- `just udeps` - Find unused dependencies
 
 ### Python Bindings
 - `just build-python` - Build Python bindings for development (uses maturin develop)
