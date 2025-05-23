@@ -19,11 +19,13 @@ cargo build --release
 
 ## Usage
 
-See documentation on [docs.rs](https://docs.rs/dicom-anonymization).
-
 ### Python
 
-See the Python bindings [README.md](bindings/python/README.md).
+See documentation on [PyPI](https://pypi.org/project/dcmanon).
+
+### Rust
+
+See documentation on [docs.rs](https://docs.rs/dicom-anonymization).
 
 ### Library
 

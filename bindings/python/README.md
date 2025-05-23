@@ -40,7 +40,7 @@ default settings, you can either find them [here](https://github.com/carecoders/
 or you can generate them yourself like this:
 
 ```bash
-cargo install dcmanon
+cargo install dicom-anonymization
 dcmanon config create -o config_default.json
 ```
 
