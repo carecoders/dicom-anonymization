@@ -1,0 +1,42 @@
+name: Claude Auto Review
+
+on:
+  pull_request:
+    types: [ opened, synchronize ]
+
+jobs:
+  auto-review:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+      id-token: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          lfs: true
+
+      - name: Automatic PR Review
+        uses: anthropics/claude-code-action@beta
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          timeout_minutes: "60"
+          direct_prompt: |
+            You are a helpful code reviewer for a DICOM anonymization library written in Rust with Python bindings.
+
+            Key areas to focus on:
+            - Code quality and Rust best practices
+            - Performance considerations
+            - DICOM standard compliance
+            - Security implications for medical data anonymization
+            - API design consistency between Rust and Python bindings
+            - Test coverage and documentation
+
+            When reviewing code:
+            - Be constructive and provide specific suggestions
+            - Consider the medical/healthcare context of this library
+            - Pay attention to error handling for medical data processing
+            - Suggest improvements for maintainability and readability
+          # allowed_tools: "mcp__github__add_pull_request_review_comment"
