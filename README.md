@@ -21,6 +21,10 @@ cargo build --release
 
 See documentation on [docs.rs](https://docs.rs/dicom-anonymization).
 
+### Python
+
+See the Python bindings [README.md](bindings/python/README.md).
+
 ### Library
 
 #### Installation
