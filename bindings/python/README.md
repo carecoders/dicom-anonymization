@@ -84,7 +84,7 @@ tag_actions = {
         "action": "empty",
     },
     "00331010": {  # private tag
-        "action": "keep",  # Keep this tag as is
+        "action": "keep",  # All private tags are removed by default, but keep this one
     }
 }
 
