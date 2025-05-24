@@ -1,4 +1,4 @@
-import init, { DicomAnonymizer, get_version } from './pkg/dicom_anonymization_wasm.js';
+import init, {DicomAnonymizer, get_version} from './pkg/dicom_anonymization_wasm.js';
 
 let wasmModule = null;
 let isInitialized = false;
@@ -6,7 +6,6 @@ let isInitialized = false;
 export async function initializeWasm() {
     if (isInitialized) return;
 
-    // Initialize with the correct path to the WASM file
     wasmModule = await init('./pkg/dicom_anonymization_wasm_bg.wasm');
     isInitialized = true;
 }

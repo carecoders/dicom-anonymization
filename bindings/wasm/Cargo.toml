@@ -1,7 +1,13 @@
 [package]
 name = "dicom-anonymization-wasm"
-version = "0.1.0"
+version = "0.3.1"
+authors = ["carecoders <info@carecoders.io>"]
 edition = "2021"
+description = "DICOM anonymization (WASM)"
+repository = "https://github.com/carecoders/dicom-anonymization"
+readme = "README.md"
+keywords = ["dicom", "dicom-files", "anonymization", "webassembly"]
+license = "MIT OR Apache-2.0"
 
 [lib]
 crate-type = ["cdylib"]
@@ -9,15 +15,7 @@ crate-type = ["cdylib"]
 [dependencies]
 dicom-anonymization = { path = "../../dicom-anonymization" }
 wasm-bindgen = "0.2"
-js-sys = "0.3"
 console_error_panic_hook = "0.1"
 
-[dependencies.web-sys]
-version = "0.3"
-features = [
-  "console",
-]
-
 [profile.release]
-# Tell `rustc` to optimize for small code size.
 opt-level = "s"

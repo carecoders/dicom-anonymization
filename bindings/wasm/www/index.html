@@ -7,63 +7,64 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>DICOM Anonymizer</h1>
-            <p>Anonymize DICOM files directly in your browser</p>
-        </header>
+<div class="container">
+    <header>
+        <h1>DICOM Anonymizer</h1>
+        <p>Anonymize DICOM files directly in your browser</p>
+    </header>
 
-        <main>
-            <div class="upload-section">
-                <div class="upload-area" id="uploadArea">
-                    <svg class="upload-icon" viewBox="0 0 24 24" width="48" height="48">
-                        <path d="M9 16h6v-6h4l-7-7-7 7h4v6zm-4 2h14v2H5v-2z"/>
-                    </svg>
-                    <h3>Drop DICOM file here or click to upload</h3>
-                    <p>Your files never leave your browser</p>
-                    <input type="file" id="fileInput" accept=".dcm,.DCM,application/dicom" hidden>
-                </div>
+    <main>
+        <div class="upload-section">
+            <div class="upload-area" id="uploadArea">
+                <svg class="upload-icon" viewBox="0 0 24 24" width="48" height="48">
+                    <path d="M9 16h6v-6h4l-7-7-7 7h4v6zm-4 2h14v2H5v-2z"/>
+                </svg>
+                <h3>Drop DICOM file here or click to upload</h3>
+                <p>Your files never leave your browser</p>
+                <input type="file" id="fileInput" accept=".dcm,.DCM,application/dicom" hidden>
+            </div>
+        </div>
+
+        <div id="processingSection" class="processing-section" style="display: none;">
+            <div class="file-info">
+                <h3>Selected file</h3>
+                <p id="fileName"></p>
+                <p id="fileSize"></p>
             </div>
 
-            <div id="processingSection" class="processing-section" style="display: none;">
-                <div class="file-info">
-                    <h3>Selected File</h3>
-                    <p id="fileName"></p>
-                    <p id="fileSize"></p>
-                </div>
-
-                <div id="loadingIndicator" class="loading" style="display: none;">
-                    <div class="spinner"></div>
-                    <p>Processing...</p>
-                </div>
-
-                <div id="resultSection" class="result-section" style="display: none;">
-                    <h3>✅ Anonymization Complete</h3>
-                    <p>Your DICOM file has been anonymized successfully.</p>
-                    <button id="downloadBtn" class="btn btn-success">
-                        Download Anonymized File
-                    </button>
-                    <button id="resetBtn" class="btn btn-secondary">
-                        Process Another File
-                    </button>
-                </div>
-
-                <div id="errorSection" class="error-section" style="display: none;">
-                    <h3>❌ Error</h3>
-                    <p id="errorMessage"></p>
-                    <button id="retryBtn" class="btn btn-secondary">
-                        Try Again
-                    </button>
-                </div>
+            <div id="loadingIndicator" class="loading" style="display: none;">
+                <div class="spinner"></div>
+                <p>Processing...</p>
             </div>
-        </main>
 
-        <footer>
-            <p>Powered by <a href="https://github.com/carecoders/dicom-anonymization" target="_blank">dicom-anonymization</a></p>
-            <p id="versionInfo"></p>
-        </footer>
-    </div>
+            <div id="resultSection" class="result-section" style="display: none;">
+                <h3>✅ Anonymization complete</h3>
+                <p>Your DICOM file has been anonymized successfully</p>
+                <button id="downloadBtn" class="btn btn-success">
+                    Download anonymized file
+                </button>
+                <button id="resetBtn" class="btn btn-secondary">
+                    Process another file
+                </button>
+            </div>
 
-    <script type="module" src="app.js"></script>
+            <div id="errorSection" class="error-section" style="display: none;">
+                <h3>❌ Error</h3>
+                <p id="errorMessage"></p>
+                <button id="retryBtn" class="btn btn-secondary">
+                    Try again
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>Powered by <a href="https://github.com/carecoders/dicom-anonymization"
+                         target="_blank">carecoders/dicom-anonymization</a></p>
+        <p id="versionInfo"></p>
+    </footer>
+</div>
+
+<script type="module" src="app.js"></script>
 </body>
 </html>

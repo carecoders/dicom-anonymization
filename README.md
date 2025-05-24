@@ -27,9 +27,9 @@ See documentation on [PyPI](https://pypi.org/project/dcmanon).
 
 See documentation on [docs.rs](https://docs.rs/dicom-anonymization).
 
-### Library
+#### Library
 
-#### Installation
+##### Installation
 
 To add the library to your project, do this:
 
@@ -37,7 +37,7 @@ To add the library to your project, do this:
 cargo add dicom-anonymization
 ```
 
-#### Using default configuration
+##### Using default configuration
 
 ```rust
 use std::fs::File;
@@ -52,7 +52,7 @@ let output_file = File::create("anonymized.dcm")?;
 result.write(output_file)?;
 ```
 
-#### Using custom configuration
+##### Using custom configuration
 
 ```rust
 use std::fs::File;
@@ -86,7 +86,7 @@ let mut output = Vec::<u8>::new();
 result.write(&mut output)?;
 ```
 
-#### Building configuration from scratch
+##### Building configuration from scratch
 
 ```rust
 use dicom_anonymization::tags;
@@ -101,9 +101,9 @@ let config_from_scratch = ConfigBuilder::new()
     .build();
 ```
 
-### Binary
+#### Binary
 
-#### Installation
+##### Installation
 
 To install the `dcmanon` binary, do this:
 
@@ -111,9 +111,9 @@ To install the `dcmanon` binary, do this:
 cargo install dicom-anonymization
 ```
 
-#### Usage
+##### Usage
 
-##### anonymize
+###### anonymize
 
 ```bash
 $ dcmanon anonymize --help
@@ -141,7 +141,7 @@ Options:
 dcmanon -i tests/data/test.dcm -o anonymized.dcm
 ```
 
-##### config create
+###### config create
 
 ```bash
 $ dcmanon config create --help
@@ -158,6 +158,10 @@ Options:
       --diff-only             Only output the dfferences with the default config
   -h, --help                  Print help
 ```
+
+### WebAssembly
+
+Proof-of-concept WASM bindings can be found [here](https://github.com/carecoders/dicom-anonymization/tree/main/bindings/wasm).
 
 ## Contributing
 

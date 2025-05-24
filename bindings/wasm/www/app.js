@@ -1,15 +1,13 @@
-import { initializeWasm, DICOMAnonymizer } from './dicom-anonymizer.js';
+import {DICOMAnonymizer, initializeWasm} from './dicom-anonymizer.js';
 
 let selectedFile = null;
 let anonymizedData = null;
 
-// DOM elements
 const uploadArea = document.getElementById('uploadArea');
 const fileInput = document.getElementById('fileInput');
 const processingSection = document.getElementById('processingSection');
 const fileName = document.getElementById('fileName');
 const fileSize = document.getElementById('fileSize');
-// const anonymizeBtn = document.getElementById('anonymizeBtn'); // Removed - auto-anonymizing now
 const loadingIndicator = document.getElementById('loadingIndicator');
 const resultSection = document.getElementById('resultSection');
 const errorSection = document.getElementById('errorSection');
@@ -19,7 +17,6 @@ const resetBtn = document.getElementById('resetBtn');
 const retryBtn = document.getElementById('retryBtn');
 const versionInfo = document.getElementById('versionInfo');
 
-// Initialize WASM module
 async function init() {
     try {
         await initializeWasm();
@@ -30,7 +27,6 @@ async function init() {
     }
 }
 
-// File upload handling
 uploadArea.addEventListener('click', () => fileInput.click());
 fileInput.addEventListener('change', handleFileSelect);
 
@@ -69,12 +65,12 @@ async function handleFile(file) {
     processingSection.style.display = 'block';
     resultSection.style.display = 'none';
     errorSection.style.display = 'none';
-    loadingIndicator.style.display = 'block'; // Show loading immediately
+    loadingIndicator.style.display = 'block'; // show loading immediately
 
-    // Small delay to ensure UI updates
+    // small delay to ensure UI updates
     await new Promise(resolve => setTimeout(resolve, 100));
 
-    // Automatically start anonymization
+    // automatically start anonymization
     await anonymizeFile();
 }
 
@@ -88,18 +84,14 @@ function formatFileSize(bytes) {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
 }
 
-// Anonymization - removed button listener since we auto-anonymize now
-
 async function anonymizeFile() {
     if (!selectedFile) return;
 
     errorSection.style.display = 'none';
 
     try {
-        // Read file
         const arrayBuffer = await readFileAsArrayBuffer(selectedFile);
 
-        // Create anonymizer and process file
         const anonymizer = new DICOMAnonymizer();
         anonymizedData = anonymizer.anonymize(arrayBuffer);
 
@@ -131,13 +123,12 @@ function showError(message) {
     resultSection.style.display = 'none';
 }
 
-// Download
 downloadBtn.addEventListener('click', downloadAnonymizedFile);
 
 function downloadAnonymizedFile() {
     if (!anonymizedData || !selectedFile) return;
 
-    const blob = new Blob([anonymizedData], { type: 'application/dicom' });
+    const blob = new Blob([anonymizedData], {type: 'application/dicom'});
     const url = URL.createObjectURL(blob);
 
     const a = document.createElement('a');
@@ -150,7 +141,6 @@ function downloadAnonymizedFile() {
     URL.revokeObjectURL(url);
 }
 
-// Reset
 resetBtn.addEventListener('click', reset);
 retryBtn.addEventListener('click', reset);
 
@@ -163,5 +153,4 @@ function reset() {
     processingSection.style.display = 'none';
 }
 
-// Initialize on load
 init();

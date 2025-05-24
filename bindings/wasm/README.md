@@ -28,13 +28,13 @@ wasm-pack build --target web --out-dir www/pkg
 2. Serve the web files:
    ```bash
    cd bindings/wasm
-   python3 -m http.server --directory www 8080
+   python -m http.server --directory www 8080
    # or
    npm run serve
    ```
 3. Open http://localhost:8080 in your browser
 
-## Usage in Your Own Project
+## Usage in your own project
 
 1. Build the WASM module
 2. Copy the `pkg` directory to your project
@@ -43,17 +43,14 @@ wasm-pack build --target web --out-dir www/pkg
 ```javascript
 import init, { DicomAnonymizer } from './pkg/dicom_anonymization_wasm.js';
 
-// Initialize WASM
 await init();
 
-// Create anonymizer
 const anonymizer = new DicomAnonymizer();
 
-// Anonymize DICOM data
 const fileData = new Uint8Array(/* your DICOM file data */);
 const anonymizedData = anonymizer.anonymize(fileData);
 
-// Save or process anonymizedData
+// save or process anonymizedData
 ```
 
 ## API

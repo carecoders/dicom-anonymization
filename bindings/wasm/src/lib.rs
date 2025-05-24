@@ -4,7 +4,6 @@ use dicom_anonymization::{
 use std::io::Cursor;
 use wasm_bindgen::prelude::*;
 
-// Set panic hook for better error messages in the browser
 #[wasm_bindgen(start)]
 pub fn init() {
     console_error_panic_hook::set_once();
@@ -19,9 +18,7 @@ pub struct DicomAnonymizer {
 impl DicomAnonymizer {
     #[wasm_bindgen(constructor)]
     pub fn new() -> Self {
-        let config = ConfigBuilder::default()
-            .uid_root("12.3.21".parse().unwrap())
-            .build();
+        let config = ConfigBuilder::default().build();
         let processor = DefaultProcessor::new(config);
         let anonymizer = Anonymizer::new(processor);
 
@@ -45,7 +42,12 @@ impl DicomAnonymizer {
     }
 }
 
-// Export version info
+impl Default for DicomAnonymizer {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 #[wasm_bindgen]
 pub fn get_version() -> String {
     env!("CARGO_PKG_VERSION").to_string()
