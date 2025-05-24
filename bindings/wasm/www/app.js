@@ -61,7 +61,7 @@ async function handleFile(file) {
     fileName.textContent = file.name;
     fileSize.textContent = formatFileSize(file.size);
 
-    uploadArea.style.display = 'none';
+    document.querySelector('.upload-section').style.display = 'none';
     processingSection.style.display = 'block';
     resultSection.style.display = 'none';
     errorSection.style.display = 'none';
@@ -149,7 +149,7 @@ function reset() {
     anonymizedData = null;
     fileInput.value = '';
 
-    uploadArea.style.display = 'block';
+    document.querySelector('.upload-section').style.display = 'block';
     processingSection.style.display = 'none';
 }
 
