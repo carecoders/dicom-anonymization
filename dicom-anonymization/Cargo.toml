@@ -17,10 +17,6 @@ path = "src/lib.rs"
 name = "dcmanon"
 path = "src/bin/main.rs"
 
-[[bin]]
-name = "cfgdump"
-path = "src/bin/cfgdump.rs"
-
 [dependencies]
 dicom-core = "0.8"
 dicom-dictionary-std = { version = "0.8", features = [
