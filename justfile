@@ -40,4 +40,4 @@ build-wasm:
 
 [working-directory: 'bindings/wasm']
 serve-wasm:
-    python -m http.server --directory www 8080
+    python3 -m http.server --directory www 8080

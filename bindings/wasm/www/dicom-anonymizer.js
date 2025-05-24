@@ -1,12 +1,11 @@
 import init, {DicomAnonymizer, get_version} from './pkg/dicom_anonymization_wasm.js';
 
-let wasmModule = null;
 let isInitialized = false;
 
 export async function initializeWasm() {
     if (isInitialized) return;
 
-    wasmModule = await init('./pkg/dicom_anonymization_wasm_bg.wasm');
+    await init('./pkg/dicom_anonymization_wasm_bg.wasm');
     isInitialized = true;
 }
 

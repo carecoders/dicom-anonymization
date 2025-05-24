@@ -14,7 +14,7 @@
   "scripts": {
     "build": "wasm-pack build --target web --out-dir www/pkg",
     "build:dev": "wasm-pack build --dev --target web --out-dir www/pkg",
-    "serve": "python -m http.server --directory www 8080"
+    "serve": "python3 -m http.server --directory www 8080"
   },
   "types": "pkg/dicom_anonymization_wasm.d.ts",
   "version": "0.1.0"

@@ -8,6 +8,7 @@ repository = "https://github.com/carecoders/dicom-anonymization"
 readme = "README.md"
 keywords = ["dicom", "dicom-files", "anonymization", "webassembly"]
 license = "MIT OR Apache-2.0"
+publish = false
 
 [lib]
 crate-type = ["cdylib"]

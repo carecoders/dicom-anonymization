@@ -30,7 +30,7 @@ wasm-pack build --target web --out-dir www/pkg
 2. Serve the web files:
    ```bash
    cd bindings/wasm
-   python -m http.server --directory www 8080
+   python3 -m http.server --directory www 8080
    # or
    npm run serve
    ```
