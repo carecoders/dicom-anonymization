@@ -37,6 +37,12 @@ header p {
     font-size: 1.1rem;
 }
 
+.demo-warning {
+    margin-top: 20px;
+    color: #dc2626;
+    font-weight: bold;
+}
+
 main {
     flex: 1;
 }
