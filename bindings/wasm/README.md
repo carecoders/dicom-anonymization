@@ -2,6 +2,8 @@
 
 WebAssembly bindings for the DICOM anonymization library, enabling DICOM file anonymization directly in the browser.
 
+🌐 **Live Demo**: [https://carecoders.github.io/dicom-anonymization/](https://carecoders.github.io/dicom-anonymization/)
+
 ## Features
 
 - 🔒 Client-side anonymization - files never leave the browser
@@ -67,3 +69,13 @@ Anonymizes DICOM data and returns the anonymized result.
 
 ### `get_version(): string`
 Returns the version of the WASM module.
+
+## Deployment
+
+The web interface is automatically deployed to GitHub Pages when changes are pushed to the `main` branch. The deployment is handled by GitHub Actions and includes:
+
+1. Building the WASM module with optimizations
+2. Deploying the `www` directory to GitHub Pages
+3. Making it available at https://carecoders.github.io/dicom-anonymization/
+
+To trigger a manual deployment, you can use the "Run workflow" button in the [Actions tab](https://github.com/carecoders/dicom-anonymization/actions/workflows/deploy-wasm.yml).

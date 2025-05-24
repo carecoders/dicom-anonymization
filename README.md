@@ -161,7 +161,9 @@ Options:
 
 ### WebAssembly
 
-Proof-of-concept WASM bindings can be found [here](https://github.com/carecoders/dicom-anonymization/tree/main/bindings/wasm).
+A browser-based DICOM anonymizer is available at: **[https://carecoders.github.io/dicom-anonymization/](https://carecoders.github.io/dicom-anonymization/)**
+
+The WASM bindings source code can be found [here](https://github.com/carecoders/dicom-anonymization/tree/main/bindings/wasm).
 
 ## Contributing
 
