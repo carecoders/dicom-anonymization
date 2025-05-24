@@ -4,12 +4,18 @@
 [![CI](https://github.com/carecoders/dicom-anonymization/actions/workflows/ci.yml/badge.svg)](https://github.com/carecoders/dicom-anonymization/actions/workflows/ci.yml)
 [![Documentation](https://docs.rs/dicom-anonymization/badge.svg)](https://docs.rs/dicom-anonymization)
 
-This repository provides a library and binary for anonymizing (or de-identifying) [DICOM](https://dicomstandard.org/) files.
+This repository provides a Rust library and executable for anonymizing [DICOM](https://dicomstandard.org/) files.
+With bindings for Python and WebAssembly.
 
-> [!WARNING]
-> This is a work in progress. Some things may still change and not all things may work as expected yet.
+## Features
 
-The project prioritizes performance, reliability, safety and ease of use.
+- **High performance**: optimized Rust implementation for fast DICOM file processing
+- **Memory safety**: leverages Rust for memory safety and preventing runtime errors
+- **Standards compliant**: follows DICOM anonymization best practices by default
+- **Flexible configuration**: comprehensive configuration options
+- **Multi-language support**: native Rust library with Python and WebAssembly bindings
+- **CLI tool**: command-line tool (`dcmanon`) for batch processing and automation
+- **Cross-platform**: works on Windows, MacOS, and Linux
 
 ## Building
 
@@ -27,9 +33,9 @@ See documentation on [PyPI](https://pypi.org/project/dcmanon).
 
 See documentation on [docs.rs](https://docs.rs/dicom-anonymization).
 
-### Library
+#### Library
 
-#### Installation
+##### Installation
 
 To add the library to your project, do this:
 
@@ -37,7 +43,7 @@ To add the library to your project, do this:
 cargo add dicom-anonymization
 ```
 
-#### Using default configuration
+##### Using default configuration
 
 ```rust
 use std::fs::File;
@@ -52,7 +58,7 @@ let output_file = File::create("anonymized.dcm")?;
 result.write(output_file)?;
 ```
 
-#### Using custom configuration
+##### Using custom configuration
 
 ```rust
 use std::fs::File;
@@ -86,7 +92,7 @@ let mut output = Vec::<u8>::new();
 result.write(&mut output)?;
 ```
 
-#### Building configuration from scratch
+##### Building configuration from scratch
 
 ```rust
 use dicom_anonymization::tags;
@@ -101,9 +107,9 @@ let config_from_scratch = ConfigBuilder::new()
     .build();
 ```
 
-### Binary
+#### Binary
 
-#### Installation
+##### Installation
 
 To install the `dcmanon` binary, do this:
 
@@ -111,9 +117,9 @@ To install the `dcmanon` binary, do this:
 cargo install dicom-anonymization
 ```
 
-#### Usage
+##### Usage
 
-##### anonymize
+###### anonymize
 
 ```bash
 $ dcmanon anonymize --help
@@ -141,7 +147,7 @@ Options:
 dcmanon -i tests/data/test.dcm -o anonymized.dcm
 ```
 
-##### config create
+###### config create
 
 ```bash
 $ dcmanon config create --help
@@ -158,6 +164,12 @@ Options:
       --diff-only             Only output the dfferences with the default config
   -h, --help                  Print help
 ```
+
+### WebAssembly
+
+A browser-based DICOM anonymizer is available at: **[https://carecoders.github.io/dicom-anonymization/](https://carecoders.github.io/dicom-anonymization/)**
+
+The WASM bindings source code can be found [here](https://github.com/carecoders/dicom-anonymization/tree/main/bindings/wasm).
 
 ## Contributing
 

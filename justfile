@@ -33,3 +33,11 @@ test-python:
 [working-directory: 'bindings/python']
 build-python-release:
     maturin build
+
+[working-directory: 'bindings/wasm']
+build-wasm:
+    wasm-pack build --target web --out-dir www/pkg
+
+[working-directory: 'bindings/wasm']
+serve-wasm:
+    python3 -m http.server --directory www 8080

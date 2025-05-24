@@ -1,0 +1,21 @@
+{
+  "description": "DICOM anonymization library for the browser",
+  "devDependencies": {
+    "wasm-pack": "^0.12.1"
+  },
+  "keywords": [
+    "dicom",
+    "anonymization",
+    "wasm",
+    "webassembly"
+  ],
+  "main": "pkg/dicom_anonymization_wasm.js",
+  "name": "dicom-anonymization-wasm",
+  "scripts": {
+    "build": "wasm-pack build --target web --out-dir www/pkg",
+    "build:dev": "wasm-pack build --dev --target web --out-dir www/pkg",
+    "serve": "python3 -m http.server --directory www 8080"
+  },
+  "types": "pkg/dicom_anonymization_wasm.d.ts",
+  "version": "0.1.0"
+}

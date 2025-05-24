@@ -1,7 +1,7 @@
 [project]
 name = "dcmanon"
-authors = [{ name = "Sander Smits", email = "sander@carecoders.io" }]
-maintainers = [{ name = "Sander Smits", email = "sander@carecoders.io" }]
+authors = [{ name = "carecoders", email = "info@carecoders.io" }]
+maintainers = [{ name = "carecoders", email = "info@carecoders.io" }]
 description = "Lightning-fast DICOM anonymization for Python, written in Rust."
 readme = "README.md"
 license = "MIT OR Apache-2.0"

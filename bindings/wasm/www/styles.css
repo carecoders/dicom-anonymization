@@ -1,0 +1,255 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background-color: #f5f7fa;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 40px 0;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+header p {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+}
+
+main {
+    flex: 1;
+}
+
+.upload-section {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+}
+
+.upload-area {
+    border: 2px dashed #cbd5e0;
+    border-radius: 8px;
+    padding: 60px 40px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: #f8f9fa;
+}
+
+.upload-area:hover {
+    border-color: #4299e1;
+    background-color: #ebf8ff;
+}
+
+.upload-area.drag-over {
+    border-color: #4299e1;
+    background-color: #ebf8ff;
+    transform: scale(1.02);
+}
+
+.upload-icon {
+    fill: #4299e1;
+    margin-bottom: 20px;
+}
+
+.upload-area h3 {
+    color: #2d3748;
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+}
+
+.upload-area p {
+    color: #718096;
+    font-size: 0.95rem;
+}
+
+.processing-section {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+}
+
+.file-info {
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #f7fafc;
+    border-radius: 8px;
+}
+
+.file-info h3 {
+    color: #2d3748;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.file-info p {
+    color: #4a5568;
+    margin: 5px 0;
+}
+
+.btn {
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: 500;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-block;
+    text-decoration: none;
+    margin: 5px;
+}
+
+.btn-primary {
+    background-color: #4299e1;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #3182ce;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(66, 153, 225, 0.3);
+}
+
+.btn-success {
+    background-color: #48bb78;
+    color: white;
+}
+
+.btn-success:hover {
+    background-color: #38a169;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(72, 187, 120, 0.3);
+}
+
+.btn-secondary {
+    background-color: #e2e8f0;
+    color: #2d3748;
+}
+
+.btn-secondary:hover {
+    background-color: #cbd5e0;
+    transform: translateY(-1px);
+}
+
+.loading {
+    text-align: center;
+    padding: 40px;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    margin: 0 auto 20px;
+    border: 4px solid #f3f4f6;
+    border-top-color: #4299e1;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.loading p {
+    color: #718096;
+    font-size: 1.1rem;
+}
+
+.result-section, .error-section {
+    margin-top: 30px;
+    padding: 30px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.result-section {
+    background-color: #f0fdf4;
+    border: 1px solid #bbf7d0;
+}
+
+.result-section h3 {
+    color: #22543d;
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+}
+
+.result-section p {
+    color: #2f855a;
+    margin-bottom: 20px;
+}
+
+.error-section {
+    background-color: #fef2f2;
+    border: 1px solid #fecaca;
+}
+
+.error-section h3 {
+    color: #991b1b;
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+}
+
+.error-section p {
+    color: #dc2626;
+    margin-bottom: 20px;
+}
+
+footer {
+    text-align: center;
+    padding: 40px 0 20px;
+    color: #718096;
+    font-size: 0.9rem;
+}
+
+footer a {
+    color: #4299e1;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+footer p {
+    margin: 5px 0;
+}
+
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 2rem;
+    }
+
+    .upload-area {
+        padding: 40px 20px;
+    }
+
+    .processing-section {
+        padding: 20px;
+    }
+}
