@@ -9,6 +9,7 @@ out.dcm
 anonymized.dcm
 scratch.md
 analysis_report*.md
+timings.md
 
 # Keep this one for documentation purposes
 !dicom-anonymization/config_default.json
