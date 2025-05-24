@@ -167,9 +167,9 @@ Options:
 
 ### WebAssembly
 
-The WebAssembly bindings source code can be found [here](https://github.com/carecoders/dicom-anonymization/tree/main/bindings/wasm).
+**Live demo**: [https://carecoders.github.io/dicom-anonymization](https://carecoders.github.io/dicom-anonymization/)
 
-A live demo of a browser-based DICOM anonymizer using WebAssembly is available at: **[https://carecoders.github.io/dicom-anonymization/](https://carecoders.github.io/dicom-anonymization/)**
+The WebAssembly bindings source code can be found [here](https://github.com/carecoders/dicom-anonymization/tree/main/bindings/wasm).
 
 ## Contributing
 

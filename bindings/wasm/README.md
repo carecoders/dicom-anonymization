@@ -2,7 +2,7 @@
 
 WebAssembly bindings for the DICOM anonymization library, enabling DICOM file anonymization directly in the browser.
 
-🌐 **Live Demo**: [https://carecoders.github.io/dicom-anonymization/](https://carecoders.github.io/dicom-anonymization/)
+🌐 **Live demo**: [https://carecoders.github.io/dicom-anonymization](https://carecoders.github.io/dicom-anonymization/)
 
 ## Features
 
@@ -24,7 +24,7 @@ cd bindings/wasm
 wasm-pack build --target web --out-dir www/pkg
 ```
 
-## Running the Demo
+## Running the demo
 
 1. Build the WASM module (see above)
 2. Serve the web files:
