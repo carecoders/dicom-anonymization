@@ -17,12 +17,6 @@ With bindings for Python and WebAssembly.
 - **CLI tool**: command-line tool (`dcmanon`) for batch processing and automation
 - **Cross-platform**: works on Windows, MacOS, and Linux
 
-## Building
-
-```bash
-cargo build --release
-```
-
 ## Usage
 
 ### Python
@@ -31,9 +25,67 @@ See documentation on [PyPI](https://pypi.org/project/dcmanon).
 
 ### Rust
 
-See documentation on [docs.rs](https://docs.rs/dicom-anonymization).
+#### Binary
+
+##### Installation
+
+To install the `dcmanon` binary, do this:
+
+```bash
+cargo install dicom-anonymization
+```
+
+##### Usage
+
+###### anonymize
+
+```bash
+$ dcmanon anonymize --help
+Anonymize DICOM files
+
+Usage: dcmanon anonymize [OPTIONS] --input <INPUT_PATH> --output <OUTPUT_PATH>
+
+Options:
+  -i, --input <INPUT_PATH>    Input file ('-' for stdin) or directory
+  -o, --output <OUTPUT_PATH>  Output file ('-' for stdout) or directory
+  -c, --config <CONFIG_FILE>  Path to config JSON file
+  -u, --uid-root <UID_ROOT>   UID root (default '9999')
+      --exclude <TAGS>        Tags to exclude from anonymization, e.g. '00100020,00080050'
+  -r, --recursive             Recursively look for files in input directory
+      --continue              Continue when file found is not DICOM
+  -v, --verbose               Show more verbose output
+  -d, --debug                 Show debug output
+  -h, --help                  Print help
+  -V, --version               Print version
+```
+
+**Example**
+
+```bash
+dcmanon -i tests/data/test.dcm -o anonymized.dcm
+```
+
+###### config create
+
+```bash
+$ dcmanon config create --help
+Create a configuration file
+
+Usage: dcmanon config create [OPTIONS]
+
+Options:
+  -o, --output <CONFIG_FILE>  Path to save the config file  (‘-’ or omitted → stdout) [default: -]
+  -v, --verbose               Show more verbose output
+  -d, --debug                 Show debug output
+  -u, --uid-root <UID_ROOT>   UID root to use
+      --exclude <TAGS>        Tags to exclude from anonymization, e.g. '00100020,00080050'
+      --diff-only             Only output the dfferences with the default config
+  -h, --help                  Print help
+```
 
 #### Library
+
+See documentation on [docs.rs](https://docs.rs/dicom-anonymization).
 
 ##### Installation
 
@@ -107,67 +159,9 @@ let config_from_scratch = ConfigBuilder::new()
     .build();
 ```
 
-#### Binary
-
-##### Installation
-
-To install the `dcmanon` binary, do this:
-
-```bash
-cargo install dicom-anonymization
-```
-
-##### Usage
-
-###### anonymize
-
-```bash
-$ dcmanon anonymize --help
-Anonymize DICOM files
-
-Usage: dcmanon anonymize [OPTIONS] --input <INPUT_PATH> --output <OUTPUT_PATH>
-
-Options:
-  -i, --input <INPUT_PATH>    Input file ('-' for stdin) or directory
-  -o, --output <OUTPUT_PATH>  Output file ('-' for stdout) or directory
-  -c, --config <CONFIG_FILE>  Path to config JSON file
-  -u, --uid-root <UID_ROOT>   UID root (default '9999')
-      --exclude <TAGS>        Tags to exclude from anonymization, e.g. '00100020,00080050'
-  -r, --recursive             Recursively look for files in input directory
-      --continue              Continue when file found is not DICOM
-  -v, --verbose               Show more verbose output
-  -d, --debug                 Show debug output
-  -h, --help                  Print help
-  -V, --version               Print version
-```
-
-**Example**
-
-```bash
-dcmanon -i tests/data/test.dcm -o anonymized.dcm
-```
-
-###### config create
-
-```bash
-$ dcmanon config create --help
-Create a configuration file
-
-Usage: dcmanon config create [OPTIONS]
-
-Options:
-  -o, --output <CONFIG_FILE>  Path to save the config file  (‘-’ or omitted → stdout) [default: -]
-  -v, --verbose               Show more verbose output
-  -d, --debug                 Show debug output
-  -u, --uid-root <UID_ROOT>   UID root to use
-      --exclude <TAGS>        Tags to exclude from anonymization, e.g. '00100020,00080050'
-      --diff-only             Only output the dfferences with the default config
-  -h, --help                  Print help
-```
-
 ### WebAssembly
 
-**Live demo**: [https://carecoders.github.io/dicom-anonymization](https://carecoders.github.io/dicom-anonymization/)
+Live demo: [https://carecoders.github.io/dicom-anonymization](https://carecoders.github.io/dicom-anonymization/)
 
 The WebAssembly bindings source code can be found [here](https://github.com/carecoders/dicom-anonymization/tree/main/bindings/wasm).
 
