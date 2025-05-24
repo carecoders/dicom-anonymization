@@ -4,12 +4,18 @@
 [![CI](https://github.com/carecoders/dicom-anonymization/actions/workflows/ci.yml/badge.svg)](https://github.com/carecoders/dicom-anonymization/actions/workflows/ci.yml)
 [![Documentation](https://docs.rs/dicom-anonymization/badge.svg)](https://docs.rs/dicom-anonymization)
 
-This repository provides a library and binary for anonymizing (or de-identifying) [DICOM](https://dicomstandard.org/) files.
+This repository provides a Rust library and executable for anonymizing [DICOM](https://dicomstandard.org/) files.
+With bindings for Python and WebAssembly.
 
-> [!WARNING]
-> This is a work in progress. Some things may still change and not all things may work as expected yet.
+## Features
 
-The project prioritizes performance, reliability, safety and ease of use.
+- **High performance**: optimized Rust implementation for fast DICOM file processing
+- **Memory safety**: leverages Rust for memory safety and preventing runtime errors
+- **Standards compliant**: follows DICOM anonymization best practices by default
+- **Flexible configuration**: comprehensive configuration options
+- **Multi-language support**: native Rust library with Python and WebAssembly bindings
+- **CLI tool**: command-line tool (`dcmanon`) for batch processing and automation
+- **Cross-platform**: works on Windows, MacOS, and Linux
 
 ## Building
 
