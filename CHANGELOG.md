@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.2](https://github.com/carecoders/dicom-anonymization/compare/dicom-anonymization-v0.3.1...dicom-anonymization-v0.3.2) - 2025-05-24
+
+### Added
+
+- *(wasm)* deploy wasm page with github actions to github pages
+
+### Fixed
+
+- *(cli)* remove obsolete cfgdump executable; is now available via `dcmanon config`
+- *(wasm)* add non-production warning to page
+- *(wasm)* various wasm bindings and demo page improvements
+- *(docs)* various README fixes
+
+### Other
+
+- *(readme)* show example of `dcmanon config create`
+- README improvements
+- *(wasm)* a couple of docs improvements
+- add feature list to README
+
 ## [0.3.1](https://github.com/carecoders/dicom-anonymization/compare/dicom-anonymization-v0.3.0...dicom-anonymization-v0.3.1) - 2025-05-23
 
 ### Other
