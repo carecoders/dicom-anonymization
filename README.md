@@ -83,6 +83,12 @@ Options:
   -h, --help                  Print help
 ```
 
+**Example**
+
+```bash
+dcmanon config create -o config_default.json
+```
+
 #### Library
 
 See documentation on [docs.rs](https://docs.rs/dicom-anonymization).
