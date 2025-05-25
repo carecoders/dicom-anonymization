@@ -10,6 +10,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `just clippy` - Run linter
 - `just deny` - Check licenses and vulnerabilities of dependencies
 - `just udeps` - Find unused dependencies
+- `just bench` - Run benchmarks
 
 ### Python Bindings
 - `just build-python` - Build Python bindings for development (uses maturin develop)

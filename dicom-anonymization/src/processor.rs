@@ -169,11 +169,30 @@ impl Processor for DefaultProcessor {
     }
 }
 
+/// A no-operation processor that performs no anonymization on DICOM elements.
+///
+/// This processor simply returns all DICOM elements unchanged, without applying any
+/// anonymization actions. It is primarily intended for testing and benchmarking purposes
+/// to measure the baseline performance overhead of the anonymization framework itself.
+///
+/// **Warning**: This processor should NOT be used in production environments where
+/// actual anonymization is required, as it provides no privacy protection whatsoever.
+///
+/// # Example
+///
+/// ```
+/// use dicom_anonymization::processor::NoopProcessor;
+/// use dicom_anonymization::Anonymizer;
+///
+/// // Only use for testing/benchmarking - provides no anonymization!
+/// let processor = NoopProcessor::new();
+/// let anonymizer = Anonymizer::new(processor);
+/// ```
 #[derive(Debug, Clone, PartialEq)]
-struct NoopProcessor;
+pub struct NoopProcessor;
 
 impl NoopProcessor {
-    fn new() -> Self {
+    pub fn new() -> Self {
         Self {}
     }
 }
