@@ -30,6 +30,11 @@ fn parse_date(value: &str) -> Result<(NaiveDate, &str, &str), ActionError> {
         .ok_or_else(|| ActionError::InvalidInput(format!("unable to parse date from {}", value)))
 }
 
+/// Action that anonymizes DICOM date values by shifting them based on a hash of another element.
+///
+/// This action parses date values, generates a consistent offset from a hash of a reference
+/// element (the Patient ID by default), and subtracts that offset from the original date.
+/// This preserves relative temporal relationships while anonymizing absolute dates.
 #[derive(Debug, Clone, PartialEq)]
 pub struct HashDate {
     other_tag: Tag,

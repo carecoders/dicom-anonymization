@@ -8,6 +8,10 @@ use crate::actions::errors::ActionError;
 use crate::actions::DataElementAction;
 use crate::config::Config;
 
+/// Action that empties DICOM element values while preserving the element structure.
+///
+/// This action replaces the value of a DICOM element with an empty primitive value,
+/// effectively removing the data content while keeping the element tag and VR intact.
 #[derive(Debug, Clone, PartialEq)]
 pub struct Empty;
 

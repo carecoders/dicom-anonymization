@@ -8,6 +8,11 @@ use crate::actions::errors::ActionError;
 use crate::actions::DataElementAction;
 use crate::config::Config;
 
+/// Action that replaces DICOM element values with a fixed replacement value.
+///
+/// This action substitutes the original element value with a predetermined
+/// replacement string, useful for standardizing values or replacing sensitive
+/// data with placeholder text.
 #[derive(Debug, Clone, PartialEq)]
 pub struct Replace {
     new_value: String,

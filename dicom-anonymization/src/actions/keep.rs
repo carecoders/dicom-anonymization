@@ -6,6 +6,12 @@ use crate::actions::errors::ActionError;
 use crate::actions::DataElementAction;
 use crate::config::Config;
 
+/// Action that preserves DICOM element values unchanged.
+///
+/// This action returns the original element without any modifications,
+/// effectively keeping the data as-is during the anonymization process.
+/// It can (also) be used to keep certain private tags, even when
+/// `remove_private_tags` in the config is set to `true`.
 #[derive(Debug, Clone, PartialEq)]
 pub struct Keep;
 
