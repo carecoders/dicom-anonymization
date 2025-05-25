@@ -58,6 +58,11 @@ impl TryFrom<usize> for HashLength {
     }
 }
 
+/// Action that anonymizes DICOM element values by applying a cryptographic hash function.
+///
+/// This action replaces element values with their hashed equivalents, providing
+/// consistent anonymization while maintaining data relationships. The hash length
+/// can be optionally constrained.
 #[derive(Debug, Clone, PartialEq)]
 pub struct Hash {
     length: Option<HashLength>,

@@ -101,7 +101,24 @@ To add the library to your project, do this:
 cargo add dicom-anonymization
 ```
 
+##### Anonymization actions
+
+The library provides several anonymization actions that can be applied to DICOM elements:
+
+- **Empty** - empties element values while preserving the element structure
+- **Hash** - anonymizes values using cryptographic hashing with optional length constraints
+- **HashDate** - shifts dates based on hash of the `PatientID` element to preserve temporal relationships
+- **HashUID** - generates new UIDs from hashes, with an optional UID root
+- **Keep** - preserves elements unchanged (useful for keeping certain data or private tags)
+- **None** - explicit no-op action (functionally equivalent to `Keep`)
+- **Remove** - completely removes elements from the dataset
+- **Replace** - substitutes element values with given replacement values
+
+These actions can be configured per-tag to create flexible anonymization policies that balance privacy protection with data utility.
+
 ##### Using default configuration
+
+The default configuration (as JSON) can be found [here](https://raw.githubusercontent.com/carecoders/dicom-anonymization/refs/heads/main/dicom-anonymization/config_default.json)
 
 ```rust
 use std::fs::File;

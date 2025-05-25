@@ -6,6 +6,10 @@ use crate::actions::errors::ActionError;
 use crate::actions::DataElementAction;
 use crate::config::Config;
 
+/// Action that completely removes DICOM elements from the dataset.
+///
+/// This action eliminates the element entirely, returning `None` to indicate
+/// that the element should not be present in the anonymized output.
 #[derive(Debug, Clone, PartialEq)]
 pub struct Remove;
 

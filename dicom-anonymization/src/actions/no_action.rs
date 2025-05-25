@@ -6,6 +6,10 @@ use crate::actions::errors::ActionError;
 use crate::actions::DataElementAction;
 use crate::config::Config;
 
+/// Action that performs no operation on DICOM elements.
+///
+/// This action is functionally equivalent to `Keep` but semantically represents
+/// an explicit decision to perform no anonymization action on an element.
 #[derive(Debug, Clone, PartialEq)]
 pub struct NoAction;
 
