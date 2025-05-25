@@ -118,6 +118,8 @@ These actions can be configured per-tag to create flexible anonymization policie
 
 ##### Using default configuration
 
+The default configuration (as JSON) can be found [here](https://raw.githubusercontent.com/carecoders/dicom-anonymization/refs/heads/main/dicom-anonymization/config_default.json)
+
 ```rust
 use std::fs::File;
 use dicom_anonymization::Anonymizer;
