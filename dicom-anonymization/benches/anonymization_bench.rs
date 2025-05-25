@@ -21,9 +21,8 @@ fn benchmark_anonymization_default(c: &mut Criterion) {
 
     c.bench_function("anonymize_default_config", |b| {
         b.iter(|| {
-            let data = test_data.clone();
             anonymizer
-                .anonymize(black_box(data.as_slice()))
+                .anonymize(black_box(test_data.as_slice()))
                 .expect("Anonymization failed")
         })
     });
@@ -41,9 +40,8 @@ fn benchmark_anonymization_custom_configs(c: &mut Criterion) {
 
     group.bench_function("default", |b| {
         b.iter(|| {
-            let data = test_data.clone();
             default_anonymizer
-                .anonymize(black_box(data.as_slice()))
+                .anonymize(black_box(test_data.as_slice()))
                 .expect("Anonymization failed")
         })
     });
@@ -59,9 +57,8 @@ fn benchmark_anonymization_custom_configs(c: &mut Criterion) {
 
     group.bench_function("private_tags_only", |b| {
         b.iter(|| {
-            let data = test_data.clone();
             private_only_anonymizer
-                .anonymize(black_box(data.as_slice()))
+                .anonymize(black_box(test_data.as_slice()))
                 .expect("Anonymization failed")
         })
     });
@@ -77,9 +74,8 @@ fn benchmark_anonymization_custom_configs(c: &mut Criterion) {
 
     group.bench_function("minimal", |b| {
         b.iter(|| {
-            let data = test_data.clone();
             minimal_anonymizer
-                .anonymize(black_box(data.as_slice()))
+                .anonymize(black_box(test_data.as_slice()))
                 .expect("Anonymization failed")
         })
     });
@@ -90,9 +86,8 @@ fn benchmark_anonymization_custom_configs(c: &mut Criterion) {
 
     group.bench_function("noop", |b| {
         b.iter(|| {
-            let data = test_data.clone();
             noop_anonymizer
-                .anonymize(black_box(data.as_slice()))
+                .anonymize(black_box(test_data.as_slice()))
                 .expect("Anonymization failed")
         })
     });
@@ -109,9 +104,8 @@ fn benchmark_anonymization_throughput(c: &mut Criterion) {
 
     group.bench_function("throughput", |b| {
         b.iter(|| {
-            let data = test_data.clone();
             anonymizer
-                .anonymize(black_box(data.as_slice()))
+                .anonymize(black_box(test_data.as_slice()))
                 .expect("Anonymization failed")
         })
     });
@@ -129,9 +123,8 @@ fn benchmark_anonymization_scalability(c: &mut Criterion) {
         group.bench_with_input(BenchmarkId::from_parameter(size), &size, |b, &size| {
             b.iter(|| {
                 for _ in 0..size {
-                    let data = test_data.clone();
                     anonymizer
-                        .anonymize(black_box(data.as_slice()))
+                        .anonymize(black_box(test_data.as_slice()))
                         .expect("Anonymization failed");
                 }
             })
