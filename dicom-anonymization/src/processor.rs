@@ -204,13 +204,18 @@ impl Default for NoopProcessor {
 }
 
 impl Processor for NoopProcessor {
+    /// Process a DICOM element without applying any anonymization actions.
+    ///
+    /// This method returns the element unchanged, providing true "no-op" behavior
+    /// for testing and benchmarking purposes. It uses `Cow::Owned` to match the
+    /// memory allocation pattern of `DefaultProcessor`, ensuring fair performance
+    /// comparisons in benchmarks.
     fn process_element<'a>(
         &'a self,
         _obj: &DefaultDicomObject,
         elem: &'a InMemElement,
     ) -> Result<Option<Cow<'a, InMemElement>>> {
-        // just return it as is, without any changes
-        Ok(Some(Cow::Borrowed(elem)))
+        Ok(Some(Cow::Owned(elem.clone())))
     }
 }
 
