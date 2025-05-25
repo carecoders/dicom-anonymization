@@ -15,6 +15,11 @@ fn load_test_dicom() -> Vec<u8> {
     buffer
 }
 
+/// Benchmark anonymization performance using the default configuration.
+///
+/// This benchmark measures the time to anonymize a single DICOM file using
+/// the default anonymization settings, which include standard tag actions
+/// and privacy policies for removing private tags, curves, and overlays.
 fn benchmark_anonymization_default(c: &mut Criterion) {
     let test_data = load_test_dicom();
     let anonymizer = Anonymizer::default();
@@ -28,12 +33,21 @@ fn benchmark_anonymization_default(c: &mut Criterion) {
     });
 }
 
+/// Compare anonymization performance across different configuration options.
+///
+/// This benchmark group tests various anonymization configurations to understand
+/// the performance impact of different settings:
+/// - Default: Standard anonymization with all policies enabled
+/// - Private tags only: Only removes private tags, keeps standard data
+/// - Minimal: Minimal anonymization, keeps most data intact
+/// - NoopProcessor: Baseline measurement with no actual anonymization
 fn benchmark_anonymization_custom_configs(c: &mut Criterion) {
     let test_data = load_test_dicom();
 
     let mut group = c.benchmark_group("anonymization_configs");
+    group.significance_level(0.1).sample_size(100);
 
-    // Default configuration
+    // Default configuration - standard anonymization with all policies enabled
     let default_config = ConfigBuilder::default().build();
     let default_processor = DefaultProcessor::new(default_config);
     let default_anonymizer = Anonymizer::new(default_processor);
@@ -46,7 +60,7 @@ fn benchmark_anonymization_custom_configs(c: &mut Criterion) {
         })
     });
 
-    // Remove private tags only, do nothing else
+    // Private tags only - removes only private tags, preserves standard DICOM data
     let private_only_config = ConfigBuilder::new()
         .remove_private_tags(true)
         .remove_curves(false)
@@ -63,7 +77,7 @@ fn benchmark_anonymization_custom_configs(c: &mut Criterion) {
         })
     });
 
-    // Minimal anonymization
+    // Minimal anonymization - preserves maximum data, minimal processing overhead
     let minimal_config = ConfigBuilder::new()
         .remove_private_tags(false)
         .remove_curves(false)
@@ -80,7 +94,7 @@ fn benchmark_anonymization_custom_configs(c: &mut Criterion) {
         })
     });
 
-    // Noop anonymization
+    // No-op baseline - measures framework overhead without any actual anonymization
     let noop_processor = NoopProcessor::new();
     let noop_anonymizer = Anonymizer::new(noop_processor);
 
@@ -95,6 +109,12 @@ fn benchmark_anonymization_custom_configs(c: &mut Criterion) {
     group.finish();
 }
 
+/// Measure anonymization throughput in bytes per second.
+///
+/// This benchmark measures the data processing rate for DICOM anonymization,
+/// providing insights into how much data can be processed per unit time.
+/// Results are reported in GiB/s to understand real-world performance
+/// characteristics for large datasets.
 fn benchmark_anonymization_throughput(c: &mut Criterion) {
     let test_data = load_test_dicom();
     let anonymizer = Anonymizer::default();
@@ -113,6 +133,12 @@ fn benchmark_anonymization_throughput(c: &mut Criterion) {
     group.finish();
 }
 
+/// Test anonymization performance scalability with multiple files.
+///
+/// This benchmark evaluates how anonymization performance scales when processing
+/// multiple DICOM files sequentially. Tests with 1, 10, 50, and 100 files to
+/// identify any performance degradation or overhead that emerges at scale.
+/// Results help understand batch processing characteristics.
 fn benchmark_anonymization_scalability(c: &mut Criterion) {
     let test_data = load_test_dicom();
     let anonymizer = Anonymizer::default();
@@ -134,6 +160,12 @@ fn benchmark_anonymization_scalability(c: &mut Criterion) {
     group.finish();
 }
 
+/// Benchmark configuration building performance.
+///
+/// This benchmark measures the overhead of creating anonymization configurations
+/// using the ConfigBuilder pattern. Tests both default and complex configurations
+/// to understand the cost of configuration setup, which may be important for
+/// applications that create many configurations dynamically.
 fn benchmark_config_builder(c: &mut Criterion) {
     c.bench_function("config_builder_default", |b| {
         b.iter(|| black_box(ConfigBuilder::default().build()))
@@ -153,6 +185,12 @@ fn benchmark_config_builder(c: &mut Criterion) {
     });
 }
 
+/// Benchmark processor creation performance.
+///
+/// This benchmark measures the cost of creating a DefaultProcessor instance
+/// from a configuration. This overhead may be significant for applications
+/// that create processors frequently, though most applications would typically
+/// create processors once and reuse them.
 fn benchmark_processor_creation(c: &mut Criterion) {
     let config = ConfigBuilder::default().build();
 
