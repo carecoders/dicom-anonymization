@@ -169,11 +169,30 @@ impl Processor for DefaultProcessor {
     }
 }
 
+/// A no-operation processor that performs no anonymization on DICOM elements.
+///
+/// This processor simply returns all DICOM elements unchanged, without applying any
+/// anonymization actions. It is primarily intended for testing and benchmarking purposes
+/// to measure the baseline performance overhead of the anonymization framework itself.
+///
+/// **Warning**: This processor should NOT be used in production environments where
+/// actual anonymization is required, as it provides no privacy protection whatsoever.
+///
+/// # Example
+///
+/// ```
+/// use dicom_anonymization::processor::NoopProcessor;
+/// use dicom_anonymization::Anonymizer;
+///
+/// // Only use for testing/benchmarking - provides no anonymization!
+/// let processor = NoopProcessor::new();
+/// let anonymizer = Anonymizer::new(processor);
+/// ```
 #[derive(Debug, Clone, PartialEq)]
-struct NoopProcessor;
+pub struct NoopProcessor;
 
 impl NoopProcessor {
-    fn new() -> Self {
+    pub fn new() -> Self {
         Self {}
     }
 }
@@ -185,13 +204,18 @@ impl Default for NoopProcessor {
 }
 
 impl Processor for NoopProcessor {
+    /// Process a DICOM element without applying any anonymization actions.
+    ///
+    /// This method returns the element unchanged, providing true "no-op" behavior
+    /// for testing and benchmarking purposes. It uses `Cow::Owned` to match the
+    /// memory allocation pattern of `DefaultProcessor`, ensuring fair performance
+    /// comparisons in benchmarks.
     fn process_element<'a>(
         &'a self,
         _obj: &DefaultDicomObject,
         elem: &'a InMemElement,
     ) -> Result<Option<Cow<'a, InMemElement>>> {
-        // just return it as is, without any changes
-        Ok(Some(Cow::Borrowed(elem)))
+        Ok(Some(Cow::Owned(elem.clone())))
     }
 }
 

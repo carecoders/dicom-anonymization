@@ -22,6 +22,14 @@ deny:
 udeps:
     cargo +nightly udeps
 
+# cargo bench --bench anonymization_bench
+bench:
+    cargo bench --bench anonymization_bench
+
+[working-directory: 'target/criterion/report']
+bench-report:
+    open index.html
+
 [working-directory: 'bindings/python']
 build-python:
     maturin develop
