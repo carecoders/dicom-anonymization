@@ -5,7 +5,7 @@ use dicom_object::DefaultDicomObject;
 use std::borrow::Cow;
 
 use crate::actions::errors::ActionError;
-use crate::actions::DataElementAction;
+use crate::actions::ProcessElement;
 use crate::config::Config;
 
 /// Action that empties DICOM element values while preserving the element structure.
@@ -15,7 +15,7 @@ use crate::config::Config;
 #[derive(Debug, Clone, PartialEq)]
 pub struct Empty;
 
-impl DataElementAction for Empty {
+impl ProcessElement for Empty {
     fn process<'a>(
         &'a self,
         _config: &Config,

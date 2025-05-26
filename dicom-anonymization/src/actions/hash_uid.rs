@@ -6,7 +6,7 @@ use std::borrow::Cow;
 
 use crate::actions::errors::ActionError;
 use crate::actions::utils::{is_empty_element, truncate_to};
-use crate::actions::DataElementAction;
+use crate::actions::ProcessElement;
 use crate::config::uid_root::UidRoot;
 use crate::config::Config;
 use crate::hasher::HashFn;
@@ -42,7 +42,7 @@ impl HashUID {
     }
 }
 
-impl DataElementAction for HashUID {
+impl ProcessElement for HashUID {
     fn process<'a>(
         &'a self,
         config: &Config,

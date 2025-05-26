@@ -3,7 +3,7 @@ use dicom_object::DefaultDicomObject;
 use std::borrow::Cow;
 
 use crate::actions::errors::ActionError;
-use crate::actions::DataElementAction;
+use crate::actions::ProcessElement;
 use crate::config::Config;
 
 /// Action that preserves DICOM element values unchanged.
@@ -15,7 +15,7 @@ use crate::config::Config;
 #[derive(Debug, Clone, PartialEq)]
 pub struct Keep;
 
-impl DataElementAction for Keep {
+impl ProcessElement for Keep {
     fn process<'a>(
         &'a self,
         _config: &Config,

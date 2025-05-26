@@ -8,7 +8,7 @@ use std::borrow::Cow;
 use thiserror::Error;
 
 use crate::actions::errors::ActionError;
-use crate::actions::DataElementAction;
+use crate::actions::ProcessElement;
 use crate::config::Config;
 
 #[derive(Error, Debug, PartialEq)]

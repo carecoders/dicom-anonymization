@@ -27,7 +27,7 @@ use replace::Replace;
 use serde::{Deserialize, Deserializer, Serialize, Serializer};
 use std::borrow::Cow;
 
-pub(crate) trait DataElementAction {
+pub(crate) trait ProcessElement {
     fn process<'a>(
         &'a self,
         config: &Config,
@@ -49,7 +49,7 @@ pub(crate) enum ActionProcessor {
     Replace(Replace),
 }
 
-impl DataElementAction for ActionProcessor {
+impl ProcessElement for ActionProcessor {
     fn process<'a>(
         &'a self,
         config: &Config,
