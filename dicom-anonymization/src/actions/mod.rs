@@ -49,9 +49,8 @@ pub(crate) enum ActionProcessor {
     Replace(Replace),
 }
 
-impl ActionProcessor {
-    /// Process an element using the concrete action type
-    pub(crate) fn process<'a>(
+impl DataElementAction for ActionProcessor {
+    fn process<'a>(
         &'a self,
         config: &Config,
         obj: &DefaultDicomObject,
