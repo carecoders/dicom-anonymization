@@ -36,6 +36,40 @@ pub(crate) trait DataElementAction {
     ) -> Result<Option<Cow<'a, InMemElement>>, ActionError>;
 }
 
+/// Concrete action processor that avoids heap allocation through enum dispatch
+#[derive(Debug, Clone)]
+pub(crate) enum ActionProcessor {
+    Empty(Empty),
+    Hash(Hash),
+    HashDate(HashDate),
+    HashUID(HashUID),
+    Keep(Keep),
+    None(NoAction),
+    Remove(Remove),
+    Replace(Replace),
+}
+
+impl ActionProcessor {
+    /// Process an element using the concrete action type
+    pub(crate) fn process<'a>(
+        &'a self,
+        config: &Config,
+        obj: &DefaultDicomObject,
+        elem: &'a InMemElement,
+    ) -> Result<Option<Cow<'a, InMemElement>>, ActionError> {
+        match self {
+            ActionProcessor::Empty(action) => action.process(config, obj, elem),
+            ActionProcessor::Hash(action) => action.process(config, obj, elem),
+            ActionProcessor::HashDate(action) => action.process(config, obj, elem),
+            ActionProcessor::HashUID(action) => action.process(config, obj, elem),
+            ActionProcessor::Keep(action) => action.process(config, obj, elem),
+            ActionProcessor::None(action) => action.process(config, obj, elem),
+            ActionProcessor::Remove(action) => action.process(config, obj, elem),
+            ActionProcessor::Replace(action) => action.process(config, obj, elem),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct TagString(pub Tag);
 
@@ -104,19 +138,19 @@ pub enum Action {
 }
 
 impl Action {
-    pub(crate) fn get_action_struct(&self) -> Box<dyn DataElementAction> {
+    pub(crate) fn get_action_processor(&self) -> ActionProcessor {
         match self {
-            Action::Empty => Box::new(Empty),
+            Action::Empty => ActionProcessor::Empty(Empty),
             Action::Hash { length } => {
                 let hash_length = length.as_ref().map(|length| HashLength(*length));
-                Box::new(Hash::new(hash_length))
+                ActionProcessor::Hash(Hash::new(hash_length))
             }
-            Action::HashDate => Box::new(HashDate::default()),
-            Action::HashUID => Box::new(HashUID),
-            Action::Keep => Box::new(Keep),
-            Action::None => Box::new(NoAction),
-            Action::Remove => Box::new(Remove),
-            Action::Replace { value } => Box::new(Replace::new(value.clone())),
+            Action::HashDate => ActionProcessor::HashDate(HashDate::default()),
+            Action::HashUID => ActionProcessor::HashUID(HashUID),
+            Action::Keep => ActionProcessor::Keep(Keep),
+            Action::None => ActionProcessor::None(NoAction),
+            Action::Remove => ActionProcessor::Remove(Remove),
+            Action::Replace { value } => ActionProcessor::Replace(Replace::new(value.clone())),
         }
     }
 }

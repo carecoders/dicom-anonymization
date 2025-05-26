@@ -150,8 +150,8 @@ impl Processor for DefaultProcessor {
         elem: &'a InMemElement,
     ) -> Result<Option<Cow<'a, InMemElement>>> {
         let action = self.config.get_action(&elem.tag());
-        let action_struct = action.get_action_struct();
-        let process_result = action_struct.process(&self.config, obj, elem);
+        let action_processor = action.get_action_processor();
+        let process_result = action_processor.process(&self.config, obj, elem);
 
         match process_result {
             Ok(None) => Ok(None),
