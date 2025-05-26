@@ -3,7 +3,7 @@ use dicom_object::DefaultDicomObject;
 use std::borrow::Cow;
 
 use crate::actions::errors::ActionError;
-use crate::actions::DataElementAction;
+use crate::actions::ProcessElement;
 use crate::config::Config;
 
 /// Action that performs no operation on DICOM elements.
@@ -13,7 +13,7 @@ use crate::config::Config;
 #[derive(Debug, Clone, PartialEq)]
 pub struct NoAction;
 
-impl DataElementAction for NoAction {
+impl ProcessElement for NoAction {
     fn process<'a>(
         &'a self,
         _config: &Config,

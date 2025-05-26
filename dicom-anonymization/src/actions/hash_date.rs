@@ -1,6 +1,6 @@
 use crate::actions::errors::ActionError;
 use crate::actions::utils::{is_empty_element, truncate_to};
-use crate::actions::DataElementAction;
+use crate::actions::ProcessElement;
 use crate::config::Config;
 use crate::hasher::HashFn;
 use crate::tags;
@@ -75,7 +75,7 @@ impl Default for HashDate {
     }
 }
 
-impl DataElementAction for HashDate {
+impl ProcessElement for HashDate {
     fn process<'a>(
         &'a self,
         config: &Config,

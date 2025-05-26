@@ -5,7 +5,7 @@ use dicom_object::DefaultDicomObject;
 use std::borrow::Cow;
 
 use crate::actions::errors::ActionError;
-use crate::actions::DataElementAction;
+use crate::actions::ProcessElement;
 use crate::config::Config;
 
 /// Action that replaces DICOM element values with a fixed replacement value.
@@ -24,7 +24,7 @@ impl Replace {
     }
 }
 
-impl DataElementAction for Replace {
+impl ProcessElement for Replace {
     fn process<'a>(
         &'a self,
         _config: &Config,

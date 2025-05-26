@@ -3,7 +3,7 @@ use dicom_object::DefaultDicomObject;
 use std::borrow::Cow;
 
 use crate::actions::errors::ActionError;
-use crate::actions::DataElementAction;
+use crate::actions::ProcessElement;
 use crate::config::Config;
 
 /// Action that completely removes DICOM elements from the dataset.
@@ -13,7 +13,7 @@ use crate::config::Config;
 #[derive(Debug, Clone, PartialEq)]
 pub struct Remove;
 
-impl DataElementAction for Remove {
+impl ProcessElement for Remove {
     fn process<'a>(
         &'a self,
         _config: &Config,
