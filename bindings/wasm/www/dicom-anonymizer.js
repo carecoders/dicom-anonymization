@@ -11,6 +11,7 @@ export async function initializeWasm() {
 
 export class DICOMAnonymizer {
     /**
+     * Initialize the DICOM anonymizer
      * @param {string|null} configJson - Optional JSON configuration string
      */
     constructor(configJson = null) {
