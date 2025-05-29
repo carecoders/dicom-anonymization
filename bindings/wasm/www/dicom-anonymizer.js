@@ -10,11 +10,11 @@ export async function initializeWasm() {
 }
 
 export class DICOMAnonymizer {
-    constructor() {
+    constructor(configJson = null) {
         if (!isInitialized) {
             throw new Error('WASM module not initialized. Call initializeWasm() first.');
         }
-        this.anonymizer = new DicomAnonymizer();
+        this.anonymizer = new DicomAnonymizer(configJson);
     }
 
     /**

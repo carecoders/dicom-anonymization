@@ -92,7 +92,16 @@ async function anonymizeFile() {
     try {
         const arrayBuffer = await readFileAsArrayBuffer(selectedFile);
 
-        const anonymizer = new DICOMAnonymizer();
+        const config = {
+            "uid_root": "1234",
+            "tag_actions": {
+                "00100020": {
+                    "comment": "PatientID",
+                    "action": "keep"
+                }
+            }
+        };
+        const anonymizer = new DICOMAnonymizer(JSON.stringify(config));
         anonymizedData = anonymizer.anonymize(arrayBuffer);
 
         showLoading(false);
