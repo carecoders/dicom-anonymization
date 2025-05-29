@@ -7,9 +7,11 @@ from dcmanon import Anonymizer
 
 def test_uid_root():
     uid_root = "1.2.3.4.5.6.7.8"
-    file_path = "../../dicom-anonymization/tests/data/test.dcm"
 
-    anonymizer = Anonymizer(uid_root=uid_root)
+    config = {"uid_root": uid_root}
+    anonymizer = Anonymizer(config)
+
+    file_path = "../../dicom-anonymization/tests/data/test.dcm"
     result_as_bytes = anonymizer.anonymize(file_path)
     ds = pydicom.dcmread(BytesIO(result_as_bytes))
 
@@ -20,16 +22,19 @@ def test_uid_root():
 
 def test_action_replace():
     patient_name = "John Doe"
-    tag_actions = {
-        "00100010": {
-            "comment": "PatientName",
-            "action": "replace",
-            "value": patient_name,
+
+    config = {
+        "tag_actions": {
+            "00100010": {
+                "comment": "PatientName",
+                "action": "replace",
+                "value": patient_name,
+            }
         }
     }
-    file_path = "../../dicom-anonymization/tests/data/test.dcm"
+    anonymizer = Anonymizer(config)
 
-    anonymizer = Anonymizer(tag_actions=tag_actions)
+    file_path = "../../dicom-anonymization/tests/data/test.dcm"
     result_as_bytes = anonymizer.anonymize(file_path)
     ds = pydicom.dcmread(BytesIO(result_as_bytes))
 
@@ -38,17 +43,20 @@ def test_action_replace():
 
 def test_action_hash():
     hash_length = 16
-    tag_actions = {
-        "00080050": {
-            "comment": "AccessionNumber",
-            "action": "hash",
-            "length": hash_length,
+
+    config = {
+        "tag_actions": {
+            "00080050": {
+                "comment": "AccessionNumber",
+                "action": "hash",
+                "length": hash_length,
+            }
         }
     }
     file_path = "../../dicom-anonymization/tests/data/test.dcm"
     original_ds = pydicom.dcmread(file_path)
+    anonymizer = Anonymizer(config=config)
 
-    anonymizer = Anonymizer(tag_actions=tag_actions)
     result_as_bytes = anonymizer.anonymize(file_path)
     ds = pydicom.dcmread(BytesIO(result_as_bytes))
 
@@ -58,15 +66,51 @@ def test_action_hash():
 
 @pytest.mark.parametrize("hash_length", [1, 3, 5, 7])
 def test_action_hash_length_too_small(hash_length):
-    tag_actions = {
-        "00080050": {
-            "comment": "AccessionNumber",
-            "action": "hash",
-            "length": hash_length,
+    config = {
+        "tag_actions": {
+            "00080050": {
+                "comment": "AccessionNumber",
+                "action": "hash",
+                "length": hash_length,
+            }
         }
     }
 
     with pytest.raises(ValueError) as excinfo:
-        Anonymizer(tag_actions=tag_actions)
+        Anonymizer(config)
 
-    assert str(excinfo.value) == "Hash length must be at least 8 (tag 00080050)"
+    assert "Validation error for tag 00080050: length: lower than 8" in str(
+        excinfo.value)
+
+
+def test_all_config_keys():
+    uid_root = "3333"
+    hash_length = 16
+    config = {
+        "remove_private_tags": False,
+        "uid_root": uid_root,
+        "tag_actions": {
+            "00080050": {
+                "comment": "AccessionNumber",
+                "action": "hash",
+                "length": hash_length,
+            }
+        }
+    }
+
+    file_path = "../../dicom-anonymization/tests/data/test.dcm"
+    original_ds = pydicom.dcmread(file_path)
+    anonymizer = Anonymizer(config=config)
+
+    result_as_bytes = anonymizer.anonymize(file_path)
+    ds = pydicom.dcmread(BytesIO(result_as_bytes))
+
+    assert ds.StudyInstanceUID.startswith(uid_root)
+    assert ds.SeriesInstanceUID.startswith(uid_root)
+    assert ds.SOPInstanceUID.startswith(uid_root)
+
+    assert len(ds.AccessionNumber) == hash_length
+    assert not ds.AccessionNumber == original_ds.AccessionNumber
+
+    # check that private tags are not removed
+    assert ds[0x00090010].value == "GEMS_IDEN_01"

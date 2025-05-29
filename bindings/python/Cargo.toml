@@ -1,7 +1,12 @@
 [package]
 name = "dcmanon"
 version = "0.3.1"
+authors = ["carecoders <info@carecoders.io>"]
 edition = "2021"
+description = "DICOM anonymization (Python)"
+repository = "https://github.com/carecoders/dicom-anonymization"
+readme = "README.md"
+keywords = ["dicom", "dicom-files", "anonymization", "python"]
 license = "MIT OR Apache-2.0"
 publish = false
 
@@ -10,8 +15,9 @@ crate-type = ["cdylib"]
 
 [dependencies]
 dicom-anonymization = { package = "dicom-anonymization", path = "../../dicom-anonymization" }
-pyo3 = { version = "0.24", features = ["extension-module"] }
-pyo3-file = "0.12.0"
+pyo3 = { version = "0.25", features = ["extension-module"] }
+pyo3-file = "0.13.0"
+pythonize = "0.25"
 
 [features]
 extension-module = ["pyo3/extension-module"]
