@@ -1,5 +1,7 @@
 use dicom_anonymization::{
-    config::builder::ConfigBuilder, processor::DefaultProcessor, Anonymizer,
+    config::{builder::ConfigBuilder, Config},
+    processor::DefaultProcessor,
+    Anonymizer,
 };
 use std::io::Cursor;
 use wasm_bindgen::prelude::*;
@@ -17,12 +19,22 @@ pub struct DicomAnonymizer {
 #[wasm_bindgen]
 impl DicomAnonymizer {
     #[wasm_bindgen(constructor)]
-    pub fn new() -> Self {
-        let config = ConfigBuilder::default().build();
+    pub fn new(config_json: Option<String>) -> Result<DicomAnonymizer, JsValue> {
+        let mut config_builder = ConfigBuilder::default();
+
+        config_builder = if let Some(json) = config_json {
+            let config: Config = serde_json::from_str(&json)
+                .map_err(|e| JsValue::from_str(&format!("Invalid config JSON: {}", e)))?;
+            config_builder.from_config(&config)
+        } else {
+            config_builder
+        };
+
+        let config = config_builder.build();
         let processor = DefaultProcessor::new(config);
         let anonymizer = Anonymizer::new(processor);
 
-        DicomAnonymizer { anonymizer }
+        Ok(DicomAnonymizer { anonymizer })
     }
 
     #[wasm_bindgen]
@@ -39,12 +51,6 @@ impl DicomAnonymizer {
             }
             Err(e) => Err(JsValue::from_str(&format!("Anonymization failed: {}", e))),
         }
-    }
-}
-
-impl Default for DicomAnonymizer {
-    fn default() -> Self {
-        Self::new()
     }
 }
 
