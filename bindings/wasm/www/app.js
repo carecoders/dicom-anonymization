@@ -92,7 +92,7 @@ async function anonymizeFile() {
     try {
         const arrayBuffer = await readFileAsArrayBuffer(selectedFile);
 
-        // providing overrides for default config
+        // providing overrides for the default configuration
         // const config = {
         //     "uid_root": "1234",
         //     "tag_actions": {
@@ -109,7 +109,7 @@ async function anonymizeFile() {
         // };
         // const anonymizer = new DICOMAnonymizer(JSON.stringify(config));
 
-        // using default config
+        // using default configuration
         const anonymizer = new DICOMAnonymizer();
 
         anonymizedData = anonymizer.anonymize(arrayBuffer);
