@@ -92,18 +92,26 @@ async function anonymizeFile() {
     try {
         const arrayBuffer = await readFileAsArrayBuffer(selectedFile);
 
-        const config = {
-            "uid_root": "1234",
-            "tag_actions": {
-                "00100020": {
-                    "comment": "PatientID",
-                    "action": "keep"
-                }
-            }
-        };
+        // providing overrides for default config
+        // const config = {
+        //     "uid_root": "1234",
+        //     "tag_actions": {
+        //         "00100010": {
+        //             "comment": "PatientName",
+        //             "action": "replace",
+        //             "value": "John^Doe"
+        //         },
+        //         "00100020": {
+        //             "comment": "PatientID",
+        //             "action": "keep"
+        //         }
+        //     }
+        // };
+        // const anonymizer = new DICOMAnonymizer(JSON.stringify(config));
 
-        // const anonymizer = new DICOMAnonymizer();
-        const anonymizer = new DICOMAnonymizer(JSON.stringify(config));
+        // using default config
+        const anonymizer = new DICOMAnonymizer();
+
         anonymizedData = anonymizer.anonymize(arrayBuffer);
 
         showLoading(false);
