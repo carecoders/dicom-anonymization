@@ -54,12 +54,6 @@ impl DicomAnonymizer {
     }
 }
 
-impl Default for DicomAnonymizer {
-    fn default() -> Self {
-        Self::new(None).unwrap()
-    }
-}
-
 #[wasm_bindgen]
 pub fn get_version() -> String {
     env!("CARGO_PKG_VERSION").to_string()
