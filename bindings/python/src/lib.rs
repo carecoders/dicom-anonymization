@@ -38,15 +38,16 @@ impl<'py> FromPyObject<'py> for FilePathOrFileLike {
     }
 }
 
-/// Lightning-fast DICOM anonymization for Python, written in Rust.
+/// Fast DICOM anonymization for Python, written in Rust.
 ///
 /// The Anonymizer class provides methods to anonymize DICOM files by applying
 /// various actions to specific DICOM tags such as removing, hashing, or replacing
 /// patient identifiable information.
 ///
 /// Args:
-///     config (dict, optional): Configuration dictionary. Should match the structure of config_default.json.
-///         This config determines what to override from the default configuration. Available actions:
+///     config (dict, optional): Configuration dictionary. Should match the structure of config_default.json
+///         (see https://github.com/carecoders/dicom-anonymization/blob/main/dicom-anonymization/config_default.json).
+///         This config determines what should be overridden from the default configuration. Available tag actions:
 ///         "empty", "hash", "hashdate", "hashuid", "keep", "none", "remove", "replace".
 ///
 /// Returns:
@@ -66,8 +67,8 @@ impl<'py> FromPyObject<'py> for FilePathOrFileLike {
 ///     ...     "remove_curves": False,
 ///     ...     "remove_overlays": True,
 ///     ...     "tag_actions": {
-///     ...         "(0010,0010)": {"action": "empty"},
-///     ...         "(0010,0020)": {"action": "remove"}
+///     ...         "00100010": {"action": "replace", "value": "John^Doe"},  # PatientName
+///     ...         "00100020": {"action": "empty"}  # PatientID
 ///     ...     }
 ///     ... }
 ///     >>> anonymizer = Anonymizer(config=config)
