@@ -101,6 +101,8 @@ async function anonymizeFile() {
                 }
             }
         };
+
+        // const anonymizer = new DICOMAnonymizer();
         const anonymizer = new DICOMAnonymizer(JSON.stringify(config));
         anonymizedData = anonymizer.anonymize(arrayBuffer);
 
