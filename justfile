@@ -47,5 +47,9 @@ build-wasm:
     wasm-pack build --target web --out-dir www/pkg
 
 [working-directory: 'bindings/wasm']
+build-wasm-node:
+    wasm-pack build --target nodejs --out-dir www/nodejs
+
+[working-directory: 'bindings/wasm']
 serve-wasm:
     python3 -m http.server --directory www 8080
