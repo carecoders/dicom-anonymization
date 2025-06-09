@@ -12,6 +12,11 @@ use spin_sdk::{
 };
 use std::io::Cursor;
 
+const CONTENT_TYPE_DICOM: &'static str = "application/dicom";
+const CONTENT_TYPE_JSON: &'static str = "application/json";
+
+const MAX_REQUEST_SIZE: usize = 50 * 1024 * 1024; // 50 MB
+
 #[derive(Deserialize)]
 struct CustomAnonymizationRequest {
     dicom_data: String,
@@ -42,11 +47,19 @@ fn anonymize_default(req: Request, _params: Params) -> Result<impl IntoResponse>
         ));
     }
 
+    if body_bytes.len() > MAX_REQUEST_SIZE {
+        return Ok(error_response(
+            413,
+            "invalid_request",
+            "Request exceeds size limit",
+        ));
+    }
+
     let dicom_data = body_bytes.to_vec();
     match perform_anonymization(&dicom_data, None) {
         Ok(anonymized_data) => Ok(Response::builder()
             .status(200)
-            .header("Content-Type", "application/dicom")
+            .header("Content-Type", CONTENT_TYPE_DICOM)
             .body(anonymized_data)
             .build()),
         Err(e) => Ok(handle_anonymization_error(e)),
@@ -60,6 +73,14 @@ fn anonymize_custom(req: Request, _params: Params) -> Result<impl IntoResponse> 
             400,
             "invalid_request",
             "Request body is empty",
+        ));
+    }
+
+    if body_bytes.len() > MAX_REQUEST_SIZE {
+        return Ok(error_response(
+            413,
+            "invalid_request",
+            "Request exceeds size limit",
         ));
     }
 
@@ -103,7 +124,7 @@ fn anonymize_custom(req: Request, _params: Params) -> Result<impl IntoResponse> 
     match perform_anonymization(&dicom_data, config.as_ref()) {
         Ok(anonymized_data) => Ok(Response::builder()
             .status(200)
-            .header("Content-Type", "application/dicom")
+            .header("Content-Type", CONTENT_TYPE_DICOM)
             .body(anonymized_data)
             .build()),
         Err(e) => Ok(handle_anonymization_error(e)),
@@ -158,7 +179,7 @@ fn error_response(status: u16, error: &str, message: &str) -> Response {
 
     Response::builder()
         .status(status)
-        .header("Content-Type", "application/json")
+        .header("Content-Type", CONTENT_TYPE_JSON)
         .body(serde_json::to_vec(&error_resp).unwrap_or_default())
         .build()
 }
