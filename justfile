@@ -49,3 +49,11 @@ build-wasm:
 [working-directory: 'bindings/wasm']
 serve-wasm:
     python3 -m http.server --directory www 8080
+
+[working-directory: 'dicom-anonymizer-spin']
+build-spin:
+    spin build
+
+[working-directory: 'dicom-anonymizer-spin']
+run-spin:
+    spin up

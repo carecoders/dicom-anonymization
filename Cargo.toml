@@ -5,6 +5,13 @@ members = [
     "bindings/python",
     "bindings/wasm",
     "dicom-anonymization",
+    "dicom-anonymizer-spin",
+]
+
+default-members = [
+    "bindings/python",
+    "bindings/wasm",
+    "dicom-anonymization",
 ]
 
 [profile.release]

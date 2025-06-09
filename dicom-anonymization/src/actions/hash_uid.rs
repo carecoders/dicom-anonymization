@@ -1,14 +1,14 @@
 use dicom_core::header::Header;
 use dicom_core::{DataElement, PrimitiveValue};
-use dicom_object::mem::InMemElement;
 use dicom_object::DefaultDicomObject;
+use dicom_object::mem::InMemElement;
 use std::borrow::Cow;
 
+use crate::actions::ProcessElement;
 use crate::actions::errors::ActionError;
 use crate::actions::utils::{is_empty_element, truncate_to};
-use crate::actions::ProcessElement;
-use crate::config::uid_root::UidRoot;
 use crate::config::Config;
+use crate::config::uid_root::UidRoot;
 use crate::hasher::HashFn;
 
 const UID_MAX_LENGTH: usize = 64;
@@ -76,7 +76,7 @@ mod tests {
 
     use dicom_core::header::HasLength;
     use dicom_core::value::Value;
-    use dicom_core::{header, VR};
+    use dicom_core::{VR, header};
     use dicom_object::FileDicomObject;
     use num_bigint::BigInt;
 

@@ -1,11 +1,11 @@
 use dicom_core::header::Header;
 use dicom_core::value::Value;
-use dicom_object::mem::InMemElement;
 use dicom_object::DefaultDicomObject;
+use dicom_object::mem::InMemElement;
 use std::borrow::Cow;
 
-use crate::actions::errors::ActionError;
 use crate::actions::ProcessElement;
+use crate::actions::errors::ActionError;
 use crate::config::Config;
 
 /// Action that replaces DICOM element values with a fixed replacement value.
@@ -41,8 +41,8 @@ impl ProcessElement for Replace {
 mod tests {
     use super::*;
 
-    use dicom_core::value::Value;
     use dicom_core::VR;
+    use dicom_core::value::Value;
     use dicom_object::FileDicomObject;
 
     use crate::tags;

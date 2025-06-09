@@ -1,5 +1,5 @@
-use dicom_core::value::Value;
 use dicom_core::PrimitiveValue;
+use dicom_core::value::Value;
 use dicom_object::mem::InMemElement;
 
 pub(crate) fn is_empty_element(elem: &InMemElement) -> bool {

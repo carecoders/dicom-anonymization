@@ -1,13 +1,13 @@
 use dicom_core::header::Header;
 use dicom_core::{DataElement, PrimitiveValue};
-use dicom_object::mem::InMemElement;
 use dicom_object::DefaultDicomObject;
+use dicom_object::mem::InMemElement;
 use std::borrow::Cow;
 use thiserror::Error;
 
+use crate::actions::ProcessElement;
 use crate::actions::errors::ActionError;
 use crate::actions::utils::{is_empty_element, truncate_to};
-use crate::actions::ProcessElement;
 use crate::config::{Config, ConfigError};
 use crate::dicom;
 use crate::hasher::HashFn;
@@ -135,7 +135,7 @@ mod tests {
 
     use dicom_core::header::HasLength;
     use dicom_core::value::Value;
-    use dicom_core::{header, VR};
+    use dicom_core::{VR, header};
     use dicom_object::FileDicomObject;
 
     use crate::hasher::blake3_hash_fn;

@@ -1,0 +1,22 @@
+[package]
+name = "dicom-anonymizer-spin"
+version = "0.3.1"
+authors = ["carecoders <info@carecoders.io>"]
+edition = "2024"
+description = "Spin HTTP component for DICOM anonymization"
+repository = "https://github.com/carecoders/dicom-anonymization"
+readme = "README.md"
+keywords = ["dicom", "dicom-files", "anonymization", "spin", "http"]
+license = "MIT OR Apache-2.0"
+publish = false
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+anyhow = "1"
+base64 = "0.22"
+dicom-anonymization = { path = "../dicom-anonymization" }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+spin-sdk = "3.1.0"

@@ -1,8 +1,8 @@
-use criterion::{black_box, criterion_group, criterion_main, BenchmarkId, Criterion, Throughput};
+use criterion::{BenchmarkId, Criterion, Throughput, black_box, criterion_group, criterion_main};
 use dicom_anonymization::processor::NoopProcessor;
 use dicom_anonymization::{
-    config::builder::ConfigBuilder, config::uid_root::UidRoot, processor::DefaultProcessor,
-    Anonymizer,
+    Anonymizer, config::builder::ConfigBuilder, config::uid_root::UidRoot,
+    processor::DefaultProcessor,
 };
 use std::fs::File;
 use std::io::Read;

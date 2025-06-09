@@ -2,9 +2,9 @@ pub mod builder;
 pub(crate) mod tag_action_map;
 pub mod uid_root;
 
-use crate::actions::Action;
-use crate::hasher::{blake3_hash_fn, HashFn};
 use crate::Tag;
+use crate::actions::Action;
+use crate::hasher::{HashFn, blake3_hash_fn};
 use serde::{Deserialize, Serialize};
 use tag_action_map::TagActionMap;
 use thiserror::Error;

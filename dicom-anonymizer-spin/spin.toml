@@ -1,0 +1,22 @@
+spin_manifest_version = 2
+
+[application]
+name = "dicom-anonymizer-spin"
+version = "0.3.1"
+authors = ["carecoders <info@carecoders.io>"]
+description = "DICOM anonymization service for Spin"
+
+[[trigger.http]]
+route = "/anonymize"
+component = "dicom-anonymizer-spin"
+
+[[trigger.http]]
+route = "/anonymize/custom"
+component = "dicom-anonymizer-spin"
+
+[component.dicom-anonymizer-spin]
+source = "../target/wasm32-wasip1/release/dicom_anonymizer_spin.wasm"
+allowed_outbound_hosts = []
+[component.dicom-anonymizer-spin.build]
+command = "cargo build --target wasm32-wasip1 --release"
+watch = ["src/**/*.rs", "Cargo.toml"]

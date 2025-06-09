@@ -1,6 +1,6 @@
+use dicom_anonymization::Anonymizer as RustAnonymizer;
 use dicom_anonymization::config::builder::ConfigBuilder;
 use dicom_anonymization::processor::DefaultProcessor;
-use dicom_anonymization::Anonymizer as RustAnonymizer;
 use pyo3::create_exception;
 use pyo3::exceptions::{PyException, PyIOError, PyValueError};
 use pyo3::prelude::*;
