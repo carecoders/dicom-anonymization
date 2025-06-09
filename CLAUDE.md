@@ -2,6 +2,10 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Important Instructions
+
+- **Always use ripgrep (`rg`) for searching and finding files** - Do not use `find` or `grep` commands. Use `rg` for all file searches and content searches.
+
 ## Commands
 
 ### Build and Development
