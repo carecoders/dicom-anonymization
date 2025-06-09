@@ -3,6 +3,7 @@ resolver = "2"
 
 members = [
     "bindings/python",
+    "bindings/spin-http",
     "bindings/wasm",
     "dicom-anonymization",
 ]

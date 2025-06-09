@@ -49,3 +49,19 @@ build-wasm:
 [working-directory: 'bindings/wasm']
 serve-wasm:
     python3 -m http.server --directory www 8080
+
+[working-directory: 'bindings/spin-http']
+build-spin:
+    spin build
+
+[working-directory: 'bindings/spin-http']
+test-spin:
+    cargo test
+
+[working-directory: 'bindings/spin-http']
+run-spin:
+    spin up
+
+[working-directory: 'bindings/spin-http']
+deploy-spin:
+    spin deploy
