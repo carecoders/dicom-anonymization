@@ -19,11 +19,6 @@ struct CustomAnonymizationRequest {
 }
 
 #[derive(Serialize)]
-struct CustomAnonymizationResponse {
-    anonymized_data: String,
-}
-
-#[derive(Serialize)]
 struct ErrorResponse {
     error: String,
     message: String,
@@ -106,16 +101,11 @@ fn anonymize_custom(req: Request, _params: Params) -> Result<impl IntoResponse> 
     };
 
     match perform_anonymization(&dicom_data, config.as_ref()) {
-        Ok(anonymized_data) => {
-            let response = CustomAnonymizationResponse {
-                anonymized_data: BASE64.encode(&anonymized_data),
-            };
-            Ok(Response::builder()
-                .status(200)
-                .header("Content-Type", "application/json")
-                .body(serde_json::to_vec(&response)?)
-                .build())
-        }
+        Ok(anonymized_data) => Ok(Response::builder()
+            .status(200)
+            .header("Content-Type", "application/dicom")
+            .body(anonymized_data)
+            .build()),
         Err(e) => Ok(handle_anonymization_error(e)),
     }
 }

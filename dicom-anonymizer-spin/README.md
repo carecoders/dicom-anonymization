@@ -45,7 +45,7 @@ Anonymize DICOM data with custom configuration options.
 ```
 
 **Response:**
-- Success (200): JSON with base64-encoded anonymized DICOM data
+- Success (200): Anonymized DICOM file bytes
 - Error (400): Invalid request, DICOM data, or configuration
 - Error (500): Processing error
 
@@ -65,7 +65,8 @@ curl -X POST http://localhost:3000/anonymize/custom \
         "(0010,0020)": {"action": "keep"}
       }
     }
-  }' | jq -r .anonymized_data | base64 -d > custom_anonymized.dcm
+  }' \
+  -o custom_anonymized.dcm
 ```
 
 ## Configuration options
