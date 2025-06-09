@@ -8,5 +8,11 @@ members = [
     "dicom-anonymizer-spin",
 ]
 
+default-members = [
+    "bindings/python",
+    "bindings/wasm",
+    "dicom-anonymization",
+]
+
 [profile.release]
 lto = true
