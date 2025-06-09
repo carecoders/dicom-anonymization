@@ -1,11 +1,11 @@
 use dicom_core::header::Header;
 use dicom_core::{DataElement, PrimitiveValue};
-use dicom_object::mem::InMemElement;
 use dicom_object::DefaultDicomObject;
+use dicom_object::mem::InMemElement;
 use std::borrow::Cow;
 
-use crate::actions::errors::ActionError;
 use crate::actions::ProcessElement;
+use crate::actions::errors::ActionError;
 use crate::config::Config;
 
 /// Action that empties DICOM element values while preserving the element structure.
@@ -32,10 +32,10 @@ impl ProcessElement for Empty {
 mod tests {
     use super::*;
 
-    use dicom_core::value::Value;
     use dicom_core::VR;
-    use dicom_object::mem::InMemElement;
+    use dicom_core::value::Value;
     use dicom_object::FileDicomObject;
+    use dicom_object::mem::InMemElement;
 
     use crate::config::Config;
     use crate::tags;

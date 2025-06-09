@@ -1,15 +1,15 @@
+use crate::Tag;
+use crate::actions::ProcessElement;
 use crate::actions::errors::ActionError;
 use crate::actions::utils::{is_empty_element, truncate_to};
-use crate::actions::ProcessElement;
 use crate::config::Config;
 use crate::hasher::HashFn;
 use crate::tags;
-use crate::Tag;
 use chrono::{Days, NaiveDate};
 use dicom_core::header::Header;
 use dicom_core::{DataElement, PrimitiveValue};
-use dicom_object::mem::InMemElement;
 use dicom_object::DefaultDicomObject;
+use dicom_object::mem::InMemElement;
 use std::borrow::Cow;
 use std::num::ParseIntError;
 
@@ -128,7 +128,7 @@ mod tests {
 
     use dicom_core::header::HasLength;
     use dicom_core::value::Value;
-    use dicom_core::{header, VR};
+    use dicom_core::{VR, header};
     use dicom_object::FileDicomObject;
 
     use crate::hasher::blake3_hash_fn;

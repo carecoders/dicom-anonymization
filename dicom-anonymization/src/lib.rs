@@ -242,13 +242,13 @@ mod tests {
     use crate::tags;
     use dicom_core::value::Value;
     use dicom_core::{PrimitiveValue, VR};
-    use dicom_object::mem::InMemElement;
     use dicom_object::InMemDicomObject;
+    use dicom_object::mem::InMemElement;
 
+    use crate::Tag;
     use crate::config::builder::ConfigBuilder;
     use crate::processor::DefaultProcessor;
     use crate::test_utils::make_file_meta;
-    use crate::Tag;
 
     #[test]
     fn test_anonymizer() {
@@ -299,9 +299,11 @@ mod tests {
 
         // private tag should be removed after anonymization
         assert!(result.original.element(Tag::from([0x0033, 0x1010])).is_ok());
-        assert!(result
-            .anonymized
-            .element(Tag::from([0x0033, 0x1010]))
-            .is_err());
+        assert!(
+            result
+                .anonymized
+                .element(Tag::from([0x0033, 0x1010]))
+                .is_err()
+        );
     }
 }

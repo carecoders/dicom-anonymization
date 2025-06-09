@@ -9,12 +9,12 @@ mod remove;
 mod replace;
 mod utils;
 
+use crate::Tag;
 use crate::actions::errors::ActionError;
 use crate::actions::hash::HASH_LENGTH_MINIMUM;
 use crate::config::Config;
-use crate::Tag;
-use dicom_object::mem::InMemElement;
 use dicom_object::DefaultDicomObject;
+use dicom_object::mem::InMemElement;
 use empty::Empty;
 use garde::Validate;
 use hash::{Hash, HashLength};

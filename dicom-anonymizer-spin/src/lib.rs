@@ -1,9 +1,9 @@
 use anyhow::Result;
-use base64::{engine::general_purpose::STANDARD as BASE64, Engine};
+use base64::{Engine, engine::general_purpose::STANDARD as BASE64};
 use dicom_anonymization::{
-    config::{builder::ConfigBuilder, Config},
-    processor::DefaultProcessor,
     Anonymizer,
+    config::{Config, builder::ConfigBuilder},
+    processor::DefaultProcessor,
 };
 use serde::{Deserialize, Serialize};
 use spin_sdk::{

@@ -92,7 +92,7 @@ The `config` object in the custom endpoint supports all options from the DICOM a
 
 ### Build the component:
 ```bash
-cd bindings/spin-http
+cd dicom-anonymizer-spin
 spin build
 ```
 

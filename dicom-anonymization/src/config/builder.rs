@@ -1,10 +1,10 @@
+use crate::Tag;
 use crate::actions::Action;
 use crate::actions::Action::HashUID;
-use crate::config::uid_root::{UidRoot, UID_ROOT_DEFAULT_VALUE};
+use crate::config::uid_root::{UID_ROOT_DEFAULT_VALUE, UidRoot};
 use crate::config::{Config, DEIDENTIFIER};
 use crate::hasher::HashFn;
 use crate::tags;
-use crate::Tag;
 
 /// A builder for [`Config`] to configure DICOM de-identification settings.
 ///

@@ -1,9 +1,9 @@
-use dicom_object::mem::InMemElement;
 use dicom_object::DefaultDicomObject;
+use dicom_object::mem::InMemElement;
 use std::borrow::Cow;
 
-use crate::actions::errors::ActionError;
 use crate::actions::ProcessElement;
+use crate::actions::errors::ActionError;
 use crate::config::Config;
 
 /// Action that completely removes DICOM elements from the dataset.
@@ -28,10 +28,10 @@ impl ProcessElement for Remove {
 mod tests {
     use super::*;
 
-    use dicom_core::value::Value;
     use dicom_core::VR;
-    use dicom_object::mem::InMemElement;
+    use dicom_core::value::Value;
     use dicom_object::FileDicomObject;
+    use dicom_object::mem::InMemElement;
 
     use crate::config::Config;
     use crate::tags;

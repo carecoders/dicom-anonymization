@@ -7,8 +7,8 @@ use log::warn;
 use std::borrow::Cow;
 use thiserror::Error;
 
-use crate::actions::errors::ActionError;
 use crate::actions::ProcessElement;
+use crate::actions::errors::ActionError;
 use crate::config::Config;
 
 #[derive(Error, Debug, PartialEq)]
@@ -224,11 +224,11 @@ impl Processor for NoopProcessor {
 mod tests {
     use super::*;
 
+    use dicom_core::Tag;
     use dicom_core::header::HasLength;
     use dicom_core::value::DataSetSequence;
     use dicom_core::value::Value;
-    use dicom_core::Tag;
-    use dicom_core::{header, PrimitiveValue, VR};
+    use dicom_core::{PrimitiveValue, VR, header};
     use dicom_object::FileDicomObject;
 
     use crate::actions::Action;

@@ -1,7 +1,7 @@
 use dicom_anonymization::{
-    config::{builder::ConfigBuilder, Config},
-    processor::DefaultProcessor,
     Anonymizer,
+    config::{Config, builder::ConfigBuilder},
+    processor::DefaultProcessor,
 };
 use std::io::Cursor;
 use wasm_bindgen::prelude::*;
