@@ -38,8 +38,8 @@ fn handle_request(req: Request) -> Response {
 }
 
 fn anonymize_default(req: Request, _params: Params) -> Result<impl IntoResponse> {
-    let body = req.body();
-    if body.is_empty() {
+    let body_bytes = req.into_body();
+    if body_bytes.is_empty() {
         return Ok(error_response(
             400,
             "invalid_request",
@@ -47,7 +47,7 @@ fn anonymize_default(req: Request, _params: Params) -> Result<impl IntoResponse>
         ));
     }
 
-    let dicom_data = body.to_vec();
+    let dicom_data = body_bytes.to_vec();
     match perform_anonymization(&dicom_data, None) {
         Ok(anonymized_data) => Ok(Response::builder()
             .status(200)
@@ -59,8 +59,8 @@ fn anonymize_default(req: Request, _params: Params) -> Result<impl IntoResponse>
 }
 
 fn anonymize_custom(req: Request, _params: Params) -> Result<impl IntoResponse> {
-    let body = req.body();
-    if body.is_empty() {
+    let body_bytes = req.into_body();
+    if body_bytes.is_empty() {
         return Ok(error_response(
             400,
             "invalid_request",
@@ -68,7 +68,7 @@ fn anonymize_custom(req: Request, _params: Params) -> Result<impl IntoResponse> 
         ));
     }
 
-    let request: CustomAnonymizationRequest = match serde_json::from_slice(&body) {
+    let request: CustomAnonymizationRequest = match serde_json::from_slice(&body_bytes) {
         Ok(req) => req,
         Err(e) => {
             return Ok(error_response(
