@@ -17,7 +17,6 @@ component = "dicom-anonymizer-spin"
 [component.dicom-anonymizer-spin]
 source = "../target/wasm32-wasip1/release/dicom_anonymizer_spin.wasm"
 allowed_outbound_hosts = []
-
 [component.dicom-anonymizer-spin.build]
 command = "cargo build --target wasm32-wasip1 --release"
 watch = ["src/**/*.rs", "Cargo.toml"]

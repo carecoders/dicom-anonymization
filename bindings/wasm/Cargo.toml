@@ -2,7 +2,7 @@
 name = "dicom-anonymization-wasm"
 version = "0.3.1"
 authors = ["carecoders <info@carecoders.io>"]
-edition = "2021"
+edition = "2024"
 description = "DICOM anonymization (WASM)"
 repository = "https://github.com/carecoders/dicom-anonymization"
 readme = "README.md"

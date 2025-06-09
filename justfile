@@ -55,13 +55,5 @@ build-spin:
     spin build
 
 [working-directory: 'dicom-anonymizer-spin']
-test-spin:
-    cargo test
-
-[working-directory: 'dicom-anonymizer-spin']
 run-spin:
     spin up
-
-[working-directory: 'dicom-anonymizer-spin']
-deploy-spin:
-    spin deploy
