@@ -50,18 +50,18 @@ build-wasm:
 serve-wasm:
     python3 -m http.server --directory www 8080
 
-[working-directory: 'bindings/spin-http']
+[working-directory: 'dicom-anonymizer-spin']
 build-spin:
     spin build
 
-[working-directory: 'bindings/spin-http']
+[working-directory: 'dicom-anonymizer-spin']
 test-spin:
     cargo test
 
-[working-directory: 'bindings/spin-http']
+[working-directory: 'dicom-anonymizer-spin']
 run-spin:
     spin up
 
-[working-directory: 'bindings/spin-http']
+[working-directory: 'dicom-anonymizer-spin']
 deploy-spin:
     spin deploy

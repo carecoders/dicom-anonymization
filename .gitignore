@@ -1,5 +1,4 @@
 target
-
 Cargo.lock
 
 # For dev purposes
@@ -10,6 +9,7 @@ anonymized.dcm
 scratch.md
 analysis_report*.md
 timings.md
+.spin
 
 # Keep this one for documentation purposes
 !dicom-anonymization/config_default.json

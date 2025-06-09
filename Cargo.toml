@@ -3,9 +3,9 @@ resolver = "2"
 
 members = [
     "bindings/python",
-    "bindings/spin-http",
     "bindings/wasm",
     "dicom-anonymization",
+    "dicom-anonymizer-spin",
 ]
 
 [profile.release]
