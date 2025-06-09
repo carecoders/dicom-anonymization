@@ -1,10 +1,10 @@
-# DICOM Anonymization Spin HTTP Component
+# DICOM Anonymization Spin HTTP component
 
-This is a Spin HTTP component that provides DICOM anonymization as a web service. It offers two endpoints for anonymizing DICOM files with optional custom configuration.
+This is a [Spin](https://spinframework.dev) HTTP component that provides DICOM anonymization as a web service. It offers two endpoints for anonymizing DICOM files with optional custom configuration.
 
-## API Endpoints
+## API endpoints
 
-### 1. Simple Anonymization
+### 1. Simple anonymization
 
 **Endpoint:** `POST /anonymize`
 
@@ -26,7 +26,7 @@ curl -X POST http://localhost:3000/anonymize \
   -o anonymized.dcm
 ```
 
-### 2. Custom Configuration
+### 2. Custom configuration
 
 **Endpoint:** `POST /anonymize/custom`
 
@@ -68,7 +68,7 @@ curl -X POST http://localhost:3000/anonymize/custom \
   }' | jq -r .anonymized_data | base64 -d > custom_anonymized.dcm
 ```
 
-## Configuration Options
+## Configuration options
 
 The `config` object in the custom endpoint supports all options from the DICOM anonymization library:
 
@@ -78,7 +78,7 @@ The `config` object in the custom endpoint supports all options from the DICOM a
 - `uid_root`: String - Custom UID root for generating new UIDs
 - `tag_actions`: Object mapping DICOM tags to actions
 
-### Available Actions
+### Available actions
 
 - `{"action": "empty"}` - Empty the tag value
 - `{"action": "remove"}` - Remove the tag entirely
@@ -88,7 +88,7 @@ The `config` object in the custom endpoint supports all options from the DICOM a
 - `{"action": "hash_uid"}` - Hash UID values
 - `{"action": "replace", "value": "..."}` - Replace with specified value
 
-## Building and Running
+## Building and running
 
 ### Build the component:
 ```bash
@@ -108,7 +108,7 @@ The service will be available at `http://localhost:3000`
 spin deploy
 ```
 
-## Error Responses
+## Error responses
 
 All error responses follow this format:
 ```json
