@@ -375,9 +375,10 @@ fn anonymize_command(args: &AnonymizeArgs) -> Result<()> {
             )?;
 
         if let Some(path) = phi_mapping_path {
-            let file = std::fs::File::create(path)?;
-            serde_json::to_writer_pretty(file, &all_mappings)?;
-        }
+            let file = std::fs::File::create(path)  
+                .with_context(|| format!("Failed to create PHI mapping file at {}", path.display()))?;  
+            serde_json::to_writer_pretty(file, &all_mappings)  
+                .with_context(|| "Failed to write 
 
         let duration = start_time.elapsed();
         info!(

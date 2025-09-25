@@ -84,8 +84,8 @@ pub enum AnonymizationError {
 
 #[derive(Serialize)]
 pub struct UidMapping{
-    original: String,
-    anonymized: String
+    pub original: String,
+    pub anonymized: String
 }
 
 impl From<ReadError> for AnonymizationError {
@@ -120,7 +120,7 @@ impl From<ConvertValueError> for AnonymizationError {
 
 impl From<std::io::Error> for AnonymizationError {
     fn from(err: std::io::Error) -> Self {
-        AnonymizationError::ProcessingError(format!("{err}"))
+        AnonymizationError::WriteError(format!("{err}"))
     }
 }
 
@@ -164,12 +164,12 @@ impl AnonymizationResult {
 
     pub fn to_phi_mapping(&self) -> Result<UidMapping> {
         let orig_uid = self.original
-            .element_by_name("SOPInstanceUID")?
+            .element(tags::SOP_INSTANCE_UID)?
             .to_str()?
             .to_string();
 
         let anon_uid = self.anonymized
-            .element_by_name("SOPInstanceUID")?
+            .element(tags::SOP_INSTANCE_UID)
             .to_str()?
             .to_string();
 
