@@ -43,9 +43,13 @@ use std::io::{Read, Write};
 use crate::config::builder::ConfigBuilder;
 use crate::processor::{DefaultProcessor, Error as ProcessingError};
 pub use dicom_core::Tag;
+use dicom_core::value::ConvertValueError;
 pub use dicom_dictionary_std::tags;
-use dicom_object::{DefaultDicomObject, FileDicomObject, OpenFileOptions, ReadError, WriteError};
+use dicom_object::{
+    AccessByNameError, DefaultDicomObject, FileDicomObject, OpenFileOptions, ReadError, WriteError,
+};
 use processor::Processor;
+use serde::Serialize;
 use thiserror::Error;
 
 /// Represents the result of a DICOM anonymization process.
@@ -73,6 +77,15 @@ pub enum AnonymizationError {
 
     #[error("{0}")]
     ProcessingError(String),
+
+    #[error("PHI Mapping error: {}", .0.to_lowercase())]
+    PHIMappingError(String)
+}
+
+#[derive(Serialize)]
+pub struct UidMapping{
+    original: String,
+    anonymized: String
 }
 
 impl From<ReadError> for AnonymizationError {
@@ -90,6 +103,30 @@ impl From<WriteError> for AnonymizationError {
 impl From<ProcessingError> for AnonymizationError {
     fn from(err: ProcessingError) -> Self {
         AnonymizationError::ProcessingError(format!("{err}"))
+    }
+}
+
+impl From<AccessByNameError> for AnonymizationError {
+    fn from(err: AccessByNameError) -> Self {
+        AnonymizationError::ProcessingError(format!("{err}"))
+    }
+}
+
+impl From<ConvertValueError> for AnonymizationError {
+    fn from(err: ConvertValueError) -> Self {
+        AnonymizationError::ProcessingError(format!("{err}"))
+    }
+}
+
+impl From<std::io::Error> for AnonymizationError {
+    fn from(err: std::io::Error) -> Self {
+        AnonymizationError::ProcessingError(format!("{err}"))
+    }
+}
+
+impl From<serde_json::Error> for AnonymizationError {
+    fn from(err:serde_json::Error) -> Self {
+        AnonymizationError::PHIMappingError(format!("{err}"))
     }
 }
 
@@ -123,6 +160,20 @@ impl AnonymizationResult {
     pub fn write<W: Write>(&self, to: W) -> Result<()> {
         self.anonymized.write_all(to)?;
         Ok(())
+    }
+
+    pub fn to_phi_mapping(&self) -> Result<UidMapping> {
+        let orig_uid = self.original
+            .element_by_name("SOPInstanceUID")?
+            .to_str()?
+            .to_string();
+
+        let anon_uid = self.anonymized
+            .element_by_name("SOPInstanceUID")?
+            .to_str()?
+            .to_string();
+
+        Ok(UidMapping { original: orig_uid, anonymized: anon_uid })
     }
 }
 

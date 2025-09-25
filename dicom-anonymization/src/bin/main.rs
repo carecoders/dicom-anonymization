@@ -1,6 +1,7 @@
 use anyhow::{Context, Result, bail};
 use clap::Parser;
 use clap::builder::TypedValueParser;
+use dicom_anonymization::AnonymizationResult;
 use dicom_anonymization::Anonymizer;
 use dicom_anonymization::Tag;
 use dicom_anonymization::actions::Action;
@@ -111,6 +112,10 @@ struct AnonymizeArgs {
     /// Continue when file found is not DICOM
     #[arg(long = "continue")]
     r#continue: bool,
+
+    /// Generate mapping between original files and new ones
+    #[arg(long = "phi-mapping", value_name = "PHI_MAPPING_PATH")]
+    phi_mapping: Option<PathBuf>,
 }
 
 #[derive(Parser, Debug)]
@@ -182,7 +187,11 @@ impl DicomOutputFilePath {
     }
 }
 
-fn anonymize(anonymizer: &Anonymizer, input_path: &PathBuf, output_path: &PathBuf) -> Result<()> {
+fn anonymize(
+    anonymizer: &Anonymizer,
+    input_path: &PathBuf,
+    output_path: &PathBuf,
+) -> Result<AnonymizationResult> {
     let input_src: Box<dyn Read> = if input_path == Path::new("-") {
         Box::new(io::stdin().lock())
     } else {
@@ -220,7 +229,7 @@ fn anonymize(anonymizer: &Anonymizer, input_path: &PathBuf, output_path: &PathBu
     // Write the anonymized data to the output target
     let _ = anonymized_obj.write(output_target);
 
-    Ok(())
+    Ok(anonymized_obj)
 }
 
 fn config_create_command(args: &ConfigCreateArgs) -> Result<()> {
@@ -264,6 +273,7 @@ fn anonymize_command(args: &AnonymizeArgs) -> Result<()> {
     let exclude_tags = args.exclude.clone();
     let recurse = args.recursive;
     let continue_on_read_error = args.r#continue;
+    let phi_mapping_path = args.phi_mapping.clone();
 
     let mut config_builder = ConfigBuilder::default();
 
@@ -292,11 +302,14 @@ fn anonymize_command(args: &AnonymizeArgs) -> Result<()> {
     let processor = DefaultProcessor::new(config);
     let anonymizer = Anonymizer::new(processor);
 
+    let mut phi_mappings = Vec::new();
+
     // Input is stdin or a file
     if input_path == Path::new("-") || input_path.is_file() {
         let start_time = Instant::now();
 
-        anonymize(&anonymizer, &input_path, &output_path)?;
+        let result = anonymize(&anonymizer, &input_path, &output_path)?;
+        phi_mappings.push(result.to_phi_mapping()?);
 
         let duration = start_time.elapsed();
         info!("successfully processed 1 file in {:?}", duration);
@@ -318,7 +331,7 @@ fn anonymize_command(args: &AnonymizeArgs) -> Result<()> {
         // Process files
         let start_time = Instant::now();
 
-        let processed_count = walk_dir
+        let (processed_count,all_mappings) = walk_dir
             .into_iter()
             .filter_map(Result::ok)
             .filter_map(|entry| {
@@ -331,8 +344,8 @@ fn anonymize_command(args: &AnonymizeArgs) -> Result<()> {
             })
             .par_bridge() // convert to a parallel iterator
             .try_fold(
-                || 0, // initial value for each thread
-                |count, path_buf| {
+                || (0, Vec::new()), // initial value for each thread
+                |(count, mut mappings), path_buf| {
                     let result = anonymize(&anonymizer, &path_buf, &output_path);
                     match result {
                         Err(e) if continue_on_read_error => {
@@ -340,17 +353,31 @@ fn anonymize_command(args: &AnonymizeArgs) -> Result<()> {
                                 e.downcast_ref::<AnonymizationError>()
                             {
                                 warn!("{}", e);
-                                Ok(count)
+                                Ok((count, mappings))
                             } else {
                                 Err(e)
                             }
                         }
                         Err(e) => Err(e),
-                        Ok(_) => Ok(count + 1),
+                        Ok(res) => {
+                            mappings.push(res.to_phi_mapping()?);
+                            Ok((count + 1, mappings))
+                        }
                     }
                 },
             )
-            .try_reduce(|| 0, |a, b| Ok(a + b))?;
+            .try_reduce(
+                || (0, Vec::new()),
+                |(count_a, mut map_a), (count_b, mut map_b)| {
+                    map_a.append(&mut map_b);
+                    Ok((count_a + count_b, map_a))
+                },
+            )?;
+
+        if let Some(path) = phi_mapping_path {
+            let file = std::fs::File::create(path)?;
+            serde_json::to_writer_pretty(file, &all_mappings)?;
+        }
 
         let duration = start_time.elapsed();
         info!(
