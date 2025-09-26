@@ -331,7 +331,7 @@ fn anonymize_command(args: &AnonymizeArgs) -> Result<()> {
         // Process files
         let start_time = Instant::now();
 
-        let (processed_count,all_mappings) = walk_dir
+        let (processed_count, all_mappings) = walk_dir
             .into_iter()
             .filter_map(Result::ok)
             .filter_map(|entry| {
@@ -375,10 +375,12 @@ fn anonymize_command(args: &AnonymizeArgs) -> Result<()> {
             )?;
 
         if let Some(path) = phi_mapping_path {
-            let file = std::fs::File::create(path)  
-                .with_context(|| format!("Failed to create PHI mapping file at {}", path.display()))?;  
-            serde_json::to_writer_pretty(file, &all_mappings)  
-                .with_context(|| "Failed to write 
+            let file = std::fs::File::create(&path).with_context(|| {
+                format!("Failed to create PHI mapping file at {}", &path.display())
+            })?;
+            serde_json::to_writer_pretty(file, &all_mappings)
+                .with_context(|| "Failed to write PHI mapping file")?;
+        }
 
         let duration = start_time.elapsed();
         info!(

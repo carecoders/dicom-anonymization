@@ -46,7 +46,7 @@ pub use dicom_core::Tag;
 use dicom_core::value::ConvertValueError;
 pub use dicom_dictionary_std::tags;
 use dicom_object::{
-    AccessByNameError, DefaultDicomObject, FileDicomObject, OpenFileOptions, ReadError, WriteError,
+    AccessError, DefaultDicomObject, FileDicomObject, OpenFileOptions, ReadError, WriteError,
 };
 use processor::Processor;
 use serde::Serialize;
@@ -79,13 +79,13 @@ pub enum AnonymizationError {
     ProcessingError(String),
 
     #[error("PHI Mapping error: {}", .0.to_lowercase())]
-    PHIMappingError(String)
+    PHIMappingError(String),
 }
 
 #[derive(Serialize)]
-pub struct UidMapping{
+pub struct UidMapping {
     pub original: String,
-    pub anonymized: String
+    pub anonymized: String,
 }
 
 impl From<ReadError> for AnonymizationError {
@@ -106,8 +106,8 @@ impl From<ProcessingError> for AnonymizationError {
     }
 }
 
-impl From<AccessByNameError> for AnonymizationError {
-    fn from(err: AccessByNameError) -> Self {
+impl From<AccessError> for AnonymizationError {
+    fn from(err: AccessError) -> Self {
         AnonymizationError::ProcessingError(format!("{err}"))
     }
 }
@@ -125,7 +125,7 @@ impl From<std::io::Error> for AnonymizationError {
 }
 
 impl From<serde_json::Error> for AnonymizationError {
-    fn from(err:serde_json::Error) -> Self {
+    fn from(err: serde_json::Error) -> Self {
         AnonymizationError::PHIMappingError(format!("{err}"))
     }
 }
@@ -163,17 +163,22 @@ impl AnonymizationResult {
     }
 
     pub fn to_phi_mapping(&self) -> Result<UidMapping> {
-        let orig_uid = self.original
+        let orig_uid = self
+            .original
             .element(tags::SOP_INSTANCE_UID)?
             .to_str()?
             .to_string();
 
-        let anon_uid = self.anonymized
-            .element(tags::SOP_INSTANCE_UID)
+        let anon_uid = self
+            .anonymized
+            .element(tags::SOP_INSTANCE_UID)?
             .to_str()?
             .to_string();
 
-        Ok(UidMapping { original: orig_uid, anonymized: anon_uid })
+        Ok(UidMapping {
+            original: orig_uid,
+            anonymized: anon_uid,
+        })
     }
 }
 
