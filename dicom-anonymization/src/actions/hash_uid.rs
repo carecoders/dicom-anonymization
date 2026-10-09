@@ -28,6 +28,14 @@ impl HashUID {
         uid: &str,
         uid_root: &UidRoot,
     ) -> Result<String, ActionError> {
+        // Idempotency: a UID that already carries the configured root prefix was
+        // derived from this configuration before and is passed through unchanged,
+        // so that de-identifying an already de-identified file is a no-op for UIDs.
+        let prefix = uid_root.as_prefix();
+        if !prefix.is_empty() && uid.starts_with(prefix.as_str()) {
+            return Ok(uid.to_string());
+        }
+
         let anonymized_uid_as_number = hash_fn(uid)?;
         let anonymized_uid = anonymized_uid_as_number.to_string();
         let extra = if anonymized_uid.starts_with("0") {
@@ -59,6 +67,11 @@ impl ProcessElement for HashUID {
             None => &UidRoot("".into()),
         };
         let elem_value = elem.value().string()?;
+        // Normalize padding before hashing: DICOM UI values may carry trailing
+        // space or NUL padding bytes (e.g. odd-length values). The canonical
+        // cross-implementation derivation hashes the trimmed UID so that all
+        // de-identification gates agree on the derived UID.
+        let elem_value = elem_value.trim_matches(|c: char| c.is_whitespace() || c == '\0');
         let anonymized_value = self.anonymize(hash_fn, elem_value, uid_root)?;
 
         let new_elem = DataElement::new::<PrimitiveValue>(
@@ -220,5 +233,79 @@ mod tests {
         let action_struct = HashUID;
         let result = action_struct.anonymize(hash_fn, uid, &uid_root);
         assert_eq!(result.unwrap(), "2.16.840.123456789");
+    }
+
+    /// Golden vectors for the canonical SHA-256 UID derivation shared with the C#
+    /// (fo-dicom backstop) and Python (Presidio) de-identification gates. These
+    /// must never change without a coordinated cross-implementation release.
+    #[test]
+    fn test_anonymize_sha256_golden_vectors() {
+        let uid_root = "2.25.3501920042.100".parse().unwrap();
+        let hash_fn = crate::hasher::sha256_hash_fn;
+        let action = HashUID;
+
+        assert_eq!(
+            action.anonymize(hash_fn, "1.2.3.4.5", &uid_root).unwrap(),
+            "2.25.3501920042.100.83554103981997929853173016752638312087386577"
+        );
+        assert_eq!(
+            action.anonymize(hash_fn, "1.2.3.4.5.6", &uid_root).unwrap(),
+            "2.25.3501920042.100.11565063281463045692094511316009653451771902"
+        );
+        assert_eq!(
+            action.anonymize(hash_fn, "1.2.3.4.5.6.7", &uid_root).unwrap(),
+            "2.25.3501920042.100.86134114536617455996661681892008515039411444"
+        );
+    }
+
+    /// The `process` entry point must trim padding (trailing space or NUL) before
+    /// hashing so that the derived UID depends on the logical UID only.
+    #[test]
+    fn test_process_sha256_trims_padding() {
+        let mut obj = FileDicomObject::new_empty_with_meta(make_file_meta());
+        let elem = InMemElement::new(
+            tags::STUDY_INSTANCE_UID,
+            VR::UI,
+            Value::from("1.2.3.4.5\0"),
+        );
+        obj.put(elem.clone());
+
+        let config = ConfigBuilder::new()
+            .uid_root("2.25.3501920042.100".parse().unwrap())
+            .hash_algorithm(crate::config::HashAlgorithm::Sha256)
+            .build();
+
+        let action = HashUID;
+        let processed = action.process(&config, &obj, &elem).unwrap().unwrap();
+        assert_eq!(
+            processed.into_owned().value().to_str().unwrap(),
+            "2.25.3501920042.100.83554103981997929853173016752638312087386577"
+        );
+    }
+
+    /// A value that is already canonical (starts with the canonical root) is a
+    /// fixed point: hashing a derived UID again yields the same UID.
+    #[test]
+    fn test_process_sha256_is_idempotent() {
+        let canonical = "2.25.3501920042.100.83554103981997929853173016752638312087386577";
+        let mut obj = FileDicomObject::new_empty_with_meta(make_file_meta());
+        let elem = InMemElement::new(
+            tags::STUDY_INSTANCE_UID,
+            VR::UI,
+            Value::from(canonical),
+        );
+        obj.put(elem.clone());
+
+        let config = ConfigBuilder::new()
+            .uid_root("2.25.3501920042.100".parse().unwrap())
+            .hash_algorithm(crate::config::HashAlgorithm::Sha256)
+            .build();
+
+        let action = HashUID;
+        let processed = action.process(&config, &obj, &elem).unwrap().unwrap();
+        assert_eq!(
+            processed.into_owned().value().to_str().unwrap(),
+            canonical
+        );
     }
 }

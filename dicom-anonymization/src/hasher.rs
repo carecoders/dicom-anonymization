@@ -27,6 +27,19 @@ pub fn blake3_hash_fn(input: &str) -> Result<BigInt> {
     Ok(hash_as_number)
 }
 
+/// SHA-256 implementation of a hash function.
+///
+/// The `sha2` crate has no hex encoder, so the digest bytes are hex-encoded
+/// manually before being parsed as a BigInt.
+pub fn sha256_hash_fn(input: &str) -> Result<BigInt> {
+    use sha2::{Digest, Sha256};
+
+    let digest = Sha256::digest(input.as_bytes());
+    let hex: String = digest.iter().map(|b| format!("{:02x}", b)).collect();
+    let hash_as_number = BigInt::from_str_radix(hex.as_str(), 16)?;
+    Ok(hash_as_number)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -61,5 +74,22 @@ mod tests {
         let result1 = blake3_hash_fn("abc").unwrap();
         let result2 = blake3_hash_fn("def").unwrap();
         assert_ne!(result1, result2);
+    }
+
+    #[test]
+    fn test_sha256_known_vector() {
+        // sha256("1.2.3.4.5") as a decimal number — the canonical golden vector
+        // (shared with the C#/Python implementations in the consuming project).
+        let result = sha256_hash_fn("1.2.3.4.5").unwrap().to_string();
+        assert_eq!(
+            result,
+            "83554103981997929853173016752638312087386577304557461336823424116065032446690"
+        );
+    }
+
+    #[test]
+    fn test_sha256_deterministic() {
+        assert_eq!(sha256_hash_fn("abc").unwrap(), sha256_hash_fn("abc").unwrap());
+        assert_ne!(sha256_hash_fn("abc").unwrap(), sha256_hash_fn("def").unwrap());
     }
 }

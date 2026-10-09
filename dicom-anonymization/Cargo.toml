@@ -1,6 +1,6 @@
 [package]
 name = "dicom-anonymization"
-version = "0.3.1"
+version = "0.4.0"
 authors = ["carecoders <info@carecoders.io>"]
 edition = "2024"
 description = "DICOM anonymization"
@@ -12,6 +12,7 @@ license = "MIT OR Apache-2.0"
 [lib]
 name = "dicom_anonymization"
 path = "src/lib.rs"
+crate-type = ["cdylib", "rlib"]
 
 [[bin]]
 name = "dcmanon"
@@ -36,6 +37,7 @@ dicom-dictionary-std = { version = "0.8", features = [
 dicom-object = { version = "0.8", features = ["inventory-registry"] }
 anyhow = "1.0"
 blake3 = "1.5"
+sha2 = "0.10"
 chrono = "0.4"
 clap = { version = "4.5", features = ["derive", "env"] }
 env_logger = "0.11"

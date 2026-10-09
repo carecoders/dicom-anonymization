@@ -4,7 +4,7 @@ pub mod uid_root;
 
 use crate::Tag;
 use crate::actions::Action;
-use crate::hasher::{HashFn, blake3_hash_fn};
+use crate::hasher::{HashFn, blake3_hash_fn, sha256_hash_fn};
 use serde::{Deserialize, Serialize};
 use tag_action_map::TagActionMap;
 use thiserror::Error;
@@ -31,6 +31,27 @@ pub fn default_hash_fn() -> HashFn {
     blake3_hash_fn
 }
 
+/// The hash algorithm used for all operations requiring hashing (UID derivation, etc.).
+///
+/// A `HashFn` is a function pointer and cannot be represented in the config JSON
+/// (`#[serde(skip)]`), so the algorithm is selected by name. When `None`, the
+/// hash function set on the builder (BLAKE3 by default) is used.
+#[derive(Serialize, Deserialize, Debug, Clone, Copy, PartialEq, Eq)]
+#[serde(rename_all = "camelCase")]
+pub enum HashAlgorithm {
+    Blake3,
+    Sha256,
+}
+
+impl HashAlgorithm {
+    fn hash_fn(self) -> HashFn {
+        match self {
+            HashAlgorithm::Blake3 => blake3_hash_fn,
+            HashAlgorithm::Sha256 => sha256_hash_fn,
+        }
+    }
+}
+
 /// Configuration for DICOM de-identification.
 ///
 /// This struct contains all the settings that control how DICOM objects will be de-identified, including
@@ -39,6 +60,7 @@ pub fn default_hash_fn() -> HashFn {
 /// # Fields
 ///
 /// * `hash_fn` - The hash function used for all operations requiring hashing
+/// * `hash_algorithm` - The hash algorithm selected in the config JSON (overrides `hash_fn`)
 /// * `uid_root` - The [`UidRoot`] to use as prefix when generating new UIDs during de-identification
 /// * `remove_private_tags` - Policy determining whether to keep or remove private DICOM tags
 /// * `remove_curves` - Policy determining whether to keep or remove curve data (groups `0x5000-0x50FF`)
@@ -48,6 +70,9 @@ pub fn default_hash_fn() -> HashFn {
 pub struct Config {
     #[serde(skip, default = "default_hash_fn")]
     hash_fn: HashFn,
+
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    hash_algorithm: Option<HashAlgorithm>,
 
     #[serde(default, skip_serializing_if = "Option::is_none")]
     uid_root: Option<UidRoot>,
@@ -68,6 +93,7 @@ pub struct Config {
 impl Config {
     fn new(
         hash_fn: HashFn,
+        hash_algorithm: Option<HashAlgorithm>,
         uid_root: Option<UidRoot>,
         remove_private_tags: Option<bool>,
         remove_curves: Option<bool>,
@@ -75,6 +101,7 @@ impl Config {
     ) -> Self {
         Self {
             hash_fn,
+            hash_algorithm,
             uid_root,
             remove_private_tags,
             remove_curves,
@@ -86,7 +113,7 @@ impl Config {
 
 impl Default for Config {
     fn default() -> Self {
-        Self::new(blake3_hash_fn, None, None, None, None)
+        Self::new(blake3_hash_fn, None, None, None, None, None)
     }
 }
 
@@ -105,7 +132,10 @@ pub(crate) fn is_overlay_tag(tag: &Tag) -> bool {
 
 impl Config {
     pub fn get_hash_fn(&self) -> HashFn {
-        self.hash_fn
+        match self.hash_algorithm {
+            Some(algorithm) => algorithm.hash_fn(),
+            None => self.hash_fn,
+        }
     }
 
     pub fn get_uid_root(&self) -> &Option<UidRoot> {
